@@ -30,8 +30,8 @@
     <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
         <!--begin::Menu Nav-->
         <ul class="menu-nav">
-            <li class="menu-item menu-item-active" aria-haspopup="true">
-                <a href="index.html" class="menu-link">
+            <li class="menu-item menu-item-{{ request()->is('/*') ? 'active' : '' }}" aria-haspopup="true">
+                <a href="{{ route ('/')}}" class="menu-link">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -47,8 +47,8 @@
                 </a>
             </li>
 
-            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="javascript:;" class="menu-link menu-toggle">
+            <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
                         <i class="fas fa-users"></i>
                     </span>
@@ -63,16 +63,16 @@
                                 <span class="menu-text">Member</span>
                             </span>
                         </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('members.index')}}" class="menu-link menu-toggle">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
                                 <span class="menu-text">Data Member</span>
                             </a>
                         </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{route('members.blocked.index')}}" class="menu-link menu-toggle">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>

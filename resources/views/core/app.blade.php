@@ -23,7 +23,7 @@
 		<link href="{{asset('css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css" />
 		<!--end::Layout Themes-->
 
-        @stack('head')
+        @stack('css')
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -1168,7 +1168,7 @@
 		<script src="{{asset('js/pages/widgets.js')}}"></script>
 		<!--end::Page Scripts-->
 
-        @stack('scripts')
+        @stack('js')
 	</body>
 	<!--end::Body-->
 </html>

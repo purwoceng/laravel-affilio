@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Member\MemberBlockController;
+use App\Http\Controllers\Member\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('core.app');
-// });
 
-Route::get('/template', function () {
-    return view('index');
+Route::get('/', [DashboardController::class, 'index'])->name('/');
+
+
+Route::prefix('members')->name('members.')->group(function(){
+    Route::get('/', [MemberController::class, 'index'])->name('index');
+
+    Route::prefix('blocked')->name('blocked.')->group( function() {
+        Route::get('/', [MemberBlockController::class, 'index'])->name('index');
+    });
 });
 
 
-Route::get('/', [DashboardController::class, 'index']);
+

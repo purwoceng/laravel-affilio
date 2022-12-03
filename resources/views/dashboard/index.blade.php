@@ -17,11 +17,11 @@
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
-<div class="container">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <h2>Welcome Dashboard</h2>
-    </div>
-</div>
+        <div class="container">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2>Welcome Dashboard</h2>
+            </div>
+        </div>
         <!--end::Container-->
     </div>
     <!--end::Entry-->
