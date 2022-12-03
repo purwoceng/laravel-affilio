@@ -5,12 +5,12 @@
     
     @if(count($errors) > 0)
         @foreach( $errors->all() as $message )
-        <div class="alert alert-danger display-hide">
-            <button class="close" data-close="alert"></button>
-            <span>{{ $message }}</span>
-        </div>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span>{{ $message }}</span>
+            </div>
         @endforeach
-    @endif  
+    @endif
 
     <div class="login-form">
         <form
@@ -40,7 +40,13 @@
             <div class="form-group">
                 <div class="d-flex justify-content-between mt-n5">
                     <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-                    <a href="#" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Lupa Password?</a>
+
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}"
+                            class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">
+                            Lupa Password?
+                        </a>
+                    @endif
                 </div>
                 <input
                     class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
