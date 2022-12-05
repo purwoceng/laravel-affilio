@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Member;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\MemberRepositoryInterface;
+use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
 
 class MemberBlockController extends Controller
 {
-    private $memberRepository;
+    private $memberBlockedRepository;
 
-    public function __construct(MemberRepositoryInterface $memberRepository)
+    public function __construct(MemberBlockedRepositoryInterface $memberBlockedRepository)
     {
-        $this->memberRepository = $memberRepository;
+        $this->memberBlockedRepository = $memberBlockedRepository;
     }
 
     /**
@@ -20,11 +20,13 @@ class MemberBlockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $getMemberBlockeds = $this->memberRepository->getMemberBlocked();
+        if ($request->ajax()) {
+            return $this->memberBlockedRepository->getDataTable($request);
+        }
 
-        return view('members.blocked.index',compact(['getMemberBlockeds']));
+        return view('members.blocked.index');
     }
 
     /**

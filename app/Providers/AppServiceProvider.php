@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use App\Repositories\Interfaces\MemberRepositoryInterface;
-use App\Repositories\MemberRepository;
+use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
+use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
+use App\Repositories\Member\MemberBlockedRepository;
+use App\Repositories\Member\MemberRepository;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             MemberRepositoryInterface::class,
             MemberRepository::class,
+        );
+
+        $this->app->bind(
+            MemberBlockedRepositoryInterface::class,
+            MemberBlockedRepository::class,
         );
 
     }

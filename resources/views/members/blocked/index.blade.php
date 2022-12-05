@@ -22,7 +22,8 @@
 
                 </div>
                 <div class="card-body">
-                    <table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
+                    <table id="js-table-all-member" class="table table-separate table-head-custom table-checkable nowrap"
+                        style="width:100%">
                         <thead>
                             <tr class="text-center small">
                                 <th>#</th>
@@ -36,44 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getMemberBlockeds as $key => $getMemberBlocked)
-                            <tr class="text-center small">
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $getMemberBlocked->username }}</td>
-                                <td>{{ $getMemberBlocked->name }}</td>
-                                <td> {{ $getMemberBlocked->phone }}</td>
-                                <td>{{ $getMemberBlocked->email }}</td>
-                                <td>
-                                    @if ($getMemberBlocked->is_verified)
-                                        <span class="label  label-light-success label-inline label-bold">Sudah</span>
-                                    @else
-                                        <span class="label  label-light-danger label-inline label-bold">Belum</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($getMemberBlocked->is_blocked)
-                                        <span class="small">Blocked</span>
-                                    @else
-                                        <span class="small">Active</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                                            class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                                                class="la la-cog"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                            <ul class="nav nav-hoverable flex-column">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="javascript:void(0)"><span
-                                                            class="nav-text">Detail</span></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
 
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -85,5 +49,133 @@
 
 @push('js')
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('js/pages/crud/datatables/basic/paginations.js') }}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            const urlAjax = "{{ route('members.blocked.index') }}";
+
+            var tableAllMember = $('#js-table-all-member').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                searching: false,
+                autoWidth: true,
+                select: true,
+                language: {
+                    infoFiltered: "",
+                },
+                lengthChange: false,
+                pageLength: 50,
+                order: [
+                    [0, 'DESC']
+                ],
+                ajax: {
+                    url: urlAjax,
+                    type: 'GET',
+                },
+                scrollX: true,
+                columns: [{
+                        data: null,
+                        sortable: false,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'username',
+                        name: 'username',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'is_verified',
+                        name: 'is_verified',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render : function(data, type, row, meta) {
+                            if (row.is_verified) {
+                                return '<span class="label  label-light-success label-inline label-bold">Sudah</span>';
+                            } else {
+                                return '<span class="label  label-light-danger label-inline label-bold">Belum</span>';
+                            }
+                        }
+                    },
+                    {
+                        data: 'is_blocked',
+                        name: 'is_blocked',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render : function(data, type, row, meta) {
+                            if (row.is_blocked) {
+                                return ' <span class="small">Blocked</span>';
+                            } else {
+                                return '<span class="small">Active</span>';
+                            }
+                        }
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render : function(data, type, row, meta) {
+                            let elements = '';
+
+                            elements+=`
+                            <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                                                class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
+                                                    class="la la-cog"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                <ul class="nav nav-hoverable flex-column">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="javascript:void(0)"><span
+                                                                class="nav-text">Detail</span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                            `;
+
+                            return elements;
+                        }
+                    }
+
+                ],
+            });
+        });
+    </script>
 @endpush
