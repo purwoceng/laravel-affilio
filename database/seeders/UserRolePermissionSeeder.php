@@ -38,8 +38,14 @@ class UserRolePermissionSeeder extends Seeder
                 'name' => 'Admin Member',
             ], $default_user_value));
 
-            $role_super_user = Role::create(['name' => 'super_user']);
-            $role_admin_member = Role::create(['name' => 'admin_member']);
+            $role_super_user = Role::create([
+                'name' => 'super_user',
+                'label' => 'Super User',
+            ]);
+            $role_admin_member = Role::create([
+                'name' => 'admin_member',
+                'label' => 'Admin Member',
+            ]);
 
             $permission_role = Permission::create(['name' => 'read_role']);
             $permission_role = Permission::create(['name' => 'create_role']);
@@ -50,7 +56,6 @@ class UserRolePermissionSeeder extends Seeder
             $permission_member = Permission::create(['name' => 'create_member']);
             $permission_member = Permission::create(['name' => 'update_member']);
             $permission_member = Permission::create(['name' => 'delete_member']);
-
 
             $role_super_user->givePermissionTo('read_role');
             $role_super_user->givePermissionTo('create_role');

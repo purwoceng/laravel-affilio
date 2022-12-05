@@ -30,8 +30,9 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::controller(UserController::class)->group(function() {
-        Route::get('/users', 'index')->middleware('can:read_user');
-        Route::get('/users', 'create');
-    });
+    Route::prefix('users')
+        ->name('users.')
+        ->group(function() {
+            Route::get('/', [UserController::class, 'index'])->name('index');
+        });
 });
