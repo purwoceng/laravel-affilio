@@ -19,17 +19,19 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [DashboardController::class, 'index'])->name('/');
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('/');
 
-Route::prefix('members')->name('members.')->group(function(){
-    Route::get('/', [MemberController::class, 'index'])->name('index');
+    Route::prefix('members')->name('members.')->group(function(){
+        Route::get('/', [MemberController::class, 'index'])->name('index');
 
-    Route::prefix('blocked')->name('blocked.')->group( function() {
-        Route::get('/', [MemberBlockController::class, 'index'])->name('index');
+        Route::prefix('blocked')->name('blocked.')->group( function() {
+            Route::get('/', [MemberBlockController::class, 'index'])->name('index');
+        });
     });
-});
 
-Route::controller(UserController::class)->group(function() {
-    Route::get('/users', 'index')->middleware('can:read_user');
-    Route::get('/users', 'create');
+    Route::controller(UserController::class)->group(function() {
+        Route::get('/users', 'index')->middleware('can:read_user');
+        Route::get('/users', 'create');
+    });
 });
