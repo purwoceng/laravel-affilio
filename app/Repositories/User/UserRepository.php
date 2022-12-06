@@ -61,7 +61,6 @@ class UserRepository implements UserRepositoryInterface
             'data' => $data,
         ];
 
-
         return $result;
     }
 }

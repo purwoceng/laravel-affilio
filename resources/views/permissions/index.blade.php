@@ -8,13 +8,13 @@
     />
 @endpush
 
-@section('title', __('Akses: Peran'))
+@section('title', __('Akses: Izin Akses'))
 
 @section('content')
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Manajemen Akses: Peran</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Manajemen Akses: Izin Akses</h5>
             </div>
         </div>
     </div>
@@ -34,7 +34,6 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>ID</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -54,7 +53,7 @@
     'use strict';
 
     $(document).ready(function() {
-        const ajaxUrl = "{{ route('roles.index') }}";
+        const ajaxUrl = "{{ route('permissions.index') }}";
         
         $('#js-user-table').DataTable({
             processing: true,
@@ -88,16 +87,8 @@
                     }
                 },
                 {
-                    data: 'label',
-                    name: 'label',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-left small',
-                },
-                {
                     data: 'name',
-                    name: 'name',
+                    name: 'nama',
                     sortable: false,
                     orderable: false,
                     searchable: false,
