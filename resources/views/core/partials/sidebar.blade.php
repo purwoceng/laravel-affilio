@@ -105,7 +105,7 @@
                             </span>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/aside-light.html" class="menu-link">
+                            <a href="{{ route('users.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -113,7 +113,7 @@
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/header-dark.html" class="menu-link">
+                            <a href="{{ route('roles.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -121,7 +121,7 @@
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/header-dark.html" class="menu-link">
+                            <a href="{{ route('permissions.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
