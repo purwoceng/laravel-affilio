@@ -31,6 +31,34 @@ class MemberRepository implements MemberRepositoryInterface
         $totalData = $this->getCountMemberActive();
         $totalFiltered = $totalData;
 
+        if ($request->filled('name')) {
+            $keyword = $request->get('name');
+            $getQuery->where('name', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->get()->count();
+            $totalFiltered = $totalData;
+        }
+
+        if ($request->filled('username')) {
+            $keyword = $request->get('username');
+            $getQuery->where('username', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->get()->count();
+            $totalFiltered = $totalData;
+        }
+
+        if ($request->filled('email')) {
+            $keyword = $request->get('email');
+            $getQuery->where('email', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->get()->count();
+            $totalFiltered = $totalData;
+        }
+
+        if ($request->filled('phone')) {
+            $keyword = $request->get('phone');
+            $getQuery->where('phone', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->get()->count();
+            $totalFiltered = $totalData;
+        }
+
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
         $dataArray = [];

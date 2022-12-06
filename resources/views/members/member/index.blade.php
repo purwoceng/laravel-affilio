@@ -25,6 +25,48 @@
                     <table id="js-table-member-blocked"
                         class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
+                            <div class="filter-wrapper">
+                                <form action="#" class="form" id="filter">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Nama</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="name" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Username</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="username" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Email</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="email" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">No Handphone</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="phone" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <tr class="text-center small">
                                 <th>#</th>
                                 <th>Username</th>
@@ -173,6 +215,66 @@
 
                 ],
             });
+
+
+            function getDataFiltered() {
+                let filterEl = $('.filter');
+                let data = {};
+
+                $.each(filterEl, function(i, v) {
+                    let key = $(v).data('name');
+                    let value = $(v).val();
+                    if (key == 'date') {
+                        if (value != '') {
+                            value = value.split('/');
+                            data[key] = JSON.stringify(value);
+                        }
+                    } else {
+                        if (value != '') {
+                            data[key] = value;
+                        }
+                    }
+                });
+
+                if (getURLVar('start')) {
+                    data.start = getURLVar('start');
+                }
+
+                if (getURLVar('limit')) {
+                    data.limit = getURLVar('limit');
+                }
+
+                reDrawTable(data);
+            };
+
+            function getFullUrl(data) {
+                let
+                    url = urlAjax,
+                    params = '';
+
+                $.each(data, function(key, value) {
+                    if (!!value) {
+                        params += `${key}=${value}&`;
+                    }
+                });
+
+                params = params.replace(/\&$/, '');
+
+                if (params != '') {
+                    url = `${url}?${params}`;
+                }
+                return url;
+            };
+
+            function reDrawTable(data) {
+                tableBlockedMember.ajax.url(getFullUrl(data)).load(null, false);
+            };
+
+            init();
+
+            function init() {
+                $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+            }
         });
     </script>
 @endpush
