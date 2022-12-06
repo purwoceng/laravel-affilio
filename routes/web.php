@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Member\MemberBlockController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\User\PermissionController;
+use App\Http\Controllers\User\RoleController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,9 +32,24 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    // Users Menu
     Route::prefix('users')
         ->name('users.')
         ->group(function() {
             Route::get('/', [UserController::class, 'index'])->name('index');
+        });
+
+    // Roles Menu
+    Route::prefix('roles')
+        ->name('roles.')
+        ->group(function() {
+            Route::get('/', [RoleController::class, 'index'])->name('index');
+        });
+    
+    // Permissions Menu
+    Route::prefix('permissions')
+        ->name('permissions.')
+        ->group(function () {
+            Route::get('/', [PermissionController::class, 'index'])->name('index');
         });
 });

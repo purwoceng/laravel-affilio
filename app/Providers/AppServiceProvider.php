@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
+use App\Repositories\Interfaces\User\UserRepositoryInterface;
 use App\Repositories\Member\MemberBlockedRepository;
 use App\Repositories\Member\MemberRepository;
+use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,8 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-
         $this->app->bind(
             MemberRepositoryInterface::class,
             MemberRepository::class,
@@ -30,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
             MemberBlockedRepository::class,
         );
 
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            UserRepository::class,
+        );
     }
 
     /**
