@@ -13,7 +13,7 @@ class PermissionController extends Controller
     public function __construct(PermissionRepositoryInterface $permission_repository)
     {
         $this->middleware([
-            'role:super_admin',
+            'role:super_user',
             'permission:read_role|create_role|update_role|delete_role'
         ]);
 
