@@ -53,7 +53,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'login' => trans('auth.failed'),
+                'login' => 'Username atau password tidak valid!',
             ]);
         }
 
@@ -78,10 +78,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
+            'email' => "Terlalu banyak percobaan login. Mohon coba lagi dalam {$seconds} detik.",
         ]);
     }
 
