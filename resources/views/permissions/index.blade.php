@@ -113,7 +113,7 @@
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav nav-hoverable flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="javascript:void(0)">
+                                            <a class="nav-link" href="${ajaxUrl}/detail/${data}">
                                                 <span class="nav-text">Detail</span>
                                             </a>
                                         </li>

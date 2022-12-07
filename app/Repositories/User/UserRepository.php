@@ -18,6 +18,11 @@ class UserRepository implements UserRepositoryInterface
         return User::offset($start)->limit($limit);
     }
 
+    public function getUserById($id)
+    {
+        return User::where('id', $id)->first();
+    }
+
     public function getTotalUsers()
     {
         return User::all()->count();

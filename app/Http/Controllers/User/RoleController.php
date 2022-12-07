@@ -30,4 +30,13 @@ class RoleController extends Controller
 
         return view('roles.index');
     }
+
+    public function show($id)
+    {
+        $selected_role = $this->role_repository->getRoleById($id);
+        $title = "Peran: {$selected_role->name}" ?? 'Peran Tidak Ditemukan';
+        $data = ['role' => $selected_role, 'title' => $title];
+
+        return view('roles.detail', $data);
+    }
 }

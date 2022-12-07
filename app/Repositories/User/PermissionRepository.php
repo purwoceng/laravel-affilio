@@ -17,6 +17,11 @@ class PermissionRepository implements PermissionRepositoryInterface
         return Permission::offset($start)->limit($limit);
     }
 
+    public function getPermissionById($id)
+    {
+        return Permission::where('id', $id)->first();
+    }
+
     public function getTotalPermissions()
     {
         return Permission::all()->count();
