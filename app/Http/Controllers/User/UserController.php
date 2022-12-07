@@ -34,7 +34,9 @@ class UserController extends Controller
     public function show($id)
     {
         $selected_user = $this->user_repository->getUserById($id);
-        $title = "Pengguna: {$selected_user->name}" ?? 'Pengguna Tidak Ditemukan';
+        $title = !empty($selected_user->id)
+            ? "Pengguna: {$selected_user->name}"
+            : 'Pengguna Tidak Ditemukan';
         $data = ['user' => $selected_user, 'title' => $title];
 
         return view('users.detail', $data);

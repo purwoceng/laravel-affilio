@@ -17,16 +17,22 @@
                 <div class="card-body">
                     <h3 class="card-title">Detail Peran</h3>
                     <hr />
-                    <div class="row row--lined">
-                        <div class="col-4 col-md-3">Nama</div>
-                        <div class="col-8 col-md-9">: {{ $role->name }}</div>
-                    </div>
-                    <hr />
-                    <div class="row row--lined">
-                        <div class="col-4 col-md-3">Dibuat</div>
-                        <div class="col-8 col-md-9">: {{ date('d-m-Y H:i', strtotime($role->created_at)) }}</div>
-                    </div>
-                    <hr />
+
+                    @if(!empty($role->id))
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Nama</div>
+                            <div class="col-8 col-md-9">: {{ $role->name }}</div>
+                        </div>
+                        <hr />
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Dibuat</div>
+                            <div class="col-8 col-md-9">: {{ date('d-m-Y H:i', strtotime($role->created_at)) }}</div>
+                        </div>
+                        <hr />
+                    @else
+                        <h3>Peran Tidak Ditemukan</h3>
+                        <p>Data yang Anda cari mungkin tidak ditemukan atau telah dihapus</p>
+                    @endif
 
                     <a href={{ route('roles.index') }} title="Kembali" class="btn btn-primary">
                         Kembali

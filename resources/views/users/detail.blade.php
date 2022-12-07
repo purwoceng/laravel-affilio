@@ -17,21 +17,27 @@
                 <div class="card-body">
                     <h3 class="card-title">Detail Pengguna</h3>
                     <hr />
-                    <div class="row row--lined">
-                        <div class="col-4 col-md-3">Nama</div>
-                        <div class="col-8 col-md-9">: {{ $user->name }}</div>
-                    </div>
-                    <hr />
-                    <div class="row row--lined">
-                        <div class="col-4 col-md-3">Username</div>
-                        <div class="col-8 col-md-9">: {{ $user->username }}</div>
-                    </div>
-                    <hr />
-                    <div class="row row--lined">
-                        <div class="col-4 col-md-3">Email</div>
-                        <div class="col-8 col-md-9">: {{ $user->email }}</div>
-                    </div>
-                    <hr />
+
+                    @if (!empty($user->id))
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Nama</div>
+                            <div class="col-8 col-md-9">: {{ $user->name }}</div>
+                        </div>
+                        <hr />
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Username</div>
+                            <div class="col-8 col-md-9">: {{ $user->username }}</div>
+                        </div>
+                        <hr />
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Email</div>
+                            <div class="col-8 col-md-9">: {{ $user->email }}</div>
+                        </div>
+                        <hr />
+                    @else
+                        <h3>Pengguna Tidak Ditemukan</h3>
+                        <p>Data yang Anda cari mungkin tidak ditemukan atau telah dihapus</p>
+                    @endif
 
                     <a href={{ route('users.index') }} title="Kembali" class="btn btn-primary">
                         Kembali
