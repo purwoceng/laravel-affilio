@@ -12,6 +12,11 @@ class RoleController extends Controller
 
     public function __construct(RoleRepositoryInterface $role_repository)
     {
+        $this->middleware([
+            'role:super_admin',
+            'permission:read_role|create_role|update_role|delete_role'
+        ]);
+
         $this->role_repository = $role_repository;
     }
 

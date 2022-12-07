@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'exists' => 'Data :attribute tidak ditemukan di dalam database.',
+    'exists' => 'Data :attribute tidak ditemukan.',
 ];

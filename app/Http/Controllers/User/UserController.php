@@ -12,6 +12,11 @@ class UserController extends Controller
 
     public function __construct(UserRepositoryInterface $user_repository)
     {
+        $this->middleware([
+            'role:super_admin',
+            'permission:read_role|create_role|update_role|delete_role'
+        ]);
+
         $this->user_repository = $user_repository;
     }
 
