@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\BannerController;
+use App\Http\Controllers\HomePage\ConfigController;
+use App\Http\Controllers\HomePage\ProductController;
+use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberBlockController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\User\PermissionController;
@@ -51,8 +55,33 @@ Route::middleware('auth')->group(function () {
     // Permissions Menu
     Route::prefix('permissions')
         ->name('permissions.')
-        ->group(function () {
+        ->group(function() {
             Route::get('/', [PermissionController::class, 'index'])->name('index');
             Route::get('/detail/{id}', [PermissionController::class, 'show'])->name('detail');
+        });
+
+    // Content Configuration Menu
+    Route::prefix('supplier-home')
+        ->name('supplier_home.')
+        ->group(function() {
+            Route::get('/', [SupplierController::class, 'index'])->name('index');
+        });
+
+    Route::prefix('product-home')
+        ->name('product_home.')
+        ->group(function() {
+            Route::get('/', [ProductController::class, 'index'])->name('index');
+        });
+
+    Route::prefix('banners')
+        ->name('banners.')
+        ->group(function() {
+            Route::get('/', [BannerController::class, 'index'])->name('index');
+        });
+
+    Route::prefix('configs')
+        ->name('configs.')
+        ->group(function() {
+            Route::get('/', [ConfigController::class, 'index'])->name('index');
         });
 });

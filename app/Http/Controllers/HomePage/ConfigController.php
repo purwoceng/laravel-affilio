@@ -7,5 +7,13 @@ use Illuminate\Http\Request;
 
 class ConfigController extends Controller
 {
-    //
+    public function __construct()
+    {
+        // 
+    }
+
+    public function index()
+    {
+        return view('content.configs.index');
+    }
 }

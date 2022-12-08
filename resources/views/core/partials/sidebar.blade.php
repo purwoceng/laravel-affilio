@@ -103,7 +103,7 @@
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('users.index') }}" class="menu-link">
+                            <a href="{{ route('banners.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -112,7 +112,7 @@
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('users.index') }}" class="menu-link">
+                            <a href="{{ route('product_home.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -121,7 +121,7 @@
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('users.index') }}" class="menu-link">
+                            <a href="{{ route('supplier_home.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
