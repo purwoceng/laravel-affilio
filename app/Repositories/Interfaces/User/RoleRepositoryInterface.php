@@ -6,5 +6,7 @@ interface RoleRepositoryInterface
 {
     public function getRoles($limit, $start);
 
+    public function getRoleById($id);
+
     public function getDataTable($request);
 }

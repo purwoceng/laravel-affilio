@@ -17,6 +17,11 @@ class RoleRepository implements RoleRepositoryInterface
         return Role::offset($start)->limit($limit);
     }
 
+    public function getRoleById($id)
+    {
+        return Role::where('id', $id)->first();
+    }
+
     public function getTotalRoles()
     {
         return Role::all()->count();

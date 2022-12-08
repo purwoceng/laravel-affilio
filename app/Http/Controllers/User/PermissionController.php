@@ -30,4 +30,15 @@ class PermissionController extends Controller
 
         return view('permissions.index');
     }
+
+    public function show($id)
+    {
+        $selected_permission = $this->permission_repository->getPermissionById($id);
+        $title = !empty($selected_permission->id)
+            ? "Izin Akses: {$selected_permission->name}"
+            :'Izin Akses Tidak Ditemukan';
+        $data = ['permission' => $selected_permission, 'title' => $title];
+
+        return view('permissions.detail', $data);
+    }
 }

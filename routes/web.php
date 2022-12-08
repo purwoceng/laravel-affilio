@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         ->name('users.')
         ->group(function() {
             Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('/detail/{id}', [UserController::class, 'show'])->name('detail');
         });
 
     // Roles Menu
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
         ->name('roles.')
         ->group(function() {
             Route::get('/', [RoleController::class, 'index'])->name('index');
+            Route::get('/detail/{id}', [RoleController::class, 'show'])->name('detail');
         });
     
     // Permissions Menu
@@ -51,5 +53,6 @@ Route::middleware('auth')->group(function () {
         ->name('permissions.')
         ->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('index');
+            Route::get('/detail/{id}', [PermissionController::class, 'show'])->name('detail');
         });
 });

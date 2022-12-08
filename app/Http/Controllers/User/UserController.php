@@ -30,4 +30,15 @@ class UserController extends Controller
 
         return view('users.index');
     }
+
+    public function show($id)
+    {
+        $selected_user = $this->user_repository->getUserById($id);
+        $title = !empty($selected_user->id)
+            ? "Pengguna: {$selected_user->name}"
+            : 'Pengguna Tidak Ditemukan';
+        $data = ['user' => $selected_user, 'title' => $title];
+
+        return view('users.detail', $data);
+    }
 }
