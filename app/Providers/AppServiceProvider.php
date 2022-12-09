@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\Interfaces\MemberRepositoryInterface;
 use App\Repositories\MemberRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
     {
         config(['app.locale' => 'id']);
 	    Carbon::setLocale('id');
+        Schema::defaultStringLength(191);
     }
 }
