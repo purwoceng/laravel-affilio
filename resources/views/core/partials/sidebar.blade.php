@@ -84,53 +84,64 @@
                 </div>
             </li>
 
-            <li class="menu-section">
-                <h4 class="menu-text">Data Master</h4>
-                <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-            </li>
-            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="javascript:;" class="menu-link menu-toggle">
-                    <span class="svg-icon menu-icon">
-                        <i class="fas fa-users-cog"></i>
-                    </span>
-                    <span class="menu-text">Manajemen Akses</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="menu-submenu">
-                    <i class="menu-arrow"></i>
-                    <ul class="menu-subnav">
-                        <li class="menu-item menu-item-parent" aria-haspopup="true">
-                            <span class="menu-link">
-                                <span class="menu-text">Manajemen Akses</span>
-                            </span>
-                        </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/aside-light.html" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Pengguna</span>
-                            </a>
-                        </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/header-dark.html" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Peran</span>
-                            </a>
-                        </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/header-dark.html" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Izin Akses</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            @role('super_user')
+                <li class="menu-section">
+                    <h4 class="menu-text">Data Master</h4>
+                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                </li>
+                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="javascript:;" class="menu-link menu-toggle">
+                        <span class="svg-icon menu-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </span>
+                        <span class="menu-text">Manajemen Akses</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                <span class="menu-link">
+                                    <span class="menu-text">Manajemen Akses</span>
+                                </span>
+                            </li>
+
+                            @can('read_role')
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ route('users.index') }}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Pengguna</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('read_role')
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ route('roles.index') }}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Peran</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('read_role')
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ route('permissions.index') }}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Izin Akses</span>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+            @endrole
 
             {{-- <li class="menu-section">
                 <h4 class="menu-text">Custom</h4>

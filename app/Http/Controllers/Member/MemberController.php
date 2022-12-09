@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\MemberRepositoryInterface;
+use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 
 class MemberController extends Controller
 {
@@ -22,11 +22,13 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $getMemberActives = $this->memberRepository->getMemberActive();
+        if ($request->ajax()) {
+            return $this->memberRepository->getDataTable($request);
+        }
 
-        return view('members.member.index', compact(['getMemberActives']));
+        return view('members.member.index');
     }
 
     /**
