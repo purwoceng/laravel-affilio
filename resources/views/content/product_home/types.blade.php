@@ -15,8 +15,12 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Produk Rekomendasi</h3>
+                        <h3 class="card-label">Tipe Produk Rekomendasi</h3>
                     </div>
+                    <a class="btn btn-success float-right" href={{ route('product_home.create_type') }} title="Tambah Tipe Baru">
+                        <i class="fas fa-plus mr-1 fa-sm"></i>
+                        Tambah
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -24,9 +28,8 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Produk</th>
-                                <th>Tipe</th>
-                                <th>Nomor Urut</th>
+                                <th>Nama</th>
+                                <th>Kode</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>

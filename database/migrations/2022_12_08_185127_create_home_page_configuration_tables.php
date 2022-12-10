@@ -77,6 +77,9 @@ class CreateHomePageConfigurationTables extends Migration
             $table->id();
             $table->unsignedInteger('banner_category_id');
             $table->string('name', 64);
+            $table->string('image');
+            $table->string('target_url');
+            $table->string('description');
             $table->string('path');
             $table->string('path_url');
             $table->timestamps();

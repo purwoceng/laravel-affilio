@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'baleomol_key' => env('BALEOMOL_KEY_APP'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

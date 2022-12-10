@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\HomePage\ProductController;
+use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberBlockController;
 use App\Http\Controllers\Member\MemberController;
@@ -71,6 +72,9 @@ Route::middleware('auth')->group(function () {
         ->name('product_home.')
         ->group(function() {
             Route::get('/', [ProductController::class, 'index'])->name('index');
+            Route::get('/types', [ProductTypeController::class, 'index'])->name('types');
+            Route::get('/types/create', [ProductTypeController::class, 'create'])->name('create_type');
+            Route::post('/types/store', [ProductTypeController::class, 'store'])->name('store_type');
         });
 
     Route::prefix('banners')
