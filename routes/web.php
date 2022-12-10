@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Invoice\InvoiceController;
 use App\Http\Controllers\Member\MemberBlockController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\User\PermissionController;
@@ -24,12 +25,18 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('/');
 
+    // Member Menu
     Route::prefix('members')->name('members.')->group(function(){
         Route::get('/', [MemberController::class, 'index'])->name('index');
 
         Route::prefix('blocked')->name('blocked.')->group( function() {
             Route::get('/', [MemberBlockController::class, 'index'])->name('index');
         });
+    });
+
+    //Invoice Menu
+    Route::prefix('invoices')->name('invoices.')->group(function() {
+        Route::get('/',[InvoiceController::class,'index'])->name('index');
     });
 
     // Users Menu
@@ -47,7 +54,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('index');
             Route::get('/detail/{id}', [RoleController::class, 'show'])->name('detail');
         });
-    
+
     // Permissions Menu
     Route::prefix('permissions')
         ->name('permissions.')

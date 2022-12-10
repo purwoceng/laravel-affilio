@@ -84,6 +84,34 @@
                 </div>
             </li>
 
+            <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <span class="svg-icon menu-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </span>
+                    <span class="menu-text">Invoice</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="menu-submenu">
+                    <i class="menu-arrow"></i>
+                    <ul class="menu-subnav">
+                        <li class="menu-item menu-item-parent" aria-haspopup="true">
+                            <span class="menu-link">
+                                <span class="menu-text">Invoice</span>
+                            </span>
+                        </li>
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('invoices.index')}}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Data Invoice</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             @role('super_user')
                 <li class="menu-section">
                     <h4 class="menu-text">Data Master</h4>

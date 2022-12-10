@@ -1,40 +1,43 @@
 @extends('core.app')
-@section('title', __('Data Member'))
-@push('css')
-    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-@endpush
-
+@section('title', __('Invoice Page'))
 @section('content')
+    <!--begin::Subheader-->
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Data Member</h5>
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Invoice</h5>
+                <!--end::Page Title-->
             </div>
+            <!--end::Info-->
         </div>
     </div>
+    <!--end::Subheader-->
+
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Data Member</h3>
+                        <h3 class="card-label">Data Invoice</h3>
                     </div>
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-member-blocked"
-                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
+                    <table id="js-table-all-invoice" class="table table-separate table-head-custom table-checkable nowrap"
+                        style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Nama</label>
+                                                <label class="col-4 col-form-label">Kode</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="name" placeholder="Type Here">
+                                                        data-name="code" placeholder="Type Here">
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm row">
@@ -48,19 +51,26 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Email</label>
+                                                <label class="col-4 col-form-label">Metode</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="email" placeholder="Type Here">
+                                                        data-name="methode" placeholder="Type Here">
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">No Handphone</label>
+                                                <label class="col-4 col-form-label">Status</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="phone" placeholder="Type Here">
+                                                    <select class="form-control form-control-sm filter" data-name="status">
+                                                        <option value="all" selected="" default="">Semua</option>
+                                                        <option value="unpaid">Unpaid</option>
+                                                        <option value="pending">Pending</option>
+                                                        <option value="paid">Paid</option>
+                                                        <option value="confirm">Confirm</option>
+                                                        <option value="refund">Refund</option>
+                                                        <option value="cancel">Cancel</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,12 +79,16 @@
                             </div>
                             <tr class="text-center small">
                                 <th>#</th>
+                                <th>Kode</th>
                                 <th>Username</th>
                                 <th>Nama</th>
-                                <th>No Hp</th>
-                                <th>Email</th>
-                                <th>Verifikasi</th>
+                                <th>Subtotal</th>
+                                <th>Ongkos Kirim</th>
+                                <th>Total Biaya</th>
+                                <th>Metode Pembayaran</th>
+                                <th>Type</th>
                                 <th>Status</th>
+                                <th>No Hp</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -85,16 +99,19 @@
             </div>
         </div>
     </div>
+
 @endsection
 
-
+@push('css')
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+@endpush
 @push('js')
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('members.index') }}";
+            const urlAjax = "{{ route('invoices.index') }}";
 
-            var tableBlockedMember = $('#js-table-member-blocked').DataTable({
+            var tableInvoiceAll = $('#js-table-all-invoice').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -123,6 +140,14 @@
                         }
                     },
                     {
+                        data: 'code',
+                        name: 'code',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
                         data: 'username',
                         name: 'username',
                         sortable: false,
@@ -131,62 +156,72 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'nama',
+                        name: 'nama',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'phone',
-                        name: 'phone',
+                        data: 'subtotal',
+                        name: 'subtotal',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'email',
-                        name: 'email',
+                        data: 'shipping_cost',
+                        name: 'shipping_cost',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'is_verified',
-                        name: 'is_verified',
+                        data: 'total',
+                        name: 'total',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
-                        render: function(data, type, row, meta) {
-                            if (row.is_verified) {
-                                return '<span class="label  label-light-success label-inline label-bold">Sudah</span>';
-                            } else {
-                                return '<span class="label  label-light-danger label-inline label-bold">Belum</span>';
-                            }
-                        }
                     },
                     {
-                        data: 'is_blocked',
-                        name: 'is_blocked',
+                        data: 'payment_method',
+                        name: 'payment_method',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
-                        render: function(data, type, row, meta) {
-                            if (row.is_blocked) {
-                                return ' <span class="small">Blocked</span>';
-                            } else {
-                                return '<span class="small">Active</span>';
-                            }
-                        }
                     },
                     {
-                        data: 'actions',
-                        name: 'actions',
+                        data: 'type',
+                        name: 'type',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'whatsapp',
+                        name: 'whatsapp',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -195,7 +230,7 @@
                             let elements = '';
 
                             elements += `
-                                <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                                    <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
                                             class="la la-cog"></i></a>
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
@@ -267,7 +302,7 @@
             };
 
             function reDrawTable(data) {
-                tableBlockedMember.ajax.url(getFullUrl(data)).load(null, false);
+                tableInvoiceAll.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();

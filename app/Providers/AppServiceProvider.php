@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\Interfaces\Invoice\InvoiceRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 use App\Repositories\Interfaces\User\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\User\RoleRepositoryInterface;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
+use App\Repositories\Invoice\InvoiceRepository;
 use App\Repositories\Member\MemberBlockedRepository;
 use App\Repositories\Member\MemberRepository;
 use App\Repositories\User\PermissionRepository;
@@ -32,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             MemberBlockedRepositoryInterface::class,
             MemberBlockedRepository::class,
+        );
+
+        $this->app->bind(
+            InvoiceRepositoryInterface::class,
+            InvoiceRepository::class,
         );
 
         $this->app->bind(
