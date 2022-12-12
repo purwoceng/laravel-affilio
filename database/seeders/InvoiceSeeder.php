@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Member;
+use App\Models\Invoice;
 use Illuminate\Database\Seeder;
 
-class MemberTableSeeder extends Seeder
+class InvoiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class MemberTableSeeder extends Seeder
      */
     public function run()
     {
-        Member::factory()->count(550)->create();
+        Invoice::factory()->count(550)->create();
     }
 }

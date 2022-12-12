@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Member;
+namespace App\Repositories\Member\Blocked;
 
 use App\Models\Member;
-use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
+use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 
 class MemberBlockedRepository implements MemberBlockedRepositoryInterface
 {
@@ -34,28 +34,28 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
         if ($request->filled('name')) {
             $keyword = $request->get('name');
             $getQuery->where('name', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->get()->count();
+            $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
 
         if ($request->filled('username')) {
             $keyword = $request->get('username');
             $getQuery->where('username', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->get()->count();
+            $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
 
         if ($request->filled('email')) {
             $keyword = $request->get('email');
             $getQuery->where('email', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->get()->count();
+            $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
 
         if ($request->filled('phone')) {
             $keyword = $request->get('phone');
             $getQuery->where('phone', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->get()->count();
+            $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
 
