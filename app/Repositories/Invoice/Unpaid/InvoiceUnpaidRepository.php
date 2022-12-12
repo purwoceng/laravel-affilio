@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Repositories\Invoice;
+namespace App\Repositories\Invoice\Unpaid;
 
 use App\Models\Invoice;
-use App\Repositories\Interfaces\Invoice\InvoiceRepositoryInterface;
+use App\Repositories\Interfaces\Invoice\Unpaid\InvoiceUnpaidRepositoryInterface;
 
-class InvoiceRepository implements InvoiceRepositoryInterface
+class InvoiceUnpaidRepository implements InvoiceUnpaidRepositoryInterface
 {
     public function __construct()
     {
         //
     }
 
-    public function getInvoices($limit, $start)
+    public function getData($limit, $start)
     {
-        return Invoice::where('publish', '1')->offset($start)->limit($limit);
+        return Invoice::where('status','unpaid')->where('publish', '1')->offset($start)->limit($limit);
     }
 
-    public function getTotalInvoices()
+    public function getTotalData()
     {
-        return Invoice::where('publish', '1')->count();
+        return Invoice::where('status','unpaid')->where('publish', '1')->count();
     }
 
     public function getDataTable($request)
@@ -27,8 +27,8 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $getQuery = $this->getInvoices($limit, $start);
-        $totalData = $this->getTotalInvoices();
+        $getQuery = $this->getData($limit, $start);
+        $totalData = $this->getTotalData();
         $totalFiltered = $totalData;
 
         if ($request->filled('code')) {
@@ -45,26 +45,12 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             $totalFiltered = $totalData;
         }
 
-        if ($request->filled('methode')) {
-            $keyword = $request->get('methode');
-            $getQuery->where('payment_method', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
-        }
-
-        if ($request->filled('status')) {
-            $keyword = $request->get('status');
-            $getQuery->where('status', $keyword);
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
-        }
-
-        $getInvoices = $getQuery->orderBy('id', 'desc')->get();
+        $getResults = $getQuery->orderBy('id', 'desc')->get();
 
         $data = [];
 
-        if (!empty($getInvoices)) {
-            foreach ($getInvoices  as $key => $invoice) {
+        if (!empty($getResults)) {
+            foreach ($getResults  as $key => $invoice) {
                 $id = $invoice->id;
                 $code = $invoice->code;
                 $username = $invoice->username;

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Invoice;
+namespace App\Http\Controllers\Member\Blocked;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\Invoice\InvoiceRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 
-class InvoiceController extends Controller
+class MemberBlockedController extends Controller
 {
-    private $invoiceRepository;
+    private $memberBlockedRepository;
 
-    public function __construct(InvoiceRepositoryInterface $invoiceRepository)
+    public function __construct(MemberBlockedRepositoryInterface $memberBlockedRepository)
     {
-        $this->invoiceRepository = $invoiceRepository;
+        $this->memberBlockedRepository = $memberBlockedRepository;
     }
 
     /**
@@ -23,10 +23,10 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return $this->invoiceRepository->getDataTable($request);
+            return $this->memberBlockedRepository->getDataTable($request);
         }
 
-        return view('invoices.index');
+        return view('members.blocked.index');
     }
 
     /**

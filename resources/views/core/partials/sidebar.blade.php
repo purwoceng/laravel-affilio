@@ -89,7 +89,7 @@
                     <span class="svg-icon menu-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </span>
-                    <span class="menu-text">Invoice</span>
+                    <span class="menu-text">Tagihan</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="menu-submenu">
@@ -97,15 +97,34 @@
                     <ul class="menu-subnav">
                         <li class="menu-item menu-item-parent" aria-haspopup="true">
                             <span class="menu-link">
-                                <span class="menu-text">Invoice</span>
+                                <span class="menu-text">Tagihan</span>
                             </span>
                         </li>
-                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="{{ route('invoices.index')}}" class="menu-link menu-toggle">
+
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices/unpaid*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('invoices.unpaid.index')}}" class="menu-link menu-toggle">
                                 <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
-                                <span class="menu-text">Data Invoice</span>
+                                <span class="menu-text">Tagihan Belum Dibayar</span>
+                            </a>
+                        </li>
+
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices/paid*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('invoices.paid.index')}}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Tagihan Terbayar</span>
+                            </a>
+                        </li>
+
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices/cancel*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('invoices.cancel.index')}}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Tagihan Dibatalkan</span>
                             </a>
                         </li>
                     </ul>

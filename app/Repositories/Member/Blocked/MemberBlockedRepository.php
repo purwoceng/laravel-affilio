@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Member;
+namespace App\Repositories\Member\Blocked;
 
 use App\Models\Member;
-use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
+use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 
 class MemberBlockedRepository implements MemberBlockedRepositoryInterface
 {

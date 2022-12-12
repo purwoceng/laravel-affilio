@@ -2,14 +2,18 @@
 
 namespace App\Providers;
 
-use App\Repositories\Interfaces\Invoice\InvoiceRepositoryInterface;
-use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
+use App\Repositories\Interfaces\Invoice\Cancel\InvoiceCancelRepositoryInterface;
+use App\Repositories\Interfaces\Invoice\Paid\InvoicePaidRepositoryInterface;
+use App\Repositories\Interfaces\Invoice\Unpaid\InvoiceUnpaidRepositoryInterface;
+use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 use App\Repositories\Interfaces\User\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\User\RoleRepositoryInterface;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
-use App\Repositories\Invoice\InvoiceRepository;
-use App\Repositories\Member\MemberBlockedRepository;
+use App\Repositories\Invoice\Cancel\InvoiceCancelRepository;
+use App\Repositories\Invoice\Paid\InvoicePaidRepository;
+use App\Repositories\Invoice\Unpaid\InvoiceUnpaidRepository;
+use App\Repositories\Member\Blocked\MemberBlockedRepository;
 use App\Repositories\Member\MemberRepository;
 use App\Repositories\User\PermissionRepository;
 use App\Repositories\User\RoleRepository;
@@ -36,10 +40,22 @@ class AppServiceProvider extends ServiceProvider
             MemberBlockedRepository::class,
         );
 
+        //Invoice
         $this->app->bind(
-            InvoiceRepositoryInterface::class,
-            InvoiceRepository::class,
+            InvoiceCancelRepositoryInterface::class,
+            InvoiceCancelRepository::class,
         );
+
+        $this->app->bind(
+            InvoicePaidRepositoryInterface::class,
+            InvoicePaidRepository::class,
+        );
+
+        $this->app->bind(
+            InvoiceUnpaidRepositoryInterface::class,
+            InvoiceUnpaidRepository::class,
+        );
+        // Manajemen Akses
 
         $this->app->bind(
             UserRepositoryInterface::class,

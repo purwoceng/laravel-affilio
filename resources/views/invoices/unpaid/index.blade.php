@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Invoice Page'))
+@section('title', __('Halaman Tagihan Belum Dibayar'))
 @section('content')
     <!--begin::Subheader-->
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -7,7 +7,7 @@
             <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
                 <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Invoice</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tagihan</h5>
                 <!--end::Page Title-->
             </div>
             <!--end::Info-->
@@ -20,12 +20,12 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Data Invoice</h3>
+                        <h3 class="card-label">Tagihan Belum Dibayar</h3>
                     </div>
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-all-invoice" class="table table-separate table-head-custom table-checkable nowrap"
+                    <table id="js-table-invoice-unpaid" class="table table-separate table-head-custom table-checkable nowrap"
                         style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
@@ -46,31 +46,6 @@
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <input type="text" class="form-control form-control-sm filter"
                                                         data-name="username" placeholder="Type Here">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Metode</label>
-                                                <div
-                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="methode" placeholder="Type Here">
-                                                </div>
-                                            </div>
-                                            <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Status</label>
-                                                <div
-                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <select class="form-control form-control-sm filter" data-name="status">
-                                                        <option value="all" selected="" default="">Semua</option>
-                                                        <option value="unpaid">Unpaid</option>
-                                                        <option value="pending">Pending</option>
-                                                        <option value="paid">Paid</option>
-                                                        <option value="confirm">Confirm</option>
-                                                        <option value="refund">Refund</option>
-                                                        <option value="cancel">Cancel</option>
-                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,9 +84,9 @@
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('invoices.index') }}";
+            const urlAjax = "{{ route('invoices.unpaid.index') }}";
 
-            var tableInvoiceAll = $('#js-table-all-invoice').DataTable({
+            var tableInvoiceUnpaid = $('#js-table-invoice-unpaid').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -302,7 +277,7 @@
             };
 
             function reDrawTable(data) {
-                tableInvoiceAll.ajax.url(getFullUrl(data)).load(null, false);
+                tableInvoiceUnpaid.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();
