@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\HomePage\ProductRepository;
+use App\Repositories\Interfaces\HomePage\ProductRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 use App\Repositories\Interfaces\User\PermissionRepositoryInterface;
@@ -47,6 +49,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             PermissionRepositoryInterface::class,
             PermissionRepository::class,
+        );
+
+        $this->app->bind(
+            ProductRepositoryInterface::class,
+            ProductRepository::class,
         );
     }
 

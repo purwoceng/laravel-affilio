@@ -20,7 +20,13 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('product_home.store_type') }}">
+                    @if (session('error'))
+                        <span class="alert alert-danger" role="alert">
+                            Oops - {{ session('error') }}
+                        </span>
+                    @endif
+
+                    <form action="{{ route('product_home.store_type') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="input-name">Nama</label>
@@ -28,8 +34,15 @@
                                 type="text"                                                                              
                                 id="input-name"
                                 class="form-control"
-                                placeholder="Masukkan Nama" 
+                                placeholder="Masukkan Nama"
+                                aria-describedby="name-helper" 
                             />
+
+                            @error('name')
+                                <small id="name-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="input-code">Kode</label>
@@ -38,7 +51,14 @@
                                 id="input-code"
                                 class="form-control"
                                 placeholder="Masukkan Kode" 
+                                aria-describedby="code-helper"
                             />
+                            
+                            @error('code')
+                                <small id="code-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
                         </div>
 
                         <a class="btn btn-outline-danger" href="{{ route('product_home.types') }}">Kembali</a>

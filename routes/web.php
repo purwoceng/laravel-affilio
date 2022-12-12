@@ -75,6 +75,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/types', [ProductTypeController::class, 'index'])->name('types');
             Route::get('/types/create', [ProductTypeController::class, 'create'])->name('create_type');
             Route::post('/types/store', [ProductTypeController::class, 'store'])->name('store_type');
+            Route::get('/types/edit/{id}', [ProductTypeController::class, 'edit'])->name('edit_type');
+            Route::put('/types/update/{id}', [ProductTypeController::class, 'update'])->name('update_type');
+            Route::get('/types/delete/{id}', [ProductTypeController::class, 'delete'])->name('delete_type');
         });
 
     Route::prefix('banners')
