@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Halaman Tagihan Belum Dibayar'))
+@section('title', __('Halaman Invoice Belum Dibayar'))
 @section('content')
     <!--begin::Subheader-->
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -7,7 +7,7 @@
             <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
                 <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tagihan</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Invoice</h5>
                 <!--end::Page Title-->
             </div>
             <!--end::Info-->
@@ -20,7 +20,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Tagihan Belum Dibayar</h3>
+                        <h3 class="card-label">Invoice Belum Dibayar</h3>
                     </div>
 
                 </div>
