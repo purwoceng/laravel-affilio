@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\HomePage\ProductRepository;
+use App\Repositories\Interfaces\HomePage\ProductRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Cancel\InvoiceCancelRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Paid\InvoicePaidRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Unpaid\InvoiceUnpaidRepositoryInterface;
@@ -70,6 +72,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             PermissionRepositoryInterface::class,
             PermissionRepository::class,
+        );
+
+        $this->app->bind(
+            ProductRepositoryInterface::class,
+            ProductRepository::class,
         );
     }
 

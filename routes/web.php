@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\BannerController;
+use App\Http\Controllers\HomePage\ConfigController;
+use App\Http\Controllers\HomePage\ProductController;
+use App\Http\Controllers\HomePage\ProductTypeController;
+use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
@@ -70,8 +75,39 @@ Route::middleware('auth')->group(function () {
     // Permissions Menu
     Route::prefix('permissions')
         ->name('permissions.')
-        ->group(function () {
+        ->group(function() {
             Route::get('/', [PermissionController::class, 'index'])->name('index');
             Route::get('/detail/{id}', [PermissionController::class, 'show'])->name('detail');
+        });
+
+    // Content Configuration Menu
+    Route::prefix('supplier-home')
+        ->name('supplier_home.')
+        ->group(function() {
+            Route::get('/', [SupplierController::class, 'index'])->name('index');
+        });
+
+    Route::prefix('product-home')
+        ->name('product_home.')
+        ->group(function() {
+            Route::get('/', [ProductController::class, 'index'])->name('index');
+            Route::get('/types', [ProductTypeController::class, 'index'])->name('types');
+            Route::get('/types/create', [ProductTypeController::class, 'create'])->name('create_type');
+            Route::post('/types/store', [ProductTypeController::class, 'store'])->name('store_type');
+            Route::get('/types/edit/{id}', [ProductTypeController::class, 'edit'])->name('edit_type');
+            Route::put('/types/update/{id}', [ProductTypeController::class, 'update'])->name('update_type');
+            Route::get('/types/delete/{id}', [ProductTypeController::class, 'delete'])->name('delete_type');
+        });
+
+    Route::prefix('banners')
+        ->name('banners.')
+        ->group(function() {
+            Route::get('/', [BannerController::class, 'index'])->name('index');
+        });
+
+    Route::prefix('configs')
+        ->name('configs.')
+        ->group(function() {
+            Route::get('/', [ConfigController::class, 'index'])->name('index');
         });
 });
