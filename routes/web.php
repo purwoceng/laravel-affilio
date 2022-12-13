@@ -104,9 +104,16 @@ Route::middleware('auth')->group(function () {
         ->name('banners.')
         ->group(function() {
             Route::get('/', [BannerController::class, 'index'])->name('index');
+            Route::get('/create',[BannerController::class,'create'])->name('create');
+
 
             Route::prefix('category')->name('category.')->group(function () {
                 Route::get('/', [BannerCategoryController::class, 'index'])->name('index');
+                Route::get('/create',[BannerCategoryController::class, 'create'])->name('create');
+                Route::post('/store',[BannerCategoryController::class, 'store'])->name('store');
+                Route::get('/show/{id}',[BannerCategoryController::class, 'show'])->name('show');
+                Route::get('/edit/{id}',[BannerCategoryController::class,'edit'])->name('edit');
+                Route::post('/update/{id}',[BannerCategoryController::class,'update'])->name('update');
             });
         });
 

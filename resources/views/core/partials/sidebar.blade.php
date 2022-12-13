@@ -169,7 +169,7 @@
                                         </a>
                                     </li>
                                     <li class="menu-item" aria-haspopup="true">
-                                        <a href="custom/apps/user/list-datatable.html" class="menu-link">
+                                        <a href="{{ route('banners.index') }}" class="menu-link">
                                             <i class="menu-bullet menu-bullet-dot">
                                                 <span></span>
                                             </i>
