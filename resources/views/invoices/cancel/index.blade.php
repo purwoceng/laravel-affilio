@@ -56,7 +56,6 @@
                                 <th>#</th>
                                 <th>Kode</th>
                                 <th>Username</th>
-                                <th>Nama</th>
                                 <th>Subtotal</th>
                                 <th>Ongkos Kirim</th>
                                 <th>Total Biaya</th>
@@ -125,14 +124,6 @@
                     {
                         data: 'username',
                         name: 'username',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'nama',
-                        name: 'nama',
                         sortable: false,
                         orderable: false,
                         searchable: false,
