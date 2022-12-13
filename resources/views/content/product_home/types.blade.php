@@ -59,6 +59,7 @@
             const ajaxUrl = "{{ route('product_home.types') }}";
             
             $('#js-product-home-types').DataTable({
+                destroy: true,
                 processing: true,
                 serverSide: true,
                 responsive: true,

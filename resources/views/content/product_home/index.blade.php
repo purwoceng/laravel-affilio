@@ -17,6 +17,10 @@
                     <div class="card-title">
                         <h3 class="card-label">Produk Rekomendasi</h3>
                     </div>
+                    <a class="btn btn-success float-right" href={{ route('product_home.create') }} title="Tambah Produk Rekomendasi">
+                        <i class="fas fa-plus mr-1 fa-sm"></i>
+                        Tambah
+                    </a>
                 </div>
 
                 <div class="card-body">
