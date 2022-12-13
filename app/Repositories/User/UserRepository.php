@@ -35,6 +35,26 @@ class UserRepository implements UserRepositoryInterface
 
         $user_query = $this->getUsers($limit, $start);
         $total_data = $this->getTotalUsers();
+
+        if ($request->filled('name')) {
+            $keyword = $request->get('name');
+            $user_query->where('name', 'like', '%' . $keyword . '%');
+            $total_data = $user_query->count();
+
+        }
+
+        if ($request->filled('username')) {
+            $keyword = $request->get('username');
+            $user_query->where('username', 'like', '%' . $keyword . '%');
+            $total_data = $user_query->count();
+        }
+
+        if ($request->filled('email')) {
+            $keyword = $request->get('email');
+            $user_query->where('email', 'like', '%' . $keyword . '%');
+            $total_data = $user_query->count();
+        }
+
         $users = $user_query->orderBy('id', 'desc')->get();
 
         $data = [];

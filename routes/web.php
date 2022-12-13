@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\HomePage\ProductController;
@@ -103,6 +104,10 @@ Route::middleware('auth')->group(function () {
         ->name('banners.')
         ->group(function() {
             Route::get('/', [BannerController::class, 'index'])->name('index');
+
+            Route::prefix('category')->name('category.')->group(function () {
+                Route::get('/', [BannerCategoryController::class, 'index'])->name('index');
+            });
         });
 
     Route::prefix('configs')
@@ -110,4 +115,5 @@ Route::middleware('auth')->group(function () {
         ->group(function() {
             Route::get('/', [ConfigController::class, 'index'])->name('index');
         });
+
 });
