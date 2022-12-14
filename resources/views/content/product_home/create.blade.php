@@ -11,6 +11,64 @@
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 1.5 !important;
         }
+
+        .xselect-option {
+            display: flex;
+            padding: .25rem .5rem;
+            gap: 1rem;
+            flex-wrap: nowrap;
+        }
+
+        .xselect-option .xselect-option__avatar {
+            height: 60px;
+            width: 60px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .xselect-option .xselect-option__avatar img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .xselect-option .xselect-option__desc {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+        }
+
+        .xselect-option .xselect-option__title {
+            font-weight: 500;
+            font-size: 1.04rem;
+            line-height: 1.5;
+            color: #212121;
+        }
+
+        .xselect-option .xselect-option__stats {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: .75rem;
+        }
+
+        .xselect-option .xselect-option__stats .xselect-option__stat {
+            font-size: .75rem;
+            line-height: 1.5;
+            display: flex;
+            gap: .35rem;
+        }
+
+        .xselect-option .xselect-option__stats .xselect-option__stat i {
+            font-size: .875rem;
+            color: rgba(40, 40, 40, .56);
+        }
+
+        .select2-container--default .select2-results>.select2-results__options {
+            max-height: 400px;
+        }
     </style>
 @endpush
 
@@ -96,23 +154,26 @@
                     return product.productName;
                 }
 
-                const container = $(
-                    `<div class="select2-result-repository clearfix">
-                        <div class="select2-result-repository__avatar">
-                            <img src="${product.picture}" />
+                const isVariant = Number(product.isVariation);
+                const price = isVariant ? product.alternativePriceFormat : product.priceFormat;
+
+                const $container = $(
+                    `<div class="xselect-option clearfix">
+                        <div class="xselect-option__avatar">
+                            <img src="${product.image}" />
                         </div>
-                        <div class="select2-result-repository__meta">
-                            <div class="select2-result-repository__title">${product.productName}</div>
-                            <div class="select2-result-repository__statistics">
-                                <div class="select2-result-repository__forks"><i class="far fa-flash"></i> ${product.sellerName}</div>
-                                <div class="select2-result-repository__stargazers"><i class="far fa-star"></i> ${product.sellPriceFormat}</div>
-                                <div class="select2-result-repository__watchers"><i class="far fa-eye"></i> ${product.stock}</div>
+                        <div class="xselect-option__desc">
+                            <div class="xselect-option__title">${product.text}</div>
+                            <div class="xselect-option__stats">
+                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerName}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-box-open"></i> ${product.stock} Unit</div>
                             </div>
                         </div>
                     </div>`
                 );
 
-                return container;
+                return $container;
             }
 
             function formatProductSelection(product) {
@@ -135,7 +196,7 @@
                         Authorization: `Bearer {{ config('app.baleomol_key') }}`,
                     },
                     processResults: function(data, params) {
-                        let result = { results: [] };
+                        var result = { results: [] };
 
                         if (data.success) {
                             const { results: resultData } = data.data;
@@ -143,6 +204,13 @@
                                 return {
                                     id: item.productId,
                                     text: item.productName,
+                                    image: item.picture,
+                                    sellerName: item.sellerName,
+                                    price: item.price,
+                                    stock: item.stock,
+                                    isVariation: item.isVariation,
+                                    alternativePriceFormat: item.alternativePriceFormat,
+                                    priceFormat: item.priceFormat,
                                 }
                             });
 
@@ -151,8 +219,9 @@
 
                         return result;
                     },
+                    
                 },
-                // templateResult: formatProduct,
+                templateResult: formatProduct,
                 // templateSelection: formatProductSelection,
             });
         });

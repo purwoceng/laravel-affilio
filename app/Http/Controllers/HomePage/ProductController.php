@@ -4,17 +4,47 @@ namespace App\Http\Controllers\HomePage;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductHome;
+use App\Repositories\HomePage\ProductRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
-    public function __construct()
+    protected $product_repository;
+
+    public function __construct(ProductRepository $product_repository)
     {
-        // 
+        $this->product_repository = $product_repository;
     }
 
     public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = $this->product_repository
+                ->getDataTable($request);
+
+            $products = $data['data'];
+
+            $result = [];
+
+            foreach ($products as $product) {
+                $token = config('app.baleomol_key');
+                $url = config('app.baleomol_url') . '/products/' . $product['product_id'];
+
+                $response = Http::withHeaders([
+                    'Authorization' => "Bearer {$token}",
+                ])->get($url);
+
+                $product['product_data'] = $response['data'];
+
+                $result[] = $product;
+            }
+
+            $data['data'] = $result;
+
+            return response()->json($data);
+        }
+
         return view('content.product_home.index');
     }
 
