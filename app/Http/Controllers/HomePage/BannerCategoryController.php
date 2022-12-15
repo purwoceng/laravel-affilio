@@ -142,6 +142,13 @@ class BannerCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = $this->bannerCategoryRepository->delete($id);
+
+        if ($delete) {
+            return redirect()->route('banners.category.index')
+                ->with('success', 'Data Kategori Banner telah berhasil dihapus.');
+        } else {
+            return back()->withInput()->with('info', 'Gagal menghapus data kategori banner');
+        }
     }
 }

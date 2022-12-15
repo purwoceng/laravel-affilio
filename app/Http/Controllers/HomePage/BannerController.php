@@ -189,6 +189,13 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = $this->bannerRepository->delete($id);
+
+        if ($delete) {
+            return redirect()->route('banners.index')
+                ->with('success', 'Data Banner telah berhasil dihapus.');
+        } else {
+            return back()->withInput()->with('info', 'Gagal menghapus data banner');
+        }
     }
 }

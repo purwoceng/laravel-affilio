@@ -22,6 +22,11 @@ class BannerCategoryRepository implements BannerCategoryRepositoryInterface
         return BannerCategory::where('id',$id)->update($data);
     }
 
+    public function delete($id)
+    {
+        return BannerCategory::where('id',$id)->delete();
+    }
+
     public function getDataById($id)
     {
         return BannerCategory::where('id',$id)->first();
@@ -29,12 +34,12 @@ class BannerCategoryRepository implements BannerCategoryRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return BannerCategory::offset($start)->limit($limit);
+        return BannerCategory::whereNull('deleted_at')->offset($start)->limit($limit);
     }
 
     public function getTotalData()
     {
-        return BannerCategory::count();
+        return BannerCategory::whereNull('deleted_at')->count();
     }
 
     public function getDataTable($request)

@@ -161,6 +161,7 @@
                         render: function(data, type, row, meta) {
                             let showUrl = `{{ url('/banners/show/${row.id}') }}`;
                             let editUrl = `{{ url('/banners/edit/${row.id}') }}`;
+                            let deleteUrl = `{{ url('/banners/delete/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
@@ -175,6 +176,10 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="${editUrl}"><span
                                                     class="nav-text">Ubah</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${deleteUrl}"><span
+                                                    class="nav-text">Hapus</span></a>
                                         </li>
                                     </ul>
                                 </div>
