@@ -92,7 +92,7 @@
 
                 <div class="card-body">
                     @if (session('error'))
-                        <span class="alert alert-danger" role="alert">
+                        <span class="alert alert-danger my-3 mx-4" role="alert">
                             Oops - {{ session('error') }}
                         </span>
                     @endif
@@ -103,7 +103,7 @@
                             <label for="input-product-id">Produk</label>
                             <select name="product_id"
                                 id="input-product-id"
-                                class="js-product-selector form-control"></select>
+                                class="js-product-selector form-control" required></select>
 
                             @error('product_id')
                                 <small id="name-helper" class="form-text text-danger">
@@ -113,15 +113,17 @@
                         </div>
                         <div class="form-group">
                             <label for="input-queue-number">Urutan</label>
-                            <input name="queue_number"
-                                type="number"
-                                min="0"
-                                max="100"
+                            <select name="queue_number"
                                 id="input-queue-number"
                                 class="form-control"
-                                placeholder="Masukkan Nomor Urut Produk" 
                                 aria-describedby="queue-helper"
-                            />
+                                required>
+                                <option selected disabled value="0">Pilih nomor urut</option>
+
+                                @foreach ($available_numbers as $number)
+                                    <option value="{{ $number }}" {{ old('title') == $number ? 'selected' : '' }}>Ke-{{ $number}}</option>
+                                @endforeach
+                            </select>
                             
                             @error('queue_number')
                                 <small id="queue-helper" class="form-text text-danger">

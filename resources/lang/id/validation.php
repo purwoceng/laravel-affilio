@@ -101,7 +101,7 @@ return [
     'starts_with' => ':attribute harus diawali salah satu dari berikut: :values',
     'string'      => ':attribute harus berupa string.',
     'timezone'    => ':attribute harus berisi zona waktu yang valid.',
-    'unique'      => 'Data :attribute sudah ada di dalam sistem.',
+    'unique'      => ':attribute yang dimasukkan tidak tersedia atau telah digunakan.',
     'uploaded'    => ':attribute gagal diunggah.',
     'url'         => 'Format :attribute tidak valid.',
     'uuid'        => ':attribute harus merupakan UUID yang valid.',

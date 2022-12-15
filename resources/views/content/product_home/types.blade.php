@@ -21,6 +21,19 @@
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
+                
+                @if (session('success'))
+                    <div class="alert alert-success my-3 mx-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger my-3 mx-4" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
                         <h3 class="card-label">Tipe Produk Rekomendasi</h3>

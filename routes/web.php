@@ -96,6 +96,8 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [ProductController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [ProductController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('delete');
+            Route::get('/avail-numbers', [ProductController::class, 'getAvailableQueueNumber'])->name('avail_numbers');
 
             // Categories / Types
             Route::get('/types', [ProductTypeController::class, 'index'])->name('types');

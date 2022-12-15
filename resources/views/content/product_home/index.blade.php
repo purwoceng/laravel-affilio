@@ -23,6 +23,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #fff;
+            border-radius: .25rem;
+            border: 1px solid rgba(40, 40, 40, .36);
+            overflow: hidden;
         }
 
         .product-cell .product-cell__image img {
@@ -77,6 +81,18 @@
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
+                @if (session('success'))
+                    <div class="alert alert-success my-3 mx-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger my-3 mx-4" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
                         <h3 class="card-label">Produk Rekomendasi</h3>
@@ -196,7 +212,7 @@
                         render: function(data) {
                             let element = '';
 
-                            if (data) {
+                            if (Number(data)) {
                                 element += `<button type="button" class="btn btn-success btn-disabled">Aktif</button>`;
                             } else {
                                 element += `<button type="button" class="btn btn-danger btn-disabled">Non-Aktif</button>`;
@@ -224,12 +240,14 @@
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${ajaxUrl}/edit/${data.id}">
+                                                <a class="nav-link" href="${ajaxUrl}/edit/${row.id}">
                                                     <span class="nav-text">Edit</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" onclick="return confirm('Anda yakin ingin menghapus data ${data.name}')" href="${ajaxUrl}/delete/${data.id}">
+                                                <a class="nav-link"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.product_data.productName}')"
+                                                    href="${ajaxUrl}/delete/${row.id}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>
                                             </li>
