@@ -4,9 +4,13 @@ namespace App\Providers;
 
 use App\Repositories\Content\Banner\BannerCategoryRepository;
 use App\Repositories\Content\Banner\BannerRepository;
+use App\Repositories\Content\CS\CsNumberCategoryRepository;
+use App\Repositories\Content\CS\CsNumberRepository;
 use App\Repositories\HomePage\ProductRepository;
 use App\Repositories\Interfaces\Content\Banner\BannerCategoryRepositoryInterface;
 use App\Repositories\Interfaces\Content\Banner\BannerRepositoryInterface;
+use App\Repositories\Interfaces\Content\CS\CsNumberCategoryRepositoryInterface;
+use App\Repositories\Interfaces\Content\CS\CsNumberRepositoryInterface;
 use App\Repositories\Interfaces\HomePage\ProductRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Cancel\InvoiceCancelRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Paid\InvoicePaidRepositoryInterface;
@@ -71,6 +75,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             BannerCategoryRepositoryInterface::class,
             BannerCategoryRepository::class,
+        );
+
+        $this->app->bind(
+            CsNumberRepositoryInterface::class,
+            CsNumberRepository::class,
+        );
+
+        $this->app->bind(
+            CsNumberCategoryRepositoryInterface::class,
+            CsNumberCategoryRepository::class,
         );
 
         // Manajemen Akses

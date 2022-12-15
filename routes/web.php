@@ -4,6 +4,9 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
+use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\HomePage\CsNumberController;
+use App\Http\Controllers\HomePage\CustomerServiceNumberController;
 use App\Http\Controllers\HomePage\ProductController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\HomePage\SupplierController;
@@ -76,7 +79,7 @@ Route::middleware('auth')->group(function () {
     // Permissions Menu
     Route::prefix('permissions')
         ->name('permissions.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('index');
             Route::get('/detail/{id}', [PermissionController::class, 'show'])->name('detail');
         });
@@ -84,13 +87,13 @@ Route::middleware('auth')->group(function () {
     // Content Configuration Menu
     Route::prefix('supplier-home')
         ->name('supplier_home.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [SupplierController::class, 'index'])->name('index');
         });
 
     Route::prefix('product-home')
         ->name('product_home.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('index');
             Route::get('/types', [ProductTypeController::class, 'index'])->name('types');
             Route::get('/types/create', [ProductTypeController::class, 'create'])->name('create_type');
@@ -102,31 +105,52 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('banners')
         ->name('banners.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [BannerController::class, 'index'])->name('index');
-            Route::get('/create',[BannerController::class,'create'])->name('create');
-            Route::post('/store',[BannerController::class,'store'])->name('store');
-            Route::get('/show/{id}',[BannerController::class,'show'])->name('show');
-            Route::get('/edit/{id}',[BannerController::class,'edit'])->name('edit');
-            Route::post('/update/{id}',[BannerController::class,'update'])->name('update');
-            Route::get('/delete/{id}',[BannerController::class,'destroy'])->name('destroy');
+            Route::get('/create', [BannerController::class, 'create'])->name('create');
+            Route::post('/store', [BannerController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [BannerController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [BannerController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [BannerController::class, 'destroy'])->name('destroy');
 
 
             Route::prefix('category')->name('category.')->group(function () {
                 Route::get('/', [BannerCategoryController::class, 'index'])->name('index');
-                Route::get('/create',[BannerCategoryController::class, 'create'])->name('create');
-                Route::post('/store',[BannerCategoryController::class, 'store'])->name('store');
-                Route::get('/show/{id}',[BannerCategoryController::class, 'show'])->name('show');
-                Route::get('/edit/{id}',[BannerCategoryController::class,'edit'])->name('edit');
-                Route::post('/update/{id}',[BannerCategoryController::class,'update'])->name('update');
-                Route::get('/delete/{id}',[BannerCategoryController::class, 'destroy'])->name('destroy');
+                Route::get('/create', [BannerCategoryController::class, 'create'])->name('create');
+                Route::post('/store', [BannerCategoryController::class, 'store'])->name('store');
+                Route::get('/show/{id}', [BannerCategoryController::class, 'show'])->name('show');
+                Route::get('/edit/{id}', [BannerCategoryController::class, 'edit'])->name('edit');
+                Route::post('/update/{id}', [BannerCategoryController::class, 'update'])->name('update');
+                Route::get('/delete/{id}', [BannerCategoryController::class, 'destroy'])->name('destroy');
             });
         });
 
+        //MCS NUMBER MENU
+    Route::prefix('cs-number')->name('cs-number.')->group(function () {
+        Route::get('/',[CsNumberController::class,'index'])->name('index');
+        Route::get('/create',[CsNumberController::class,'create'])->name('create');
+        Route::post('/store',[CsNumberController::class,'store'])->name('store');
+        Route::get('/show/{id}', [CsNumberController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [CsNumberController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [CsNumberController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [CsNumberController::class, 'destroy'])->name('destroy');
+
+
+        Route::prefix('category')->name('category.')->group(function() {
+            Route::get('/',[CsNumberCategoryController::class,'index'])->name('index');
+            Route::get('/create',[CsNumberCategoryController::class, 'create'])->name('create');
+            Route::post('/store',[CsNumberCategoryController::class,'store'])->name('store');
+            Route::get('/show/{id}', [CsNumberCategoryController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [CsNumberCategoryController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [CsNumberCategoryController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [CsNumberCategoryController::class, 'destroy'])->name('destroy');
+        });
+    });
+
     Route::prefix('configs')
         ->name('configs.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [ConfigController::class, 'index'])->name('index');
         });
-
 });
