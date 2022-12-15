@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repositories\Content\Banner\BannerCategoryRepository;
+use App\Repositories\Content\Banner\BannerRepository;
 use App\Repositories\HomePage\ProductRepository;
+use App\Repositories\Interfaces\Content\Banner\BannerCategoryRepositoryInterface;
+use App\Repositories\Interfaces\Content\Banner\BannerRepositoryInterface;
 use App\Repositories\Interfaces\HomePage\ProductRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Cancel\InvoiceCancelRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Paid\InvoicePaidRepositoryInterface;
@@ -57,6 +61,18 @@ class AppServiceProvider extends ServiceProvider
             InvoiceUnpaidRepositoryInterface::class,
             InvoiceUnpaidRepository::class,
         );
+
+        // Konten
+        $this->app->bind(
+            BannerRepositoryInterface::class,
+            BannerRepository::class,
+        );
+
+        $this->app->bind(
+            BannerCategoryRepositoryInterface::class,
+            BannerCategoryRepository::class,
+        );
+
         // Manajemen Akses
 
         $this->app->bind(

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\HomePage\ProductController;
@@ -112,6 +113,23 @@ Route::middleware('auth')->group(function () {
         ->name('banners.')
         ->group(function() {
             Route::get('/', [BannerController::class, 'index'])->name('index');
+            Route::get('/create',[BannerController::class,'create'])->name('create');
+            Route::post('/store',[BannerController::class,'store'])->name('store');
+            Route::get('/show/{id}',[BannerController::class,'show'])->name('show');
+            Route::get('/edit/{id}',[BannerController::class,'edit'])->name('edit');
+            Route::post('/update/{id}',[BannerController::class,'update'])->name('update');
+            Route::get('/delete/{id}',[BannerController::class,'destroy'])->name('destroy');
+
+
+            Route::prefix('category')->name('category.')->group(function () {
+                Route::get('/', [BannerCategoryController::class, 'index'])->name('index');
+                Route::get('/create',[BannerCategoryController::class, 'create'])->name('create');
+                Route::post('/store',[BannerCategoryController::class, 'store'])->name('store');
+                Route::get('/show/{id}',[BannerCategoryController::class, 'show'])->name('show');
+                Route::get('/edit/{id}',[BannerCategoryController::class,'edit'])->name('edit');
+                Route::post('/update/{id}',[BannerCategoryController::class,'update'])->name('update');
+                Route::get('/delete/{id}',[BannerCategoryController::class, 'destroy'])->name('destroy');
+            });
         });
 
     Route::prefix('configs')
@@ -119,4 +137,5 @@ Route::middleware('auth')->group(function () {
         ->group(function() {
             Route::get('/', [ConfigController::class, 'index'])->name('index');
         });
+
 });

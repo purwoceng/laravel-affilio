@@ -19,7 +19,7 @@ class CreateHomePageConfigurationTables extends Migration
             $table->string('code', 64)->unique();
             $table->timestamps();
         });
-        
+
         Schema::create('supplier_home', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('supplier_id');
@@ -30,7 +30,7 @@ class CreateHomePageConfigurationTables extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        
+
         Schema::create('product_home_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64);
@@ -71,6 +71,7 @@ class CreateHomePageConfigurationTables extends Migration
             $table->string('name', 64);
             $table->string('code', 64)->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('banners', function (Blueprint $table) {
@@ -83,6 +84,7 @@ class CreateHomePageConfigurationTables extends Migration
             $table->string('path');
             $table->string('path_url');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -99,5 +101,7 @@ class CreateHomePageConfigurationTables extends Migration
         Schema::dropIfExists('product_home');
         Schema::dropIfExists('home_types');
         Schema::dropIfExists('home_configurations');
+        Schema::dropIfExists('banners');
+        Schema::dropIfExists('banner_categories');
     }
 }

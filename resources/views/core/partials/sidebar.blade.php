@@ -131,9 +131,9 @@
                 </div>
             </li>
 
-            
-            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="javascript:;" class="menu-link menu-toggle">
+
+            <li class="menu-item menu-item-submenu menu-item-{{ request()->is('banners') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
                         <i class="fas fa-pencil-alt"></i>
                     </span>
@@ -149,13 +149,35 @@
                             </span>
                         </li>
 
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('banners.index') }}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
                                     <span></span>
                                 </i>
                                 <span class="menu-text">Banner</span>
+                                <i class="menu-arrow"></i>
                             </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item" aria-haspopup="true">
+                                        <a href="{{ route('banners.category.index') }}" class="menu-link">
+                                            <i class="menu-bullet menu-bullet-dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="menu-text">Kategori</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item" aria-haspopup="true">
+                                        <a href="{{ route('banners.index') }}" class="menu-link">
+                                            <i class="menu-bullet menu-bullet-dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="menu-text">Data Banner</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">

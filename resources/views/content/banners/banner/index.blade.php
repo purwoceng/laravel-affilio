@@ -1,68 +1,52 @@
 @extends('core.app')
-@section('title', __('Halaman Invoice Dibayar'))
+@section('title', __('Pengaturan Banner'))
 @section('content')
-    <!--begin::Subheader-->
+
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Invoice</h5>
-                <!--end::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Banner</h5>
             </div>
-            <!--end::Info-->
         </div>
     </div>
-    <!--end::Subheader-->
 
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Invoice Dibayar</h3>
+                        <h3 class="card-label">Banner</h3>
                     </div>
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-invoice-paid" class="table table-separate table-head-custom table-checkable nowrap"
-                        style="width:100%">
-                        <thead>
-                            <div class="filter-wrapper">
-                                <form action="#" class="form" id="filter">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Kode</label>
-                                                <div
-                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="code" placeholder="Type Here">
-                                                </div>
-                                            </div>
-                                            <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Username</label>
-                                                <div
-                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="username" placeholder="Type Here">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                    @if (session()->has('success'))
+                        <div class="alert alert-success" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong> {{ session()->get('success') }} </strong>
+                        </div>
+                    @endif
+
+                    <table id="js-table-banner"
+                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
+                        <div class="d-flex flex-row">
+                            <div class="p-1">
+                                <a href="{{ route('banners.create') }}" class="btn btn-sm btn-primary my-2"> <i
+                                        class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
                             </div>
+                        </div>
+
+                        <thead>
                             <tr class="text-center small">
                                 <th>#</th>
-                                <th>Kode</th>
-                                <th>Username</th>
-                                <th>Subtotal</th>
-                                <th>Ongkos Kirim</th>
-                                <th>Total Biaya</th>
-                                <th>Metode Pembayaran</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th>No Hp</th>
+                                <th>Gambar</th>
+                                <th>Nama </th>
+                                <th>Tipe Kategori</th>
+                                <th>Target Url</th>
+                                <th>Deskripsi</th>
+                                <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -73,19 +57,21 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('css')
     <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endpush
+
 @push('js')
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
+
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('invoices.paid.index') }}";
+            const urlAjax = "{{ route('banners.index') }}";
 
-            var tableInvoicePaid = $('#js-table-invoice-paid').DataTable({
+            var bannerTable = $('#js-table-banner').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -114,72 +100,52 @@
                         }
                     },
                     {
-                        data: 'code',
-                        name: 'code',
+                        data: 'image',
+                        name: 'image',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function (data, type, row, meta) {
+                            let baseUrl = "{{ asset('storage/') }}";
+                            return `<img src="${baseUrl+'/' + row.image}" class="image-fluid" width="80px">`;
+                        }
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'username',
-                        name: 'username',
+                        data: 'category_type',
+                        name: 'category_type',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'subtotal',
-                        name: 'subtotal',
+                        data: 'target_url',
+                        name: 'target_url',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'shipping_cost',
-                        name: 'shipping_cost',
+                        data: 'description',
+                        name: 'description',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'total',
-                        name: 'total',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'payment_method',
-                        name: 'payment_method',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'type',
-                        name: 'type',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'whatsapp',
-                        name: 'whatsapp',
+                        data: 'created_at',
+                        name: 'created_at',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -193,22 +159,32 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
+                            let showUrl = `{{ url('/banners/show/${row.id}') }}`;
+                            let editUrl = `{{ url('/banners/edit/${row.id}') }}`;
+                            let deleteUrl = `{{ url('/banners/delete/${row.id}') }}`;
                             let elements = '';
-
                             elements += `
-                                    <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                                        class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                                            class="la la-cog"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                        <ul class="nav nav-hoverable flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="javascript:void(0)"><span
-                                                        class="nav-text">Detail</span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                                    class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
+                                        class="la la-cog"></i></a>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                    <ul class="nav nav-hoverable flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${showUrl}"><span
+                                                    class="nav-text">Detail</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${editUrl}"><span
+                                                    class="nav-text">Ubah</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${deleteUrl}"><span
+                                                    class="nav-text">Hapus</span></a>
+                                        </li>
+                                    </ul>
                                 </div>
-                    `;
+                            </div>
+                            `;
 
                             return elements;
                         }
@@ -216,7 +192,6 @@
 
                 ],
             });
-
 
             function getDataFiltered() {
                 let filterEl = $('.filter');
@@ -249,6 +224,7 @@
             };
 
             function getFullUrl(data) {
+
                 let
                     url = urlAjax,
                     params = '';
@@ -268,7 +244,7 @@
             };
 
             function reDrawTable(data) {
-                tableInvoicePaid.ajax.url(getFullUrl(data)).load(null, false);
+                bannerTable.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();
