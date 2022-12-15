@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Pengaturan Kategori Banner'))
+@section('title', __('Pengaturan Banner'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Kategori Banner</h3>
+                        <h3 class="card-label">Banner</h3>
                     </div>
 
                 </div>
@@ -29,11 +29,11 @@
                         </div>
                     @endif
 
-                    <table id="js-table-banner-category"
+                    <table id="js-table-banner"
                         class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <div class="d-flex flex-row">
                             <div class="p-1">
-                                <a href="{{ route('banners.category.create') }}" class="btn btn-sm btn-primary my-2"> <i
+                                <a href="{{ route('banners.create') }}" class="btn btn-sm btn-primary my-2"> <i
                                         class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
                             </div>
                         </div>
@@ -41,8 +41,11 @@
                         <thead>
                             <tr class="text-center small">
                                 <th>#</th>
+                                <th>Gambar</th>
                                 <th>Nama </th>
-                                <th>Kode</th>
+                                <th>Tipe Kategori</th>
+                                <th>Target Url</th>
+                                <th>Deskripsi</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
                             </tr>
@@ -66,9 +69,9 @@
 
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('banners.category.index') }}";
+            const urlAjax = "{{ route('banners.index') }}";
 
-            var bannerCategoryTable = $('#js-table-banner-category').DataTable({
+            var bannerTable = $('#js-table-banner').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -97,6 +100,18 @@
                         }
                     },
                     {
+                        data: 'image',
+                        name: 'image',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function (data, type, row, meta) {
+                            let baseUrl = "{{ asset('storage/') }}";
+                            return `<img src="${baseUrl+'/' + row.image}" class="image-fluid" width="80px">`;
+                        }
+                    },
+                    {
                         data: 'name',
                         name: 'name',
                         sortable: false,
@@ -105,8 +120,24 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'code',
-                        name: 'code',
+                        data: 'category_type',
+                        name: 'category_type',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'target_url',
+                        name: 'target_url',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -128,9 +159,9 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            let showUrl = `{{ url('/banners/category/show/${row.id}') }}`;
-                            let editUrl = `{{ url('/banners/category/edit/${row.id}') }}`;
-                            let deleteUrl = `{{ url('/banners/category/delete/${row.id}') }}`;
+                            let showUrl = `{{ url('/banners/show/${row.id}') }}`;
+                            let editUrl = `{{ url('/banners/edit/${row.id}') }}`;
+                            let deleteUrl = `{{ url('/banners/delete/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
@@ -213,7 +244,7 @@
             };
 
             function reDrawTable(data) {
-                bannerCategoryTable.ajax.url(getFullUrl(data)).load(null, false);
+                bannerTable.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();
