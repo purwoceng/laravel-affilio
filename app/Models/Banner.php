@@ -26,10 +26,11 @@ class Banner extends Model
     protected $casts = [
         'created_at'  => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
+        'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function category_type()
-{
-    return $this->belongsTo( BannerCategory::class, 'banner_category_id');
-}
+    {
+        return $this->belongsTo(BannerCategory::class, 'banner_category_id');
+    }
 }

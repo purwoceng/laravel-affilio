@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class BannerCategory extends Model
+class CsNumberCategory extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'banner_categories';
+    protected $table = 'cs_number_categories';
 
     protected $fillable = [
         'id',
