@@ -94,7 +94,16 @@ class ProductTypeController extends Controller
     public function edit($id)
     {
         $type = ProductHomeType::findOrFail($id);
-        return view('content.product_home.update-type', compact('type'));
+
+        if ($type) {
+            return view('content.product_home.update-type', compact('type'));
+        } else {
+            return redirect()
+                ->route('product_home.types')
+                ->with([
+                    'error' => "Gagal mengedit data - Tipe dengan id {$id} tidak ditemukan.",
+                ]);
+        }
     }
 
     public function delete($id)
@@ -114,7 +123,7 @@ class ProductTypeController extends Controller
             return redirect()
                 ->route('product_home.types')
                 ->with([
-                    'success' => "Tipe dengan id {$id} tidak ditemukan.",
+                    'error' => "Gagal menghapus data - Tipe dengan id {$id} tidak ditemukan.",
                 ]);
         }
     }

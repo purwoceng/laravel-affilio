@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                     @if (session('error'))
-                        <span class="alert alert-danger" role="alert">
+                        <span class="alert alert-danger my-3 mx-4" role="alert">
                             Oops - {{ session('error') }}
                         </span>
                     @endif
@@ -57,6 +57,7 @@
                                     value="{{ $type->code }}"
                                     placeholder="Masukkan Kode" 
                                     aria-describedby="code-helper"
+                                    readonly
                                 />
                                 
                                 @error('code')

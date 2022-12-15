@@ -95,6 +95,8 @@
             const urlAjax = "{{ route('members.index') }}";
 
             var tableBlockedMember = $('#js-table-member-blocked').DataTable({
+                destroy: true,
+                responsive: false,
                 processing: true,
                 serverSide: true,
                 responsive: true,

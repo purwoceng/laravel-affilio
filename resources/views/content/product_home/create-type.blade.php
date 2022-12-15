@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                     @if (session('error'))
-                        <span class="alert alert-danger" role="alert">
+                        <span class="alert alert-danger my-3 mx-4" role="alert">
                             Oops - {{ session('error') }}
                         </span>
                     @endif
@@ -36,6 +36,7 @@
                                 class="form-control"
                                 placeholder="Masukkan Nama"
                                 aria-describedby="name-helper" 
+                                value="{{ old('name') }}"
                             />
 
                             @error('name')
@@ -52,6 +53,7 @@
                                 class="form-control"
                                 placeholder="Masukkan Kode" 
                                 aria-describedby="code-helper"
+                                value="{{ old('code') }}"
                             />
                             
                             @error('code')
