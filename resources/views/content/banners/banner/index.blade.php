@@ -106,6 +106,10 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
+                        render: function (data, type, row, meta) {
+                            let baseUrl = "{{ asset('storage/') }}";
+                            return `<img src="${baseUrl+'/' + row.image}" class="image-fluid" width="80px">`;
+                        }
                     },
                     {
                         data: 'name',
@@ -155,8 +159,8 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            let showUrl = `{{ url('/banners/category/show/${row.id}') }}`;
-                            let editUrl = `{{ url('/banners/category/edit/${row.id}') }}`;
+                            let showUrl = `{{ url('/banners/show/${row.id}') }}`;
+                            let editUrl = `{{ url('/banners/edit/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"

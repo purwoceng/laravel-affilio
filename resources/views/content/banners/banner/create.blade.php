@@ -31,17 +31,44 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('banners.category.store') }}">
+                            <form method="POST" action="{{ route('banners.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label>Nama <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan nama kategori"
+                                    <input type="text" class="form-control" placeholder="Masukkan nama banner"
                                         name="name" value="" required />
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="code">Tipe<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="code" name="code" value=""
-                                        placeholder="Masukkan tipe kategori" required />
+                                    <label>File Foto<span class="text-danger">*</span></label>
+                                    <div></div>
+                                    <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" name="thumbnail_image"/>
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tipe Banner<span class="text-danger">*</span></label>
+                                    <div></div>
+                                    <select class="custom-select form-control" name="banner_category_id" required>
+                                        <option selected disabled >Pilih kategori banner</option>
+                                        @foreach ($bannerCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="target_url">Target Url<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="target_url" name="target_url"
+                                        value="" placeholder="Masukkan target url" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="description">Deskripsi<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="description" name="description"
+                                        value="" placeholder="Masukkan target url" required />
                                 </div>
 
                                 <div class="d-flex flex-row">

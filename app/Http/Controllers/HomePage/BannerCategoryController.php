@@ -4,7 +4,6 @@ namespace App\Http\Controllers\HomePage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\BannerCategory;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Interfaces\Content\Banner\BannerCategoryRepositoryInterface;
@@ -68,7 +67,7 @@ class BannerCategoryController extends Controller
 
         if ($result) {
             return redirect()->route('banners.category.index')
-                ->with('success', 'Data Kategori Banner telah berhasil dibuat.');
+                ->with('success', 'Data Kategori Banner telah berhasil dibuat');
         } else {
             return back()->withInput()->with('info', 'Gagal membuat data kategori banner');
         }

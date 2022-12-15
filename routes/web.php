@@ -105,6 +105,10 @@ Route::middleware('auth')->group(function () {
         ->group(function() {
             Route::get('/', [BannerController::class, 'index'])->name('index');
             Route::get('/create',[BannerController::class,'create'])->name('create');
+            Route::post('/store',[BannerController::class,'store'])->name('store');
+            Route::get('/show/{id}',[BannerController::class,'show'])->name('show');
+            Route::get('/edit/{id}',[BannerController::class,'edit'])->name('edit');
+            Route::post('/update/{id}',[BannerController::class,'update'])->name('update');
 
 
             Route::prefix('category')->name('category.')->group(function () {

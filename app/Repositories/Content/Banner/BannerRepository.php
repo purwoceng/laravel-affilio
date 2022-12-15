@@ -29,7 +29,7 @@ class BannerRepository implements BannerRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Banner::offset($start)->limit($limit);
+        return Banner::with('category_type')->offset($start)->limit($limit);
     }
 
     public function getTotalData()
@@ -53,7 +53,7 @@ class BannerRepository implements BannerRepositoryInterface
         if (!empty($getResults)) {
             foreach ($getResults  as $key => $banner) {
                 $id = $banner->id;
-                $category_type = $banner->banner_category_id;
+                $category_type = $banner->category_type->name;
                 $name = $banner->name;
                 $image = $banner->image;
                 $target_url = $banner->target_url;
