@@ -16,4 +16,34 @@ class SupplierController extends Controller
     {
         return view('content.supplier_home.index');
     }
+
+    public function show($id)
+    {
+
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function store(Request $request)
+    {
+
+    }
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function delete(Request $request)
+    {
+        
+    }
 }
