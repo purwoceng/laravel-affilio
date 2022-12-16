@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace App\Http\Controllers\Member\Blocked;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\Member\MemberBlockedRepositoryInterface;
+use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 
-class MemberBlockController extends Controller
+class MemberBlockedController extends Controller
 {
     private $memberBlockedRepository;
 

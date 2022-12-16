@@ -1,7 +1,7 @@
 @extends('core.app')
 @section('title', __('Data Member'))
 @push('css')
-<link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -95,6 +95,8 @@
             const urlAjax = "{{ route('members.index') }}";
 
             var tableBlockedMember = $('#js-table-member-blocked').DataTable({
+                destroy: true,
+                responsive: false,
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -195,7 +197,7 @@
                             let elements = '';
 
                             elements += `
-                    <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                                <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
                                             class="la la-cog"></i></a>
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">

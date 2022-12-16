@@ -1,11 +1,7 @@
 @extends('core.app')
 
 @push('css')
-    <link
-        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
-        rel="stylesheet"
-        type="text/css"
-    />
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('title', __('Akses: Pengguna'))
@@ -31,6 +27,40 @@
                 <div class="card-body">
                     <table id="js-user-table" class="table table-separate table-head-custom table-checkable nowrap">
                         <thead>
+                            <div class="filter-wrapper">
+                                <form action="#" class="form" id="filter">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Nama</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="name" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Username</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="username" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Email</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="email" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <tr class="small">
                                 <th>#</th>
                                 <th>Nama</th>
@@ -49,80 +79,79 @@
 
 
 @push('js')
-<script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
-<script>
-    'use strict';
+    <script>
+        'use strict';
 
-    $(document).ready(function() {
-        const ajaxUrl = "{{ route('users.index') }}";
-        
-        $('#js-user-table').DataTable({
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            searching: false,
-            autoWidth: true,
-            select: true,
-            language: {
-                infoFiltered: "",
-            },
-            lengthChange: false,
-            pageLength: 20,
-            order: [
-                [0, 'DESC']
-            ],
-            ajax: {
-                url: ajaxUrl,
-                type: 'GET',
-            },
-            scrollX: true,
-            columns: [
-                {
-                    data: null,
-                    sortable: false,
-                    className: 'text-center',
-                    render: function(data, type, row, meta) {
-                        const index = meta.row + meta.settings._iDisplayStart + 1;
+        $(document).ready(function() {
+            const ajaxUrl = "{{ route('users.index') }}";
 
-                        return index;
-                    }
+            var usersTable =  $('#js-user-table').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                searching: false,
+                autoWidth: true,
+                select: true,
+                language: {
+                    infoFiltered: "",
                 },
-                {
-                    data: 'name',
-                    name: 'name',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-left small',
+                lengthChange: false,
+                pageLength: 20,
+                order: [
+                    [0, 'DESC']
+                ],
+                ajax: {
+                    url: ajaxUrl,
+                    type: 'GET',
                 },
-                {
-                    data: 'username',
-                    name: 'username',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-left small',
-                },
-                {
-                    data: 'email',
-                    name: 'email',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-left small',
-                },
-                {
-                    data: 'actions',
-                    name: 'actions',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-center small',
-                    render : function(data, type, row, meta) {
-                        let elements = '';
+                scrollX: true,
+                columns: [{
+                        data: null,
+                        sortable: false,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            const index = meta.row + meta.settings._iDisplayStart + 1;
 
-                        elements += `<div class="dropdown dropdown-inline">
+                            return index;
+                        }
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'username',
+                        name: 'username',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                        render: function(data, type, row, meta) {
+                            let elements = '';
+
+                            elements += `<div class="dropdown dropdown-inline">
                                 <a href="javascript:void(0)"
                                     class="btn btn-sm btn-primary btn-icon"
                                     data-toggle="dropdown">
@@ -139,11 +168,70 @@
                                 </div>
                             </div>`;
 
-                        return elements;
-                    },
+                            return elements;
+                        },
+                    }
+                ]
+            });
+
+            function getDataFiltered() {
+                let filterEl = $('.filter');
+                let data = {};
+
+                $.each(filterEl, function(i, v) {
+                    let key = $(v).data('name');
+                    let value = $(v).val();
+                    if (key == 'date') {
+                        if (value != '') {
+                            value = value.split('/');
+                            data[key] = JSON.stringify(value);
+                        }
+                    } else {
+                        if (value != '') {
+                            data[key] = value;
+                        }
+                    }
+                });
+
+                if (getURLVar('start')) {
+                    data.start = getURLVar('start');
                 }
-            ]
+
+                if (getURLVar('limit')) {
+                    data.limit = getURLVar('limit');
+                }
+
+                reDrawTable(data);
+            };
+
+            function getFullUrl(data) {
+                let
+                    url = ajaxUrl,
+                    params = '';
+
+                $.each(data, function(key, value) {
+                    if (!!value) {
+                        params += `${key}=${value}&`;
+                    }
+                });
+
+                params = params.replace(/\&$/, '');
+
+                if (params != '') {
+                    url = `${url}?${params}`;
+                }
+                return url;
+            };
+
+            function reDrawTable(data) {
+                usersTable.ajax.url(getFullUrl(data)).load(null, false);
+            };
+
+            init();
+
+            function init() {
+                $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+            }
         });
-    });
-</script>
+    </script>
 @endpush
