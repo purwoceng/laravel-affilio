@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class BannerCategory extends Model
+class CsNumber extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'banner_categories';
+    protected $table = 'cs_numbers';
 
     protected $fillable = [
         'id',
+        'cs_category_id',
+        'number',
         'name',
-        'code',
     ];
 
     protected $casts = [
@@ -23,4 +24,9 @@ class BannerCategory extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function category_type()
+    {
+        return $this->belongsTo(CsNumberCategory::class, 'cs_category_id');
+    }
 }
