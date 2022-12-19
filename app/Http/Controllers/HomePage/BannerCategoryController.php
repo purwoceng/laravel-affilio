@@ -48,10 +48,17 @@ class BannerCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama kategori sudah digunakan',
+            'code.required' => 'Tipe tidak boleh kosong',
+            'code.unique' => 'Tipe kategori sudah digunakan',
+        ];
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:64',
-            'code' => 'required|max:64',
-        ]);
+            'name' => 'required|unique:banner_categories,name|max:64',
+            'code' => 'required|unique:banner_categories,code|max:64',
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
@@ -84,7 +91,7 @@ class BannerCategoryController extends Controller
 
         $data = $this->bannerCategoryRepository->getDataById($id);
 
-        return view('content.banners.category.show',compact(['data']));
+        return view('content.banners.category.show', compact(['data']));
     }
 
     /**
@@ -97,7 +104,7 @@ class BannerCategoryController extends Controller
     {
         $data = $this->bannerCategoryRepository->getDataById($id);
 
-        return view('content.banners.category.edit',compact(['data']));
+        return view('content.banners.category.edit', compact(['data']));
     }
 
     /**
@@ -109,10 +116,17 @@ class BannerCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama kategori sudah digunakan',
+            'code.required' => 'Tipe tidak boleh kosong',
+            'code.unique' => 'Tipe kategori sudah digunakan',
+        ];
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:64',
-            'code' => 'required|max:64',
-        ]);
+            'name' => 'required|unique|max:64',
+            'code' => 'required|unique|max:64',
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)

@@ -27,6 +27,6 @@ class CsNumber extends Model
 
     public function category_type()
     {
-        return $this->belongsTo(CsNumberCategory::class, 'cs_category_id');
+        return $this->belongsTo(CsNumberCategory::class, 'cs_category_id')->withTrashed();
     }
 }

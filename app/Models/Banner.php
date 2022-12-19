@@ -31,6 +31,6 @@ class Banner extends Model
 
     public function category_type()
     {
-        return $this->belongsTo(BannerCategory::class, 'banner_category_id');
+        return $this->belongsTo(BannerCategory::class, 'banner_category_id')->withTrashed();;
     }
 }
