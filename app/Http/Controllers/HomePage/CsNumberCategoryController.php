@@ -48,10 +48,17 @@ class CsNumberCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama kategori sudah digunakan',
+            'code.required' => 'Tipe tidak boleh kosong',
+            'code.unique' => 'Tipe kategori sudah digunakan',
+        ];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|max:64',
-        ]);
+            'code' => 'required|unique:cs_number_categories,code|max:64',
+        ],$messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
@@ -106,10 +113,17 @@ class CsNumberCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama kategori sudah digunakan',
+            'code.required' => 'Tipe tidak boleh kosong',
+            'code.unique' => 'Tipe kategori sudah digunakan',
+        ];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|max:64',
-        ]);
+            'code' => 'required|unique:cs_number_categories,code|max:64',
+        ],$messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)

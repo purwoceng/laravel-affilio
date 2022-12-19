@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Target Url<span class="text-danger">*</span></label>
+                                    <label class="col-2 col-form-label">Target Url</label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="target_url" name="target_url"
                                         value="{{ $data->target_url }}"" placeholder="Masukkan target url" disabled />
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Deskripsi<span class="text-danger">*</span></label>
+                                    <label class="col-2 col-form-label">Deskripsi</label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="description" name="description"
                                         value="{{ $data->description }}" placeholder="Masukkan target url" disabled />
@@ -83,8 +83,6 @@
                                     <div class="p-1">
                                         <a href="{{ route('banners.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
-
-
                                 </div>
                             </form>
                         </div>

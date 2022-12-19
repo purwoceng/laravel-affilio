@@ -49,11 +49,17 @@ class CsNumberController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama sudah digunakan',
+            'number.required' => 'Nomor Handphone tidak boleh kosong',
+        ];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
             'number' => 'required|numeric',
             'cs_category_id' => 'required',
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -116,11 +122,17 @@ class CsNumberController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama sudah digunakan',
+            'number.required' => 'Nomor Handphone tidak boleh kosong',
+        ];
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
             'number' => 'required|numeric',
             'cs_category_id' => 'required',
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();

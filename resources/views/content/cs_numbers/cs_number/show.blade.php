@@ -31,7 +31,7 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('banners.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('cs-number.store') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group row">
@@ -51,7 +51,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Tipe CS<span class="text-danger">*</span></label>
                                     <div class="col-9">
@@ -68,10 +67,8 @@
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('banners.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('cs-number.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
-
-
                                 </div>
                             </form>
                         </div>

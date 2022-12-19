@@ -31,23 +31,33 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('cs-number.update', $data->id) }}" enctype="multipart/form-data">
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+                            <form method="POST" action="{{ route('cs-number.update', $data->id) }}"
+                                enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Nama <span class="text-danger">*</span></label>
                                     <div class="col-9">
                                         <input type="text" class="form-control" placeholder="Masukkan nama banner"
-                                        name="name" value="{{ $data->name }}" required />
+                                            name="name" value="{{ $data->name }}" required />
                                     </div>
                                 </div>
 
 
                                 <div class="form-group row">
-                                    <label class="col-3 col-form-label">Nomor Handphone <span class="text-danger">*</span></label>
+                                    <label class="col-3 col-form-label">Nomor Handphone <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-9">
                                         <input type="text" class="form-control" placeholder="Masukkan nomor handphone"
-                                        name="number" value="{{ $data->number }}" required />
+                                            name="number" value="{{ $data->number }}" required />
                                     </div>
                                 </div>
 
@@ -68,7 +78,7 @@
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('banners.index') }}" class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('cs-number.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
 
                                     <div class="p-1 ml-auto">

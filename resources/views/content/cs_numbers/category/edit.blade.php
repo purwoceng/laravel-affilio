@@ -31,6 +31,14 @@
                                 </div>
                             @endif
 
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
                             <form method="POST" action="{{ route('cs-number.category.update', $data->id) }}">
                                 @csrf
                                 <div class="form-group">
@@ -46,7 +54,7 @@
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('banners.category.index') }}"
+                                        <a href="{{ route('cs-number.category.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 
