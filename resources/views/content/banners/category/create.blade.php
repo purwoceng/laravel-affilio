@@ -42,7 +42,7 @@
                             <form method="POST" action="{{ route('banners.category.store') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Nama <span class="text-danger">*</span></label>
+                                    <label>Nama</label>
                                     <input type="text" class="form-control" placeholder="Masukkan nama kategori"
                                         name="name" value="" required />
                                 </div>
