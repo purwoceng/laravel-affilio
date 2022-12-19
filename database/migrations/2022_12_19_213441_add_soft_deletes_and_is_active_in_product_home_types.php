@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeletesInProductHomeTypes extends Migration
+class AddSoftDeletesAndIsActiveInProductHomeTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,7 @@ class AddSoftDeletesInProductHomeTypes extends Migration
     {
         Schema::table('product_home_types', function (Blueprint $table) {
             $table->softDeletes();
-        });
-
-        Schema::table('supplier_home_types', function (Blueprint $table) {
-            $table->softDeletes();
+            $table->enum('is_active', ['1', '0']);
         });
     }
 
@@ -31,9 +28,7 @@ class AddSoftDeletesInProductHomeTypes extends Migration
     {
         Schema::table('product_home_types', function (Blueprint $table) {
             $table->dropSoftDeletes();
-        });
-        Schema::table('supplier_home_types', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            $table->dropColumn('is_active');
         });
     }
 }
