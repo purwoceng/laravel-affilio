@@ -12,6 +12,7 @@ class SupplierHome extends Model
     use SoftDeletes;
 
     protected $table = 'supplier_home';
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'supplier_id',

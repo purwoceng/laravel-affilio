@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Supplier Rekomendasi - Tambah'))
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -121,7 +121,7 @@
                                 <option selected disabled value="0">Pilih nomor urut</option>
 
                                 @foreach ($available_numbers as $number)
-                                    <option value="{{ $number }}" {{ old('title') == $number ? 'selected' : '' }}>Ke-{{ $number}}</option>
+                                    <option value="{{ $number }}" {{ old('queue_number') == $number ? 'selected' : '' }}>Ke-{{ $number }}</option>
                                 @endforeach
                             </select>
                             
@@ -132,7 +132,7 @@
                             @enderror
                         </div>
 
-                        <a class="btn btn-outline-danger" href="{{ route('product_home.index') }}">Kembali</a>
+                        <a class="btn btn-outline-danger" href="{{ route('supplier_home.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -148,28 +148,23 @@
         'use strict';
 
         const API_URL = '{{ config('app.baleomol_url') }}';
-        const productsEndpoint = `${API_URL}/products`;
+        const suppliersEndpoint = `${API_URL}/suppliers`;
 
         $(document).ready(function() {
-            function formatProduct(product) {
-                if (product.loading) {
-                    return product.productName;
+            function formatProduct(supplier) {
+                if (supplier.loading) {
+                    return supplier.text;
                 }
-
-                const isVariant = Number(product.isVariation);
-                const price = isVariant ? product.alternativePriceFormat : product.priceFormat;
 
                 const $container = $(
                     `<div class="xselect-option clearfix">
                         <div class="xselect-option__avatar">
-                            <img src="${product.image}" />
+                            <img src="${supplier.image}" />
                         </div>
                         <div class="xselect-option__desc">
-                            <div class="xselect-option__title">${product.text}</div>
+                            <div class="xselect-option__title">${supplier.text}</div>
                             <div class="xselect-option__stats">
-                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerName}</div>
-                                <div class="xselect-option__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
-                                <div class="xselect-option__stat"><i class="fas fa-box-open"></i> ${product.stock} Unit</div>
+                                <div class="xselect-option__stat"><i class="far fa-map"></i> ${supplier.city} ${supplier.province}</div>
                             </div>
                         </div>
                     </div>`
@@ -178,19 +173,19 @@
                 return $container;
             }
 
-            function formatProductSelection(product) {
-                return product.productName;
+            function formatProductSelection(supplier) {
+                return supplier.productName;
             }
 
-            $('.js-product-selector').select2({
-                placeholder: 'Ketik Nama Produk',
+            $('.js-supplier-selector').select2({
+                placeholder: 'Ketik Nama Toko Supplier',
                 minimumInputLength: 3,
                 ajax: {
-                    url: productsEndpoint,
+                    url: suppliersEndpoint,
                     dataType: 'json',
                     data: function(params) {
                         const query = { limit: 10 };
-                        if (params.term) query.keyword = params.term;
+                        if (params.term) query.name = params.term;
 
                         return query;
                     },
@@ -202,21 +197,18 @@
 
                         if (data.success) {
                             const { results: resultData } = data.data;
-                            const products = resultData.map(item => {
+
+                            const suppliers = resultData.map(item => {
                                 return {
-                                    id: item.productId,
-                                    text: item.productName,
-                                    image: item.picture,
-                                    sellerName: item.sellerName,
-                                    price: item.price,
-                                    stock: item.stock,
-                                    isVariation: item.isVariation,
-                                    alternativePriceFormat: item.alternativePriceFormat,
-                                    priceFormat: item.priceFormat,
+                                    id: item.id,
+                                    text: item.store?.name || '',
+                                    image: item.store?.image,
+                                    city: item.store?.city,
+                                    province: item.store?.province,
                                 }
                             });
 
-                            result.results = products;
+                            result.results = suppliers;
                         }
 
                         return result;
