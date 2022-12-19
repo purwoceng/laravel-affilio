@@ -49,8 +49,9 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Nama</th>
                                 <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -118,6 +119,14 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-right small',
                     },
                     {
                         data: 'actions',

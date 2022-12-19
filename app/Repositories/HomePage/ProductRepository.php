@@ -45,10 +45,13 @@ class ProductRepository implements ProductRepositoryInterface
                 $name = $product_home_type->name;
                 $code = $product_home_type->code;
                 $actions = ['id' => $id, 'name' => $name];
+                $created_at = date('d/m/Y H:i', strtotime($product_home_type->created_at));
+
                 $data[] = compact(
                     'id',
                     'name',
                     'code',
+                    'created_at',
                     'actions',
                 );
             }
@@ -98,6 +101,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $queue_number = $product_home->queue_number;
                 $is_active = $product_home->is_active;
                 $actions = $id;
+                $created_at = date('d/m/Y H:i', strtotime($product_home->created_at));
 
                 $data[] = compact(
                     'id',
@@ -106,6 +110,7 @@ class ProductRepository implements ProductRepositoryInterface
                     'queue_number',
                     'is_active',
                     'actions',
+                    'created_at',
                 );
             }
         }

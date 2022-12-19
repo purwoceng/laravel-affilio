@@ -46,6 +46,7 @@ class SupplierRepository implements SupplierRepositoryInterface
                 $queue_number = $supplier_home->queue_number;
                 $is_active = $supplier_home->is_active;
                 $actions = $id;
+                $created_at = date('d/m/Y H:i', strtotime($supplier_home->created_at));
 
                 $data[] = compact(
                     'id',
@@ -53,6 +54,7 @@ class SupplierRepository implements SupplierRepositoryInterface
                     'supplier_home_type_id',
                     'queue_number',
                     'is_active',
+                    'created_at',
                     'actions',
                 );
             }

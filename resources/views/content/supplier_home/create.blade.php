@@ -164,7 +164,7 @@
                         <div class="xselect-option__desc">
                             <div class="xselect-option__title">${supplier.text}</div>
                             <div class="xselect-option__stats">
-                                <div class="xselect-option__stat"><i class="far fa-map"></i> ${supplier.city} ${supplier.province}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-map-marker-alt"></i> ${supplier.city} ${supplier.province}</div>
                             </div>
                         </div>
                     </div>`
