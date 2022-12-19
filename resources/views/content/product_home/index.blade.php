@@ -111,6 +111,7 @@
                                 <th>Produk</th>
                                 <th>Nomor Urut</th>
                                 <th>Status</th>
+                                <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -220,6 +221,14 @@
 
                             return element;
                         }
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-right small',
                     },
                     {
                         data: 'actions',
