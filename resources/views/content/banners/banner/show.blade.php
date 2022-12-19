@@ -83,8 +83,6 @@
                                     <div class="p-1">
                                         <a href="{{ route('banners.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
-
-
                                 </div>
                             </form>
                         </div>

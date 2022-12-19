@@ -31,6 +31,14 @@
                                 </div>
                             @endif
 
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
                             <form method="POST" action="{{ route('banners.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
@@ -43,7 +51,8 @@
                                     <label>File Foto<span class="text-danger">*</span></label>
                                     <div></div>
                                     <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile" name="thumbnail_image"/>
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="thumbnail_image" />
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                 </div>
@@ -52,7 +61,7 @@
                                     <label>Tipe Banner<span class="text-danger">*</span></label>
                                     <div></div>
                                     <select class="custom-select form-control" name="banner_category_id" required>
-                                        <option selected disabled >Pilih kategori banner</option>
+                                        <option selected disabled>Pilih kategori banner</option>
                                         @foreach ($bannerCategories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -73,8 +82,7 @@
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('banners.category.index') }}"
-                                            class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('banners.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
 
                                     <div class="p-1 ml-auto">

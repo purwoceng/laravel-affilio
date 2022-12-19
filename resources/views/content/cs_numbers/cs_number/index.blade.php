@@ -64,7 +64,6 @@
 @push('js')
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
-
     <script>
         $(document).ready(function() {
             const urlAjax = "{{ route('cs-number.index') }}";
