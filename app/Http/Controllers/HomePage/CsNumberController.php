@@ -53,11 +53,10 @@ class CsNumberController extends Controller
             'name.required' => 'Nama tidak boleh kosong',
             'name.unique' => 'Nama sudah digunakan',
             'number.required' => 'Nomor Handphone tidak boleh kosong',
-            'code.unique' => 'Tipe kategori sudah digunakan',
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique|max:64',
+            'name' => 'required|unique:cs_numbers|max:64',
             'number' => 'required|numeric',
             'cs_category_id' => 'required',
         ],$messages);
@@ -131,7 +130,7 @@ class CsNumberController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique|max:64',
+            'name' => 'required|unique:cs_numbers|max:64',
             'number' => 'required|numeric',
             'cs_category_id' => 'required',
         ], $messages);
