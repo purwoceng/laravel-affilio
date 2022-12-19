@@ -16,6 +16,10 @@ class AddSoftDeletesInProductHomeTypes extends Migration
         Schema::table('product_home_types', function (Blueprint $table) {
             $table->softDeletes();
         });
+
+        Schema::table('supplier_home_types', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -26,6 +30,9 @@ class AddSoftDeletesInProductHomeTypes extends Migration
     public function down()
     {
         Schema::table('product_home_types', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
+        Schema::table('supplier_home_types', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
