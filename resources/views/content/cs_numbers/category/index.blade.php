@@ -29,19 +29,27 @@
                         </div>
                     @endif
 
+                    @if ($errors->any())
+                        <ul class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <li> {{ $error }} </li>
+                            @endforeach
+                        </ul>
+                    @endif
+
                     <table id="js-table-cs-number-category"
                         class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <div class="d-flex flex-row">
                             <div class="p-1">
-                                <a href="{{ route('cs-number.category.create') }}" class="btn btn-sm btn-primary my-2"> <i
-                                        class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
+                                <a href="{{ route('cs-number.category.create') }}" class="btn btn-sm btn-primary my-2">
+                                    <i class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
                             </div>
                         </div>
                         <thead>
                             <tr class="text-center small">
                                 <th>#</th>
                                 <th>Nama </th>
-                                <th>Kode</th>
+                                <th>Tipe</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
                             </tr>

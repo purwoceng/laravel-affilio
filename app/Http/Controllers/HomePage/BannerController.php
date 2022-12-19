@@ -53,12 +53,21 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama sudah digunakan',
+            'target_url' => 'Url tidak boleh kosong',
+            'description' => 'Deskripsi tidak boleh kosong',
+            'number.required' => 'Nomor Handphone tidak boleh kosong',
+            'code.unique' => 'Tipe kategori sudah digunakan',
+        ];
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:64',
+            'name' => 'required|unique|max:64',
             'target_url' => 'required|max:255',
             'description' => 'required|max:255',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -132,12 +141,21 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.unique' => 'Nama sudah digunakan',
+            'target_url' => 'Url tidak boleh kosong',
+            'description' => 'Deskripsi tidak boleh kosong',
+            'number.required' => 'Nomor Handphone tidak boleh kosong',
+            'code.unique' => 'Tipe kategori sudah digunakan',
+        ];
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:64',
+            'name' => 'required|unique|max:64',
             'target_url' => 'required|max:255',
             'description' => 'required|max:255',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();

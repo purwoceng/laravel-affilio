@@ -31,25 +31,33 @@
                                 </div>
                             @endif
 
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
                             <form method="POST" action="{{ route('cs-number.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label>Nama <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan nama cs"
-                                        name="name" value="" required />
+                                    <input type="text" class="form-control" placeholder="Masukkan nama cs" name="name"
+                                        value="" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="number">Nomor Handphone<span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="number" name="number"
-                                        value="" placeholder="Masukkan nomor handphone" required />
+                                    <input type="number" class="form-control" id="number" name="number" value=""
+                                        placeholder="Masukkan nomor handphone" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label>Tipe Kategori<span class="text-danger">*</span></label>
                                     <div></div>
                                     <select class="custom-select form-control" name="cs_category_id" required>
-                                        <option selected disabled >Pilih kategori cs</option>
+                                        <option selected disabled>Pilih kategori cs</option>
                                         @foreach ($csNumberCategories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -58,8 +66,7 @@
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('cs-number.index') }}"
-                                            class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('cs-number.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
 
                                     <div class="p-1 ml-auto">

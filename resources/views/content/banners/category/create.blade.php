@@ -31,6 +31,14 @@
                                 </div>
                             @endif
 
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
                             <form method="POST" action="{{ route('banners.category.store') }}">
                                 @csrf
                                 <div class="form-group">
