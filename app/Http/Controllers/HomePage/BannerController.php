@@ -56,10 +56,9 @@ class BannerController extends Controller
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'name.unique' => 'Nama sudah digunakan',
-            'target_url' => 'Url tidak boleh kosong',
-            'description' => 'Deskripsi tidak boleh kosong',
+            'target_url.required' => 'Url tidak boleh kosong',
+            'description.required' => 'Deskripsi tidak boleh kosong',
             'number.required' => 'Nomor Handphone tidak boleh kosong',
-            'code.unique' => 'Tipe kategori sudah digunakan',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -144,10 +143,9 @@ class BannerController extends Controller
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'name.unique' => 'Nama sudah digunakan',
-            'target_url' => 'Url tidak boleh kosong',
-            'description' => 'Deskripsi tidak boleh kosong',
+            'target_url.required' => 'Url tidak boleh kosong',
+            'description.required' => 'Deskripsi tidak boleh kosong',
             'number.required' => 'Nomor Handphone tidak boleh kosong',
-            'code.unique' => 'Tipe kategori sudah digunakan',
         ];
 
         $validator = Validator::make($request->all(), [

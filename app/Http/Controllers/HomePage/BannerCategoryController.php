@@ -49,8 +49,6 @@ class BannerCategoryController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.unique' => 'Nama kategori sudah digunakan',
             'code.required' => 'Tipe tidak boleh kosong',
             'code.unique' => 'Tipe kategori sudah digunakan',
         ];
@@ -117,8 +115,6 @@ class BannerCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.unique' => 'Nama kategori sudah digunakan',
             'code.required' => 'Tipe tidak boleh kosong',
             'code.unique' => 'Tipe kategori sudah digunakan',
         ];
