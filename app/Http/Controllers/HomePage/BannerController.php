@@ -61,7 +61,7 @@ class BannerController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:banners|max:64',
+            'name' => 'required|unique:banners,name|max:64',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
         ],$messages);
 
@@ -140,15 +140,13 @@ class BannerController extends Controller
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'name.unique' => 'Nama sudah digunakan',
-            'target_url.required' => 'Url tidak boleh kosong',
-            'description.required' => 'Deskripsi tidak boleh kosong',
             'number.required' => 'Nomor Handphone tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:banners,name|max:64',
-            'target_url' => 'required|max:255',
-            'description' => 'required|max:255',
+            'target_url' => 'max:255',
+            'description' => 'max:255',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
         ],$messages);
 
