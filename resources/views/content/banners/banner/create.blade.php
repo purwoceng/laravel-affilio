@@ -69,15 +69,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="target_url">Target Url<span class="text-danger">*</span></label>
+                                    <label for="target_url">Target Url</label>
                                     <input type="text" class="form-control" id="target_url" name="target_url"
-                                        value="" placeholder="Masukkan target url" required />
+                                        value="" placeholder="Masukkan target url"  />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="description">Deskripsi<span class="text-danger">*</span></label>
+                                    <label for="description">Deskripsi</label>
                                     <input type="text" class="form-control" id="description" name="description"
-                                        value="" placeholder="Masukkan target url" required />
+                                        value="" placeholder="Masukkan target url"  />
                                 </div>
 
                                 <div class="d-flex flex-row">
