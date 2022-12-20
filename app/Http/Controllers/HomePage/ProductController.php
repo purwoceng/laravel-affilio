@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function create()
     {
         $arr_range = range(1, 50);
-        $data = ProductHome::where('is_active', '1')->get();
+        $data = ProductHome::whereNull('deleted_at')->get();
 
         $exists_numbers = array_map(function($product) {
             return $product->queue_number;
@@ -71,8 +71,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'product_id' => 'numeric|min:1',
-            'queue_number' => 'numeric|min:1|max:100',
+            'product_id' => 'required|numeric|min:1',
+            'queue_number' => 'required|numeric|min:1|max:100',
         ]);
 
         $product_home = ProductHome::create([
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
         if ($product) {
             $arr_range = range(1, 50);
-            $data = ProductHome::where('id', '!=' , $id)->where('is_active', '1')->get();
+            $data = ProductHome::where('id', '!=' , $id)->whereNull('deleted_at')->get();
     
             $exists_numbers = array_map(function($product) {
                 return $product->queue_number;
@@ -143,12 +143,11 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'product_id' => 'numeric|min:1',
-            'queue_number' => 'numeric|min:1|max:100',
+            'product_id' => 'required|numeric|min:1',
+            'queue_number' => 'required|numeric|min:1|max:100',
         ]);
 
         $product = ProductHome::findOrFail($id);
-
         $product->product_id = $request->product_id;
         $product->queue_number = $request->queue_number;
         $product->is_active = $request->is_active;

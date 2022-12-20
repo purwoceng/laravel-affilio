@@ -52,7 +52,7 @@ class SupplierController extends Controller
     public function create()
     {
         $arr_range = range(1, 50);
-        $data = SupplierHome::where('is_active', '1')->get();
+        $data = SupplierHome::whereNull('deleted_at')->get();
 
         $exists_numbers = array_map(function($supplier) {
             return $supplier->queue_number;
@@ -73,12 +73,13 @@ class SupplierController extends Controller
     {
         $this->validate($request, [
             'supplier_id' => [
+                'required',
                 'numeric',
                 'min:1',
                 Rule::unique('supplier_home', 'supplier_id')
                     ->whereNull('deleted_at')
             ],
-            'queue_number' => ['numeric', 'min:1', 'max:100'],
+            'queue_number' => ['required', 'numeric', 'min:1', 'max:100'],
         ]);
 
         $supplier_home = SupplierHome::create([
@@ -111,7 +112,7 @@ class SupplierController extends Controller
 
         if ($supplier) {
             $arr_range = range(1, 50);
-            $data = SupplierHome::where('id', '!=' , $id)->where('is_active', '1')->get();
+            $data = SupplierHome::where('id', '!=' , $id)->whereNull('deleted_at')->get();
     
             $exists_numbers = array_map(function($supplier) {
                 return $supplier->queue_number;
@@ -150,17 +151,17 @@ class SupplierController extends Controller
     {
         $this->validate($request, [
             'supplier_id' => [
+                'required',
                 'numeric',
                 'min:1',
                 Rule::unique('supplier_home', 'supplier_id')
                     ->ignore($id)
                     ->whereNull('deleted_at'),
             ],
-            'queue_number' => 'numeric|min:1|max:100',
+            'queue_number' => 'required|numeric|min:1|max:100',
         ]);
 
         $supplier = SupplierHome::findOrFail($id);
-
         $supplier->supplier_id = $request->supplier_id;
         $supplier->queue_number = $request->queue_number;
         $supplier->is_active = $request->is_active;
