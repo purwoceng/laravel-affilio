@@ -13,8 +13,13 @@ class CreateVideoTutorialTable extends Migration
      */
     public function up()
     {
-        Schema::table('video_tutorial', function (Blueprint $table) {
-            //
+        Schema::table('video_tutorials', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 64);
+            $table->string('url', 200);
+            $table->unsignedInteger('member_category_id');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ class CreateVideoTutorialTable extends Migration
      */
     public function down()
     {
-        Schema::table('video_tutorial', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('video_tutorials');
     }
 }
