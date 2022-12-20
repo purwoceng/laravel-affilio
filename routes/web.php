@@ -89,6 +89,11 @@ Route::middleware('auth')->group(function () {
         ->name('supplier_home.')
         ->group(function () {
             Route::get('/', [SupplierController::class, 'index'])->name('index');
+            Route::get('/create', [SupplierController::class, 'create'])->name('create');
+            Route::post('/store', [SupplierController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [SupplierController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [SupplierController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [SupplierController::class, 'delete'])->name('delete');
         });
 
     Route::prefix('product-home')

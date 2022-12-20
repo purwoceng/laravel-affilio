@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function create()
     {
         $arr_range = range(1, 50);
-        $data = ProductHome::where('is_active', 1)->get();
+        $data = ProductHome::where('is_active', '1')->get();
 
         $exists_numbers = array_map(function($product) {
             return $product->queue_number;
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
         if ($product) {
             $arr_range = range(1, 50);
-            $data = ProductHome::where('id', '!=' , $id)->where('is_active', 1)->get();
+            $data = ProductHome::where('id', '!=' , $id)->where('is_active', '1')->get();
     
             $exists_numbers = array_map(function($product) {
                 return $product->queue_number;

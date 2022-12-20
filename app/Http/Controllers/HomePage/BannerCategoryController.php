@@ -54,8 +54,8 @@ class BannerCategoryController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:banner_categories|max:64',
-            'code' => 'required|unique:banner_categories|max:64',
+            'name' => 'required|max:64',
+            'code' => 'required|unique:banner_categories,code|max:64',
         ], $messages);
 
         if ($validator->fails()) {
@@ -120,8 +120,8 @@ class BannerCategoryController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique|max:64',
-            'code' => 'required|unique|max:64',
+            'name' => 'required|max:64',
+            'code' => 'required|unique:banner_categories,code|max:64',
         ], $messages);
 
         if ($validator->fails()) {
