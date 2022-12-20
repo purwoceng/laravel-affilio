@@ -15,6 +15,7 @@ use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\User\PermissionController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
@@ -43,6 +44,11 @@ Route::middleware('auth')->group(function () {
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
         });
+    });
+
+    // Orders Menu
+    Route::prefix('orders')->name('orders.')->group(function() {
+        Route::get('/',[OrderController::class,'index'])->name('index');
     });
 
     //Invoice Menu

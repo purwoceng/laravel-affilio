@@ -94,6 +94,15 @@
                 </div>
             </li>
 
+            <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
+                    <span class="svg-icon menu-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span class="menu-text">Orders</span>
+                </a>
+            </li>
+
             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
