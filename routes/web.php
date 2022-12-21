@@ -18,6 +18,7 @@ use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\User\PermissionController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -161,6 +162,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/delete/{id}', [CsNumberCategoryController::class, 'destroy'])->name('destroy');
         });
     });
+
+    // Video Tutorials
+    Route::prefix('video-tutorials')
+        ->name('video-tutorials.')
+        ->group(function() {
+            Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
+        });
 
     Route::prefix('configs')
         ->name('configs.')
