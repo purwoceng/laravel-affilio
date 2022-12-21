@@ -25,7 +25,7 @@ class CsNumberCategoryRepository implements CsNumberCategoryRepositoryInterface
 
     public function delete($id)
     {
-        return CsNumberCategory::where('id',$id)->delete();
+        return CsNumberCategory::where('id',$id)->forcedelete();
     }
 
     public function getDataById($id)
