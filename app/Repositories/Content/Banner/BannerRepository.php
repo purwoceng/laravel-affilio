@@ -24,7 +24,7 @@ class BannerRepository implements BannerRepositoryInterface
 
     public function delete($id)
     {
-        return Banner::where('id',$id)->delete();
+        return Banner::where('id',$id)->forcedelete();
     }
 
     public function getDataById($id)

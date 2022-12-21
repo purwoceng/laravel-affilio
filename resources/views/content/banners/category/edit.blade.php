@@ -22,6 +22,15 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (session()->has('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong> {{ session()->get('success') }} </strong>
+                                </div>
+                            @endif
+
                             @if (session()->has('info'))
                                 <div class="alert alert-info" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

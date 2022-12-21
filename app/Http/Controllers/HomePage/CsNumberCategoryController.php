@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HomePage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CsNumber;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Interfaces\Content\CS\CsNumberCategoryRepositoryInterface;
@@ -58,7 +59,7 @@ class CsNumberCategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
             'code' => 'required|unique:cs_number_categories,code|max:64',
-        ],$messages);
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
@@ -89,7 +90,7 @@ class CsNumberCategoryController extends Controller
     public function show($id)
     {
         $data = $this->csCategoryRepository->getDataById($id);
-        return view('content.cs_numbers.category.show',compact(['data']));
+        return view('content.cs_numbers.category.show', compact(['data']));
     }
 
     /**
@@ -101,7 +102,7 @@ class CsNumberCategoryController extends Controller
     public function edit($id)
     {
         $data = $this->csCategoryRepository->getDataById($id);
-        return view('content.cs_numbers.category.edit',compact(['data']));
+        return view('content.cs_numbers.category.edit', compact(['data']));
     }
 
     /**
@@ -122,8 +123,8 @@ class CsNumberCategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|unique:cs_number_categories,code|max:64',
-        ],$messages);
+            'code' => 'required|max:64',
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
@@ -138,7 +139,7 @@ class CsNumberCategoryController extends Controller
         $result = $this->csCategoryRepository->update($id, $updateData);
 
         if ($result) {
-            return redirect()->route('cs-number.category.index')
+            return redirect()->route('cs-number.category.edit',$id)
                 ->with('success', 'Data Kategori Nomor CS telah berhasil diubah.');
         } else {
             return back()->withInput()->with('info', 'Gagal memperbaharui data kategori nomor cs');
@@ -154,6 +155,12 @@ class CsNumberCategoryController extends Controller
     public function destroy($id)
     {
         $delete = $this->csCategoryRepository->delete($id);
+
+        $csNumbers = CsNumber::where('cs_category_id',$id)->get();
+
+        foreach ($csNumbers as $key => $value) {
+            CsNumber::where('id', $value->id)->forcedelete();
+        }
 
         if ($delete) {
             return redirect()->route('cs-number.category.index')
