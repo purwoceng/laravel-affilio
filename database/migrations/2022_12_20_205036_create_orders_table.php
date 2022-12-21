@@ -24,7 +24,6 @@ class CreateOrdersTable extends Migration
             $table->string('order_code',191)->nullable();
             $table->unsignedBigInteger('invoice_id');
             $table->string('invoice_code',191)->nullable();
-            $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('supplier_id');
             $table->string('supplier_name');
             $table->string('supplier_address');

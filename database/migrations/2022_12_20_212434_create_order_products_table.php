@@ -24,7 +24,7 @@ class CreateOrderProductsTable extends Migration
             $table->integer('price_markup');
             $table->integer('total_price_markup');
             $table->integer('origin_price');
-            $table->integer('origin_total_price');
+            $table->integer('total_origin_price');
             $table->integer('price');
             $table->integer('total_price');
             $table->integer('profit')->default('0');
