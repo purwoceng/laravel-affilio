@@ -210,9 +210,9 @@
                             let element = '';
 
                             if (Number(data)) {
-                                element += `<button type="button" class="btn btn-success btn-disabled">Aktif</button>`;
+                                element += `<span class="label label-light-success label-inline label-bold">Aktif</button>`;
                             } else {
-                                element += `<button type="button" class="btn btn-danger btn-disabled">Non-Aktif</button>`;
+                                element += `<span class="label label-light-danger label-inline label-bold">Non-Aktif</button>`;
                             }
 
                             return element;
