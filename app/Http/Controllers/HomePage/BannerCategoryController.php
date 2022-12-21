@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HomePage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Interfaces\Content\Banner\BannerCategoryRepositoryInterface;
@@ -121,7 +122,7 @@ class BannerCategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|unique:banner_categories,code|max:64',
+            'code' => 'required|max:64',
         ], $messages);
 
         if ($validator->fails()) {
@@ -137,7 +138,7 @@ class BannerCategoryController extends Controller
         $result = $this->bannerCategoryRepository->update($id, $updateData);
 
         if ($result) {
-            return redirect()->route('banners.category.index')
+            return redirect()->route('banners.category.edit', $id)
                 ->with('success', 'Data Kategori Banner telah berhasil diubah.');
         } else {
             return back()->withInput()->with('info', 'Gagal memperbaharui data kategori banner');
@@ -153,6 +154,12 @@ class BannerCategoryController extends Controller
     public function destroy($id)
     {
         $delete = $this->bannerCategoryRepository->delete($id);
+
+        $bannerDatas = Banner::where('banner_category_id',$id)->get();
+
+        foreach ($bannerDatas as $key => $value) {
+                Banner::where('id',$value->id)->forcedelete();
+        }
 
         if ($delete) {
             return redirect()->route('banners.category.index')
