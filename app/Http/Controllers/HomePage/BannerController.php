@@ -154,8 +154,8 @@ class BannerController extends Controller
         }
 
         $name = $request->name;
-        $target_url = $request->target_url;
-        $description = $request->description;
+        $target_url = $request->target_url ?? '';
+        $description = $request->description ?? '';
         $bannerCategoryId = $request->banner_category_id;
 
         $updateData = [
