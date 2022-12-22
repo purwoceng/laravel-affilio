@@ -5,7 +5,10 @@ namespace App\Http\Controllers\VideoTutorial;
 use App\Http\Controllers\Controller;
 use App\Models\MemberType;
 use App\Repositories\VideoTutorial\VideoTutorialRepository;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class VideoTutorialController extends Controller
 {
@@ -100,5 +103,94 @@ class VideoTutorialController extends Controller
         }
 
         return view('video_tutorials.index');
+    }
+
+    public function show($id)
+    {
+        try {
+            $data = $this->repository->getVideoTutorialById($id);
+            
+            if (!$data) {
+                throw new Exception("Data video dengan id {$id} tidak ditemukan");
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data ditemukan.',
+                'data' => $data,
+            ]);
+        } catch (Exception $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal mendapatkan data video dengan id {$id}.",
+                'data' => [],
+                'exception' => $err,
+            ]);
+        }
+    }
+
+    public function create()
+    {
+        return view('video_tutorials.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validation_messages = [
+            'name.required' => 'Nama video wajib diisi!',
+            'name.max_digits' => 'Karakter untuk nama video maksimal :digits!',
+        ];
+
+        $validation = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required', 'max_digits:64', ],
+                'video' => ['required', 'string', 'max_digits:200'],
+                'member_type_id' => [
+                    'required',
+                    Rule::exists('member_types', 'id'),
+                ],
+            ],
+            $validation_messages,
+        );
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function delete($id)
+    {
+        try {
+            $data = $this->repository->getVideoTutorialById($id);
+
+            if (!$data) {
+                throw new Exception("Data video dengan id {$id} tidak ditemukan atau telah dihapus");
+            }
+
+            $response_data = $data;
+
+            if ($data->delete()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data berhasil dihapus.',
+                    'data' => $response_data,
+                ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Gagal menghapus data.',
+                    'data' => $response_data,
+                ]);
+            }
+        } catch (Exception $err) {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal menghapus data video dengan id {$id}. Data tidak ditemukan atau telah dihapus",
+                'data' => [],
+                'exception' => $err,
+            ]);
+        }
     }
 }
