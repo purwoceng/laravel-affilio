@@ -12,6 +12,11 @@ class VideoTutorialRepository implements VideoTutorialRepositoryInterface
         //
     }
 
+    public function getVideoTutorialById($id)
+    {
+        return VideoTutorial::where('id', $id)->whereNull('deleted_at')->first();
+    }
+
     public function getCountVideoTutorials()
     {
         return VideoTutorial::all()->count();

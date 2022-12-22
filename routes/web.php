@@ -22,7 +22,7 @@ use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\HomePage\CustomerServiceNumberController;
-
+use App\Models\VideoTutorial;
 
 /*
 |--------------------------------------------------------------------------
@@ -182,6 +182,7 @@ Route::middleware('auth')->group(function () {
         ->name('video_tutorials.')
         ->group(function() {
             Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
+            Route::get('/detail/{id}', [VideoTutorialController::class, 'show'])->name('detail');
         });
 
     Route::prefix('configs')
