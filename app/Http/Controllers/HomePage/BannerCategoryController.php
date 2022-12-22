@@ -122,7 +122,7 @@ class BannerCategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|unique:banner_categories|max:64',
+            'code' => 'required|unique:banner_categories,code|max:64',
         ], $messages);
 
         if ($validator->fails()) {

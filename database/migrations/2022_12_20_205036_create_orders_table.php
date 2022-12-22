@@ -40,12 +40,13 @@ class CreateOrdersTable extends Migration
             $table->string('postal_code',16)->nullable();
             $table->enum('status',['unpaid','paid','awaiting_supplier','on_process','on_shipping','received','success','complain','cancel','cancel_but_unpaid']);
             $table->enum('payment_status',['paid','unpaid','cancel']);
+            $table->integer('subtotal');
             $table->integer('shipping_cost');
             $table->integer('total');
             $table->string('shipping_courier',32);
             $table->string('shipping_service',16);
             $table->timestamps();
-            $table->timestamp('cancel_at')->useCurrent();
+            $table->timestamp('cancel_at')->nullable();
             $table->softDeletes();
         });
     }

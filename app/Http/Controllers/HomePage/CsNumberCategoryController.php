@@ -123,7 +123,7 @@ class CsNumberCategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|max:64',
+            'code' => 'required|unique:cs_number_categories,code|max:64',
         ], $messages);
 
         if ($validator->fails()) {
