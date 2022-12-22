@@ -29,6 +29,7 @@ use App\Repositories\User\PermissionRepository;
 use App\Repositories\User\RoleRepository;
 use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -119,5 +120,6 @@ class AppServiceProvider extends ServiceProvider
     {
         config(['app.locale' => 'id']);
 	    Carbon::setLocale('id');
+        Schema::defaultStringLength(191);
     }
 }

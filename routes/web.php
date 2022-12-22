@@ -1,25 +1,28 @@
 <?php
 
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\HomePage\BannerCategoryController;
-use App\Http\Controllers\HomePage\BannerController;
-use App\Http\Controllers\HomePage\ConfigController;
-use App\Http\Controllers\HomePage\CsNumberCategoryController;
-use App\Http\Controllers\HomePage\CsNumberController;
-use App\Http\Controllers\HomePage\CustomerServiceNumberController;
-use App\Http\Controllers\HomePage\ProductController;
-use App\Http\Controllers\HomePage\ProductTypeController;
-use App\Http\Controllers\HomePage\SupplierController;
-use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
-use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
-use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
-use App\Http\Controllers\Member\Blocked\MemberBlockedController;
-use App\Http\Controllers\Member\MemberController;
-use App\Http\Controllers\User\PermissionController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\HomePage\BannerController;
+use App\Http\Controllers\HomePage\ConfigController;
+use App\Http\Controllers\User\PermissionController;
+use App\Http\Controllers\HomePage\ProductController;
+use App\Http\Controllers\HomePage\CsNumberController;
+use App\Http\Controllers\HomePage\SupplierController;
+use App\Http\Controllers\Member\MemberTypeController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\ProductTypeController;
+use App\Http\Controllers\HomePage\BannerCategoryController;
+use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
+use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
+use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
+use App\Http\Controllers\MarkupController;
+use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomePage\CustomerServiceNumberController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,17 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
+        });
+
+
+        Route::prefix('member_type')->name('member_type.')->group(function () {
+            Route::get('/', [MemberTypeController::class, 'index'])->name('index');
+            Route::get('/create', [MemberTypeController::class, 'create'])->name('create');
+            Route::post('/store', [MemberTypeController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [MemberTypeController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [MemberTypeController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [MemberTypeController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [MemberTypeController::class, 'destroy'])->name('destroy');
         });
     });
 
@@ -99,7 +113,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('product-home')
         ->name('product_home.')
-        ->group(function() {
+        ->group(function () {
             // Products
             Route::get('/', [ProductController::class, 'index'])->name('index');
             Route::get('/create', [ProductController::class, 'create'])->name('create');
@@ -141,21 +155,21 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        //MCS NUMBER MENU
+    //MCS NUMBER MENU
     Route::prefix('cs-number')->name('cs-number.')->group(function () {
-        Route::get('/',[CsNumberController::class,'index'])->name('index');
-        Route::get('/create',[CsNumberController::class,'create'])->name('create');
-        Route::post('/store',[CsNumberController::class,'store'])->name('store');
+        Route::get('/', [CsNumberController::class, 'index'])->name('index');
+        Route::get('/create', [CsNumberController::class, 'create'])->name('create');
+        Route::post('/store', [CsNumberController::class, 'store'])->name('store');
         Route::get('/show/{id}', [CsNumberController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [CsNumberController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [CsNumberController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [CsNumberController::class, 'destroy'])->name('destroy');
 
 
-        Route::prefix('category')->name('category.')->group(function() {
-            Route::get('/',[CsNumberCategoryController::class,'index'])->name('index');
-            Route::get('/create',[CsNumberCategoryController::class, 'create'])->name('create');
-            Route::post('/store',[CsNumberCategoryController::class,'store'])->name('store');
+        Route::prefix('category')->name('category.')->group(function () {
+            Route::get('/', [CsNumberCategoryController::class, 'index'])->name('index');
+            Route::get('/create', [CsNumberCategoryController::class, 'create'])->name('create');
+            Route::post('/store', [CsNumberCategoryController::class, 'store'])->name('store');
             Route::get('/show/{id}', [CsNumberCategoryController::class, 'show'])->name('show');
             Route::get('/edit/{id}', [CsNumberCategoryController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [CsNumberCategoryController::class, 'update'])->name('update');
@@ -174,5 +188,17 @@ Route::middleware('auth')->group(function () {
         ->name('configs.')
         ->group(function () {
             Route::get('/', [ConfigController::class, 'index'])->name('index');
+        });
+
+    Route::prefix('markup')
+        ->name('markup.')
+        ->group(function () {
+            Route::get('/', [MarkupController::class, 'index'])->name('index');
+            Route::get('/create', [MarkupController::class, 'create'])->name('create');
+            Route::post('/store', [MarkupController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [MarkupController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [MarkupController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [MarkupController::class, 'destroy'])->name('destroy');
+            Route::get('/show/{id}', [MarkupController::class, 'show'])->name('show');
         });
 });

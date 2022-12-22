@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Detail Kategori Banner'))
+@section('title', __('Detail Markup'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Banner</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Markup Product</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Detail Kategori Banner</h3>
+                        <h3 class="card-label">Detail Markup</h3>
                     </div>
 
                 </div>
@@ -31,25 +31,21 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('banners.category.store') }}">
+                            <form method="POST" action="{{ route('markup.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group">
-                                    <label>Nama</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan nama kategori"
-                                        name="name" value="{{ $data->name }}" disabled />
-                                </div>
-                                <div class="form-group">
-                                    <label for="code">Tipe<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="code" name="code" value="{{ $data->code }}"
-                                        placeholder="Masukkan tipe kategori" disabled />
+
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Markup <span class="text-danger">*</span></label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" placeholder="Masukkan nama banner"
+                                            name="markup" value="{{ $data->markup }}" disabled />
+                                    </div>
                                 </div>
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('banners.category.index') }}"
-                                            class="btn btn-secondary">Kembali</a>
+                                        <a href="{{ route('markup.index') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
-
                                 </div>
                             </form>
                         </div>
