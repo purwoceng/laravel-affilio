@@ -1,25 +1,26 @@
 <?php
 
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\HomePage\BannerCategoryController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\RoleController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
-use App\Http\Controllers\HomePage\CsNumberCategoryController;
-use App\Http\Controllers\HomePage\CsNumberController;
-use App\Http\Controllers\HomePage\CustomerServiceNumberController;
+use App\Http\Controllers\User\PermissionController;
 use App\Http\Controllers\HomePage\ProductController;
-use App\Http\Controllers\HomePage\ProductTypeController;
+use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
-use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
+use App\Http\Controllers\Member\MemberTypeController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\ProductTypeController;
+use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
+use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
-use App\Http\Controllers\Member\MemberController;
-use App\Http\Controllers\User\PermissionController;
-use App\Http\Controllers\User\RoleController;
-use App\Http\Controllers\User\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomePage\CustomerServiceNumberController;
 
 
 /*
@@ -44,6 +45,17 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
+        });
+
+
+        Route::prefix('member_type')->name('member_type.')->group(function () {
+            Route::get('/', [MemberTypeController::class, 'index'])->name('index');
+            Route::get('/create', [MemberTypeController::class, 'create'])->name('create');
+            Route::post('/store', [MemberTypeController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [MemberTypeController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [MemberTypeController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [MemberTypeController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [MemberTypeController::class, 'destroy'])->name('destroy');
         });
     });
 
