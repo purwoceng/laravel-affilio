@@ -20,6 +20,7 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
+use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\HomePage\CustomerServiceNumberController;
 
 
@@ -175,6 +176,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/delete/{id}', [CsNumberCategoryController::class, 'destroy'])->name('destroy');
         });
     });
+
+    // Video Tutorials
+    Route::prefix('video-tutorials')
+        ->name('video_tutorials.')
+        ->group(function() {
+            Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
+        });
 
     Route::prefix('configs')
         ->name('configs.')
