@@ -57,8 +57,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="code">Tipe<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="code" name="code"
-                                        value="{{ $data->code }}" placeholder="Masukkan tipe kategori" required />
+                                    <input type="text" class="form-control form-control-solid" id="code" name="code"
+                                        value="{{ $data->code }}" placeholder="Masukkan tipe kategori" required readonly/>
                                 </div>
 
                                 <div class="d-flex flex-row">
