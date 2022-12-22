@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\VideoTutorial;
 
 use App\Http\Controllers\Controller;
+use App\Models\MemberType;
 use App\Repositories\VideoTutorial\VideoTutorialRepository;
 use Illuminate\Http\Request;
 
@@ -85,9 +86,15 @@ class VideoTutorialController extends Controller
     {
         if ($request->ajax()) {
             $result = $this->repository->getDataTable($request);
-            $data = $result['data'];
+            $data = array_map(function($item) {
+                $member_type = MemberType::where('id', $item['member_type_id'])->first();
+                $new_item = array_merge($item, [
+                    'member_type' => $member_type->name ?? '-',
+                ]);
 
-            
+                return $new_item;
+            }, $result['data']);
+            $result['data'] = $data;
 
             return response()->json($result);
         }

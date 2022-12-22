@@ -17,7 +17,7 @@ class CreateVideoTutorialTable extends Migration
             $table->id();
             $table->string('name', 64);
             $table->string('url', 200);
-            $table->unsignedInteger('member_category_id');
+            $table->unsignedInteger('member_type_id');
             $table->softDeletes();
             $table->timestamps();
         });

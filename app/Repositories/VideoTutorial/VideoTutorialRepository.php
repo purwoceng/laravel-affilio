@@ -38,7 +38,7 @@ class VideoTutorialRepository implements VideoTutorialRepositoryInterface
                 $id = $video->id;
                 $name = $video->name;
                 $video_url = $video->url;
-                $member_category_id = $video->member_category_id;
+                $member_type_id = $video->member_type_id;
                 $created_at = date('d/m/Y H:i', strtotime($video->created_at));
                 $actions = $id;
 
@@ -46,7 +46,7 @@ class VideoTutorialRepository implements VideoTutorialRepositoryInterface
                     'id',
                     'name',
                     'video_url',
-                    'member_category_id',
+                    'member_type_id',
                     'created_at',
                     'actions',
                 );

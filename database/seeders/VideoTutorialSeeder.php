@@ -27,7 +27,7 @@ class VideoTutorialSeeder extends Seeder
             foreach ($video_urls as $key => $url) {
                 $video_key = $key + 1;
                 $member_type_id = $key + 2;
-
+                
                 $video = VideoTutorial::create([
                     'name' => "Video Tutorial {$video_key}",
                     'member_type_id' => $member_type_id,
@@ -38,6 +38,8 @@ class VideoTutorialSeeder extends Seeder
             DB::commit();
         } catch (Throwable $throw) {
             DB::rollBack();
+
+            var_dump($throw);
         }
     }
 }

@@ -179,7 +179,7 @@ Route::middleware('auth')->group(function () {
 
     // Video Tutorials
     Route::prefix('video-tutorials')
-        ->name('video-tutorials.')
+        ->name('video_tutorials.')
         ->group(function() {
             Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
         });
