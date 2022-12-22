@@ -37,7 +37,7 @@
                     <div class="card-title">
                         <h3 class="card-label">Video Tutorial</h3>
                     </div>
-                    <a class="btn btn-success float-right" href={{ route('product_home.create') }} title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href="#" title="Tambah Produk Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    
+
 @endsection
 
 @push('js')
