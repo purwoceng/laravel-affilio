@@ -277,6 +277,15 @@
                                  <span class="menu-text">Markup</span>
                              </a>
                          </li>
+                         <li class="menu-item" aria-haspopup="true">
+                            <a href="{{ route('video_tutorials.index') }}" class="menu-link">
+                                {{-- edit routenyaguys --}}
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Video Tutorial</span>
+                            </a>
+                        </li>
 
                      </ul>
                  </div>
