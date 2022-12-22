@@ -24,7 +24,7 @@ class BannerCategoryRepository implements BannerCategoryRepositoryInterface
 
     public function delete($id)
     {
-        return BannerCategory::where('id',$id)->delete();
+        return BannerCategory::where('id',$id)->forcedelete();
     }
 
     public function getDataById($id)

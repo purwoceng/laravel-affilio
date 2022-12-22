@@ -69,7 +69,7 @@
                                             <option disabled>Pilih kategori banner</option>
                                             @foreach ($csNumberCategories as $category)
                                                 <option
-                                                    value="{{ $category->id }} {{ $category->id == $data->banner_category_id ? 'selected' : '' }}">
+                                                    value="{{ $category->id }}" {{ $category->id == $data->cs_category_id ? 'selected' : '' }}>
                                                     {{ $category->name }}</option>
                                             @endforeach
                                         </select>

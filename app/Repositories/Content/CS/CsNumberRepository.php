@@ -39,7 +39,7 @@ class CsNumberRepository implements CsNumberRepositoryInterface
 
     public function delete($id)
     {
-        return CsNumber::where('id',$id)->delete();
+        return CsNumber::where('id',$id)->forcedelete();
     }
 
     public function getDataById($id)
