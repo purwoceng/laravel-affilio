@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Detail Markup'))
+@section('title', __('Buat Markup Product'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Detail Markup</h3>
+                        <h3 class="card-label">Buat Markup</h3>
                     </div>
 
                 </div>
@@ -31,27 +31,38 @@
                                 </div>
                             @endif
 
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
                             <form method="POST" action="{{ route('markup.store') }}" enctype="multipart/form-data">
                                 @csrf
-
-                                <div class="form-group row">
-                                    <label class="col-3 col-form-label">Markup <span class="text-danger">*</span></label>
-                                    <div class="col-9">
-                                        <input type="text" class="form-control" placeholder="Masukkan nama banner"
-                                            name="markup" value="{{ $data->markup }}" disabled />
-                                    </div>
+                                <div class="form-group">
+                                    <label>Markup<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan markup" name="markup"
+                                        value="" required />
                                 </div>
-
-                                <div class="d-flex flex-row">
-                                    <div class="p-1">
-                                        <a href="{{ route('markup.index') }}" class="btn btn-secondary">Kembali</a>
-                                    </div>
-                                </div>
-                            </form>
+                                </select>
                         </div>
+
+                        <div class="d-flex flex-row">
+                            <div class="p-1">
+                                <a href="{{ route('markup.index') }}" class="btn btn-secondary">Kembali</a>
+                            </div>
+
+                            <div class="p-1 ml-auto">
+                                <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Pengaturan Nomor CS'))
+@section('title', __('Pengaturan MarkUp Product'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Nomor CS</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Markup Product</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Nomor CS</h3>
+                        <h3 class="card-label">Markup Product</h3>
                     </div>
 
                 </div>
@@ -29,11 +29,11 @@
                         </div>
                     @endif
 
-                    <table id="js-table-cs-number" class="table table-separate table-head-custom table-checkable nowrap"
+                    <table id="js-table-markup" class="table table-separate table-head-custom table-checkable nowrap"
                         style="width:100%">
                         <div class="d-flex flex-row">
                             <div class="p-1">
-                                <a href="{{ route('cs-number.create') }}" class="btn btn-sm btn-primary my-2"> <i
+                                <a href="{{ route('markup.create') }}" class="btn btn-sm btn-primary my-2"> <i
                                         class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
                             </div>
                         </div>
@@ -41,9 +41,7 @@
                         <thead>
                             <tr class="text-center small">
                                 <th>#</th>
-                                <th>Nama </th>
-                                <th>Nomor</th>
-                                <th>Tipe Kategori</th>
+                                <th>Markup</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
                             </tr>
@@ -66,9 +64,9 @@
 
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('cs-number.index') }}";
+            const urlAjax = "{{ route('markup.index') }}";
 
-            var csNumberTable = $('#js-table-cs-number').DataTable({
+            var markupTable = $('#js-table-markup').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -97,24 +95,8 @@
                         }
                     },
                     {
-                        data: 'name',
-                        name: 'name',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'number',
-                        name: 'number',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'category_type',
-                        name: 'category_type',
+                        data: 'markup',
+                        name: 'markup',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -136,9 +118,9 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            let showUrl = `{{ url('/cs-number/show/${row.id}') }}`;
-                            let editUrl = `{{ url('/cs-number/edit/${row.id}') }}`;
-                            let deleteUrl = `{{ url('/cs-number/delete/${row.id}') }}`;
+                            let showUrl = `{{ url('/markup/show/${row.id}') }}`;
+                            let editUrl = `{{ url('/markup/edit/${row.id}') }}`;
+                            let deleteUrl = `{{ url('/markup/delete/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
@@ -175,7 +157,7 @@
                 let data = {};
 
                 $.each(filterEl, function(i, v) {
-                    let key = $(v).data('name');
+                    let key = $(v).data('markup');
                     let value = $(v).val();
                     if (key == 'date') {
                         if (value != '') {
@@ -221,7 +203,7 @@
             };
 
             function reDrawTable(data) {
-                csNumberTable.ajax.url(getFullUrl(data)).load(null, false);
+                markupTable.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();

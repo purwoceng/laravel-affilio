@@ -2,8 +2,9 @@
 
 namespace App\Repositories\content;
 
-use App\Models\markup;
+use App\Models\Markup;
 use App\Repositories\Interfaces\content\MarkUpRepositoryInterface;
+
 
 class MarkUpRepository implements MarkUpRepositoryInterface
 {
@@ -13,14 +14,32 @@ class MarkUpRepository implements MarkUpRepositoryInterface
         //
     }
 
+    public function create(array $data)
+    {
+        return Markup::create($data);
+    }
+
+    public function update($id, array $data)
+    {
+        return Markup::where('id', $id)->update($data);
+    }
+
+    public function delete($id)
+    {
+        return Markup::where('id', $id)->delete();
+    }
+
+
+
+
     public function getMarkUP($limit, $start)
     {
-        return markup::where('publish', '1')->offset($start)->limit($limit);
+        return Markup::offset($start)->limit($limit);
     }
 
     public function getCountMarkUP()
     {
-        return markup::where('publish', '1')->count();
+        return Markup::count();
     }
 
     public function getDataTable($request)
@@ -33,21 +52,20 @@ class MarkUpRepository implements MarkUpRepositoryInterface
         $totalFiltered = $totalData;
 
 
-        $getmarkupBlockeds = $getQuery->orderBy('id', 'desc')->get();
+        $getmarkup = $getQuery->orderBy('id', 'desc')->get();
 
         $dataArray = [];
-        if (!empty($getmarkupBlockeds)) {
-            foreach ($getmarkupBlockeds as $key => $getmarkupBlocked) {
-                $id = $getmarkupBlocked->id;
-                $markup = $getmarkupBlocked->markup;
-                $isVerified = $getmarkupBlocked->is_verified;
-                $isBlocked = $getmarkupBlocked->is_blocked;
+        if (!empty($getmarkup)) {
+            foreach ($getmarkup as $key => $getmarkup) {
+                $id = $getmarkup->id;
+                $markup = $getmarkup->markup;
+                $creted_at = date('Y-m-d H:i', strtotime($getmarkup->created_at));
+
 
                 $dataArray[] = [
                     'id' => $id,
                     'markup' => $markup,
-                    'is_verified' => $isVerified,
-                    'is_blocked' => $isBlocked,
+                    'created_at' => $creted_at,
                     'actions' => $id,
                 ];
             }
@@ -61,5 +79,9 @@ class MarkUpRepository implements MarkUpRepositoryInterface
         );
 
         echo json_encode($json_data);
+    }
+    public function getDataById($id)
+    {
+        return Markup::where('id', $id)->first();
     }
 }

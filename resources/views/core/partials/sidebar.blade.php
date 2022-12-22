@@ -252,7 +252,7 @@
                          </li>
 
                          <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('supplier_home.index') }}" class="menu-link">
+                             <a href="{{ route('markup.index') }}" class="menu-link">
                                  {{-- edit routenyaguys --}}
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>

@@ -170,14 +170,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [ConfigController::class, 'index'])->name('index');
         });
 
-    Route::prefix('Markup')
-        ->name('Markup.')
+    Route::prefix('markup')
+        ->name('markup.')
         ->group(function () {
             Route::get('/', [MarkupController::class, 'index'])->name('index');
             Route::get('/create', [MarkupController::class, 'create'])->name('create');
             Route::post('/store', [MarkupController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [MarkupController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [MarkupController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [MarkupController::class, 'delete'])->name('delete');
+            Route::get('/delete/{id}', [MarkupController::class, 'destroy'])->name('destroy');
+            Route::get('/show/{id}', [MarkupController::class, 'show'])->name('show');
         });
 });
