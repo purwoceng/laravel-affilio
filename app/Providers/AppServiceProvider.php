@@ -17,6 +17,7 @@ use App\Repositories\Interfaces\Invoice\Paid\InvoicePaidRepositoryInterface;
 use App\Repositories\Interfaces\Invoice\Unpaid\InvoiceUnpaidRepositoryInterface;
 use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
+use App\Repositories\Interfaces\Order\OrderRepositoryInterface;
 use App\Repositories\Interfaces\User\PermissionRepositoryInterface;
 use App\Repositories\Interfaces\User\RoleRepositoryInterface;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
@@ -25,6 +26,7 @@ use App\Repositories\Invoice\Paid\InvoicePaidRepository;
 use App\Repositories\Invoice\Unpaid\InvoiceUnpaidRepository;
 use App\Repositories\Member\Blocked\MemberBlockedRepository;
 use App\Repositories\Member\MemberRepository;
+use App\Repositories\Order\OrderRepository;
 use App\Repositories\User\PermissionRepository;
 use App\Repositories\User\RoleRepository;
 use App\Repositories\User\UserRepository;
@@ -65,6 +67,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             InvoiceUnpaidRepositoryInterface::class,
             InvoiceUnpaidRepository::class,
+        );
+
+        // Order Menu
+        $this->app->bind(
+            OrderRepositoryInterface::class,
+            OrderRepository::class,
         );
 
         // Konten

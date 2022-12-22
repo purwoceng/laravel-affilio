@@ -1,7 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +16,8 @@ class DatabaseSeeder extends Seeder
             UserRolePermissionSeeder::class,
             MemberTableSeeder::class,
             InvoiceSeeder::class,
+            OrderSeeder::class,
+            OrderProductSeeder::class,
         ]);
     }
 }

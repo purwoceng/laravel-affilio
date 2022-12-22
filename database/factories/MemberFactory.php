@@ -20,7 +20,7 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' =>  $this->faker->name(1,2),
             'username' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->phoneNumber,
