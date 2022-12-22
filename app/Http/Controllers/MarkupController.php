@@ -39,7 +39,7 @@ class MarkupController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'markup' => 'required|max:64',
+            'markup' => 'required|numeric|min:10|max:1000',
         ], $messages);
 
         if ($validator->fails()) {

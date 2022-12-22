@@ -50,12 +50,14 @@
                             <form method="POST" action="{{ route('markup.update', $data->id) }}"
                                 enctype="multipart/form-data">
                                 @csrf
+                                <label>Markup<span class="text-danger">*</span></label>
                                 {{ method_field('PUT') }}
-                                <div class="form-group row">
-                                    <label class="col-3 col-form-label">Markup <span class="text-danger">*</span></label>
-                                    <div class="col-9">
-                                        <input type="text" class="form-control" placeholder="Masukkan Markup Product"
-                                            name="markup" value="{{ $data->markup }}" required />
+                                <div class="input-group mb-3">
+                                    <input type="number" min="9" max="1000" class="form-control"
+                                        placeholder="Masukkan Harga Markup" name="markup" value="{{ $data->markup }}"
+                                        required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">%</span>
                                     </div>
                                 </div>
 

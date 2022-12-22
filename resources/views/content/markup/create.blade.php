@@ -41,28 +41,32 @@
 
                             <form method="POST" action="{{ route('markup.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group">
-                                    <label>Markup<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan markup" name="markup"
-                                        value="" required />
+                                <label>Markup<span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
+                                    <input type="number" min="10" max="1000" class="form-control"
+                                        placeholder="Masukkan Harga Markup" name="markup" value=""
+                                        aria-describedby="basic-addon2" required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">%</span>
+                                    </div>
                                 </div>
-                                </select>
                         </div>
-
-                        <div class="d-flex flex-row">
-                            <div class="p-1">
-                                <a href="{{ route('markup.index') }}" class="btn btn-secondary">Kembali</a>
-                            </div>
-
-                            <div class="p-1 ml-auto">
-                                <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                            </div>
-                        </div>
-                        </form>
+                        </select>
                     </div>
+
+                    <div class="d-flex flex-row">
+                        <div class="p-1">
+                            <a href="{{ route('markup.index') }}" class="btn btn-secondary">Kembali</a>
+                        </div>
+
+                        <div class="p-1 ml-auto">
+                            <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                        </div>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 @endsection
