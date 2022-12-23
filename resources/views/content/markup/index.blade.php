@@ -1,4 +1,4 @@
-@extends('core.app')
+{{-- @extends('core.app')
 @section('title', __('Pengaturan MarkUp Product'))
 @section('content')
 
@@ -213,4 +213,76 @@
             }
         });
     </script>
-@endpush
+@endpush --}}
+
+
+@extends('core.app')
+@section('title', __('Ubah Markup'))
+@section('content')
+
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Markup Price</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-header flex-wrap py-5">
+                    <div class="card-title">
+                        <h3 class="card-label">Pengaturan Markup</h3>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (session()->has('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong> {{ session()->get('success') }} </strong>
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+                            <form method="POST" action="{{ route('markup.store') }}" enctype="multipart/form-data">
+                                @csrf
+                                <label>Markup Price Product<span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">key</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="markup" name="key"
+                                        value="" required />
+                                </div>
+                                <label>Persentase<span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">%</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="persentase" name="value"
+                                        value="" required />
+                                </div>
+
+                        </div>
+
+                        <div class="d-flex flex-row p-2 ml-auto">
+                            <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                        </div>
+                    </div>
+
+
+
+                @endsection

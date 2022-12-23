@@ -15,7 +15,8 @@ class CreateMarkupTable extends Migration
     {
         Schema::create('markup', function (Blueprint $table) {
             $table->id();
-            $table->string('markup');
+            $table->string('key');
+            $table->text('value');
             $table->timestamps();
         });
     }

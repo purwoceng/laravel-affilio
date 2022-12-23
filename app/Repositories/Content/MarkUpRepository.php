@@ -58,13 +58,15 @@ class MarkUpRepository implements MarkUpRepositoryInterface
         if (!empty($getmarkup)) {
             foreach ($getmarkup as $key => $getmarkup) {
                 $id = $getmarkup->id;
-                $markup = $getmarkup->markup;
+                $key = $getmarkup->key;
+                $value = $getmarkup->value;
                 $creted_at = date('Y-m-d H:i', strtotime($getmarkup->created_at));
 
 
                 $dataArray[] = [
                     'id' => $id,
-                    'markup' => $markup,
+                    'key' => $key,
+                    'value' => $value,
                     'created_at' => $creted_at,
                     'actions' => $id,
                 ];

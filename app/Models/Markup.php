@@ -13,7 +13,8 @@ class Markup extends Model
 
     protected $fillable = [
         'id',
-        'markup',
+        'key',
+        'value'
     ];
 
     protected $casts = [

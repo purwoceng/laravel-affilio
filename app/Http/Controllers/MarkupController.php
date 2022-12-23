@@ -19,6 +19,7 @@ class MarkupController extends Controller
 
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
             return $this->MarkupRepository->getDataTable($request);
         }
@@ -34,12 +35,13 @@ class MarkupController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'markup.required' => 'Tipe tidak boleh kosong',
-            'markup.unique' => 'Tipe kategori sudah digunakan',
+            'value.required' => 'Tipe tidak boleh kosong',
+            'value.unique' => 'Tipe kategori sudah digunakan',
         ];
 
         $validator = Validator::make($request->all(), [
-            'markup' => 'required|numeric|min:10|max:1000',
+            'key' => 'required|max:99999',
+            'value' => 'required|numeric|min:10|max:1000',
         ], $messages);
 
         if ($validator->fails()) {
@@ -48,7 +50,8 @@ class MarkupController extends Controller
         }
 
         $createData = [
-            'markup' => $request->markup,
+            'key' => $request->key,
+            'value' => $request->value,
         ];
 
         $result = $this->MarkupRepository->create($createData);
