@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
@@ -18,10 +20,10 @@ use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
-use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
+use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\HomePage\CustomerServiceNumberController;
-
+use App\Models\VideoTutorial;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +59,11 @@ Route::middleware('auth')->group(function () {
             Route::put('/update/{id}', [MemberTypeController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [MemberTypeController::class, 'destroy'])->name('destroy');
         });
+    });
+
+    // Orders Menu
+    Route::prefix('orders')->name('orders.')->group(function() {
+        Route::get('/',[OrderController::class,'index'])->name('index');
     });
 
     //Invoice Menu
@@ -175,6 +182,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/delete/{id}', [CsNumberCategoryController::class, 'destroy'])->name('destroy');
         });
     });
+
+    // Video Tutorials
+    Route::prefix('video-tutorials')
+        ->name('video_tutorials.')
+        ->group(function() {
+            Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
+            Route::get('/detail/{id}', [VideoTutorialController::class, 'show'])->name('detail');
+        });
 
     Route::prefix('configs')
         ->name('configs.')
