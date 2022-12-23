@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="code">Minimum Omset<span class="text-danger">*</span></label>
-                                    <input type="integer" class="form-control" id="code" name="min_omset"
+                                    <input type="number" class="form-control" id="code" name="min_omset"
                                         value="" placeholder="Masukkan jumlah minimum omset" />
                                 </div>
 
