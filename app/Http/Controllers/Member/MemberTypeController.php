@@ -6,8 +6,9 @@ namespace App\Http\Controllers\Member;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Member\MemberTypeRepository;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\Member\MemberTypeRepository;
 
 class MemberTypeController extends Controller
 {
@@ -51,10 +52,12 @@ class MemberTypeController extends Controller
         $messages = [
             'type.required' => 'Tipe tidak boleh kosong',
             'type.unique' => 'Tipe Member sudah digunakan',
+            'min_omset.numeric' => 'Minimum omset harus berupa angka',
         ];
 
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
+            'min_omset' => 'numeric|max:999999999',
         ],$messages);
 
         if ($validator->fails()) {
@@ -112,11 +115,13 @@ class MemberTypeController extends Controller
         $messages = [
             'type.required' => 'Tipe tidak boleh kosong',
             'type.unique' => 'Tipe kategori sudah digunakan',
+            'min_omset.numeric' => 'MInimum Omset Harus berupa angka',
 
         ];
 
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
+            'min_omset' => 'numeric|max:999999999',
         
         ],$messages);
 

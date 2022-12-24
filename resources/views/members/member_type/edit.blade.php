@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Minimum Omset<span class="text-danger">*</span></label>
-                                    <input type="integer" class="form-control" name="min_omset"
+                                    <input type="number" class="form-control" name="min_omset"
                                         value="{{ $data->min_omset }}" placeholder="Masukkan jumlah minimum omset" />
                                 </div>
 

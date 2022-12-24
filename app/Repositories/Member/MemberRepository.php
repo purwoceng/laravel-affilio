@@ -14,12 +14,22 @@ class MemberRepository implements MemberRepositoryInterface
 
     public function getMemberActive($limit, $start)
     {
-        return Member::where('publish','1')->offset($start)->limit($limit);
+        return Member::where('publish', '1')->offset($start)->limit($limit);
     }
 
     public function getCountMemberActive()
     {
-        return Member::where('publish','1')->count();
+        return Member::where('publish', '1')->count();
+    }
+
+    public function getDataById($id)
+    {
+        return Member::where('id', $id)->first();
+    }
+
+    public function getData($limit, $start)
+    {
+        return Member::with('member_type')->whereNull('deleted_at')->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -69,6 +79,7 @@ class MemberRepository implements MemberRepositoryInterface
                 $email = $getMemberBlocked->email;
                 $phone = $getMemberBlocked->phone;
                 $name = $getMemberBlocked->name;
+                $member_type = $getMemberBlocked->member_type->type;
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
 
@@ -78,6 +89,7 @@ class MemberRepository implements MemberRepositoryInterface
                     'email' => $email,
                     'phone' => $phone,
                     'name' => $name,
+                    'member_type' => $member_type,
                     'is_verified' => $isVerified,
                     'is_blocked' => $isBlocked,
                     'actions' => $id,
