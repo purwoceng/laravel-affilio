@@ -12,14 +12,14 @@ class OrderRepository implements OrderRepositoryInterface
         //
     }
 
-    public function getData($limit, $start)
+    public function getData($limit, $start, $startDate, $endDate)
     {
-        return Order::whereNull('deleted_at')->offset($start)->limit($limit);
+        return Order::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->whereNull('deleted_at')->offset($start)->limit($limit);
     }
 
-    public function getTotalData()
+    public function getTotalData($startDate, $endDate)
     {
-        return Order::whereNull('deleted_at')->count();
+        return Order::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->whereNull('deleted_at')->count();
     }
 
     public function getDataTable($request)
@@ -27,8 +27,19 @@ class OrderRepository implements OrderRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $getQuery = $this->getData($limit, $start);
-        $totalData = $this->getTotalData();
+        if (!empty($request->date_range)) {
+            $dateRange = $request->date_range;
+            $date = explode("/", $dateRange);;
+            $startDate = $date[0];
+            $endDate = $date[1];
+        } else {
+            $now = date('Y-m-d');
+            $startDate = $now;
+            $endDate = $now;
+        }
+
+        $getQuery = $this->getData($limit, $start, $startDate, $endDate);
+        $totalData = $this->getTotalData($startDate, $endDate);
         $totalFiltered = $totalData;
 
         $getResults = $getQuery->orderBy('id', 'desc')->get();
