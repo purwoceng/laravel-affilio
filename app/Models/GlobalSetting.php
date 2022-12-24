@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Markup extends Model
+class GlobalSetting extends Model
 {
     use HasFactory;
 
-    protected $table = 'markup';
+    protected $table = 'global_settings';
 
     protected $fillable = [
         'id',
         'key',
-        'value'
+        'markup_price'
     ];
 
     protected $casts = [

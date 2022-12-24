@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarkupTable extends Migration
+class CreateGlobalSettings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMarkupTable extends Migration
      */
     public function up()
     {
-        Schema::create('markup', function (Blueprint $table) {
+        Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->text('value');
+            $table->text('markup_price');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMarkupTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('markup');
+        Schema::dropIfExists('global_settings');
     }
 }

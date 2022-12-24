@@ -111,14 +111,15 @@
                  </div>
              </li>
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
-                    <span class="svg-icon menu-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </span>
-                    <span class="menu-text">Orders</span>
-                </a>
-            </li>
+             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}"
+                 aria-haspopup="true" data-menu-toggle="hover">
+                 <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
+                     <span class="svg-icon menu-icon">
+                         <i class="fas fa-shopping-cart"></i>
+                     </span>
+                     <span class="menu-text">Orders</span>
+                 </a>
+             </li>
 
              <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members*') ? 'active' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
@@ -269,8 +270,7 @@
                              </div>
                          </li>
                          <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('markup.index') }}" class="menu-link">
-                                 {{-- edit routenyaguys --}}
+                             <a href="{{ route('markup.edit') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
@@ -278,14 +278,13 @@
                              </a>
                          </li>
                          <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('video_tutorials.index') }}" class="menu-link">
-                                {{-- edit routenyaguys --}}
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Video Tutorial</span>
-                            </a>
-                        </li>
+                             <a href="{{ route('video_tutorials.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Video Tutorial</span>
+                             </a>
+                         </li>
 
                      </ul>
                  </div>
