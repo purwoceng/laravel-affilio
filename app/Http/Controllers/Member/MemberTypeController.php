@@ -52,13 +52,13 @@ class MemberTypeController extends Controller
         $messages = [
             'type.required' => 'Tipe tidak boleh kosong',
             'type.unique' => 'Tipe Member sudah digunakan',
-            'min_omset.numeric' => 'Minimum omset harus berupa angka',
+            'min_omset.numeric' => 'Minimum Omset Harus berupa angka',
         ];
 
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
             'min_omset' => 'numeric|max:999999999',
-        ],$messages);
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
@@ -69,7 +69,7 @@ class MemberTypeController extends Controller
             'type' => $request->type,
             'min_omset' => $request->min_omset,
         ];
-        $result = $this->memberTypeRepository->create( $createData);
+        $result = $this->memberTypeRepository->create($createData);
 
         if ($result) {
             return redirect()->route('members.member_type.index')
@@ -88,7 +88,7 @@ class MemberTypeController extends Controller
     public function show($id)
     {
         $data = $this->memberTypeRepository->getDataById($id);
-        return view('members.member_type.show',compact('data'));
+        return view('members.member_type.show', compact('data'));
     }
 
     /**
@@ -100,7 +100,7 @@ class MemberTypeController extends Controller
     public function edit($id)
     {
         $data = $this->memberTypeRepository->getDataById($id);
-        return view('members.member_type.edit',compact(['data']));
+        return view('members.member_type.edit', compact(['data']));
     }
 
     /**
@@ -115,15 +115,15 @@ class MemberTypeController extends Controller
         $messages = [
             'type.required' => 'Tipe tidak boleh kosong',
             'type.unique' => 'Tipe kategori sudah digunakan',
-            'min_omset.numeric' => 'MInimum Omset Harus berupa angka',
+            'min_omset.numeric' => 'Minimum Omset harus berupa angka',
 
         ];
 
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
             'min_omset' => 'numeric|max:999999999',
-        
-        ],$messages);
+
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
@@ -133,7 +133,7 @@ class MemberTypeController extends Controller
         $updateData = [
             'type' => $request->type,
             'min_omset' => $request->min_omset,
-            
+
         ];
 
         $result = $this->memberTypeRepository->update($id, $updateData);
