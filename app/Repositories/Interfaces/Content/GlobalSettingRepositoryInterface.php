@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces\content;
 
-interface MarkUpRepositoryInterface
+interface GlobalSettingRepositoryInterface
 {
     public function getMarkup($limit, $start);
 
