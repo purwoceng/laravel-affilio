@@ -51,7 +51,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
         });
 
-
         Route::prefix('member_type')->name('member_type.')->group(function () {
             Route::get('/', [MemberTypeController::class, 'index'])->name('index');
             Route::get('/create', [MemberTypeController::class, 'create'])->name('create');
@@ -153,7 +152,6 @@ Route::middleware('auth')->group(function () {
             Route::post('/update/{id}', [BannerController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [BannerController::class, 'destroy'])->name('destroy');
 
-
             Route::prefix('category')->name('category.')->group(function () {
                 Route::get('/', [BannerCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [BannerCategoryController::class, 'create'])->name('create');
@@ -175,7 +173,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [CsNumberController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [CsNumberController::class, 'destroy'])->name('destroy');
 
-
         Route::prefix('category')->name('category.')->group(function () {
             Route::get('/', [CsNumberCategoryController::class, 'index'])->name('index');
             Route::get('/create', [CsNumberCategoryController::class, 'create'])->name('create');
@@ -192,7 +189,12 @@ Route::middleware('auth')->group(function () {
         ->name('video_tutorials.')
         ->group(function () {
             Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
+            Route::get('/create', [VideoTutorialController::class, 'create'])->name('create');
+            Route::post('/store', [VideoTutorialController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [VideoTutorialController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [VideoTutorialController::class, 'update'])->name('update');
             Route::get('/detail/{id}', [VideoTutorialController::class, 'show'])->name('detail');
+            Route::get('/delete/{id}', [VideoTutorialController::class, 'delete'])->name('delete');
         });
 
     Route::prefix('configs')
