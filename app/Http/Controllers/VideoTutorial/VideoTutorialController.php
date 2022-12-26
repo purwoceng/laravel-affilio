@@ -4,6 +4,7 @@ namespace App\Http\Controllers\VideoTutorial;
 
 use App\Http\Controllers\Controller;
 use App\Models\MemberType;
+use App\Models\VideoTutorial;
 use App\Repositories\VideoTutorial\VideoTutorialRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -92,7 +93,7 @@ class VideoTutorialController extends Controller
             $data = array_map(function($item) {
                 $member_type = MemberType::where('id', $item['member_type_id'])->first();
                 $new_item = array_merge($item, [
-                    'member_type' => $member_type->name ?? '-',
+                    'member_type' => $member_type->type ?? '-',
                 ]);
 
                 return $new_item;
@@ -131,21 +132,32 @@ class VideoTutorialController extends Controller
 
     public function create()
     {
-        return view('video_tutorials.create');
+        $member_types = MemberType::whereNull('deleted_at')->get();
+
+        return view('video_tutorials.create', compact('member_types'));
     }
 
     public function store(Request $request)
     {
+        $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
         $validation_messages = [
-            'name.required' => 'Nama video wajib diisi!',
-            'name.max_digits' => 'Karakter untuk nama video maksimal :digits!',
+            'name.required' => 'Judul video wajib diisi!',
+            'url.required' => 'URL video wajib diisi!',
+            'url.string' => 'Url video harus berupa string!',
+            'url.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
+            'member_type_id.required' => 'Tipe member wajib diisi!',
+            'member_type_id.exists' => 'Tipe member tidak valid. Muat ulang halaman!',
         ];
 
-        $validation = Validator::make(
+        $validator = Validator::make(
             $request->all(),
             [
-                'name' => ['required', 'max_digits:64', ],
-                'video' => ['required', 'string', 'max_digits:200'],
+                'name' => ['required'],
+                'url' => [
+                    "regex:{$url_regex}",
+                    'required',
+                    'string',
+                ],
                 'member_type_id' => [
                     'required',
                     Rule::exists('member_types', 'id'),
@@ -153,11 +165,108 @@ class VideoTutorialController extends Controller
             ],
             $validation_messages,
         );
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $video_tutorial = VideoTutorial::create([
+            'name' => $request->name,
+            'url' => $request->url,
+            'member_type_id' => $request->member_type_id,
+        ]);
+
+        if ($video_tutorial) {
+            return redirect()
+                ->route('video_tutorials.index')
+                ->with([
+                    'success' => 'Berhasil menambah data tutorial video baru.'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi kesalahan saat menambah data. Mohon coba kembali!'
+                ]);
+        }
+    }
+
+    public function edit($id)
+    {
+        $video_tutorial = VideoTutorial::findOrFail($id);
+
+        if ($video_tutorial) {
+            $member_types = MemberType::whereNull('deleted_at')->get();
+
+            return view(
+                'video_tutorials.edit',
+                compact('video_tutorial', 'member_types'),
+            );
+        } else {
+            return redirect()
+                ->route('video_tutorials.index')
+                ->with([
+                    'error' => "Gagal mengedit data - video tutorial dengan id {$id} tidak ditemukan.",
+                ]);
+        }
     }
 
     public function update(Request $request, $id)
     {
+        $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
+        $validation_messages = [
+            'name.required' => 'Judul video wajib diisi!',
+            'url.required' => 'URL video wajib diisi!',
+            'url.string' => 'Url video harus berupa string!',
+            'url.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
+            'member_type_id.required' => 'Tipe member wajib diisi!',
+            'member_type_id.exists' => 'Tipe member tidak valid. Muat ulang halaman!',
+        ];
 
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required'],
+                'url' => ['required', 'string', "regex:{$url_regex}"],
+                'member_type_id' => [
+                    'required',
+                    Rule::exists('member_types', 'id'),
+                ],
+            ],
+            $validation_messages,
+        );
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $video_tutorial = VideoTutorial::findOrFail($id);
+        $video_tutorial->name = $request->name;
+        $video_tutorial->url = $request->url;
+        $video_tutorial->member_type_id = $request->member_type_id;
+        $video_tutorial->save();
+
+        if ($video_tutorial) {
+            return redirect()
+                ->route('video_tutorials.index')
+                ->with([
+                    'success' => 'Berhasil memperbarui data tutorial video.'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi kesalahan saat memperbarui data. Mohon coba kembali!'
+                ]);
+        }
     }
 
     public function delete($id)
@@ -172,25 +281,24 @@ class VideoTutorialController extends Controller
             $response_data = $data;
 
             if ($data->delete()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Data berhasil dihapus.',
-                    'data' => $response_data,
-                ]);
+                return redirect()
+                    ->route('video_tutorials.index')
+                    ->with([
+                        'success' => 'Berhasil menghapus data produk video tutorial.'
+                    ]);
             } else {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Gagal menghapus data.',
-                    'data' => $response_data,
-                ]);
+                return redirect()
+                    ->route('video_tutorials.index')
+                    ->with([
+                        'error' => "Gagal menghapus data - Video tutorial dengan id {$id} tidak ditemukan.",
+                    ]);
             }
         } catch (Exception $err) {
-            return response()->json([
-                'success' => false,
-                'message' => "Gagal menghapus data video dengan id {$id}. Data tidak ditemukan atau telah dihapus",
-                'data' => [],
-                'exception' => $err,
-            ]);
+            return redirect()
+                ->route('video_tutorials.index')
+                ->with([
+                    'error' => "Gagal menghapus data - Video tutorial dengan id {$id} tidak ditemukan.",
+                ]);
         }
     }
 }
