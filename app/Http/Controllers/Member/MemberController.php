@@ -27,7 +27,6 @@ class MemberController extends Controller
         if ($request->ajax()) {
             return $this->memberRepository->getDataTable($request);
         }
-
         return view('members.member.index');
     }
 

@@ -15,6 +15,7 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('member_type_id');
             $table->string('chat_user_id',64)->default('');
             $table->string('username',64);
             $table->string('email',64);

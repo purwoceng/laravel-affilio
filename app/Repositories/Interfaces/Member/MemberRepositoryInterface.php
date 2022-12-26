@@ -9,4 +9,8 @@ interface MemberRepositoryInterface
     public function getCountMemberActive();
 
     public function getDataTable($request);
+
+    public function getDataById($id);
+
+    
 }
