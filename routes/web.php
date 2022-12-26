@@ -14,6 +14,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\HomePage\CustomerServiceNumberController;
+use App\Http\Controllers\Order\OrderDashboardController;
 use App\Models\VideoTutorial;
 
 /*
@@ -64,6 +66,8 @@ Route::middleware('auth')->group(function () {
     // Orders Menu
     Route::prefix('orders')->name('orders.')->group(function() {
         Route::get('/',[OrderController::class,'index'])->name('index');
+
+        Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
     });
 
     //Invoice Menu
@@ -186,7 +190,7 @@ Route::middleware('auth')->group(function () {
     // Video Tutorials
     Route::prefix('video-tutorials')
         ->name('video_tutorials.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [VideoTutorialController::class, 'index'])->name('index');
             Route::get('/detail/{id}', [VideoTutorialController::class, 'show'])->name('detail');
         });
@@ -200,12 +204,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('markup')
         ->name('markup.')
         ->group(function () {
-            Route::get('/', [MarkupController::class, 'index'])->name('index');
-            Route::get('/create', [MarkupController::class, 'create'])->name('create');
-            Route::post('/store', [MarkupController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [MarkupController::class, 'edit'])->name('edit');
-            Route::put('/update/{id}', [MarkupController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [MarkupController::class, 'destroy'])->name('destroy');
-            Route::get('/show/{id}', [MarkupController::class, 'show'])->name('show');
+            Route::get('/edit', [GlobalSettingController::class, 'edit'])->name('edit');
+            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');
         });
 });

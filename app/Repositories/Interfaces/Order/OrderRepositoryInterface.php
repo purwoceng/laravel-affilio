@@ -4,9 +4,9 @@ namespace App\Repositories\Interfaces\Order;
 
 interface OrderRepositoryInterface
 {
-    public function getData($limit, $start);
+    public function getData($limit, $start, $startDate, $endDate);
 
-    public function getTotalData();
+    public function getTotalData($startDate, $endDate);
 
     public function getDataTable($request);
 }

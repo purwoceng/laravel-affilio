@@ -2,11 +2,11 @@
 
 namespace App\Repositories\content;
 
-use App\Models\Markup;
-use App\Repositories\Interfaces\content\MarkUpRepositoryInterface;
+use App\Models\GlobalSetting;
+use App\Repositories\Interfaces\content\GlobalSettingRepositoryInterface;
 
 
-class MarkUpRepository implements MarkUpRepositoryInterface
+class GlobalSettingRepository implements GlobalSettingRepositoryInterface
 {
 
     public function __construct()
@@ -16,17 +16,17 @@ class MarkUpRepository implements MarkUpRepositoryInterface
 
     public function create(array $data)
     {
-        return Markup::create($data);
+        return GlobalSetting::create($data);
     }
 
     public function update($id, array $data)
     {
-        return Markup::where('id', $id)->update($data);
+        return GlobalSetting::where('id', $id)->update($data);
     }
 
     public function delete($id)
     {
-        return Markup::where('id', $id)->delete();
+        return GlobalSetting::where('id', $id)->delete();
     }
 
 
@@ -34,12 +34,12 @@ class MarkUpRepository implements MarkUpRepositoryInterface
 
     public function getMarkUP($limit, $start)
     {
-        return Markup::offset($start)->limit($limit);
+        return GlobalSetting::offset($start)->limit($limit);
     }
 
     public function getCountMarkUP()
     {
-        return Markup::count();
+        return GlobalSetting::count();
     }
 
     public function getDataTable($request)
@@ -52,19 +52,21 @@ class MarkUpRepository implements MarkUpRepositoryInterface
         $totalFiltered = $totalData;
 
 
-        $getmarkup = $getQuery->orderBy('id', 'desc')->get();
+        $global_settings = $getQuery->orderBy('id', 'desc')->get();
 
         $dataArray = [];
-        if (!empty($getmarkup)) {
-            foreach ($getmarkup as $key => $getmarkup) {
-                $id = $getmarkup->id;
-                $markup = $getmarkup->markup;
-                $creted_at = date('Y-m-d H:i', strtotime($getmarkup->created_at));
+        if (!empty($global_settings)) {
+            foreach ($global_settings as $key => $global_settings) {
+                $id = $global_settings->id;
+                $key = $global_settings->key;
+                $markup_price = $global_settings->value;
+                $creted_at = date('Y-m-d H:i', strtotime($global_settings->created_at));
 
 
                 $dataArray[] = [
                     'id' => $id,
-                    'markup' => $markup,
+                    'key' => $key,
+                    'markup_product' => $markup_price,
                     'created_at' => $creted_at,
                     'actions' => $id,
                 ];
@@ -82,6 +84,6 @@ class MarkUpRepository implements MarkUpRepositoryInterface
     }
     public function getDataById($id)
     {
-        return Markup::where('id', $id)->first();
+        return GlobalSetting::where('id', $id)->first();
     }
 }
