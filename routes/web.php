@@ -24,6 +24,7 @@ use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\HomePage\CustomerServiceNumberController;
+use App\Http\Controllers\Order\OrderDashboardController;
 use App\Models\VideoTutorial;
 
 /*
@@ -63,8 +64,10 @@ Route::middleware('auth')->group(function () {
     });
 
     // Orders Menu
-    Route::prefix('orders')->name('orders.')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('index');
+    Route::prefix('orders')->name('orders.')->group(function() {
+        Route::get('/',[OrderController::class,'index'])->name('index');
+
+        Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
     });
 
     //Invoice Menu

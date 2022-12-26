@@ -26,6 +26,24 @@
                 </div>
 
                 <div class="card-body">
+
+                    <div class="js-dashboard"></div>
+                    <div class="d-flex">
+                        <div class="ml-auto p-2">
+                            <div class="form-group">
+                                <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
+                                <div class='input-group' id='js-daterange-picker'>
+                                    <input type='text' class="form-control filter" readonly="readonly"
+                                        data-name="date_range" placeholder="Select date range" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table id="js-orders-table" class="table table-separate table-head-custom table-checkable nowrap">
                         <thead>
                             <tr class="small">
@@ -68,7 +86,7 @@
         $(document).ready(function() {
             const ajaxUrl = "{{ route('orders.index') }}";
 
-            var ordersTable =  $('#js-orders-table').DataTable({
+            var ordersTable = $('#js-orders-table').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -192,7 +210,7 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render: function(data, type, row,) {
+                        render: function(data, type, row, ) {
                             return statusDescription(row.status);
                         }
                     },
@@ -203,8 +221,8 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render: function(data, type, row,) {
-                           return payementStatusDescription(row.payment_status);
+                        render: function(data, type, row, ) {
+                            return payementStatusDescription(row.payment_status);
                         }
                     },
                     {
@@ -261,6 +279,84 @@
                 ]
             });
 
+            init();
+
+            function init() {
+                getDateRangeHandler();
+                $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+            }
+
+            function getDateRangeHandler() {
+                $('#js-daterange-picker').daterangepicker({
+                    timePickerSeconds: true,
+                    showDropdwons: true,
+                    autoApply: true,
+                    ranges: {
+                        'Semua': [moment(new Date('01-01-2021')), moment()],
+                        'Hari Ini': [moment(), moment()],
+                        '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+                        '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+                        'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+                    },
+                    locale: {
+                        format: 'YYYY-MM-DD',
+                        separator: " to ",
+                        applyLabel: "Apply",
+                        cancelLabel: "Cancel",
+                        fromLabel: "From",
+                        toLabel: "To",
+                        customRangeLabel: "Custom Range",
+                        weekLabel: "W",
+                        daysOfWeek: [
+                            "Su",
+                            "Mo",
+                            "Tu",
+                            "We",
+                            "Th",
+                            "Fr",
+                            "Sa"
+                        ],
+                        monthNames: [
+                            "Januari",
+                            "Februari",
+                            "Maret",
+                            "April",
+                            "Mei",
+                            "Juni",
+                            "Juli",
+                            "Agustus",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ],
+                        firstDay: 1
+                    },
+                    autoUpdateInput: false,
+                    alwaysShowCalendars: false,
+                    startDate: moment(),
+                    endDate: moment(),
+                }, rangePickerCB);
+                rangePickerCB(moment(), moment());
+                let data = [];
+                data.push(moment().format('YYYY-MM-DD'));
+                data.push(moment().format('YYYY-MM-DD'));
+            }
+
+            function rangePickerCB(start, end, label) {
+                $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
+                    'YYYY-MM-DD'));
+                // $('#js-date-range-omzet-all').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                // $('#js-date-range-omzet-disbursed').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                // $('#js-date-range-omzet-cancel').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                // $('#js-date-range-omzet-reject').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                // $('#js-date-range-omzet-success').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                // $('#js-date-range-order').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                getDataFiltered();
+
+            };
+
+
             function getDataFiltered() {
                 let filterEl = $('.filter');
                 let data = {};
@@ -288,6 +384,8 @@
                     data.limit = getURLVar('limit');
                 }
 
+                dashboardHandler(data);
+
                 reDrawTable(data);
             };
 
@@ -314,10 +412,54 @@
                 ordersTable.ajax.url(getFullUrl(data)).load(null, false);
             };
 
-            init();
+            function dashboardHandler(data) {
+                let dateRangeVal = data.date_range;
+                let dataSplit = dateRangeVal.split("/");
+                let startDate = dataSplit[0];
+                let endDate = dataSplit[1];
 
-            function init() {
-                $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+                // let originOrderCode = data.origin_order_code;
+                // let originInvoiceCode = data.origin_invoice_code;
+                // let customerName = data.customer_name;
+                // let waybillId = data.waybill_id;
+                // let status = data.status;
+                // let statusPayment = data.payment_status;
+                // let handleBy = data.handle_by;
+                let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+                        // origin_order_code: originOrderCode,
+                        // origin_invoice_code: originInvoiceCode,
+                        // customer_name: customerName,
+                        // waybill_id: waybillId,
+                        // status: status,
+                        // payment_status: statusPayment,
+
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status) {
+
+                            mappingDashboard(response.data);
+                        } else {
+                            Swal.fire({
+                                title: response.errors.title,
+                                html: response.errors.messages,
+                                icon: response.errors.icon,
+                            })
+                        }
+
+                    },
+                });
+            }
+
+            function mappingDashboard(data) {
+                alert(JSON.stringify(data))
             }
         });
     </script>
