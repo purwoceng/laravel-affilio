@@ -51,6 +51,7 @@ class OrderFactory extends Factory
             'postal_code' => $this->faker->postcode(),
             'status'=> $generateStatus,
             'payment_status' => $generatePaymentStatus,
+            'unique_code' => $this->faker->unique()->randomNumber(3),
             'subtotal' => $this->faker->numerify('#######'),
             'shipping_cost' => $this->faker->numerify('#######'),
             'total' => $this->faker->numerify('#######'),
