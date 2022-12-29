@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             InvoiceSeeder::class,
             OrderSeeder::class,
             OrderProductSeeder::class,
+            GlobalSettingSeeder::class,
         ]);
     }
 }
