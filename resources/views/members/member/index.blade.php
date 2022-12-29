@@ -45,6 +45,14 @@
                                                         data-name="username" placeholder="Type Here">
                                                 </div>
                                             </div>
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Tipe Member</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="type" placeholder="Type Here">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group form-group-sm row">
@@ -73,6 +81,7 @@
                                 <th>Nama</th>
                                 <th>No Hp</th>
                                 <th>Email</th>
+                                <th>Tipe Member</th>
                                 <th>Verifikasi</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -151,6 +160,14 @@
                     {
                         data: 'email',
                         name: 'email',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'member_type',
+                        name: 'member_type',
                         sortable: false,
                         orderable: false,
                         searchable: false,

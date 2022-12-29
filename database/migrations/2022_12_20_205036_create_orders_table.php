@@ -40,6 +40,7 @@ class CreateOrdersTable extends Migration
             $table->string('postal_code',16)->nullable();
             $table->enum('status',['unpaid','paid','awaiting_supplier','on_process','on_shipping','received','success','complain','cancel','cancel_but_unpaid']);
             $table->enum('payment_status',['paid','unpaid','cancel']);
+            $table->integer('unique_code');
             $table->integer('subtotal');
             $table->integer('shipping_cost');
             $table->integer('total');

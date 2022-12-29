@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class OrderDashboardController extends Controller
@@ -12,6 +13,8 @@ class OrderDashboardController extends Controller
     {
         $startDate = $request->start_date;
         $endDate = $request->end_date;
+
+        $totalOmzet = Order::whereNull('deleted_at');
 
         $dataOrder = Order::whereNull('deleted_at');
         $dataUnpaid = Order::where('status', 'unpaid')->whereNull('deleted_at');
@@ -27,6 +30,8 @@ class OrderDashboardController extends Controller
 
 
         if (!empty($startDate) && !empty($endDate)) {
+            $totalOmzet->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+
             $dataOrder->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
             $dataUnpaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
             $dataPaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
@@ -48,6 +53,25 @@ class OrderDashboardController extends Controller
                 ],
             ]);
         }
+        // Total Omzet : Harga produk + harga markup + kode unik + ongkir + biaya layanan
+        $countTotalOmzet =  $totalOmzet->value(DB::raw("SUM(subtotal + shipping_cost)"));
+        // Harga Supplier : Harga produk asli dari baleomol
+        $countTotalSupplierPrice = 1000000;
+        // Bonus Profit : Bonus profit diambil dari 75% dari markup
+        $countTotalBonusProfit = 75 * $countTotalSupplierPrice / 100 ;
+        // Profit Keuntungan : diambil dari 25% harga markup
+        $countTotalProfitKeuntungan =1123131212;
+        // Ongkos kirim 60% : ongkos 60% dari 100% ongkir masuk ke IdExpress
+        $countTotalOngkir60 = 234234234;
+        // Ongkos kirim 30% : ongkor 30% dari 100% ongkir masuk ke perusahaan
+        $countTotalOngkir30 = 4353533535;
+        // Ongkos kirim 10% : ongkos 10% dari 100% ongkir masuk ke bonus member/cashback
+        $countTotalOngkir10 = 8868668634;
+        // Kode unik : kode unik dikembalikan ke member
+        $countTotalUniqueCode = 1144646345;
+        // Biaya lanyanan : biaya dari midtrans
+        $countTotalServiceFee = 12412412124;
+
 
         $countOrder = $dataOrder->count();
         $countOrderUnpaid = $dataUnpaid->count();
@@ -74,7 +98,16 @@ class OrderDashboardController extends Controller
 
 
         $results = [
-            'total_all' => $countOrder,
+            'total_omzet' => formatRupiah($countTotalOmzet),
+            'supplier_price' => formatRupiah($countTotalSupplierPrice),
+            'bonus_profit' => formatRupiah($countTotalBonusProfit),
+            'profit_keuntungan' => formatRupiah($countTotalProfitKeuntungan),
+            'total_ongkir_60' => formatRupiah($countTotalOngkir60),
+            'total_ongkir_30' => formatRupiah($countTotalOngkir30),
+            'total_ongkir_10' => formatRupiah($countTotalOngkir10),
+            'unique_code' => formatRupiah($countTotalUniqueCode),
+            'service_fee' => formatRupiah($countTotalServiceFee),
+            'total_order' => $countOrder,
             'total_unpaid' => $countOrderUnpaid,
             'total_persen_unpaid' => $countPersenUnpaid,
             'total_paid' => $countOrderPaid,

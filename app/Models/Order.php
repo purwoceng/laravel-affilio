@@ -35,6 +35,7 @@ class Order extends Model
         'postal_code',
         'status',
         'payment_status',
+        'unique_code',
         'shipping_courier',
         'shipping_service',
     ];

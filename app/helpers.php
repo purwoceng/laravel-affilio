@@ -11,3 +11,18 @@ if (!function_exists('showPercent')) {
         }
     }
 }
+
+if (!function_exists('formatRupiah')) {
+    function formatRupiah($number)
+    {
+        if (!empty($number)) {
+            $result = 'Rp. ' . number_format($number, 0, ',', '.');
+        } else if ($number == null) {
+            $result = 0;
+        } else {
+            $result = '-';
+        }
+
+        return $result;
+    }
+}

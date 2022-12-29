@@ -13,17 +13,13 @@
             <!--end::Info-->
         </div>
     </div>
-    <!--end::Subheader-->
-    <!--begin::Entry-->
-    <div class="d-flex flex-column-fluid">
-        <!--begin::Container-->
-        <div class="container">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <h2>Welcome Dashboard</h2>
-            </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            Ini halaman dashboard
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Entry-->
+</div>
 
 @endsection

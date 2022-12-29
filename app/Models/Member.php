@@ -16,6 +16,7 @@ class Member extends Model
         'chat_user_id',
         'username',
         'email',
+        'member_type_id',
         'hash',
         'phone',
         'name',
@@ -30,4 +31,8 @@ class Member extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function member_type()
+    {
+        return $this->belongsTo(MemberType::class, 'member_type_id', 'id')->withTrashed();
+    }
 }
