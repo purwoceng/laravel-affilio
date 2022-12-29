@@ -14,12 +14,12 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
 
     public function getMemberBlocked($limit, $start)
     {
-        return Member::where('is_blocked','1')->where('publish','1')->offset($start)->limit($limit);
+        return Member::where('is_blocked', '1')->where('publish', '1')->offset($start)->limit($limit);
     }
 
     public function getCountMemberBlocked()
     {
-        return Member::where('is_blocked','1')->where('publish','1')->count();
+        return Member::where('is_blocked', '1')->where('publish', '1')->count();
     }
 
     public function getDataTable($request)
@@ -58,6 +58,12 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
+        if ($request->filled('member_type')) {
+            $keyword = $request->get('member_type');
+            $getQuery->where('member_type_id', $keyword);
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
 
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
@@ -69,6 +75,7 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
                 $email = $getMemberBlocked->email;
                 $phone = $getMemberBlocked->phone;
                 $name = $getMemberBlocked->name;
+                $member_type = $getMemberBlocked->member_type->type;
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
 
@@ -78,6 +85,7 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
                     'email' => $email,
                     'phone' => $phone,
                     'name' => $name,
+                    'member_type' => $member_type,
                     'is_verified' => $isVerified,
                     'is_blocked' => $isBlocked,
                     'actions' => $id,
@@ -93,6 +101,5 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
         );
 
         echo json_encode($json_data);
-
     }
 }

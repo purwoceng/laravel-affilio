@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
@@ -24,10 +25,11 @@ class MemberController extends Controller
 
     public function index(Request $request)
     {
+        $member_type = MemberType::get();
         if ($request->ajax()) {
             return $this->memberRepository->getDataTable($request);
         }
-        return view('members.member.index');
+        return view('members.member.index', compact('member_type'));
     }
 
     /**

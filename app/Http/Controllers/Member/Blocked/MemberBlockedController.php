@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Member\Blocked;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MemberType;
 use App\Repositories\Interfaces\Member\Blocked\MemberBlockedRepositoryInterface;
 
 class MemberBlockedController extends Controller
@@ -22,11 +24,13 @@ class MemberBlockedController extends Controller
      */
     public function index(Request $request)
     {
+
+        $member_type = MemberType::get();
         if ($request->ajax()) {
             return $this->memberBlockedRepository->getDataTable($request);
         }
 
-        return view('members.blocked.index');
+        return view('members.blocked.index', compact('member_type'));
     }
 
     /**

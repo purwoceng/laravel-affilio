@@ -49,8 +49,13 @@
                                                 <label class="col-4 col-form-label">Tipe Member</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="type" placeholder="Type Here">
+                                                    <select type="text" class="form-control form-control-sm filter"
+                                                        data-name="member_type" placeholder="Type Here">
+                                                        <option disabled default>Pilih Tipe Member</option>
+                                                        @foreach ($member_type as $data)
+                                                            <option value="{{ $data->id }}">{{ $data->type }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
