@@ -69,6 +69,15 @@ class MemberRepository implements MemberRepositoryInterface
             $totalFiltered = $totalData;
         }
 
+        if ($request->filled('member_type')) {
+            $keyword = $request->get('member_type');
+            $getQuery->where('member_type_id', $keyword);
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+
+
+
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
         $dataArray = [];
