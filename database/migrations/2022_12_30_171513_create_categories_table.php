@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 64);
             $table->string('link', 64);
             $table->string('description', 200);
+            $table->string('image', 200);
             $table->enum('level', ['main', 'subkategori', 'subkategori_1']);
             $table->softDeletes();
             $table->timestamps();
