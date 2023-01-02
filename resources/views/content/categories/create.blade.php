@@ -103,7 +103,7 @@
                             @enderror
                         </div>
 
-                        <a class="btn btn-outline-danger" href="{{ route('product_home.index') }}">Kembali</a>
+                        <a class="btn btn-outline-danger" href="{{ route('categories.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

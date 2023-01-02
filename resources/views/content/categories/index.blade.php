@@ -146,7 +146,7 @@
                     infoFiltered: "",
                 },
                 lengthChange: false,
-                pageLength: 20,
+                pageLength: 50,
                 order: [
                     [0, 'DESC']
                 ],
