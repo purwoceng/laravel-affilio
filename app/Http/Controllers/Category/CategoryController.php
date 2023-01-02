@@ -3,18 +3,34 @@
 namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Category\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $category_repository;
+
+    
+    public function __construct(CategoryRepository $category_repository)
+    {
+        $this->category_repository = $category_repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $data = $this->category_repository
+                ->getDataTable($request);
+
+            return response()->json($data);
+        }
+
+        return view('content.categories.index');
     }
 
     /**

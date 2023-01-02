@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Category\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\User\RoleController;
@@ -208,5 +209,16 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/edit', [GlobalSettingController::class, 'edit'])->name('edit');
             Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');
+        });
+
+    Route::prefix('categories')
+        ->name('categories.')
+        ->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('index');
+            Route::get('/create', [CategoryController::class, 'create'])->name('create');
+            Route::post('/store', [CategoryController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [CategoryController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('delete');
         });
 });
