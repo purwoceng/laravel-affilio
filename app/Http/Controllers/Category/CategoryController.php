@@ -29,10 +29,33 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = $this->category_repository
+            $result = $this->category_repository
                 ->getDataTable($request);
+            $data = [];
 
-            return response()->json($data);
+            $token = config('app.baleomol_key');
+            $url = config('app.baleomol_url') . '/categories';
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$token}",
+            ])->get($url);
+
+            $categories = $response['data'] ?? [];
+
+            foreach ($result['data'] as $key => $category_data) {
+                $origin_category_id = $category_data['origin_category_id'];
+                $filtered = array_filter($categories, function ($item) use ($origin_category_id) {
+                    return $item['no'] == $origin_category_id;
+                });
+
+                $origin_name = current($filtered)['name'] ?? '';
+                $category_data['origin_name'] = $origin_name;
+
+                $data[] = $category_data;
+            }
+
+            $result['data'] = $data;
+
+            return response()->json($result);
         }
 
         return view('content.categories.index');

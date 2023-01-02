@@ -109,6 +109,7 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Nama</th>
+                                <th>Kategori</th>
                                 <th>Level</th>
                                 <th>Gambar</th>
                                 <th>Dibuat</th>
@@ -169,6 +170,14 @@
                     {
                         data: 'name',
                         name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'origin_name',
+                        name: 'origin_name',
                         sortable: false,
                         orderable: false,
                         searchable: false,
