@@ -286,7 +286,7 @@
                              </a>
                          </li>
                          <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('video_tutorials.index') }}" class="menu-link">
+                             <a href="{{ route('categories.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>

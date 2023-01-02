@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Supplier Rekomendasi'))
+@section('title', __('Kategori Utama'))
 
 @push('css')
     <link
@@ -73,7 +73,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Supplier Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Utama</h5>
             </div>
         </div>
     </div>
@@ -95,9 +95,9 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Supplier Rekomendasi</h3>
+                        <h3 class="card-label">Kategori</h3>
                     </div>
-                    <a class="btn btn-success float-right" href={{ route('supplier_home.create') }} title="Tambah Supplier Rekomendasi">
+                    <a class="btn btn-success float-right" href={{ route('categories.create') }} title="Tambah Supplier Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
@@ -108,9 +108,9 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Supplier</th>
-                                <th>Nomor Urut</th>
-                                <th>Status</th>
+                                <th>Nama</th>
+                                <th>Level</th>
+                                <th>Gambar</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -129,8 +129,10 @@
     <script>
         'use strict';
 
+        const storageURL = "{{ asset('storage/') }}";
+
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('supplier_home.index') }}";
+            const ajaxUrl = "{{ route('categories.index') }}";
             
             $('#js-supplier-table').DataTable({
                 destroy: true,
@@ -165,8 +167,34 @@
                         }
                     },
                     {
-                        data: 'supplier_data',
-                        name: 'supplier_data',
+                        data: 'name',
+                        name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'level',
+                        name: 'level',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                        render: function (data, type, row, meta) {
+                            switch (data) {
+                                case 'main':
+                                    return 'Utama';
+                                case 'subkategori':
+                                    return 'Subkategori';
+                                case 'subkategori_1':
+                                    return 'Subkategori Level 1';
+                            }
+                        },
+                    },
+                    {
+                        data: 'image',
+                        name: 'image',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -174,45 +202,16 @@
                         render: function(data) {
                             let element = '';
 
-                            element += `
-                                <div class="product-cell">
-                                    <div class="product-cell__image">
-                                        <img src="${data.store.logo}" />
-                                    </div>
-                                    <div class="product-cell__content">
-                                        <span class="product-cell__title">${data.store.name}</span>
-                                        <div class="product-cell__stats">
-                                            <div class="product-cell__stat"><i class="fas fa-map"></i> ${data.address?.cityType} ${data.address?.cityName}, ${data.address?.province}</div>
+                            if (data) {
+                                element += `
+                                    <div class="product-cell">
+                                        <div class="product-cell__image">
+                                            <img src="${storageURL}/${data}" />
                                         </div>
                                     </div>
-                                </div>
-                            `;
-
-                            return element;
-                        }
-                    },
-                    {
-                        data: 'queue_number',
-                        name: 'queue_number',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
-                        data: 'is_active',
-                        name: 'is_active',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                        render: function(data) {
-                            let element = '';
-
-                            if (Number(data)) {
-                                element += `<span class="label label-light-success label-inline label-bold">Aktif</button>`;
+                                `;
                             } else {
-                                element += `<span class="label label-light-danger label-inline label-bold">Non-Aktif</button>`;
+                                element += `-`;
                             }
 
                             return element;
@@ -227,8 +226,8 @@
                         className: 'text-right small',
                     },
                     {
-                        data: 'actions',
-                        name: 'actions',
+                        data: 'id',
+                        name: 'id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -251,7 +250,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.supplier_data.store.name}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
                                                     href="${ajaxUrl}/delete/${row.id}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

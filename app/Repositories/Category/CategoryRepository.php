@@ -52,7 +52,7 @@ class CategoryRepository implements CategoryRepositoryInterface
                     'description' => $description,
                     'image' => $image,
                     'level' => $level,
-                    'created_at' => $created_at,
+                    'created_at' => date('d-m-Y H:i', strtotime($created_at)),
                 ];
             }
         }
