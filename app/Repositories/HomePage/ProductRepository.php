@@ -122,6 +122,6 @@ class ProductRepository implements ProductRepositoryInterface
             'data' => $data,
         ];
 
-        return $result;        
+        return $result;
     }
 }
