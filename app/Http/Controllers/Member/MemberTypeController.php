@@ -57,7 +57,7 @@ class MemberTypeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
-            'min_omset' => 'numeric|max:1000000000000',
+            'min_omset' => 'numeric|min:0|max:1000000000000',
         ], $messages);
 
         if ($validator->fails()) {
@@ -121,7 +121,7 @@ class MemberTypeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
-            'min_omset' => 'numeric|max:1000000000000',
+            'min_omset' => 'numeric|min:0|max:1000000000000',
 
         ], $messages);
 
