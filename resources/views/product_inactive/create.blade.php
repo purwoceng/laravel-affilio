@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Supplier Non Active - Tambah'))
+@section('title', __('Produk Nonaktif'))
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tambah Supplier Non Active</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konfigurasi Produk Nonaktif</h5>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Tambah Supplier Non Active</h3>
+                        <h3 class="card-label">Tambah Produk Nonaktif</h3>
                     </div>
                 </div>
 
@@ -97,25 +97,27 @@
                         </span>
                     @endif
 
-                    <form action="{{ route('suppliers.nonactive.store') }}" method="post">
+                    <form action="{{ route('product_inactive.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="input-supplier-id">Nama Supplier</label>
-                            <select name="supplier_id"
-                                id="input-supplier-id"
-                                class="js-supplier-selector form-control" required></select>
+                            <label for="input-product-id">Produk</label>
+                            <select name="origin_product_id"
+                                id="input-product-id"
+                                class="js-product-selector form-control" required></select>
 
-                            @error('supplier_id')
+                            @error('origin_product_id')
                                 <small id="name-helper" class="form-text text-danger">
                                     {{ $message }}
                                 </small>
                             @enderror
                         </div>
 
-                        <input type="hidden" name="origin_supplier_store_name" value="" />
+                        <input type="hidden" name="origin_product_name" value="" />
+                        <input type="hidden" name="origin_product_image_url" value="" />
+                        <input type="hidden" name="origin_supplier_id" value="" />
                         <input type="hidden" name="origin_supplier_username" value="" />
-                        <input type="hidden" name="image_url" value="" />
-                        <a class="btn btn-outline-danger" href="{{ route('suppliers.nonactive.index') }}">Kembali</a>
+
+                        <a class="btn btn-outline-danger" href="{{ route('product_inactive.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -130,24 +132,29 @@
     <script>
         'use strict';
 
-        const API_URL = '{{ config('app.baleomol_url') }}';
-        const suppliersEndpoint = `${API_URL}/suppliers`;
+        const API_URL = '{{ config('app.url') }}';
+        const productsEndpoint = `${API_URL}/api/v1/products`;
 
         $(document).ready(function() {
-            function formatProduct(supplier) {
-                if (supplier.loading) {
-                    return supplier.text;
+            function formatProduct(product) {
+                if (product.loading) {
+                    return product.productName;
                 }
+
+                const isVariant = Number(product.isVariation);
+                const price = isVariant ? product.alternativePriceFormat : product.priceFormat;
 
                 const $container = $(
                     `<div class="xselect-option clearfix">
                         <div class="xselect-option__avatar">
-                            <img src="${supplier.image}" />
+                            <img src="${product.image}" />
                         </div>
                         <div class="xselect-option__desc">
-                            <div class="xselect-option__title">${supplier.text}</div>
+                            <div class="xselect-option__title">${product.text}</div>
                             <div class="xselect-option__stats">
-                                <div class="xselect-option__stat"><i class="fas fa-map-marker-alt"></i> ${supplier.city} ${supplier.province}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerName}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-box-open"></i> ${product.stock} Unit</div>
                             </div>
                         </div>
                     </div>`
@@ -156,60 +163,61 @@
                 return $container;
             }
 
-            function formatProductSelection(supplier) {
-                return supplier.productName;
+            function formatProductSelection(product) {
+                return product.productName;
             }
 
-            $('.js-supplier-selector').select2({
-                placeholder: 'Ketik Nama Toko Supplier',
+            $('.js-product-selector').select2({
+                placeholder: 'Ketik Nama Produk',
                 minimumInputLength: 3,
                 ajax: {
-                    url: suppliersEndpoint,
+                    url: productsEndpoint,
                     dataType: 'json',
+                    delay: 1000,
                     data: function(params) {
                         const query = { limit: 10 };
-                        if (params.term) query.name = params.term;
+                        if (params.term) query.keyword = params.term;
 
                         return query;
-                    },
-                    headers: {
-                        Authorization: `Bearer {{ config('app.baleomol_key') }}`,
                     },
                     processResults: function(data, params) {
                         var result = { results: [] };
 
                         if (data.success) {
                             const { results: resultData } = data.data;
-
-                            const suppliers = resultData.map(item => {
-
+                            const products = resultData.map(item => {
                                 return {
-                                    id: item.id,
-                                    text: item.store?.name || '',
-                                    image: item.store?.image,
-                                    city: item.store?.city,
-                                    province: item.store?.province,
-                                    username: item.username,
-                                    image_url :item.cover|| '',
+                                    id: item.productId,
+                                    text: item.productName,
+                                    image: item.picture,
+                                    sellerId: item.sellerId,
+                                    sellerName: item.sellerName,
+                                    price: item.price,
+                                    stock: item.stock,
+                                    isVariation: item.isVariation,
+                                    alternativePriceFormat: item.alternativePriceFormat,
+                                    priceFormat: item.priceFormat,
                                 }
                             });
 
-                            result.results = suppliers;
+                            result.results = products;
                         }
 
                         return result;
                     },
-
+                    
                 },
                 templateResult: formatProduct,
                 // templateSelection: formatProductSelection,
             });
 
-            $('.js-supplier-selector').on('select2:select', function (e) {
+            $('.js-product-selector').on('select2:select', function (e) {
                 var data = e.params.data;
-                $('input[name="origin_supplier_store_name"]').val(data.text);
-                $('input[name="origin_supplier_username"]').val(data.username);
-                $('input[name="image_url"]').val(data.image_url);
+
+                $('input[name="origin_product_name"]').val(data.text);
+                $('input[name="origin_product_image_url"]').val(data.image);
+                $('input[name="origin_supplier_id"]').val(data.sellerId);
+                $('input[name="origin_supplier_username"]').val(data.sellerName);
             });
         });
     </script>

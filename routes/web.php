@@ -24,11 +24,10 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
-use App\Http\Controllers\HomePage\CustomerServiceNumberController;
 use App\Http\Controllers\Order\OrderDashboardController;
-use App\Http\Controllers\Supplier\SupplierNonactive;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Models\VideoTutorial;
+use App\Http\Controllers\ProductInactive\ProductInactiveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,10 +173,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [SupplierNonactiveController::class, 'index'])->name('index');
                 Route::get('/create', [SupplierNonactiveController::class, 'create'])->name('create');
                 Route::post('/store', [SupplierNonactiveController::class, 'store'])->name('store');
-                // Route::get('/show/{id}', [BannerCategoryController::class, 'show'])->name('show');
-                // Route::get('/edit/{id}', [BannerCategoryController::class, 'edit'])->name('edit');
-                // Route::post('/update/{id}', [BannerCategoryController::class, 'update'])->name('update');
-                // Route::get('/delete/{id}', [BannerCategoryController::class, 'destroy'])->name('destroy');
+                Route::get('/delete/{id}', [SupplierNonactiveController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -238,5 +234,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [CategoryController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('delete');
+        });
+
+    Route::prefix('product-inactive')
+        ->name('product_inactive.')
+        ->group(function () {
+            Route::get('/', [ProductInactiveController::class, 'index'])->name('index');
+            Route::get('/create', [ProductInactiveController::class, 'create'])->name('create');
+            Route::post('/store', [ProductInactiveController::class, 'store'])->name('store');
+            Route::get('/delete/{id}', [ProductInactiveController::class, 'destroy'])->name('delete');
         });
 });

@@ -48,6 +48,7 @@ class SupplierNonActiveRepository implements SupplierNonActiveRepositoryInterfac
                 $id = $supplier->id;
                 $origin_supplier_id = $supplier->origin_supplier_id;
                 $username = $supplier->username;
+                $image_url = $supplier->image_url;
                 $store_name = $supplier->store_name;
                 $created_at = date('d/m/Y H:i', strtotime($supplier->created_at));
                 $actions = $id;
@@ -55,6 +56,7 @@ class SupplierNonActiveRepository implements SupplierNonActiveRepositoryInterfac
                 $data[] = compact(
                     'id',
                     'origin_supplier_id',
+                    'image_url',
                     'username',
                     'store_name',
                     'created_at',

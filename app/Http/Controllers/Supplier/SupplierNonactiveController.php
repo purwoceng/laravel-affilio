@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\SupplierNonActive;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\Supplier\SupplierNonActiveRepositoryInterface;
+use App\Repositories\Supplier\SupplierNonActiveRepository;
 
 class SupplierNonactiveController extends Controller
 {
-    private $supplierNonActiveRepository;
+    protected $supplierNonActiveRepository;
 
-    public function __construct(SupplierNonActiveRepositoryInterface $supplierNonActiveRepository)
+    public function __construct(SupplierNonActiveRepository $supplierNonActiveRepository)
     {
         $this->supplierNonActiveRepository = $supplierNonActiveRepository;
     }
@@ -47,8 +47,7 @@ class SupplierNonactiveController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        exit;
+
         $this->validate($request, [
             'supplier_id' => [
                 'required',
@@ -56,21 +55,21 @@ class SupplierNonactiveController extends Controller
                 'min:1',
                 Rule::unique('supplier_inactives', 'origin_supplier_id')
                     ->whereNull('deleted_at')
-            ],
-            'queue_number' => ['required', 'numeric', 'min:1', 'max:100'],
+            ]
         ]);
 
         $results= SupplierNonActive::create([
             'origin_supplier_id' => $request->supplier_id,
-            'username' => $request->username,
-            'store_name' => $request->store_name,
+            'username' => $request->origin_supplier_username,
+            'store_name' => $request->origin_supplier_store_name,
+            'image_url' => $request->image_url,
         ]);
 
         if ($results) {
             return redirect()
                 ->route('suppliers.nonactive.index')
                 ->with([
-                    'success' => 'Berhasil menambah data baru supplier rekomendasi.'
+                    'success' => 'Berhasil menambah data baru supplier tidak aktif.'
                 ]);
         } else {
             return redirect()
@@ -124,6 +123,13 @@ class SupplierNonactiveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = $this->supplierNonActiveRepository->delete($id);
+
+        if ($delete) {
+            return redirect()->route('suppliers.nonactive.index')
+                ->with('success', 'Data Supplier yang nonactive telah berhasil dihapus.');
+        } else {
+            return back()->withInput()->with('info', 'Gagal menghapus data supplier yang nonactive');
+        }
     }
 }

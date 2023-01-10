@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupplierInactivesTable extends Migration
+class CreateProductInactivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSupplierInactivesTable extends Migration
      */
     public function up()
     {
-        Schema::create('supplier_inactives', function (Blueprint $table) {
+        Schema::create('product_inactives', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('origin_product_id');
             $table->unsignedInteger('origin_supplier_id');
-            $table->string('username',191);
-            $table->string('store_name',191);
-            $table->string('image_url', 200)->nullable();
+            $table->string('origin_supplier_username', 64);
+            $table->string('name', 64);
+            $table->string('image_url', 200);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +31,6 @@ class CreateSupplierInactivesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplier_inactives');
+        Schema::dropIfExists('product_inactives');
     }
 }

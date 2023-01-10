@@ -284,7 +284,7 @@ class VideoTutorialController extends Controller
                 return redirect()
                     ->route('video_tutorials.index')
                     ->with([
-                        'success' => 'Berhasil menghapus data produk video tutorial.'
+                        'success' => 'Berhasil menghapus data video tutorial.'
                     ]);
             } else {
                 return redirect()

@@ -1,8 +1,12 @@
 @extends('core.app')
-@section('title', __('Supplier Non Active'))
+@section('title', __('Produk Nonaktif'))
 
 @push('css')
-    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link
+        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
+        rel="stylesheet"
+        type="text/css"
+    />
 
     <style>
         .product-cell {
@@ -69,7 +73,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Supplier Non Active</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konfigurasi Produk Nonaktif</h5>
             </div>
         </div>
     </div>
@@ -91,24 +95,21 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Supplier Non Active</h3>
+                        <h3 class="card-label">Produk Nonaktif</h3>
                     </div>
-                    <a class="btn btn-success float-right" href={{ route('suppliers.nonactive.create') }}
-                        title="Tambah Supplier Rekomendasi">
+                    <a class="btn btn-success float-right" href={{ route('product_inactive.create') }} title="Tambah Produk Nonaktif">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
                 </div>
 
                 <div class="card-body">
-                    <table id="js-supplier-nonactive-table" class="table table-separate table-head-custom table-checkable nowrap">
+                    <table id="js-supplier-table" class="table table-separate table-head-custom table-checkable nowrap">
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Supplier Name</th>
-                                <th>Username</th>
-                                <th>Store Name</th>
-                                <th>Dibuat</th>
+                                <th>Produk</th>
+                                <th>Ditambahkan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -127,9 +128,9 @@
         'use strict';
 
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('suppliers.nonactive.index') }}";
-
-            $('#js-supplier-nonactive-table').DataTable({
+            const ajaxUrl = "{{ route('product_inactive.index') }}";
+            
+            $('#js-supplier-table').DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
@@ -150,7 +151,8 @@
                     type: 'GET',
                 },
                 scrollX: true,
-                columns: [{
+                columns: [
+                    {
                         data: null,
                         sortable: false,
                         className: 'text-center',
@@ -161,8 +163,8 @@
                         }
                     },
                     {
-                        data: 'origin_supplier_id',
-                        name: 'origin_supplier_id',
+                        data: 'origin_product_id',
+                        name: 'origin_product_id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -176,7 +178,7 @@
                                         <img src="${row.image_url}" />
                                     </div>
                                     <div class="product-cell__content">
-                                        <span class="product-cell__title">${row.store_name}</span>
+                                        <span class="product-cell__title">${row.name}</span>
                                         <div class="product-cell__stats"></div>
                                     </div>
                                 </div>
@@ -184,22 +186,6 @@
 
                             return element;
                         }
-                    },
-                    {
-                        data: 'username',
-                        name: 'username',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
-                        data: 'store_name',
-                        name: 'store_name',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
                     },
                     {
                         data: 'created_at',
@@ -216,7 +202,7 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render: function(data, type, row, meta) {
+                        render : function(data, type, row, meta) {
                             let elements = '';
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -229,8 +215,8 @@
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.store_name}')"
-                                                    href="${ajaxUrl}/delete/${row.id}">
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${data.name}')"
+                                                    href="${ajaxUrl}/delete/${data.id}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>
                                             </li>

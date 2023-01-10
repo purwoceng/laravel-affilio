@@ -11,14 +11,15 @@ class SupplierNonActive extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'supplier_nonactives';
+    protected $table = 'supplier_inactives';
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'id',
-        'origin_supplier_id ',
+        'origin_supplier_id',
         'username',
         'store_name',
+        'image_url',
     ];
 
     protected $casts = [
