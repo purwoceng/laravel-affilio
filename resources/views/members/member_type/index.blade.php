@@ -39,13 +39,47 @@
 
                     <table id="js-table-member-type" class="table table-separate table-head-custom table-checkable nowrap"
                         style="width:100%">
-                        <div class="d-flex flex-row">
+                        <div class="d-flex flex-row justify-content-between">
                             <div class="p-1">
                                 <a href="{{ route('members.member_type.create') }}" class="btn btn-sm btn-primary my-2">
-                                    <i class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
+                                    <i class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')
+                                </a>
                             </div>
                         </div>
                         <thead>
+                            
+                            <div class="filter-wrapper">
+                                <form action="#" class="form" id="filter">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Tipe Member</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input
+                                                        type="text"
+                                                        class="form-control form-control-sm filter"
+                                                        data-name="type" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Minimum Omset</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input
+                                                        type="number"
+                                                        class="form-control form-control-sm filter"
+                                                        data-name="min_omset" placeholder="Type Here"
+                                                        min="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
                             <tr class="text-center small">
                                 <th>#</th>
                                 <th>Tipe Member </th>
@@ -55,8 +89,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -186,7 +219,7 @@
                 let data = {};
 
                 $.each(filterEl, function(i, v) {
-                    let key = $(v).data('type');
+                    let key = $(v).data('name');
                     let value = $(v).val();
                     if (key == 'date') {
                         if (value != '') {

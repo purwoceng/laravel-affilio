@@ -46,6 +46,19 @@ class MemberTypeRepository implements MemberTypeRepositoryInterface
         $totalData = $this->getCountMemberType();
         $totalFiltered = $totalData;
 
+        if ($request->filled('type')) {
+            $keyword = $request->get('type');
+            $getQuery->where('type', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+
+        if ($request->filled('min_omset')) {
+            $keyword = $request->get('min_omset');
+            $getQuery->where('min_omset', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
 
         $getMemberType = $getQuery->orderBy('id', 'desc')->get();
 
