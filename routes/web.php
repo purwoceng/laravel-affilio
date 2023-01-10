@@ -26,6 +26,8 @@ use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\HomePage\CustomerServiceNumberController;
 use App\Http\Controllers\Order\OrderDashboardController;
+use App\Http\Controllers\Supplier\SupplierNonactive;
+use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Models\VideoTutorial;
 
 /*
@@ -163,6 +165,22 @@ Route::middleware('auth')->group(function () {
                 Route::get('/delete/{id}', [BannerCategoryController::class, 'destroy'])->name('destroy');
             });
         });
+
+        Route::prefix('suppliers')
+        ->name('suppliers.')
+        ->group(function () {
+
+            Route::prefix('non-active')->name('nonactive.')->group(function () {
+                Route::get('/', [SupplierNonactiveController::class, 'index'])->name('index');
+                Route::get('/create', [SupplierNonactiveController::class, 'create'])->name('create');
+                Route::post('/store', [SupplierNonactiveController::class, 'store'])->name('store');
+                // Route::get('/show/{id}', [BannerCategoryController::class, 'show'])->name('show');
+                // Route::get('/edit/{id}', [BannerCategoryController::class, 'edit'])->name('edit');
+                // Route::post('/update/{id}', [BannerCategoryController::class, 'update'])->name('update');
+                // Route::get('/delete/{id}', [BannerCategoryController::class, 'destroy'])->name('destroy');
+            });
+        });
+
 
     //MCS NUMBER MENU
     Route::prefix('cs-number')->name('cs-number.')->group(function () {

@@ -170,6 +170,55 @@
                  </div>
              </li>
 
+             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers*') ? 'active' : '' }}"
+                aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <span class="svg-icon menu-icon">
+                        <i class="fas fa-address-book"></i>
+                    </span>
+                    <span class="menu-text">Supplier</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="menu-submenu">
+                    <i class="menu-arrow"></i>
+                    <ul class="menu-subnav">
+                        <li class="menu-item menu-item-parent" aria-haspopup="true">
+                            <span class="menu-link">
+                                <span class="menu-text">Supplier</span>
+                            </span>
+                        </li>
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers') ? 'active' : '' }}"
+                            aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('suppliers.nonactive.index') }}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Supplier Non Active  </span>
+                            </a>
+                        </li>
+                        {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
+                            aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('members.blocked.index') }}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Member Blokir</span>
+                            </a>
+                        </li>
+                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/member_type*') ? 'active' : '' }}"
+                            aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('members.member_type.index') }}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text"> Tipe Member</span>
+                            </a>
+                        </li> --}}
+
+                    </ul>
+                </div>
+            </li>
+
 
              <li class="menu-item menu-item-submenu menu-item-{{ request()->is('banners') ? 'active' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
