@@ -60,7 +60,7 @@
                  </a>
              </li>
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices*') ? 'active' : '' }}"
+             <li class="menu-item menu-item-submenu {{ request()->is('invoices*') ? 'menu-item-open' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
@@ -131,7 +131,7 @@
                  </a>
              </li>
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members*') ? 'active' : '' }}"
+             <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
@@ -180,7 +180,7 @@
                  </div>
              </li>
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers*') ? 'active' : '' }}"
+             <li class="menu-item menu-item-submenu {{ request()->is('suppliers*') ? 'menu-item-open' : '' }}"
                 aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
@@ -230,7 +230,7 @@
             </li>
 
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('banners') ? 'active' : '' }}"
+             <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">

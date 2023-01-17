@@ -43,11 +43,23 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Terverifikasi</label>
-                                    <div class="col-9"><span>{{ $data->is_verified }}</span></div>
+                                    <div class="col-9">
+                                        @if ($data->is_verified == 1)
+                                            <span class="label label-light-success label-inline label-bold">Terverifikasi</span>
+                                        @else
+                                            <span class="label label-light-danger label-inline label-bold">Belum Diverifikasi</span>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Status</label>
-                                    <div class="col-9"><span>{{ $data->is_blocked }}</span></div>
+                                    <div class="col-9">
+                                        @if ($data->is_blocked == 1)
+                                            <span class="label label-light-danger label-inline label-bold">Diblokir</span>
+                                        @else
+                                            <span class="label label-light-success label-inline label-bold">Aktif</span>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Foto</label>

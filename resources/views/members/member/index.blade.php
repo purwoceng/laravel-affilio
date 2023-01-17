@@ -22,6 +22,18 @@
 
                 </div>
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success my-3 mx-4" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+                    @if (session('error'))
+                        <div class="alert alert-danger my-3 mx-4" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <table id="js-table-member-blocked"
                         class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
