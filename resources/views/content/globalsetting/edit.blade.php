@@ -49,11 +49,11 @@
 
                             <form method="POST" action="{{ route('markup.update') }}" enctype="multipart/form-data">
                                 @csrf
-                                <label>Markup Price<span class="text-danger">*</span></label>
+                                <label>Markup Persent<span class="text-danger">*</span></label>
                                 {{ method_field('PUT') }}
                                 <div class="input-group mb-3">
                                     <input type="number" class="form-control" placeholder="Masukkan Harga Markup"
-                                        name="markup_price" value="{{ $data->markup_price }}" required />
+                                        name="value" value="{{ $data->value }}" required />
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">%</span>
                                     </div>
