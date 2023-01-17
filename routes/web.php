@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
     // Member Menu
     Route::prefix('members')->name('members.')->group(function () {
         Route::get('/', [MemberController::class, 'index'])->name('index');
+        Route::get('/detail/{id}', [MemberController::class, 'show'])->name('detail');
+        Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit');
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');

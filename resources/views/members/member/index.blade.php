@@ -219,19 +219,25 @@
                             let elements = '';
 
                             elements += `
-                                <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                                        class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                                            class="la la-cog"></i></a>
+                                <div class="dropdown dropdown-inline">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown">
+                                        <i class="la la-cog"></i>
+                                    </a>
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="javascript:void(0)"><span
-                                                        class="nav-text">Detail</span></a>
+                                                <a class="nav-link" href="${urlAjax}/detail/${row.id}">
+                                                    <span class="nav-text">Detail</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${urlAjax}/edit/${row.id}">
+                                                    <span class="nav-text">Edit Member</span>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
-                    `;
+                                </div>`;
 
                             return elements;
                         }

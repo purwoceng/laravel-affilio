@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 
 class MemberController extends Controller
@@ -61,7 +62,10 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Member::findOrFail($id);
+        $isMemberExists = !!$data;
+
+        return view('members.member.detail', compact('data', 'isMemberExists'));
     }
 
     /**
@@ -72,7 +76,10 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Member::findOrFail($id);
+        $isMemberExists = !!$data;
+
+        return view('members.member.edit', compact('data', 'isMemberExists'));
     }
 
     /**
