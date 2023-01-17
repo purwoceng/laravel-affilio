@@ -24,8 +24,9 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
-use App\Http\Controllers\HomePage\CustomerServiceNumberController;
 use App\Http\Controllers\Order\OrderDashboardController;
+use App\Http\Controllers\Supplier\SupplierNonactiveController;
+use App\Models\VideoTutorial;
 use App\Http\Controllers\ProductInactive\ProductInactiveController;
 
 /*
@@ -163,6 +164,19 @@ Route::middleware('auth')->group(function () {
                 Route::get('/delete/{id}', [BannerCategoryController::class, 'destroy'])->name('destroy');
             });
         });
+
+        Route::prefix('suppliers')
+        ->name('suppliers.')
+        ->group(function () {
+
+            Route::prefix('non-active')->name('nonactive.')->group(function () {
+                Route::get('/', [SupplierNonactiveController::class, 'index'])->name('index');
+                Route::get('/create', [SupplierNonactiveController::class, 'create'])->name('create');
+                Route::post('/store', [SupplierNonactiveController::class, 'store'])->name('store');
+                Route::get('/delete/{id}', [SupplierNonactiveController::class, 'destroy'])->name('destroy');
+            });
+        });
+
 
     //MCS NUMBER MENU
     Route::prefix('cs-number')->name('cs-number.')->group(function () {
