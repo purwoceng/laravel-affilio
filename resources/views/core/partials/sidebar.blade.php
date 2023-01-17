@@ -121,6 +121,16 @@
                  </a>
              </li>
 
+             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('product-inactive*') ? 'active' : '' }}"
+                 aria-haspopup="true" data-menu-toggle="hover">
+                 <a href="{{ route('product_inactive.index') }}" class="menu-link menu-toggle">
+                     <span class="svg-icon menu-icon">
+                         <i class="fab fa-accessible-icon	"></i>
+                     </span>
+                     <span class="menu-text">Produk Non-aktif</span>
+                 </a>
+             </li>
+
              <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members*') ? 'active' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
