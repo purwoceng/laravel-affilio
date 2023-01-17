@@ -14,12 +14,17 @@ class InvoiceUnpaidRepository implements InvoiceUnpaidRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Invoice::where('status','unpaid')->where('publish', '1')->offset($start)->limit($limit);
+        return Invoice::where('status', 'unpaid')->where('publish', '1')->offset($start)->limit($limit);
     }
 
     public function getTotalData()
     {
-        return Invoice::where('status','unpaid')->where('publish', '1')->count();
+        return Invoice::where('status', 'unpaid')->where('publish', '1')->count();
+    }
+
+    public function getDataById($id)
+    {
+        return Invoice::where('status', 'cancel')->where('id', $id)->first();
     }
 
     public function getDataTable($request)

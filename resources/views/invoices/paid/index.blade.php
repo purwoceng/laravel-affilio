@@ -193,6 +193,7 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
+                            let showUrl = `{{ url('/invoices/paid/show/${row.id}') }}`;
                             let elements = '';
 
                             elements += `
@@ -207,8 +208,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
-                    `;
+                                </div> `;
 
                             return elements;
                         }

@@ -14,12 +14,18 @@ class InvoiceCancelRepository implements InvoiceCancelRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Invoice::where('status','cancel')->where('publish', '1')->offset($start)->limit($limit);
+        return Invoice::where('status', 'cancel')->where('publish', '1')->offset($start)->limit($limit);
     }
+
+    public function getDataById($id)
+    {
+        return Invoice::where('status', 'cancel')->where('id', $id)->first();
+    }
+
 
     public function getTotalData()
     {
-        return Invoice::where('status','cancel')->where('publish', '1')->count();
+        return Invoice::where('status', 'cancel')->where('publish', '1')->count();
     }
 
     public function getDataTable($request)
