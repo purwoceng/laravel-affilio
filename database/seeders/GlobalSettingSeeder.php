@@ -16,15 +16,15 @@ class GlobalSettingSeeder extends Seeder
     {
         $markup = [
             [
-                'key' => "markup global",
-                'markup_price' => "10",
+                'key' => "markup_global",
+                'value' => "10",
             ],
         ];
 
         foreach ($markup as $key => $value) {
             GlobalSetting::create([
                 'key' => $value['key'],
-                'markup_price' => $value['markup_price'],
+                'value' => $value['value'],
             ]);
         }
     }

@@ -68,17 +68,17 @@ class GlobalSettingController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'markup_price' => 'required|numeric|min:10|max:1000',
+            'value' => 'required|numeric|min:10|max:1000',
         ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $global_settings = $request->markup_price;
+        $global_settings = $request->value;
 
         $updateData = [
-            'markup_price' => $global_settings,
+            'value' => $global_settings,
         ];
 
         $result = $this->GlobalSettingRepository->update(1, $updateData);
