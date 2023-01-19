@@ -111,6 +111,7 @@
     <script>
         $(document).ready(function() {
             const urlAjax = "{{ route('members.blocked.index') }}";
+            const urlMember = "{{ route('members.index') }}";
 
             var tableAllMember = $('#js-table-all-member').DataTable({
                 processing: true,
@@ -221,19 +222,25 @@
                             let elements = '';
 
                             elements += `
-                            <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                                    class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                                        class="la la-cog"></i></a>
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                    <ul class="nav nav-hoverable flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="javascript:void(0)"><span
-                                                    class="nav-text">Detail</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            `;
+                                <div class="dropdown dropdown-inline">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown">
+                                        <i class="la la-cog"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                        <ul class="nav nav-hoverable flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${urlMember}/detail/${row.id}">
+                                                    <span class="nav-text">Detail</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${urlMember}/edit/${row.id}">
+                                                    <span class="nav-text">Edit Member</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>`;
 
                             return elements;
                         }

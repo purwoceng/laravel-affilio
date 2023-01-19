@@ -208,7 +208,7 @@
 
             $('.js-supplier-selector').select2({
                 placeholder: 'Ketik Nama Toko Supplier',
-                minimumInputLength: 3,
+                minimumInputLength: 2,
                 ajax: {
                     url: suppliersEndpoint,
                     dataType: 'json',

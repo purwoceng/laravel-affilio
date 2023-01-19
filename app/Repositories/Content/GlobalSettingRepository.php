@@ -59,14 +59,14 @@ class GlobalSettingRepository implements GlobalSettingRepositoryInterface
             foreach ($global_settings as $key => $global_settings) {
                 $id = $global_settings->id;
                 $key = $global_settings->key;
-                $markup_price = $global_settings->value;
+                $value = $global_settings->value;
                 $creted_at = date('Y-m-d H:i', strtotime($global_settings->created_at));
 
 
                 $dataArray[] = [
                     'id' => $id,
                     'key' => $key,
-                    'markup_product' => $markup_price,
+                    'value' => $value,
                     'created_at' => $creted_at,
                     'actions' => $id,
                 ];

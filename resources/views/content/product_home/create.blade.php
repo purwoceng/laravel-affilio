@@ -184,7 +184,7 @@
 
             $('.js-product-selector').select2({
                 placeholder: 'Ketik Nama Produk',
-                minimumInputLength: 3,
+                minimumInputLength: 2,
                 ajax: {
                     url: productsEndpoint,
                     dataType: 'json',

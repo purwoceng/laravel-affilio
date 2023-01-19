@@ -16,7 +16,7 @@ class CreateGlobalSettings extends Migration
         Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->text('markup_price');
+            $table->text('value');
             $table->timestamps();
         });
     }
