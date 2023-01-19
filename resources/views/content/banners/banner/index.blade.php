@@ -100,15 +100,16 @@
                         }
                     },
                     {
-                        data: 'image',
-                        name: 'image',
+                        data: 'image_url',
+                        name: 'image_url',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
-                        render: function (data, type, row, meta) {
-                            let baseUrl = "{{ asset('storage/') }}";
-                            return `<img src="${baseUrl+'/' + row.image}" class="image-fluid" width="80px">`;
+                        render: function (data, type, row, meta) {                        
+                            if (data) return `<img src="${data}" class="image-fluid" width="80px">`;
+
+                            return '-';
                         }
                     },
                     {

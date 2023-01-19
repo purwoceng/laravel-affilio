@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Content\Banner\BannerRepository;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -87,7 +88,10 @@ class BannerController extends Controller
         if ($thumbnailImage) {
             $fileName = 'thumbnail_' . time() . '_' . uniqid() . '_' . $thumbnailImage->getClientOriginalName();
             $thumbnailImage->move(public_path('storage/banners/thumbnail/'), $fileName);
-            $createData['image'] = "banners/thumbnail/" . $fileName;
+            $path_file = 'storage/system_storage/banners/thumbnail/' . $fileName;
+            $createData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/banners/thumbnail/') . $fileName));
+            
         }
 
         $result = $this->bannerRepository->create($createData);
@@ -178,7 +182,9 @@ class BannerController extends Controller
 
             $fileName = 'thumbnail_' . time() . '_' . uniqid() . '_' . $thumbnailImage->getClientOriginalName();
             $thumbnailImage->move(public_path('storage/banners/thumbnail/'), $fileName);
-            $updateData['image'] = "banners/thumbnail/" . $fileName;
+            $path_file = 'storage/system_storage/banners/thumbnail/' . $fileName;
+            $updateData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/banners/thumbnail/') . $fileName));
         }
 
         $result = $this->bannerRepository->update($id, $updateData);
