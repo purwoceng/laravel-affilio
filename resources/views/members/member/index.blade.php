@@ -34,7 +34,7 @@
                         </div>
                     @endif
 
-                    <table id="js-table-member-blocked"
+                    <table id="s-table-all-member"
                         class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
@@ -121,7 +121,7 @@
         $(document).ready(function() {
             const urlAjax = "{{ route('members.index') }}";
 
-            var tableBlockedMember = $('#js-table-member-blocked').DataTable({
+            var tableAllMember = $('#js-table-all-member').DataTable({
                 destroy: true,
                 responsive: false,
                 processing: true,
@@ -310,7 +310,7 @@
             };
 
             function reDrawTable(data) {
-                tableBlockedMember.ajax.url(getFullUrl(data)).load(null, false);
+                tableAllMember.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();

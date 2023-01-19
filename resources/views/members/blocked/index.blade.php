@@ -22,7 +22,7 @@
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-all-member" class="table table-separate table-head-custom table-checkable nowrap"
+                    <table id="js-table-member-blocked" class="table table-separate table-head-custom table-checkable nowrap"
                         style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
@@ -111,7 +111,7 @@
         $(document).ready(function() {
             const urlAjax = "{{ route('members.blocked.index') }}";
 
-            var tableAllMember = $('#js-table-all-member').DataTable({
+            var tableMemberBlcoked = $('#js-table-member-blocked').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -298,7 +298,7 @@
             };
 
             function reDrawTable(data) {
-                tableAllMember.ajax.url(getFullUrl(data)).load(null, false);
+                tableMemberBlcoked.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();
