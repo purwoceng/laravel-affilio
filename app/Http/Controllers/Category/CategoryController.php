@@ -8,6 +8,7 @@ use App\Repositories\Category\CategoryRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -49,6 +50,7 @@ class CategoryController extends Controller
 
                 $origin_name = current($filtered)['name'] ?? '';
                 $category_data['origin_name'] = $origin_name;
+                $category_data['image_url'] = $category_data['image'] ? config('app.s3_url') . $category_data['image'] : '';
 
                 $data[] = $category_data;
             }
@@ -140,9 +142,11 @@ class CategoryController extends Controller
         $image = $request->file('image');
 
         if ($image) {
-            $new_file_name = 'thumbnail_' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $new_file_name = 'category_' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
             $image->move(public_path('storage/category/'), $new_file_name);
-            $category_data['image'] = "category/" . $new_file_name;
+            $path_file = 'storage/system_storage/category/' . $new_file_name;
+            $category['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, $image);
         }
 
         $category = Category::create($category_data);
@@ -254,9 +258,11 @@ class CategoryController extends Controller
         $image = $request->file('image');
 
         if ($image) {
-            $new_file_name = 'thumbnail_' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $new_file_name = 'category_' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
             $image->move(public_path('storage/category/'), $new_file_name);
-            $category->image = "category/" . $new_file_name;
+            $path_file = 'storage/system_storage/category/' . $new_file_name;
+            $category->image = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/category/') . $new_file_name));
         }
 
         $category->save();
