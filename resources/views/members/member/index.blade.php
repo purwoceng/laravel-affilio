@@ -1,7 +1,7 @@
 @extends('core.app')
 @section('title', __('Data Member'))
 @push('css')
-    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -27,14 +27,14 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    
+
                     @if (session('error'))
                         <div class="alert alert-danger my-3 mx-4" role="alert">
                             {{ session('error') }}
                         </div>
                     @endif
 
-                    <table id="js-table-member-blocked"
+                    <table id="s-table-all-member"
                         class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
@@ -63,7 +63,8 @@
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <select type="text" class="form-control form-control-sm filter"
                                                         data-name="member_type" placeholder="Type Here">
-                                                        <option disabled default>Pilih Tipe Member</option>
+                                                        <option disabled>Pilih Tipe Member</option>
+                                                        <option value="all" selected default>Semua</option>
                                                         @foreach ($member_type as $data)
                                                             <option value="{{ $data->id }}">{{ $data->type }}</option>
                                                         @endforeach
@@ -115,12 +116,12 @@
 
 
 @push('js')
-    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             const urlAjax = "{{ route('members.index') }}";
 
-            var tableBlockedMember = $('#js-table-member-blocked').DataTable({
+            var tableAllMember = $('#js-table-all-member').DataTable({
                 destroy: true,
                 responsive: false,
                 processing: true,
@@ -309,7 +310,7 @@
             };
 
             function reDrawTable(data) {
-                tableBlockedMember.ajax.url(getFullUrl(data)).load(null, false);
+                tableAllMember.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();
