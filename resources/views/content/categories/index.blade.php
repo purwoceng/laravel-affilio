@@ -202,8 +202,8 @@
                         },
                     },
                     {
-                        data: 'image',
-                        name: 'image',
+                        data: 'image_url',
+                        name: 'image_url',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -215,7 +215,7 @@
                                 element += `
                                     <div class="product-cell">
                                         <div class="product-cell__image">
-                                            <img src="${storageURL}/${data}" />
+                                            <img src="${data}" />
                                         </div>
                                     </div>
                                 `;

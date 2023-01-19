@@ -176,21 +176,25 @@
                             const isVariant = Number(data.isVariationActive);
                             const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                            element += `
-                                <div class="product-cell">
-                                    <div class="product-cell__image">
-                                        <img src="${data.picture[0]}" />
-                                    </div>
-                                    <div class="product-cell__content">
-                                        <span class="product-cell__title">${data.productName}</span>
-                                        <div class="product-cell__stats">            
-                                            <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
-                                            <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
-                                            <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
+                            if (data.picture?.[0]) {
+                                element += `
+                                    <div class="product-cell">
+                                        <div class="product-cell__image">
+                                            <img src="${data.picture[0]}" />
+                                        </div>
+                                        <div class="product-cell__content">
+                                            <span class="product-cell__title">${data.productName}</span>
+                                            <div class="product-cell__stats">            
+                                                <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
+                                                <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
+                                                <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            `;
+                                `;
+                            } else {
+                                element += '-';
+                            }
 
                             return element;
                         }
