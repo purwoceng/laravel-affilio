@@ -1,7 +1,7 @@
 @extends('core.app')
 @section('title', __('Member Blokir'))
 @push('css')
-    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -51,7 +51,8 @@
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <select type="text" class="form-control form-control-sm filter"
                                                         data-name="member_type" placeholder="Type Here">
-                                                        <option disabled default>Pilih Tipe Member</option>
+                                                        <option disabled>Pilih Tipe Member</option>
+                                                        <option value="all" selected default>Semua</option>
                                                         @foreach ($member_type as $data)
                                                             <option value="{{ $data->id }}">{{ $data->type }}</option>
                                                         @endforeach
@@ -105,13 +106,10 @@
 
 
 @push('js')
-    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
-
-
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             const urlAjax = "{{ route('members.blocked.index') }}";
-            const urlMember = "{{ route('members.index') }}";
 
             var tableAllMember = $('#js-table-all-member').DataTable({
                 processing: true,
@@ -229,12 +227,12 @@
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${urlMember}/detail/${row.id}">
+                                                <a class="nav-link" href="${urlAjax}/detail/${row.id}">
                                                     <span class="nav-text">Detail</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${urlMember}/edit/${row.id}">
+                                                <a class="nav-link" href="${urlAjax}/edit/${row.id}">
                                                     <span class="nav-text">Edit Member</span>
                                                 </a>
                                             </li>
