@@ -125,7 +125,7 @@
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="{{ route('product_inactive.index') }}" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
-                         <i class="fab fa-accessible-icon	"></i>
+                        <i class="fas fa-box"></i>
                      </span>
                      <span class="menu-text">Produk Non-aktif</span>
                  </a>
