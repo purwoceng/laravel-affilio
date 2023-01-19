@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <img src="{{ asset('storage/' . $data->image) }}" class="img-fluid" width="150px">
+                                        <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid" width="150px">
                                     </div>
                                 </div>
 
