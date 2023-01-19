@@ -14,7 +14,7 @@ class GlobalSetting extends Model
     protected $fillable = [
         'id',
         'key',
-        'markup_price'
+        'value'
     ];
 
     protected $casts = [
