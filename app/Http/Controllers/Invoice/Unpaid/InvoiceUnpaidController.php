@@ -57,7 +57,8 @@ class InvoiceUnpaidController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->invoiceUnpaidRepository->getDataById($id);
+        return view('invoices.unpaid.show', compact('data'));
     }
 
     /**

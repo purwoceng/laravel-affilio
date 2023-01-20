@@ -25,8 +25,8 @@
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-invoice-unpaid" class="table table-separate table-head-custom table-checkable nowrap"
-                        style="width:100%">
+                    <table id="js-table-invoice-unpaid"
+                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
@@ -194,6 +194,7 @@
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
                             let elements = '';
+                            let showUrl = `{{ url('/invoices/unpaid/show/${row.id}') }}`;
 
                             elements += `
                                     <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
