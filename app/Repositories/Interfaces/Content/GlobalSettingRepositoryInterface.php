@@ -4,7 +4,7 @@ namespace App\Repositories\Interfaces\content;
 
 interface GlobalSettingRepositoryInterface
 {
-    public function getMarkup($limit, $start);
+    public function getMarkupProduct($limit, $start);
 
     public function getDataTable($request);
 

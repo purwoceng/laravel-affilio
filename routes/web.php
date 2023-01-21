@@ -25,6 +25,7 @@ use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Order\OrderDashboardController;
+use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Models\VideoTutorial;
 use App\Http\Controllers\ProductInactive\ProductInactiveController;
@@ -168,7 +169,7 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        Route::prefix('suppliers')
+    Route::prefix('suppliers')
         ->name('suppliers.')
         ->group(function () {
 
@@ -225,8 +226,20 @@ Route::middleware('auth')->group(function () {
         ->name('markup.')
         ->group(function () {
             Route::get('/edit', [GlobalSettingController::class, 'edit'])->name('edit');
-            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');
+            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');    
         });
+
+    Route::prefix('markup-product')
+        ->name('markup_product.')
+        ->group(function() {
+            Route::get('/', [MarkupProductController::class, 'index'])->name('index');
+            Route::get('/edit', [MarkupProductController::class, 'edit'])->name('edit');
+            Route::get('/create', [MarkupProductController::class, 'create'])->name('create');
+            Route::post('/store', [MarkupProductController::class, 'store'])->name('store');
+            Route::put('/update', [MarkupProductController::class, 'update'])->name('update');
+            Route::get('/destroy', [MarkupProductController::class, 'destroy'])->name('destroy');
+        });
+
 
     Route::prefix('categories')
         ->name('categories.')

@@ -29,17 +29,14 @@ class GlobalSettingRepository implements GlobalSettingRepositoryInterface
         return GlobalSetting::where('id', $id)->delete();
     }
 
-
-
-
-    public function getMarkUP($limit, $start)
+    public function getMarkupProduct($limit, $start)
     {
-        return GlobalSetting::offset($start)->limit($limit);
+        return GlobalSetting::where('key', 'LIKE', 'markup_product_%')->offset($start)->limit($limit);
     }
 
     public function getCountMarkUP()
     {
-        return GlobalSetting::count();
+        return GlobalSetting::where('key', 'LIKE', 'markup_product_%')->count();
     }
 
     public function getDataTable($request)
@@ -47,10 +44,9 @@ class GlobalSettingRepository implements GlobalSettingRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $getQuery = $this->getMarkUP($limit, $start);
+        $getQuery = $this->getMarkupProduct($limit, $start);
         $totalData = $this->getCountMarkUP();
         $totalFiltered = $totalData;
-
 
         $global_settings = $getQuery->orderBy('id', 'desc')->get();
 
@@ -60,28 +56,28 @@ class GlobalSettingRepository implements GlobalSettingRepositoryInterface
                 $id = $global_settings->id;
                 $key = $global_settings->key;
                 $value = $global_settings->value;
-                $creted_at = date('Y-m-d H:i', strtotime($global_settings->created_at));
-
+                $created_at = date('Y-m-d H:i', strtotime($global_settings->created_at));
 
                 $dataArray[] = [
                     'id' => $id,
                     'key' => $key,
                     'value' => $value,
-                    'created_at' => $creted_at,
+                    'created_at' => $created_at,
                     'actions' => $id,
                 ];
             }
         }
 
-        $json_data = array(
-            "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
+        $result = array(
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
             "recordsFiltered" => intval($totalFiltered),
-            "data"            => $dataArray
+            "data" => $dataArray,
         );
 
-        echo json_encode($json_data);
+        return $result;
     }
+
     public function getDataById($id)
     {
         return GlobalSetting::where('id', $id)->first();

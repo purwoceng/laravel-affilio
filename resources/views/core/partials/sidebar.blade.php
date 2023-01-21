@@ -333,7 +333,15 @@
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
-                                 <span class="menu-text">Markup</span>
+                                 <span class="menu-text">Markup Global</span>
+                             </a>
+                         </li>
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('markup_product.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Markup Produk Satuan</span>
                              </a>
                          </li>
                          <li class="menu-item" aria-haspopup="true">
