@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Invoice\Cancel;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\Invoice\Cancel\InvoiceCancelRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use App\Repositories\Interfaces\Invoice\Cancel\InvoiceCancelRepositoryInterface;
 
 class InvoiceCancelController extends Controller
 {
@@ -45,7 +47,37 @@ class InvoiceCancelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $messages = [
+        //     'name.required' => 'Nama tidak boleh kosong',
+        //     'name.unique' => 'Nama kategori sudah digunakan',
+
+        //     'code.required' => 'Tipe tidak boleh kosong',
+        //     'code.unique' => 'Tipe kategori sudah digunakan',
+        // ];
+
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|max:64',
+        //     'code' => 'required|unique:cs_number_categories,code|max:64',
+        // ], $messages);
+
+        // if ($validator->fails()) {
+        //     return Redirect::back()->withErrors($validator)
+        //         ->withInput();
+        // }
+
+        // $createData = [
+        //     'name' => $request->name,
+        //     'code' => $request->code,
+        // ];
+
+        // $result = $this->csCategoryRepository->create($createData);
+
+        // if ($result) {
+        //     return redirect()->route('cs-number.category.index')
+        //         ->with('success', 'Data Kategori Nomor CS telah berhasil dibuat');
+        // } else {
+        //     return back()->withInput()->with('info', 'Gagal membuat data kategori nomor cs');
+        // }
     }
 
     /**
@@ -56,9 +88,9 @@ class InvoiceCancelController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->invoiceCancelRepository->getDataById($id);
+        return view('invoices.cancel.show', compact('data'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *

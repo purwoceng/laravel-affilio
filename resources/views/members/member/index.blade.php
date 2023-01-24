@@ -34,8 +34,8 @@
                         </div>
                     @endif
 
-                    <table id="s-table-all-member"
-                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
+                    <table id="js-table-all-member" class="table table-separate table-head-custom table-checkable nowrap"
+                        style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
