@@ -36,8 +36,8 @@
     <!--begin::Header Mobile-->
     <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
         <!--begin::Logo-->
-        <a href="index.html">
-            <img alt="Logo" src="{{ asset('media/logos/logo-light.png') }}" />
+        <a href="/">
+            <img alt="Logo" class="max-h-30px" src="{{ asset('static/brands/logo-1.png') }}" />
         </a>
         <!--end::Logo-->
         <!--begin::Toolbar-->
@@ -1278,7 +1278,6 @@
                 }, ms || 0);
             };
         }
-
     </script>
 
     @stack('js')

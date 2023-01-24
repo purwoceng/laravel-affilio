@@ -125,6 +125,7 @@ return [
 
     'baleomol_key' => env('BALEOMOL_APP_KEY'),
     'baleomol_url' => env('BALEOMOL_APP_URL'),
+    's3_url' => env('AWS_URL'),
 
     /*
     |--------------------------------------------------------------------------

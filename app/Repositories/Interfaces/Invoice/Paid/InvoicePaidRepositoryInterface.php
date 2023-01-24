@@ -9,4 +9,6 @@ interface InvoicePaidRepositoryInterface
     public function getTotalData();
 
     public function getDataTable($request);
+
+    public function getDataById($id);
 }

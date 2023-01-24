@@ -68,8 +68,8 @@ Route::middleware('auth')->group(function () {
     });
 
     // Orders Menu
-    Route::prefix('orders')->name('orders.')->group(function() {
-        Route::get('/',[OrderController::class,'index'])->name('index');
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
     });
@@ -78,14 +78,17 @@ Route::middleware('auth')->group(function () {
     Route::prefix('invoices')->name('invoices.')->group(function () {
         Route::prefix('unpaid')->name('unpaid.')->group(function () {
             Route::get('/', [InvoiceUnpaidController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [InvoiceUnpaidController::class, 'show'])->name('show');
         });
 
         Route::prefix('paid')->name('paid.')->group(function () {
             Route::get('/', [InvoicePaidController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [InvoicePaidController::class, 'show'])->name('show');
         });
 
         Route::prefix('cancel')->name('cancel.')->group(function () {
             Route::get('/', [InvoiceCancelController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [InvoiceCancelController::class, 'show'])->name('show');
         });
     });
 
@@ -168,7 +171,7 @@ Route::middleware('auth')->group(function () {
             });
         });
 
-        Route::prefix('suppliers')
+    Route::prefix('suppliers')
         ->name('suppliers.')
         ->group(function () {
 

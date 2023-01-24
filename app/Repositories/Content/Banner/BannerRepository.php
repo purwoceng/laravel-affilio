@@ -61,6 +61,7 @@ class BannerRepository implements BannerRepositoryInterface
                 $category_type = $banner->category_type->name;
                 $name = $banner->name;
                 $image = $banner->image;
+                $image_url = $banner->image ? config('app.s3_url') . $banner->image : '';
                 $target_url = $banner->target_url;
                 $description = $banner->description;
                 $path = $banner->path;
@@ -72,6 +73,7 @@ class BannerRepository implements BannerRepositoryInterface
                     'category_type',
                     'name',
                     'image',
+                    'image_url',
                     'target_url',
                     'description',
                     'path',
