@@ -36,6 +36,8 @@ class MarkupProductController extends Controller
                 $product_id = str_replace('markup_product_', '', $markup['key']);
                 $url = config('app.url') . "/api/v1/products/{$product_id}";
 
+                
+                dd($url);
                 $response = Http::get($url);
 
                 $product['product_data'] = $response['data'];
@@ -44,6 +46,8 @@ class MarkupProductController extends Controller
             }
 
             $data['data'] = $result;
+
+            dd($data);
 
             return response()->json($data);
         }
