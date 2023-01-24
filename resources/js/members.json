@@ -1,0 +1,122 @@
+[
+    {
+        "member_type_id": 1,
+        "username": "tromol",
+        "email": "tromol.ndan@gmail.com",
+        "name": "Tromol Pratama",
+        "phone": "085292588100",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "raals",
+        "email": "raal.daam@gmail.com",
+        "name": "Adam Melano",
+        "phone": "081485773761",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "purwoceng",
+        "email": "purwoceng.rahmadi@gmail.com",
+        "name": "Purwo Fitrianto Rahmadi",
+        "phone": "087789129865",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "panjiieh",
+        "email": "panji.alexa@gmail.com",
+        "name": "Panji Erlangga",
+        "phone": "081610871889",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "anjas",
+        "email": "anjassetiawan@gmail.com",
+        "name": "Anjas Setiawan",
+        "phone": "085292588100",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "ucup",
+        "email": "yusyufnoer@gmail.com",
+        "name": "Yusyuf Noer",
+        "phone": "085292330596",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "qanggriawan",
+        "email": "qanggriawan@gmail.com",
+        "name": "Qory Anggriawan",
+        "phone": "087534019145",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "rendy_hakim",
+        "email": "rendy.hakim@gmail.com",
+        "name": "Rendy Hakim Prayitno",
+        "phone": "085643645758",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "hani_permadi",
+        "email": "hani.permadi@gmail.com",
+        "name": "Hani Permadi",
+        "phone": "085646181579",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    },
+    {
+        "member_type_id": 1,
+        "username": "nwijayanti",
+        "email": "naniwijayanti@gmail.com",
+        "name": "Nani Wijayanti",
+        "phone": "083146038040",
+        "hash": "123456",
+        "referral": "admin",
+        "is_verified": 1,
+        "is_blocked": 0,
+        "publish": 1
+    }
+]
