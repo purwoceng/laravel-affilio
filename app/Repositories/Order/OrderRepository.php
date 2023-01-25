@@ -42,6 +42,54 @@ class OrderRepository implements OrderRepositoryInterface
         $totalData = $this->getTotalData($startDate, $endDate);
         $totalFiltered = $totalData;
 
+        if ($request->filled('name')) {
+            $keyword = $request->get('name');
+            $getQuery->where('name', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('invoice_code')) {
+            $keyword = $request->get('invoice_code');
+            $getQuery->where('invoice_code', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('order_code')) {
+            $keyword = $request->get('order_code');
+            $getQuery->where('order_code', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('waybill_number')) {
+            $keyword = $request->get('waybill_number');
+            $getQuery->where('waybill_number', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('phone')) {
+            $keyword = $request->get('phone');
+            $getQuery->where('phone', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('status')) {
+            $keyword = $request->get('status');
+            if ($keyword != 'all') {
+                $getQuery->where('status',$keyword);
+                $totalData = $getQuery->count();
+                $totalFiltered = $totalData;
+            }
+        }
+        if ($request->filled('payment_status')) {
+            $keyword = $request->get('payment_status');
+            if ($keyword != 'all') {
+                $getQuery->where('payment_status',$keyword);
+                $totalData = $getQuery->count();
+                $totalFiltered = $totalData;
+            }
+        }
+
+
         $getResults = $getQuery->orderBy('id', 'desc')->get();
 
         $data = [];

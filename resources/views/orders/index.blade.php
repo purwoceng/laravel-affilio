@@ -431,6 +431,95 @@
                             </div>
                         </div>
                     </div>
+                    <div class="filter-wrapper">
+                        <form action="#" class="form" id="filter">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Nama Pembeli</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <input type="text" class="form-control form-control-sm filter"
+                                                data-name="name" placeholder="Type Here">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Invoice Kode</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <input type="text" class="form-control form-control-sm filter"
+                                                data-name="invoice_code" placeholder="Type Here">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Order Kode</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <input type="text" class="form-control form-control-sm filter"
+                                                data-name="order_code" placeholder="Type Here">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Nomor Resi</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <input type="text" class="form-control form-control-sm filter"
+                                                data-name="	waybill_number" placeholder="Type Here">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">No Handphone</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <input type="text" class="form-control form-control-sm filter"
+                                                data-name="phone" placeholder="Type Here">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Status Order</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <select type="text" class="form-control form-control-sm filter"
+                                                data-name="status" placeholder="Type Here">
+
+                                                <option disabled >Pilih Status Order</option>
+                                                <option value="all" >Semua</option>
+                                                <option value="unpaid">Unpaid</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="awaiting_supplier">Awaiting Supplier</option>
+                                                <option value="success">Success</option>
+                                                <option value="on_shipping">On Shipping</option>
+                                                <option value="cancel_but_unpaid">Cancel But Unpaid</option>
+                                                <option value="complain">Complain</option>
+                                                <option value="on_shipping">On Shipping</option>
+                                                <option value="received">Received</option>
+
+                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Status Pembayaran</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <select type="text" class="form-control form-control-sm filter"
+                                                data-name="payment_status" placeholder="Type Here">
+
+                                                <option disabled >Pilih Status Pembayaran</option>
+                                                <option value="all" >Semua</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="unpaid">Unpaid</option>
+                                                <option value="cancel">Cancel</option>
+                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <table id="js-orders-table" class="table table-separate table-head-custom table-checkable nowrap">
                         <thead>
                             <tr class="small">
