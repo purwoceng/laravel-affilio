@@ -59,10 +59,12 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
             $totalFiltered = $totalData;
         }
         if ($request->filled('member_type')) {
-            $keyword = $request->get('member_type');
-            $getQuery->where('member_type_id', $keyword);
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            if ($request->member_type != 'all') {
+                $keyword = $request->get('member_type');
+                $getQuery->where('member_type_id', $keyword);
+                $totalData = $getQuery->count();
+                $totalFiltered = $totalData;
+            }
         }
 
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();

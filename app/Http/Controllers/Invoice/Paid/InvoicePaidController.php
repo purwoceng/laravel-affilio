@@ -56,7 +56,8 @@ class InvoicePaidController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->invoicePaidRepository->getDataById($id);
+        return view('invoices.paid.show', compact('data'));
     }
 
     /**

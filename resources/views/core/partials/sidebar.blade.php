@@ -1,9 +1,8 @@
  <!--begin::Brand-->
  <div class="brand flex-column-auto" id="kt_brand">
      <!--begin::Logo-->
-     <a href="index.html" class="brand-logo">
-         {{-- <img alt="Logo" src="{{ asset('media/logos/logo-light.png')}}" /> --}}
-         <h2>Aplikasi X</h2>
+     <a href="/" class="login-logo pb-lg-0 pb-5">
+         <img alt="Logo" class="img-fluid max-h-50px" src="{{ asset('static/brands/logo-2.png') }}" />
      </a>
      <!--end::Logo-->
      <!--begin::Toggle-->
@@ -125,7 +124,7 @@
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="{{ route('product_inactive.index') }}" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
-                        <i class="fas fa-box"></i>
+                         <i class="fas fa-box"></i>
                      </span>
                      <span class="menu-text">Produk Non-aktif</span>
                  </a>
@@ -181,32 +180,32 @@
              </li>
 
              <li class="menu-item menu-item-submenu {{ request()->is('suppliers*') ? 'menu-item-open' : '' }}"
-                aria-haspopup="true" data-menu-toggle="hover">
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <span class="svg-icon menu-icon">
-                        <i class="fas fa-address-book"></i>
-                    </span>
-                    <span class="menu-text">Supplier</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="menu-submenu">
-                    <i class="menu-arrow"></i>
-                    <ul class="menu-subnav">
-                        <li class="menu-item menu-item-parent" aria-haspopup="true">
-                            <span class="menu-link">
-                                <span class="menu-text">Supplier</span>
-                            </span>
-                        </li>
-                        <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers') ? 'active' : '' }}"
-                            aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="{{ route('suppliers.nonactive.index') }}" class="menu-link menu-toggle">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Supplier Non Active  </span>
-                            </a>
-                        </li>
-                        {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
+                 aria-haspopup="true" data-menu-toggle="hover">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <span class="svg-icon menu-icon">
+                         <i class="fas fa-address-book"></i>
+                     </span>
+                     <span class="menu-text">Supplier</span>
+                     <i class="menu-arrow"></i>
+                 </a>
+                 <div class="menu-submenu">
+                     <i class="menu-arrow"></i>
+                     <ul class="menu-subnav">
+                         <li class="menu-item menu-item-parent" aria-haspopup="true">
+                             <span class="menu-link">
+                                 <span class="menu-text">Supplier</span>
+                             </span>
+                         </li>
+                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('suppliers.nonactive.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Supplier Non Active </span>
+                             </a>
+                         </li>
+                         {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
                             aria-haspopup="true" data-menu-toggle="hover">
                             <a href="{{ route('members.blocked.index') }}" class="menu-link menu-toggle">
                                 <i class="menu-bullet menu-bullet-line">
@@ -225,9 +224,9 @@
                             </a>
                         </li> --}}
 
-                    </ul>
-                </div>
-            </li>
+                     </ul>
+                 </div>
+             </li>
 
 
              <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"
