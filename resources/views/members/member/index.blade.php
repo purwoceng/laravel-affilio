@@ -215,9 +215,9 @@
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
                             if (row.is_blocked) {
-                                return ' <span class="small">Blocked</span>';
+                                return ' <span class="label  label-light-danger label-inline label-bold">Blocked</span>';
                             } else {
-                                return '<span class="small">Active</span>';
+                                return '<span class="label  label-light-success label-inline label-bold">Active</span>';
                             }
                         }
                     },
@@ -246,6 +246,16 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" href="${urlAjax}/edit/${row.id}">
                                                     <span class="nav-text">Edit Member</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${urlAjax}/reset-password/${row.id}">
+                                                    <span class="nav-text">Reset Password</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${urlAjax}/reset-pin/${row.id}">
+                                                    <span class="nav-text">Ganti Pin</span>
                                                 </a>
                                             </li>
                                         </ul>

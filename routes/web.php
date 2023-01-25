@@ -1,32 +1,34 @@
 <?php
 
-use App\Http\Controllers\Category\CategoryController;
+use App\Models\VideoTutorial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
+use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\User\PermissionController;
 use App\Http\Controllers\HomePage\ProductController;
+use App\Http\Controllers\Member\MemberResetPassword;
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\HomePage\ProductTypeController;
+use App\Http\Controllers\Order\OrderDashboardController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\Supplier\SupplierNonactiveController;
+use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
-use App\Http\Controllers\VideoTutorial\VideoTutorialController;
-use App\Http\Controllers\Order\OrderDashboardController;
-use App\Http\Controllers\Supplier\SupplierNonactiveController;
-use App\Models\VideoTutorial;
 use App\Http\Controllers\ProductInactive\ProductInactiveController;
 
 /*
@@ -54,6 +56,16 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
+        });
+
+        Route::prefix('reset-password')->name('reset-password.')->group(function(){
+            Route::get('/{id}',[MemberResetPassword::class,'resetPassword'])->name('resetPassword');
+            Route::put('/update/{id}', [MemberResetPassword::class, 'updatePassword'])->name('updatePassword');
+        });
+
+        Route::prefix('reset-pin')->name('reset-pin.')->group(function(){
+            Route::get('/{id}',[MemberResetPin::class,'resetPin'])->name('resetPin');
+            Route::put('/update/{id}', [MemberResetPin::class, 'updatePin'])->name('updatePin');
         });
 
         Route::prefix('member_type')->name('member_type.')->group(function () {
