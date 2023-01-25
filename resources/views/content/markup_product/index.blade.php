@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Markup Produk'))
 
 @push('css')
     <link
@@ -73,7 +73,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Produk Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Markup Produk Satuan</h5>
             </div>
         </div>
     </div>
@@ -95,7 +95,7 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Produk Rekomendasi</h3>
+                        <h3 class="card-label">Markup Produk</h3>
                     </div>
                     <a class="btn btn-success float-right" href={{ route('markup_product.create') }} title="Tambah Produk Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
@@ -109,8 +109,8 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Produk</th>
-                                <th>Nomor Urut</th>
-                                <th>Status</th>
+                                <th>Harga Markup</th>
+                                <th>Harga Jual</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -200,31 +200,20 @@
                         }
                     },
                     {
-                        data: 'queue_number',
-                        name: 'queue_number',
+                        data: 'markup_price_formatted',
+                        name: 'markup_price_formatted',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
                     },
                     {
-                        data: 'is_active',
-                        name: 'is_active',
+                        data: 'sell_price_formatted',
+                        name: 'sell_price_formatted',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
-                        render: function(data) {
-                            let element = '';
-
-                            if (Number(data)) {
-                                element += `<span class="label label-light-success label-inline label-bold">Aktif</span>`;
-                            } else {
-                                element += `<span class="label label-light-danger label-inline label-bold">Non-Aktif</span>`;
-                            }
-
-                            return element;
-                        }
                     },
                     {
                         data: 'created_at',

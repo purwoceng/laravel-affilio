@@ -236,11 +236,11 @@ Route::middleware('auth')->group(function () {
         ->name('markup_product.')
         ->group(function() {
             Route::get('/', [MarkupProductController::class, 'index'])->name('index');
-            Route::get('/edit', [MarkupProductController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [MarkupProductController::class, 'edit'])->name('edit');
             Route::get('/create', [MarkupProductController::class, 'create'])->name('create');
             Route::post('/store', [MarkupProductController::class, 'store'])->name('store');
-            Route::put('/update', [MarkupProductController::class, 'update'])->name('update');
-            Route::get('/destroy', [MarkupProductController::class, 'destroy'])->name('destroy');
+            Route::put('/update/{id}', [MarkupProductController::class, 'update'])->name('update');
+            Route::get('/destroy/{id}', [MarkupProductController::class, 'destroy'])->name('destroy');
         });
 
 

@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Edit Markup Produk'))
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Produk Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Markup Produk</h5>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Edit Produk Rekomendasi</h3>
+                        <h3 class="card-label">Edit Markup Produk</h3>
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                         </span>
                     @endif
 
-                    <form action="{{ route('product_home.update', $product->id) }}" method="post">
+                    <form action="{{ route('markup_product.update', $markup_product->id) }}" method="post">
                         @csrf
                         @method('put')
 
@@ -107,7 +107,7 @@
                                 id="input-product-id"
                                 class="js-product-selector form-control"
                                 required>
-                                <option selected value="{{ $product->product_id }}">{{ $real_product['productName'] }}</option>
+                                <option selected value="{{ $real_product['id'] }}">{{ $real_product['productName'] }}</option>
                             </select>
 
                             @error('product_id')
@@ -117,21 +117,17 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="input-queue-number">Urutan</label>
-                            <select name="queue_number"
-                                id="input-queue-number"
-                                class="form-control"
-                                aria-describedby="queue-helper"
-                                required>
-                                <option selected disabled value="0">Pilih nomor urut</option>
-
-                                @foreach ($available_numbers as $number)
-                                    <option value="{{ $number }}" 
-                                        {{ $number == $product->queue_number ? 'selected' : '' }}>
-                                        Ke-{{ $number}}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <label for="input-queue-number">Persentase Markup (%)</label>
+                            <div class="input-group mb-3">
+                                <input type="number"
+                                    class="form-control"
+                                    placeholder="Persentase Markup"
+                                    name="markup_product"
+                                    aria-label="Product Markup"
+                                    aria-describedby="percentage"
+                                    value="{{ $markup_product->value }}">
+                                <span class="input-group-text" id="percentage">%</span>
+                            </div>
                             
                             @error('queue_number')
                                 <small id="queue-helper" class="form-text text-danger">
@@ -140,32 +136,7 @@
                             @enderror
                         </div>
 
-                        
-                        <div class="form-group">
-                            <label for="input-is-active">Status</label>
-                            <select name="is_active"
-                                id="input-is-active"
-                                class="form-control"
-                                aria-describedby="is-active-helper"
-                                required>
-                                <option value="1"
-                                    {{ $product->is_active == '1' ? 'selected' : '' }}>
-                                    Aktif
-                                </option>
-                                <option value="0" 
-                                    {{ $product->is_active == '0' ? 'selected' : '' }}>
-                                    Non-aktif
-                                </option>
-                            </select>
-                            
-                            @error('is_active')
-                                <small id="is-active-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-                        <a class="btn btn-outline-danger" href="{{ route('product_home.index') }}">Kembali</a>
+                        <a class="btn btn-outline-danger" href="{{ route('markup_product.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -180,8 +151,8 @@
     <script>
         'use strict';
 
-        const API_URL = '{{ config('app.baleomol_url') }}';
-        const productsEndpoint = `${API_URL}/products`;
+        const API_URL = '{{ config('app.url') }}';
+        const productsEndpoint = `${API_URL}/api/v1/products`;
 
         $(document).ready(function() {
             function formatProduct(product) {

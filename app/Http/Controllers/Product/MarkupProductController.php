@@ -7,6 +7,7 @@ use App\Repositories\content\GlobalSettingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class MarkupProductController extends Controller
 {
@@ -34,20 +35,25 @@ class MarkupProductController extends Controller
 
             foreach ($markup_products as $markup) {
                 $product_id = str_replace('markup_product_', '', $markup['key']);
-                $url = config('app.url') . "/api/v1/products/{$product_id}";
+                $token = config('app.baleomol_key');
+                $url = config('app.baleomol_url') . '/products/' . $product_id;
+                $response = Http::withHeaders([
+                    'Authorization' => "Bearer {$token}",
+                ])->get($url);
 
-                
-                dd($url);
-                $response = Http::get($url);
+                $markup_price = floor($response['data']['price'] * $markup['value'] / 100);
+                $sell_price = $response['data']['price'] + $markup_price;
 
-                $product['product_data'] = $response['data'];
+                $markup['product_data'] = $response['data'];
+                $markup['markup_price'] = $markup_price;
+                $markup['sell_price'] = $sell_price;
+                $markup['markup_price_formatted'] = number_format($markup_price, 0, ',', '.');
+                $markup['sell_price_formatted'] = number_format($sell_price, 0, ',', '.');
 
-                $result[] = $product;
+                $result[] = $markup;
             }
 
             $data['data'] = $result;
-
-            dd($data);
 
             return response()->json($data);
         }
@@ -150,7 +156,29 @@ class MarkupProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $markup_product = $this->repository->getDataById($id);
+
+        if ($markup_product) {
+            $product_id = str_replace('markup_product_', '', $markup_product['key']);
+            $token = config('app.baleomol_key');
+            $url = config('app.baleomol_url') . '/products/' . $product_id;
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$token}",
+            ])->get($url);
+    
+            $real_product = $response['data'];
+    
+            return view(
+                'content.markup_product.edit',
+                compact('markup_product', 'real_product'),
+            );
+        } else {
+            return redirect()
+                ->route('markup_product.index')
+                ->with([
+                    'error' => "Gagal mengedit data - data markup produk dengan id {$id} tidak ditemukan.",
+                ]);
+        }        
     }
 
     /**
@@ -162,7 +190,62 @@ class MarkupProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validation_messages = [
+            'product_id.required' => 'Produk wajib dipilih!',
+            'product_id.unique' => 'Produk telah ditambahkan sebelumnya, silakan pilih produk lain',
+            'markup_product.required' => 'Persentase markup harga produk wajib diisi!',
+            'markup_product.integer' => 'Persentase harus berupa integer (angka bulat) tanpa koma',
+            'markup_product.min' => 'Persentase markup harga minimal 0% (sesuai harga asli)',
+            'markup_product.max' => 'Persentase markup harga maksimal 1000%',
+        ];
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'product_id' => [
+                    'required',
+                    'integer',
+                    'min:1',
+                ],
+                'markup_product' => [
+                    'required',
+                    'integer',
+                    'min:0',
+                    'max:1000',
+                ]
+            ],
+            $validation_messages,
+        );
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $key = "markup_product_{$request->product_id}";
+
+        $new_data = [
+            'key' => $key,
+            'value' => $request->markup_product,
+        ];
+        $markup_product = $this->repository->update($id, $new_data);
+
+        if ($markup_product) {
+            return redirect()
+                ->route('markup_product.index')
+                ->with([
+                    'success' => 'Berhasil memperbarui data markup produk.'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi kesalahan saat mengedit data. Mohon coba kembali'
+                ]);
+        }
     }
 
     /**
