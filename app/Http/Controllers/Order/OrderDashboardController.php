@@ -14,35 +14,33 @@ class OrderDashboardController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $totalOmzet = Order::whereNull('deleted_at');
-
-        $dataOrder = Order::whereNull('deleted_at');
-        $dataUnpaid = Order::where('status', 'unpaid')->whereNull('deleted_at');
-        $dataPaid = Order::where('status', 'paid')->whereNull('deleted_at');
-        $dataAwaitingSupplier = Order::where('status', 'awaiting_supplier')->whereNull('deleted_at');
-        $dataProcess = Order::where('status', 'on_process')->whereNull('deleted_at');
-        $dataShipping = Order::where('status', 'on_shipping')->whereNull('deleted_at');
-        $dataReceived = Order::where('status', 'received')->whereNull('deleted_at');
-        $dataSuccess = Order::where('status', 'success')->whereNull('deleted_at');
-        $dataCancel = Order::where('status', 'cancel')->whereNull('deleted_at');
-        $dataCancelButUnpaid =  Order::where('status', 'cancel_but_unpaid')->whereNull('deleted_at');
-        $dataComplain =  Order::where('status', 'complain')->whereNull('deleted_at');
-
+        $totalOmzet = DB::table('orders');
+        $dataOrder =  DB::table('orders');
+        $dataUnpaid = Order::where('status', 'unpaid');
+        $dataPaid = Order::where('status', 'paid');
+        $dataAwaitingSupplier = Order::where('status', 'awaiting_supplier');
+        $dataProcess = Order::where('status', 'on_process');
+        $dataShipping = Order::where('status', 'on_shipping');
+        $dataReceived = Order::where('status', 'received');
+        $dataSuccess = Order::where('status', 'success');
+        $dataCancel = Order::where('status', 'cancel');
+        $dataCancelButUnpaid =  Order::where('status', 'cancel_but_unpaid');
+        $dataComplain =  Order::where('status', 'complain');
 
         if (!empty($startDate) && !empty($endDate)) {
-            $totalOmzet->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
 
-            $dataOrder->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataUnpaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataPaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataAwaitingSupplier->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataProcess->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataShipping->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataReceived->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataSuccess->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataCancel->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataCancelButUnpaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-            $dataComplain->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataOrder->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataPaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataAwaitingSupplier->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataProcess->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataShipping->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataReceived->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataSuccess->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataCancel->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataCancelButUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataComplain->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
         } else {
             return response()->json([
                 'status' => false,
@@ -54,7 +52,7 @@ class OrderDashboardController extends Controller
             ]);
         }
         // Total Omzet : Harga produk + harga markup + kode unik + ongkir + biaya layanan
-        $countTotalOmzet =  $totalOmzet->value(DB::raw("SUM(subtotal + shipping_cost)"));
+        $countTotalOmzet =  12312311;
         // Harga Supplier : Harga produk asli dari baleomol
         $countTotalSupplierPrice = 1000000;
         // Bonus Profit : Bonus profit diambil dari 75% dari markup
