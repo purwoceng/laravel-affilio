@@ -62,7 +62,7 @@ class OrderRepository implements OrderRepositoryInterface
         }
         if ($request->filled('waybill_number')) {
             $keyword = $request->get('waybill_number');
-            $getQuery->where('waybill_number', 'like', '%' . $keyword . '%');
+            $getQuery->where('resi', 'like', '%' . $keyword . '%');
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
