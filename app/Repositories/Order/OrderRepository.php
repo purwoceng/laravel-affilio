@@ -50,13 +50,13 @@ class OrderRepository implements OrderRepositoryInterface
         }
         if ($request->filled('invoice_code')) {
             $keyword = $request->get('invoice_code');
-            $getQuery->where('invoice_code', 'like', '%' . $keyword . '%');
+            $getQuery->where('invoice_id', 'like', '%' . $keyword . '%');
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
         if ($request->filled('order_code')) {
             $keyword = $request->get('order_code');
-            $getQuery->where('order_code', 'like', '%' . $keyword . '%');
+            $getQuery->where('code', 'like', '%' . $keyword . '%');
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
@@ -97,11 +97,33 @@ class OrderRepository implements OrderRepositoryInterface
             foreach ($getResults  as $key => $order) {
                 $id = $order->id;
                 $invoiceId = $order->invoice_id;
-
+                $code = $order->code;
+                $name = $order->customer_name;
+                $resi = !empty($order->resi) ?  $order->resi : '-';
+                $shippingCost = $order->shipping_cost;
+                $subtotal = $order->subtotal;
+                $total = $order->total;
+                $phone = $order->phone;
+                $address = $order->address;
+                $status = $order->status;
+                $shippingCourier = strtoupper($order->shipping_courier);
+                $shippingService = $order->shipping_service ?? '-';
+                $courier = $shippingCourier . ' - ' . $shippingService;
+                $dateCreated = date('Y-m-d H:i', strtotime($order->date_created));
                 $data[] = array(
                     'id' => $id,
                     'invoice_id' => $invoiceId,
-
+                    'code' => $code,
+                    'name' => $name,
+                    'resi' => $resi,
+                    'shipping_cost' => formatRupiah($shippingCost),
+                    'subtotal' => formatRupiah($subtotal),
+                    'total' =>  formatRupiah($total),
+                    'phone' => $phone,
+                    'address' => $address,
+                    'status' => $status,
+                    'courier' => $courier,
+                    'date_created' => $dateCreated,
                     'actions' => $id,
                 );
             }
