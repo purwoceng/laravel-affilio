@@ -178,8 +178,8 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'whatsapp',
-                        name: 'whatsapp',
+                        data: 'no_wa',
+                        name: 'no_wa',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -256,25 +256,14 @@
 
                 $.each(data, function(key, value) {
                     if (!!value) {
-                        params += `
-                                                    $ {
-                                                        key
-                                                    } = $ {
-                                                        value
-                                                    } & `;
+                        params += ` $ {key} = $ {value} & `;
                     }
                 });
 
                 params = params.replace(/\&$/, '');
 
                 if (params != '') {
-                    url = `
-                                                    $ {
-                                                        url
-                                                    } ? $ {
-                                                        params
-                                                    }
-                                                    `;
+                    url = `$ {url}? ${params}`;
                 }
                 return url;
             };
