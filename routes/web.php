@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
     // Orders Menu
     Route::prefix('orders')->name('orders.')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/show/{id}',[OrderController::class,'show'])->name('show');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
     });
@@ -240,7 +241,7 @@ Route::middleware('auth')->group(function () {
         ->name('markup.')
         ->group(function () {
             Route::get('/edit', [GlobalSettingController::class, 'edit'])->name('edit');
-            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');    
+            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');
         });
 
     Route::prefix('markup-product')
