@@ -14,12 +14,12 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getData($limit, $start, $startDate, $endDate)
     {
-        return Order::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->whereNull('deleted_at')->offset($start)->limit($limit);
+        return Order::whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getTotalData($startDate, $endDate)
     {
-        return Order::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->whereNull('deleted_at')->count();
+        return Order::whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate)->get()->count();
     }
 
     public function getDataTable($request)
@@ -50,19 +50,19 @@ class OrderRepository implements OrderRepositoryInterface
         }
         if ($request->filled('invoice_code')) {
             $keyword = $request->get('invoice_code');
-            $getQuery->where('invoice_code', 'like', '%' . $keyword . '%');
+            $getQuery->where('invoice_id', 'like', '%' . $keyword . '%');
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
         if ($request->filled('order_code')) {
             $keyword = $request->get('order_code');
-            $getQuery->where('order_code', 'like', '%' . $keyword . '%');
+            $getQuery->where('code', 'like', '%' . $keyword . '%');
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
         if ($request->filled('waybill_number')) {
             $keyword = $request->get('waybill_number');
-            $getQuery->where('waybill_number', 'like', '%' . $keyword . '%');
+            $getQuery->where('resi', 'like', '%' . $keyword . '%');
             $totalData = $getQuery->count();
             $totalFiltered = $totalData;
         }
@@ -89,7 +89,6 @@ class OrderRepository implements OrderRepositoryInterface
             }
         }
 
-
         $getResults = $getQuery->orderBy('id', 'desc')->get();
 
         $data = [];
@@ -97,39 +96,32 @@ class OrderRepository implements OrderRepositoryInterface
         if (!empty($getResults)) {
             foreach ($getResults  as $key => $order) {
                 $id = $order->id;
-                $originInvoiceCode = $order->origin_invoice_code ?? '-';
-                $originOrderCode = $order->origin_order_code ?? '-';
-                $invoiceCode = $order->invoice_code ?? '-';
-                $orderCode = $order->order_code ?? '-';
-                $name = $order->name;
-                $waybillNumber = $order->waybill_number ?? '-';
+                $invoiceId = $order->invoice_id;
+                $code = $order->code;
+                $name = $order->customer_name;
+                $resi = !empty($order->resi) ?  $order->resi : '-';
                 $shippingCost = $order->shipping_cost;
-                $subTotal = $order->subtotal;
+                $subtotal = $order->subtotal;
                 $total = $order->total;
                 $phone = $order->phone;
                 $address = $order->address;
                 $status = $order->status;
-                $paymentStatus = $order->payment_status;
-                $shippingCourier = $order->shipping_courier;
-                $shippingService = $order->shipping_service;
+                $shippingCourier = strtoupper($order->shipping_courier);
+                $shippingService = $order->shipping_service ?? '-';
                 $courier = $shippingCourier . ' - ' . $shippingService;
-                $dateCreated = $order->created_at->format('Y-m-d H:i:s');
-
+                $dateCreated = date('Y-m-d H:i', strtotime($order->date_created));
                 $data[] = array(
                     'id' => $id,
-                    'origin_invoice_code' => $originInvoiceCode,
-                    'origin_order_code' => $originOrderCode,
-                    'invoice_code' => $invoiceCode,
-                    'order_code' => $orderCode,
+                    'invoice_id' => $invoiceId,
+                    'code' => $code,
                     'name' => $name,
-                    'waybill_number' => $waybillNumber,
-                    'shipping_cost' => $shippingCost,
-                    'subtotal' => $subTotal,
-                    'total' => $total,
+                    'resi' => $resi,
+                    'shipping_cost' => formatRupiah($shippingCost),
+                    'subtotal' => formatRupiah($subtotal),
+                    'total' =>  formatRupiah($total),
                     'phone' => $phone,
                     'address' => $address,
                     'status' => $status,
-                    'payment_status' => $paymentStatus,
                     'courier' => $courier,
                     'date_created' => $dateCreated,
                     'actions' => $id,

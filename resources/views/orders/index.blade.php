@@ -524,8 +524,6 @@
                         <thead>
                             <tr class="small">
                                 <th class="text-center" width="10%">#</th>
-                                <th class="text-center" width="10%">Origin Invoice Code</th>
-                                <th class="text-center" width="10%">Origin Order Code</th>
                                 <th class="text-center" width="10%">Invoice Code</th>
                                 <th class="text-center" width="10%">Order Code</th>
                                 <th class="text-center" width="10%">Nama Pembeli</th>
@@ -536,7 +534,9 @@
                                 <th class="text-center" width="10%">Nomor HP</th>
                                 <th class="text-center" width="10%">Alamat</th>
                                 <th class="text-center" width="10%">Status</th>
+                                {{--
                                 <th class="text-center" width="10%">Status Pembayaran</th>
+                                --}}
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
                                 <th class="text-center" width="10%">Aksi</th>
@@ -592,36 +592,20 @@
                         }
                     },
                     {
-                        data: 'origin_invoice_code',
-                        name: 'origin_invoice_code',
+                        data: 'invoice_id',
+                        name: 'invoice_id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
-                        data: 'origin_order_code',
-                        name: 'origin_order_code',
+                        data: 'code',
+                        name: 'code',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
-                        data: 'invoice_code',
-                        name: 'invoice_code',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
-                        data: 'order_code',
-                        name: 'order_code',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'name',
@@ -629,15 +613,15 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
-                        data: 'waybill_number',
-                        name: 'waybill_number',
+                        data: 'resi',
+                        name: 'resi',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'shipping_cost',
@@ -645,7 +629,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'subtotal',
@@ -653,7 +637,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'total',
@@ -690,17 +674,17 @@
                             return statusDescription(row.status);
                         }
                     },
-                    {
-                        data: 'payment_status',
-                        name: 'payment_status',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center small',
-                        render: function(data, type, row, ) {
-                            return payementStatusDescription(row.payment_status);
-                        }
-                    },
+                    // {
+                    //     data: 'payment_status',
+                    //     name: 'payment_status',
+                    //     sortable: false,
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center small',
+                    //     render: function(data, type, row, ) {
+                    //         return payementStatusDescription(row.payment_status);
+                    //     }
+                    // },
                     {
                         data: 'courier',
                         name: 'courier',
