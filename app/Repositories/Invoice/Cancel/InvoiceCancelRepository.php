@@ -14,7 +14,7 @@ class InvoiceCancelRepository implements InvoiceCancelRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Invoice::where('status', 'cancel')->where('publish', '1')->offset($start)->limit($limit);
+        return Invoice::where('status', 'cancel')->offset($start)->limit($limit);
     }
 
     public function getDataById($id)
@@ -25,7 +25,7 @@ class InvoiceCancelRepository implements InvoiceCancelRepositoryInterface
 
     public function getTotalData()
     {
-        return Invoice::where('status', 'cancel')->where('publish', '1')->count();
+        return Invoice::where('status', 'cancel')->count();
     }
 
     public function getDataTable($request)
@@ -65,7 +65,7 @@ class InvoiceCancelRepository implements InvoiceCancelRepositoryInterface
                 $shipping_cost = $invoice->shipping_cost;
                 $total = $invoice->total;
                 $status = $invoice->status;
-                $whatsapp = $invoice->whatsapp_number;
+                $no_wa = $invoice->no_wa;
                 $payment_method = $invoice->payment_method;
                 $type = $invoice->type;
 
@@ -78,7 +78,7 @@ class InvoiceCancelRepository implements InvoiceCancelRepositoryInterface
                     'shipping_cost',
                     'total',
                     'status',
-                    'whatsapp',
+                    'no_wa',
                     'payment_method',
                     'type',
                 );

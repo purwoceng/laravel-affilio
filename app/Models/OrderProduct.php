@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderProduct extends Model
 {
@@ -42,4 +43,9 @@ class OrderProduct extends Model
         'created_at'  => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function orders()
+    {
+        return $this->belongsTo(Order::class,'id','order_id');
+    }
 }
