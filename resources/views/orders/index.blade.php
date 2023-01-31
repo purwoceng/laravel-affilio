@@ -646,7 +646,7 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render: function(data, type, row ) {
+                        render: function(data, type, row) {
                             return statusDescription(row.status);
                         }
                     },
@@ -976,24 +976,24 @@
             $(document).on("click", ".js-detail-order", function(e) {
                 let orderId = $(e.target).data('id');
                 let url = ajaxUrl + '/show/' + orderId;
-            $.ajax({
-                type: "GET",
-                url: url,
-                dataType: "json",
-                success: function(response) {
-                    if (response.status == 'success') {
-                        let data = response.data;
-                        let elementHTML = '';
-                        let elementFooter = '';
-                        orderModal.find(".modal-title").html('Order Details');
-                        orderModal.find(".modal-body").html(elementHtml);
-                        orderModal.find(".modal-footer").html(elementFooter);
-                        orderModal.modal('show');
-                    }
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            let data = response.data;
+                            let elementHTML = '';
+                            let elementFooter = '';
+                            orderModal.find(".modal-title").html('Order Details');
+                            orderModal.find(".modal-body").html(elementHtml);
+                            orderModal.find(".modal-footer").html(elementFooter);
+                            orderModal.modal('show');
+                        }
 
-                }
+                    }
+                });
             });
-            })
 
         });
     </script>
