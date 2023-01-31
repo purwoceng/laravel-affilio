@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Order;
 
 use App\Models\Order;
+use Illuminate\Support\Str;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\OrderProduct;
 use App\Repositories\Interfaces\Order\OrderRepositoryInterface;
 
 class OrderController extends Controller
@@ -63,8 +64,14 @@ class OrderController extends Controller
 
         $orderProducts = OrderProduct::where('order_id',$id)->get();
         foreach ($orderProducts as $key => $value) {
+            if ($value->options == '{}') {
+                $variantName = '-';
+            } else {
+                $variant = json_decode($value->options);
+                $variantName = $variant->name;
+            }
 
-            $orderProducts [] =[
+            $resultOrderProducts [] =[
                 'order_id' => $value->order_id,
                 'product_name' => $value->product_name,
                 'original_price' => formatRupiah($value->original_price),
@@ -81,13 +88,15 @@ class OrderController extends Controller
                 'total_profit_affiliator' => formatRupiah($value->total_profit_affiliator),
                 'total_profit_baleomol' => formatRupiah($value->total_profit_baleomol),
                 'total_weight' => $value->total_weight,
+                'variant_name' => $variantName,
                 'fee' => formatRupiah($value->fee),
             ];
         }
         $order = [
+            'id' => $order->id,
+            'invoice_id' => $order->invoice_id,
             'code' => $order->code,
-            'customer_name' => $order->customer_name,
-            'subtotal' => $order->subtotal,
+            'customer_name' => Str::ucfirst($order->customer_name),
             'fee' => formatRupiah($order->fee),
             'shipping_cost' => formatRupiah($order->shipping_cost),
             'value' => formatRupiah($order->value),
@@ -98,7 +107,9 @@ class OrderController extends Controller
             'shipping_courier' => $order->shipping_courier,
             'shipping_service' => $order->shipping_service,
             'address' => $order->address,
-            'message' => $order->message ?? 'Tidak Ada Catatan',
+            'full_address' => $order->subdistrict . ', ' . $order->city . ', '. $order->province,
+            'message' => empty($order->message) ? $order->message : 'Tidak Ada Catatan',
+            'zip_code' => $order->zip_code ?? '-',
             'date_created' =>  date('Y-m-d H:i', strtotime($order->date_created)),
         ];
 
@@ -108,7 +119,7 @@ class OrderController extends Controller
             'status' =>true,
             'data' => [
                 'order' => $order,
-                'orderProducts' => $orderProducts,
+                'orderProducts' => $resultOrderProducts,
             ],
         ]);
     }
