@@ -437,24 +437,21 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-group-sm row">
                                         <label class="col-4 col-form-label">Nama Pembeli</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
                                             <input type="text" class="form-control form-control-sm filter"
                                                 data-name="name" placeholder="Type Here">
                                         </div>
                                     </div>
                                     <div class="form-group form-group-sm row">
                                         <label class="col-4 col-form-label">Invoice Kode</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
                                             <input type="text" class="form-control form-control-sm filter"
                                                 data-name="invoice_code" placeholder="Type Here">
                                         </div>
                                     </div>
                                     <div class="form-group form-group-sm row">
                                         <label class="col-4 col-form-label">Order Kode</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
                                             <input type="text" class="form-control form-control-sm filter"
                                                 data-name="order_code" placeholder="Type Here">
                                         </div>
@@ -463,16 +460,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-group-sm row">
                                         <label class="col-4 col-form-label">Nomor Resi</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
                                             <input type="text" class="form-control form-control-sm filter"
                                                 data-name="	waybill_number" placeholder="Type Here">
                                         </div>
                                     </div>
                                     <div class="form-group form-group-sm row">
                                         <label class="col-4 col-form-label">No Handphone</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
                                             <input type="text" class="form-control form-control-sm filter"
                                                 data-name="phone" placeholder="Type Here">
                                         </div>
@@ -481,13 +476,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-group-sm row">
                                         <label class="col-4 col-form-label">Status Order</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
                                             <select type="text" class="form-control form-control-sm filter"
                                                 data-name="status" placeholder="Type Here">
 
-                                                <option disabled >Pilih Status Order</option>
-                                                <option value="all" >Semua</option>
+                                                <option disabled>Pilih Status Order</option>
+                                                <option value="all">Semua</option>
                                                 <option value="unpaid">Unpaid</option>
                                                 <option value="paid">Paid</option>
                                                 <option value="awaiting_supplier">Awaiting Supplier</option>
@@ -498,22 +492,7 @@
                                                 <option value="on_shipping">On Shipping</option>
                                                 <option value="received">Received</option>
 
-                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">Status Pembayaran</label>
-                                        <div
-                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <select type="text" class="form-control form-control-sm filter"
-                                                data-name="payment_status" placeholder="Type Here">
-
-                                                <option disabled >Pilih Status Pembayaran</option>
-                                                <option value="all" >Semua</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="unpaid">Unpaid</option>
-                                                <option value="cancel">Cancel</option>
-                                             </select>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -534,9 +513,6 @@
                                 <th class="text-center" width="10%">Nomor HP</th>
                                 <th class="text-center" width="10%">Alamat</th>
                                 <th class="text-center" width="10%">Status</th>
-                                {{--
-                                <th class="text-center" width="10%">Status Pembayaran</th>
-                                --}}
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
                                 <th class="text-center" width="10%">Aksi</th>
@@ -670,21 +646,10 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render: function(data, type, row, ) {
+                        render: function(data, type, row) {
                             return statusDescription(row.status);
                         }
                     },
-                    // {
-                    //     data: 'payment_status',
-                    //     name: 'payment_status',
-                    //     sortable: false,
-                    //     orderable: false,
-                    //     searchable: false,
-                    //     className: 'text-center small',
-                    //     render: function(data, type, row, ) {
-                    //         return payementStatusDescription(row.payment_status);
-                    //     }
-                    // },
                     {
                         data: 'courier',
                         name: 'courier',
@@ -711,7 +676,6 @@
                         render: function(data, type, row, meta) {
                             let elements = '';
 
-
                             elements += `<div class="dropdown dropdown-inline">
                                 <a href="javascript:void(0)"
                                     class="btn btn-sm btn-primary btn-icon"
@@ -721,8 +685,7 @@
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav nav-hoverable flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="nav-text"><small>Detail</small></span>
+                                            <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
                                             </a>
                                             <hr/ class="m-1">
                                             <a class="nav-link" href="#">
@@ -1007,7 +970,31 @@
 
                 totalComplain.html(data.total_complain);
                 totalPersenComplain.html(data.total_persen_complain);
-            }
+            };
+
+            let orderModal = $('#js-detail-modal');
+            $(document).on("click", ".js-detail-order", function(e) {
+                let orderId = $(e.target).data('id');
+                let url = ajaxUrl + '/show/' + orderId;
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            let data = response.data;
+                            let elementHTML = '';
+                            let elementFooter = '';
+                            orderModal.find(".modal-title").html('Order Details');
+                            orderModal.find(".modal-body").html(elementHtml);
+                            orderModal.find(".modal-footer").html(elementFooter);
+                            orderModal.modal('show');
+                        }
+
+                    }
+                });
+            });
+
         });
     </script>
 @endpush

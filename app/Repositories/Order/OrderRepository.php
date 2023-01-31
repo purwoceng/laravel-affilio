@@ -80,14 +80,6 @@ class OrderRepository implements OrderRepositoryInterface
                 $totalFiltered = $totalData;
             }
         }
-        if ($request->filled('payment_status')) {
-            $keyword = $request->get('payment_status');
-            if ($keyword != 'all') {
-                $getQuery->where('payment_status',$keyword);
-                $totalData = $getQuery->count();
-                $totalFiltered = $totalData;
-            }
-        }
 
         $getResults = $getQuery->orderBy('id', 'desc')->get();
 
