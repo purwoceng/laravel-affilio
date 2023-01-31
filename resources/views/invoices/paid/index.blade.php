@@ -178,8 +178,8 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'whatsapp',
-                        name: 'whatsapp',
+                        data: 'no_wa',
+                        name: 'no_wa',
                         sortable: false,
                         orderable: false,
                         searchable: false,
