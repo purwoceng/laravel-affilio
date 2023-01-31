@@ -14,12 +14,12 @@ class InvoiceUnpaidRepository implements InvoiceUnpaidRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Invoice::where('status', 'unpaid')->where('publish', '1')->offset($start)->limit($limit);
+        return Invoice::where('status', 'unpaid')->offset($start)->limit($limit);
     }
 
     public function getTotalData()
     {
-        return Invoice::where('status', 'unpaid')->where('publish', '1')->count();
+        return Invoice::where('status', 'unpaid')->count();
     }
 
     public function getDataById($id)
@@ -64,7 +64,7 @@ class InvoiceUnpaidRepository implements InvoiceUnpaidRepositoryInterface
                 $shipping_cost = $invoice->shipping_cost;
                 $total = $invoice->total;
                 $status = $invoice->status;
-                $whatsapp = $invoice->whatsapp_number;
+                $no_wa = $invoice->no_wa;
                 $payment_method = $invoice->payment_method;
                 $type = $invoice->type;
 
@@ -77,7 +77,7 @@ class InvoiceUnpaidRepository implements InvoiceUnpaidRepositoryInterface
                     'shipping_cost',
                     'total',
                     'status',
-                    'whatsapp',
+                    'no_wa',
                     'payment_method',
                     'type',
                 );
