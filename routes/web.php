@@ -19,6 +19,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Order\OrderDashboardController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
@@ -85,6 +86,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}',[OrderController::class,'show'])->name('show');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
+
+        Route::get('/get-order', [OrderCheckoutController::class,'getOrder'])->name('getOrder');
     });
 
     //Invoice Menu
