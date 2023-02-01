@@ -451,13 +451,6 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-sm filter"
-                                            data-name="invoice_id" placeholder="Kode Invoice" />
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-sm filter"
                                             data-name="phone" placeholder="Nomor Handphone" />
                                     </div>
                                 </div>
@@ -496,7 +489,6 @@
                         <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center" width="10%">#</th>
-                                <th class="text-center" width="10%">Invoice Code</th>
                                 <th class="text-center" width="10%">Order Code</th>
                                 <th class="text-center" width="10%">Nama Pembeli</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
@@ -563,14 +555,6 @@
                             const index = meta.row + meta.settings._iDisplayStart + 1;
                             return index;
                         }
-                    },
-                    {
-                        data: 'invoice_id',
-                        name: 'invoice_id',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center small',
                     },
                     {
                         data: 'code',
@@ -994,9 +978,7 @@
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-end">
                                             <div class="d-flex flex-column">
-                                                <div class="p-1">
-                                                    <h4 class="mb-0 font-weight-bold text-right">INVOICE #${data.order.invoice_id}</h4>
-                                                </div>
+
                                                 <small class="p-1 text-right">Tanggal Pesanan : ${data.order.date_created} </small>
                                             </div>
                                         </div>
