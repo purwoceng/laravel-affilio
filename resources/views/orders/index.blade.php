@@ -367,7 +367,9 @@
                                 <path fill-rule="evenodd"
                                     d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                 <path
-                                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4
+                                    
+                                    H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
                             </svg>
                             Sukses
                         </p>
@@ -477,13 +479,17 @@
                                             <option value="all">Semua</option>
                                             <option value="unpaid">Unpaid</option>
                                             <option value="paid">Paid</option>
-                                            <option value="awaiting_supplier">Awaiting Supplier</option>
                                             <option value="success">Success</option>
-                                            <option value="on_shipping">On Shipping</option>
-                                            <option value="cancel_but_unpaid">Cancel But Unpaid</option>
-                                            <option value="complain">Complain</option>
-                                            <option value="on_shipping">On Shipping</option>
+                                            <option value="cancel_unpaid">Cancel Unpaid</option>
+                                            <option value="request_pickup">Riquest Pickup</option>
+                                            <option value="shipping">Shipping</option>
+                                            <option value="on_return_shipping">On Return Shipping</option>
+                                            <option value="on_return_apply">On Return Apply</option>
                                             <option value="received">Received</option>
+                                            <option value="reject">Reject</option>
+                                            <option value="claim_not_process">Claim Not Process</option>
+                                            <option value="refund_disbursed">Refund Disbursed</option>
+                                            <option value="disbursed">Disbursed</option>
                                         </select>
                                     </div>
                                 </div>
