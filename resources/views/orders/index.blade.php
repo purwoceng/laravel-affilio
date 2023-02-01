@@ -691,7 +691,7 @@
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
                                             </a>
                                             <hr/ class="m-1">
-                                            <a class="nav-link js-checkout-order" href="javascript:void(0)">Checkout Pesanan</span>
+                                            <a class="nav-link js-checkout-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -846,14 +846,6 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
-
-                // let originOrderCode = data.origin_order_code;
-                // let originInvoiceCode = data.origin_invoice_code;
-                // let customerName = data.customer_name;
-                // let waybillId = data.waybill_id;
-                // let status = data.status;
-                // let statusPayment = data.payment_status;
-                // let handleBy = data.handle_by;
                 let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
 
                 $.ajax({
@@ -862,12 +854,6 @@
                     data: {
                         start_date: startDate,
                         end_date: endDate,
-                        // origin_order_code: originOrderCode,
-                        // origin_invoice_code: originInvoiceCode,
-                        // customer_name: customerName,
-                        // waybill_id: waybillId,
-                        // status: status,
-                        // payment_status: statusPayment,
 
                     },
                     dataType: "json",
@@ -1090,10 +1076,59 @@
                 });
             });
 
-
             // Checkout To Baleomol.com
             $(document).on("click", ".js-checkout-order", function(e) {
-                alert('Checkout to baleomol.com');
+                let orderId = $(e.target).data('id');
+
+                Swal.fire({
+                        title: 'Meneruskan Pesanan ke Baleomol.com',
+                        html: `Anda yakin ingin checkout meneruskan pesanan ini?`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0d6efd',
+                        cancelButtonColor: '#bfbfbf',
+                        confirmButtonText: 'Ya, teruskan pesanan!',
+                        cancelButtonText: 'Batal',
+                    })
+                    .then(function(result) {
+                        if (result.value) {
+                            Swal.fire({
+                                showCloseButton: false,
+                                showConfirmButton: false,
+                                icon: 'info',
+                                title: 'Harap Tunggu',
+                                text: 'Sedang meneruskan pesanan Anda...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: function() {
+                                    Swal.showLoading();
+                                },
+                            });
+
+                            setTimeout(function() {
+                                let urlGetOrder = "{{ route('orders.getOrder') }}";
+                                $.ajax({
+                                    type: "GET",
+                                    url: urlGetOrder,
+                                    data: {
+                                        order_id: orderId,
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Masih dalam proses pengembangan',
+                                            text: 'Dalam proses integrasi dengan endpoint api checkout to baleomol!',
+                                        });
+                                    }
+                                });
+
+                            }, 500);
+                        } else {
+                            console.log('false');
+                        }
+                    });
             });
         });
     </script>
