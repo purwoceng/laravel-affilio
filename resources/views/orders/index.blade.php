@@ -367,7 +367,9 @@
                                 <path fill-rule="evenodd"
                                     d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                 <path
-                                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4
+                                    
+                                    H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
                             </svg>
                             Sukses
                         </p>
@@ -415,8 +417,8 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="d-flex mt-5">
-                        <div class="ml-auto p-2">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
                                 <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
                                 <div class='input-group' id='js-daterange-picker'>
@@ -434,76 +436,65 @@
                     <div class="filter-wrapper">
                         <form action="#" class="form" id="filter">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">Nama Pembeli</label>
-                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <input type="text" class="form-control form-control-sm filter"
-                                                data-name="name" placeholder="Type Here">
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">Invoice Kode</label>
-                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <input type="text" class="form-control form-control-sm filter"
-                                                data-name="invoice_code" placeholder="Type Here">
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">Order Kode</label>
-                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <input type="text" class="form-control form-control-sm filter"
-                                                data-name="order_code" placeholder="Type Here">
-                                        </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="customer_name" placeholder="Nama Pembeli" />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">Nomor Resi</label>
-                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <input type="text" class="form-control form-control-sm filter"
-                                                data-name="	waybill_number" placeholder="Type Here">
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">No Handphone</label>
-                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <input type="text" class="form-control form-control-sm filter"
-                                                data-name="phone" placeholder="Type Here">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-sm row">
-                                        <label class="col-4 col-form-label">Status Order</label>
-                                        <div class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                            <select type="text" class="form-control form-control-sm filter"
-                                                data-name="status" placeholder="Type Here">
 
-                                                <option disabled>Pilih Status Order</option>
-                                                <option value="all">Semua</option>
-                                                <option value="unpaid">Unpaid</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="awaiting_supplier">Awaiting Supplier</option>
-                                                <option value="success">Success</option>
-                                                <option value="on_shipping">On Shipping</option>
-                                                <option value="cancel_but_unpaid">Cancel But Unpaid</option>
-                                                <option value="complain">Complain</option>
-                                                <option value="on_shipping">On Shipping</option>
-                                                <option value="received">Received</option>
-
-                                            </select>
-                                        </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="code" placeholder="Kode Order" />
                                     </div>
                                 </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="phone" placeholder="Nomor Handphone" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="rese" placeholder="Nomor Resi" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <select class="form-control form-control-sm filter" data-name="status"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Pilih Status Order</option>
+                                            <option value="all">Semua</option>
+                                            <option value="unpaid">Unpaid</option>
+                                            <option value="paid">Paid</option>
+                                            <option value="success">Success</option>
+                                            <option value="cancel_unpaid">Cancel Unpaid</option>
+                                            <option value="request_pickup">Riquest Pickup</option>
+                                            <option value="shipping">Shipping</option>
+                                            <option value="on_return_shipping">On Return Shipping</option>
+                                            <option value="on_return_apply">On Return Apply</option>
+                                            <option value="received">Received</option>
+                                            <option value="reject">Reject</option>
+                                            <option value="claim_not_process">Claim Not Process</option>
+                                            <option value="refund_disbursed">Refund Disbursed</option>
+                                            <option value="disbursed">Disbursed</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
                         </form>
                     </div>
-                    <table id="js-orders-table" class="table table-separate table-head-custom table-checkable nowrap">
-                        <thead>
+                    <table id="js-orders-table"
+                        class="table table-bordered table-hover table-head-custom table-checkable nowrap">
+                        <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center" width="10%">#</th>
-                                <th class="text-center" width="10%">Invoice Code</th>
                                 <th class="text-center" width="10%">Order Code</th>
                                 <th class="text-center" width="10%">Nama Pembeli</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
@@ -524,6 +515,10 @@
             </div>
         </div>
     </div>
+
+
+
+    @include('orders.partials.modal')
 @endsection
 
 
@@ -566,14 +561,6 @@
                             const index = meta.row + meta.settings._iDisplayStart + 1;
                             return index;
                         }
-                    },
-                    {
-                        data: 'invoice_id',
-                        name: 'invoice_id',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center small',
                     },
                     {
                         data: 'code',
@@ -688,8 +675,7 @@
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
                                             </a>
                                             <hr/ class="m-1">
-                                            <a class="nav-link" href="#">
-                                                <span class="nav-text"><small>Checkout to Baleomol.com</small> </span>
+                                            <a class="nav-link js-checkout-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -786,7 +772,6 @@
 
             };
 
-
             function getDataFiltered() {
                 let filterEl = $('.filter');
                 let data = {};
@@ -813,9 +798,7 @@
                 if (getURLVar('limit')) {
                     data.limit = getURLVar('limit');
                 }
-
                 dashboardHandler(data);
-
                 reDrawTable(data);
             };
 
@@ -847,14 +830,6 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
-
-                // let originOrderCode = data.origin_order_code;
-                // let originInvoiceCode = data.origin_invoice_code;
-                // let customerName = data.customer_name;
-                // let waybillId = data.waybill_id;
-                // let status = data.status;
-                // let statusPayment = data.payment_status;
-                // let handleBy = data.handle_by;
                 let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
 
                 $.ajax({
@@ -863,12 +838,6 @@
                     data: {
                         start_date: startDate,
                         end_date: endDate,
-                        // origin_order_code: originOrderCode,
-                        // origin_invoice_code: originInvoiceCode,
-                        // customer_name: customerName,
-                        // waybill_id: waybillId,
-                        // status: status,
-                        // payment_status: statusPayment,
 
                     },
                     dataType: "json",
@@ -972,6 +941,7 @@
                 totalPersenComplain.html(data.total_persen_complain);
             };
 
+            // Detail Order
             let orderModal = $('#js-detail-modal');
             $(document).on("click", ".js-detail-order", function(e) {
                 let orderId = $(e.target).data('id');
@@ -981,20 +951,167 @@
                     url: url,
                     dataType: "json",
                     success: function(response) {
-                        if (response.status == 'success') {
+                        if (response.status) {
                             let data = response.data;
-                            let elementHTML = '';
-                            let elementFooter = '';
-                            orderModal.find(".modal-title").html('Order Details');
-                            orderModal.find(".modal-body").html(elementHtml);
+                            var dataObj = response.data.orderProducts;
+                            let productName = '';
+                            let productInformation = '';
+
+                            productInformation += `
+                                    <table class="table table-striped my-3">
+                                    <thead>
+                                            <tr class="text-center">
+                                                <th scope="col">Nama Produk</th>
+                                                <th scope="col">Nama Variant</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Harga Jual</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>`;
+                            for (const key in dataObj) {
+                                productInformation += ` <tr>
+                                                <td class="text-center small">${dataObj[key].product_name}</td>
+                                                <td class="text-center small">${dataObj[key].variant_name}</td>
+                                                <td class="text-center small">${dataObj[key].amount}</td>
+                                                <td class="text-center small">${dataObj[key].price}</td>
+                                            </tr>`;
+                            }
+
+                            productInformation += `</tbody>
+                                    </table>`;
+
+                            let elementHTML = `
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="d-flex flex-column">
+
+                                                <small class="p-1 text-right">Tanggal Pesanan : ${data.order.date_created} </small>
+                                            </div>
+                                        </div>
+                                        <div class="justify-content">
+                                            <div class="d-flex">
+                                                <div class="p-0 h6"><b></b></div>
+                                                <div class="ml-auto px-2"> Status :<span class="p-2">${data.order.status}</span> </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="p-1"><b>Nama : </b>${data.order.customer_name}</div>
+                                            <div class="p-1 ml-3"><b>Phone : </b>${data.order.phone}</div>
+                                            <div class="p-1 ml-3"><b>Alamat : </b>${data.order.address}</div>
+                                            <div class="p-1 ml-3"><b>Kota Tujuan : </b> ${data.order.full_address}</div>
+                                            <div class="p-1 ml-3"><b>Kode Pos : </b>${data.order.zip_code}</div>
+                                            <div class="p-1 "><b>Nomor Resi : </b>${data.order.resi}</div>
+                                            <div class="p-1 "><b>Catatan : </b>${data.order.message}</div>
+                                        </div>
+
+                                        <div class="justify-content mt-4">
+                                            <div class="d-flex">
+                                                <div class="p-0 h6"><b>Rincian Pesanan :</b></div>
+                                                <div class="ml-auto p-0"><b>Harga</b></div>
+                                            </div>
+                                        </div>
+                                        <hr class="m-1">
+
+                                        <div class="justify-content mt-3">
+                                            <div class="d-flex">
+                                                <div class="p-0 flex-column">
+                                                    <div class="p-1"><b>Nama Produk :</b> ${data.orderProducts[0].product_name}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex"> ${productInformation}</div>
+
+                                            <div class="d-flex">
+                                            <div class="p-1"></div>
+                                                <div class="ml-auto p-1">
+                                                    <div class="p-1"><b>${data.order.value}</b></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="m-1">
+                                        <div class="justify-content mt-1">
+                                            <div class="d-flex">
+                                                <div class="p-1">Shipping Fee <span class="text-uppercase">${data.order.shipping_courier} - ${data.order.shipping_service}</span></div>
+                                                <div class="ml-auto p-1"><b>${data.order.shipping_cost}</b></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="justify-content mt-4 mb-2">
+                                            <hr class="m-1">
+                                            <div class="d-flex">
+                                                <div class="p-1"><b>TOTAL</b></div>
+                                                <div class="ml-auto p-1"><b>${data.order.total}</b></div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+                            let elementFooter = `
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                            `;
+                            orderModal.find(".modal-title").html('Detail Order');
+                            orderModal.find(".modal-body").html(elementHTML);
                             orderModal.find(".modal-footer").html(elementFooter);
                             orderModal.modal('show');
                         }
-
                     }
                 });
             });
 
+            // Checkout To Baleomol.com
+            $(document).on("click", ".js-checkout-order", function(e) {
+                let orderId = $(e.target).data('id');
+
+                Swal.fire({
+                        title: 'Meneruskan Pesanan ke Baleomol.com',
+                        html: `Anda yakin ingin checkout meneruskan pesanan ini?`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0d6efd',
+                        cancelButtonColor: '#bfbfbf',
+                        confirmButtonText: 'Ya, teruskan pesanan!',
+                        cancelButtonText: 'Batal',
+                    })
+                    .then(function(result) {
+                        if (result.value) {
+                            Swal.fire({
+                                showCloseButton: false,
+                                showConfirmButton: false,
+                                icon: 'info',
+                                title: 'Harap Tunggu',
+                                text: 'Sedang meneruskan pesanan Anda...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: function() {
+                                    Swal.showLoading();
+                                },
+                            });
+
+                            setTimeout(function() {
+                                let urlGetOrder = "{{ route('orders.getOrder') }}";
+                                $.ajax({
+                                    type: "GET",
+                                    url: urlGetOrder,
+                                    data: {
+                                        order_id: orderId,
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Masih dalam proses pengembangan',
+                                            text: 'Dalam proses integrasi dengan endpoint api checkout to baleomol!',
+                                        });
+                                    }
+                                });
+
+                            }, 500);
+                        } else {
+                            console.log('false');
+                        }
+                    });
+            });
         });
     </script>
 @endpush
