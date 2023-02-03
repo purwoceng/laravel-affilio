@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/detail/{id}', [MemberController::class, 'show'])->name('detail');
         Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [MemberController::class, 'update'])->name('update');
+        Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');

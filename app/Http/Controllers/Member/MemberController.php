@@ -204,4 +204,18 @@ class MemberController extends Controller
     {
         //
     }
+
+    public function network($id)
+    {
+        $member = $this->memberRepository->getDataById($id);
+        $avatars = [
+            url('/static/avatars/avatar-1.jpg'),
+            url('/static/avatars/avatar-2.jpg'),
+            url('/static/avatars/avatar-3.jpg'),
+            url('/static/avatars/avatar-4.jpg'),
+            url('/static/avatars/avatar-5.jpg'),
+        ];
+
+        return view('members.member.network', compact('member', 'avatars'));
+    }
 }
