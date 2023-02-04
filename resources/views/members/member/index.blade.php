@@ -34,7 +34,7 @@
                         </div>
                     @endif
 
-                    <table id="js-table-all-member" class="table table-separate table-head-custom table-checkable nowrap"
+                    <table id="js-table-all-member" class="table table-separate table-head-custom table-hover table-striped table-checkable nowrap"
                         style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
@@ -241,6 +241,11 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" href="${urlAjax}/detail/${row.id}">
                                                     <span class="nav-text">Detail</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${urlAjax}/network/${row.id}">
+                                                    <span class="nav-text">Jaringan Member</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
