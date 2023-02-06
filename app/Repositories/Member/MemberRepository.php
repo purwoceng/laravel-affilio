@@ -4,6 +4,7 @@ namespace App\Repositories\Member;
 
 use App\Models\Member;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class MemberRepository implements MemberRepositoryInterface
 {
@@ -116,5 +117,20 @@ class MemberRepository implements MemberRepositoryInterface
         );
 
         echo json_encode($json_data);
+    }
+
+    public function getDownline($member_id, $generation = 1, $limit = 10, $offset = 0, $founder_id = 0)
+    {
+        $query = DB::table('member_positions')
+            ->join('members', 'members.id', '=', 'member_positions.member_id')
+            ->join('member_types', 'member_types.id', '=', 'members.member_type_id')
+            ->where('member_upline_id', $member_id)
+            ->where('generation', $generation);
+        $result = $query
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
+
+        return $result;
     }
 }

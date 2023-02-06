@@ -12,5 +12,5 @@ interface MemberRepositoryInterface
 
     public function getDataById($id);
 
-    
+    public function getDownline($member_id, $generation = 1, $limit = 10, $offset = 0, $founder_id = 0);
 }
