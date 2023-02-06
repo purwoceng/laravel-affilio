@@ -207,7 +207,6 @@ class MemberController extends Controller
 
     public function network($id)
     {
-        $member = $this->memberRepository->getDataById($id);
         $avatars = [
             url('/static/avatars/avatar-1.jpg'),
             url('/static/avatars/avatar-2.jpg'),
@@ -216,6 +215,29 @@ class MemberController extends Controller
             url('/static/avatars/avatar-5.jpg'),
         ];
 
-        return view('members.member.network', compact('member', 'avatars'));
+        $member = $this->memberRepository->getDataById($id);
+        $first_gen_members = $this->memberRepository->getDownline($member->id, 1, 10, 0);
+        $downlines = [];
+
+        foreach ($first_gen_members as $gen_one) {
+            $downlines[] = [
+                'id' => $gen_one->id,
+                'name' => $gen_one->name,
+                'member_type_id' => $gen_one->member_type_id,
+                'member_type' => $gen_one->type ?? '',
+                'image' => $avatars[rand(0, count($avatars) - 1)],
+            ];
+        }
+
+        $networks = [
+            'id' => $member->id,
+            'name' => $member->name,
+            'member_type_id' => $member->member_type_id,
+            'member_type' => $member->member_type->type ?? '',
+            'image' => $avatars[rand(0, count($avatars) - 1)],
+            'downlines' => $downlines,
+        ];
+
+        return view('members.member.network', compact('member', 'networks'));
     }
 }

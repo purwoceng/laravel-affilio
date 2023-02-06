@@ -15,7 +15,25 @@
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
-    align-items: flex-start;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.trees__container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.trees__container::-webkit-scrollbar-track {
+    background-color: rgba(232, 228, 228, .4);
+    width: 5px;
+}
+
+.trees__container::-webkit-scrollbar-thumb {
+  background-color:rgba(195, 195, 195, .95);
+  border-radius: 100rem;
+  width: 5px;
 }
 
 .tree {
@@ -165,6 +183,10 @@
     font-weight: 500;
     font-size: 1.17rem;
     line-height: 1.5;
+    max-width: 140px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .node__subtitle {
@@ -172,4 +194,8 @@
     font-size: 1.17rem;
     line-height: 1.5;
     margin-top: auto;
+    max-width: 140px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

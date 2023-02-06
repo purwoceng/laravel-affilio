@@ -29,141 +29,64 @@
                                 <div class="node">
                                     <div class="node__container">
                                         <div class="node__image">
-                                            <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
+                                            <img src="{{ $networks['image'] }}"
+                                                alt="{{ $networks['name'] }}"
+                                            />
                                         </div>
                                         <div class="node__content">
-                                            <span class="node__title">Tromol Pratama</span>
-                                            <span class="node__subtitle">Diamond</span>
+                                            <span class="node__title">{{ $networks['name'] }}</span>
+                                            <span class="node__subtitle">{{ $networks['member_type'] }}</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="tree__children">
-                                    <div class="tree">
-                                        <div class="node">
-                                            <div class="node__container">
-                                                <div class="node__image">
-                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                </div>
-                                                <div class="node__content">
-                                                    <span class="node__title">Tromol Pratama</span>
-                                                    <span class="node__subtitle">Diamond</span>
+                                    @foreach ($networks['downlines'] as $first_gen_member)
+                                        <div class="tree">
+                                            <div class="node">
+                                                <div class="node__container">
+                                                    <div class="node__image">
+                                                        <img src="{{ $first_gen_member['image'] }}"
+                                                            alt="{{ $first_gen_member['name'] }}"
+                                                        />
+                                                    </div>
+                                                    <div class="node__content">
+                                                        <span class="node__title">{{ $first_gen_member['name'] }}</span>
+                                                        <span class="node__subtitle">{{ $first_gen_member['member_type'] }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="tree__children">
-                                            <div class="tree">
-                                                <div class="node">
-                                                    <div class="node__container">
-                                                        <div class="node__image">
-                                                            <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                        </div>
-                                                        <div class="node__content">
-                                                            <span class="node__title">Tromol Pratama</span>
-                                                            <span class="node__subtitle">Diamond</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tree">
-                                                <div class="node">
-                                                    <div class="node__container">
-                                                        <div class="node__image">
-                                                            <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                        </div>
-                                                        <div class="node__content">
-                                                            <span class="node__title">Tromol Pratama</span>
-                                                            <span class="node__subtitle">Diamond</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tree">
-                                        <div class="node">
-                                            <div class="node__container">
-                                                <div class="node__image">
-                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                </div>
-                                                <div class="node__content">
-                                                    <span class="node__title">Tromol Pratama</span>
-                                                    <span class="node__subtitle">Diamond</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tree">
-                                        <div class="node">
-                                            <div class="node__container">
-                                                <div class="node__image">
-                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                </div>
-                                                <div class="node__content">
-                                                    <span class="node__title">Tromol Pratama</span>
-                                                    <span class="node__subtitle">Diamond</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tree__children">
-                                            <div class="tree">
-                                                <div class="node">
-                                                    <div class="node__container">
-                                                        <div class="node__image">
-                                                            <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                        </div>
-                                                        <div class="node__content">
-                                                            <span class="node__title">Tromol Pratama</span>
-                                                            <span class="node__subtitle">Diamond</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="tree__children">
-                                                    <div class="tree">
-                                                        <div class="node">
-                                                            <div class="node__container">
-                                                                <div class="node__image">
-                                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                                </div>
-                                                                <div class="node__content">
-                                                                    <span class="node__title">Tromol Pratama</span>
-                                                                    <span class="node__subtitle">Diamond</span>
-                                                                </div>
+                                            {{-- <div class="tree__children">
+                                                <div class="tree">
+                                                    <div class="node">
+                                                        <div class="node__container">
+                                                            <div class="node__image">
+                                                                <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tree">
-                                                        <div class="node">
-                                                            <div class="node__container">
-                                                                <div class="node__image">
-                                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                                </div>
-                                                                <div class="node__content">
-                                                                    <span class="node__title">Tromol Pratama</span>
-                                                                    <span class="node__subtitle">Diamond</span>
-                                                                </div>
+                                                            <div class="node__content">
+                                                                <span class="node__title">Tromol Pratama</span>
+                                                                <span class="node__subtitle">Diamond</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="tree">
-                                                <div class="node">
-                                                    <div class="node__container">
-                                                        <div class="node__image">
-                                                            <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                        </div>
-                                                        <div class="node__content">
-                                                            <span class="node__title">Tromol Pratama</span>
-                                                            <span class="node__subtitle">Diamond</span>
+                                                <div class="tree">
+                                                    <div class="node">
+                                                        <div class="node__container">
+                                                            <div class="node__image">
+                                                                <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
+                                                            </div>
+                                                            <div class="node__content">
+                                                                <span class="node__title">Tromol Pratama</span>
+                                                                <span class="node__subtitle">Diamond</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
