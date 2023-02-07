@@ -40,54 +40,73 @@
                                     </div>
                                 </div>
 
-                                <div class="tree__children">
-                                    @foreach ($networks['downlines'] as $first_gen_member)
+                                @if (count($networks['downlines']) > 0)
+                                    <div class="tree__children">
+                                        @foreach ($networks['downlines'] as $first_gen_member)
+                                            <div class="tree">
+                                                <div class="node">
+                                                    <div class="node__container">
+                                                        <div class="node__image">
+                                                            <img src="{{ $first_gen_member['image'] }}"
+                                                                alt="{{ $first_gen_member['name'] }}"
+                                                            />
+                                                        </div>
+                                                        <div class="node__content">
+                                                            <span class="node__title">{{ $first_gen_member['name'] }}</span>
+                                                            <span class="node__subtitle">{{ $first_gen_member['member_type'] }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {{-- <div class="tree__children">
+                                                    <div class="tree">
+                                                        <div class="node">
+                                                            <div class="node__container">
+                                                                <div class="node__image">
+                                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
+                                                                </div>
+                                                                <div class="node__content">
+                                                                    <span class="node__title">Tromol Pratama</span>
+                                                                    <span class="node__subtitle">Diamond</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tree">
+                                                        <div class="node">
+                                                            <div class="node__container">
+                                                                <div class="node__image">
+                                                                    <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
+                                                                </div>
+                                                                <div class="node__content">
+                                                                    <span class="node__title">Tromol Pratama</span>
+                                                                    <span class="node__subtitle">Diamond</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else 
+                                    <div class="tree__children">
                                         <div class="tree">
                                             <div class="node">
                                                 <div class="node__container">
-                                                    <div class="node__image">
-                                                        <img src="{{ $first_gen_member['image'] }}"
-                                                            alt="{{ $first_gen_member['name'] }}"
+                                                    <div class="node__image node__image--secondary">
+                                                        <img src="{{ url('/static/avatars/avatar.png') }}"
+                                                            alt="No Member"
                                                         />
                                                     </div>
                                                     <div class="node__content">
-                                                        <span class="node__title">{{ $first_gen_member['name'] }}</span>
-                                                        <span class="node__subtitle">{{ $first_gen_member['member_type'] }}</span>
+                                                        <span class="node__title node__title--secondary">Jaringan Kosong</span>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            {{-- <div class="tree__children">
-                                                <div class="tree">
-                                                    <div class="node">
-                                                        <div class="node__container">
-                                                            <div class="node__image">
-                                                                <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                            </div>
-                                                            <div class="node__content">
-                                                                <span class="node__title">Tromol Pratama</span>
-                                                                <span class="node__subtitle">Diamond</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tree">
-                                                    <div class="node">
-                                                        <div class="node__container">
-                                                            <div class="node__image">
-                                                                <img src="{{ $avatars[0] }}" alt="Tromol Pratama" />
-                                                            </div>
-                                                            <div class="node__content">
-                                                                <span class="node__title">Tromol Pratama</span>
-                                                                <span class="node__subtitle">Diamond</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                         </div>
-                                    @endforeach
-                                </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -122,15 +122,15 @@ class MemberRepository implements MemberRepositoryInterface
     public function getDownline($member_id, $generation = 1, $limit = 10, $offset = 0, $founder_id = 0)
     {
         $query = DB::table('member_positions')
-            ->join('members', 'members.id', '=', 'member_positions.member_id')
-            ->join('member_types', 'member_types.id', '=', 'members.member_type_id')
-            ->where('member_upline_id', $member_id)
-            ->where('generation', $generation);
+        ->join('members', 'members.id', '=', 'member_positions.member_id')
+        ->join('member_types', 'member_types.id', '=', 'members.member_type_id')
+        ->where('member_upline_id', $member_id)
+        ->where('generation', $generation);
         $result = $query
-            ->limit($limit)
-            ->offset($offset)
-            ->get();
-
+        ->limit($limit)
+        ->offset($offset)
+        ->get();
+        
         return $result;
     }
 }
