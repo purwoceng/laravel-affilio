@@ -203,8 +203,8 @@
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="javascript:void(0)"><span
-                                                        class="nav-text">Detail</span></a>
+                                                <a class="nav-link" href="${showUrl}">
+                                                    <span class="nav-text">Detail</span></a>
                                             </li>
                                         </ul>
                                     </div>
