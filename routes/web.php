@@ -30,6 +30,7 @@ use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
+use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\ProductInactive\ProductInactiveController;
 
 /*
