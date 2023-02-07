@@ -147,9 +147,8 @@
     justify-content: center;
 }
 
-.node__container::after {
+a.node__link {
     position: absolute;
-    content: '';
     top: -0.7rem;
     left: -0.95rem;
     right: -0.95rem;
@@ -157,6 +156,12 @@
     cursor: pointer;
     transition: .2s all cubic-bezier(0.95, 0.05, 0.795, 0.035);
     background-color: transparent;
+    z-index: 1;
+    transition: all .4s linear;
+}
+
+a.node__link:hover {
+    background-color: rgba(195, 195, 195, .3);
 }
 
 .node__container:hover::after {
