@@ -160,7 +160,7 @@ class MemberController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        
+
         $member = Member::findOrFail($id);
         $member->name = $request->name;
         $member->email = $request->email;
