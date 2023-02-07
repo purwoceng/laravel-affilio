@@ -160,7 +160,7 @@ class MemberController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        
+
         $member = Member::findOrFail($id);
         $member->name = $request->name;
         $member->email = $request->email;
@@ -216,16 +216,45 @@ class MemberController extends Controller
         ];
 
         $member = $this->memberRepository->getDataById($id);
-        $first_gen_members = $this->memberRepository->getDownline($member->id, 1, 10, 0);
+        $first_gen_members = $this->memberRepository->getDownline($member->id, 1, 5, 0);
         $downlines = [];
 
         foreach ($first_gen_members as $gen_one) {
+            $second_gen_members = $this->memberRepository->getDownline($gen_one->member_id, 1, 5, 0, $member->id);
+            $gen_one_downlines = [];
+
+            foreach ($second_gen_members as $gen_two) {
+                $third_gen_members = $this->memberRepository->getDownline($gen_two->member_id, 1, 5, 0, $member->id);
+                $gen_two_downlines = [];
+
+                foreach ($third_gen_members as $gen_three) {
+                    $gen_two_downlines[] = [
+                        'id' => $gen_three->member_id,
+                        'name' => $gen_three->name,
+                        'member_type_id' => $gen_three->member_type_id,
+                        'member_type' => $gen_three->type ?? '',
+                        'image' => $avatars[rand(0, count($avatars) - 1)],
+                    ];
+
+                }
+
+                $gen_one_downlines[] = [
+                    'id' => $gen_two->member_id,
+                    'name' => $gen_two->name,
+                    'member_type_id' => $gen_two->member_type_id,
+                    'member_type' => $gen_two->type ?? '',
+                    'image' => $avatars[rand(0, count($avatars) - 1)],
+                    'downlines' => $gen_two_downlines,
+                ];
+            }
+
             $downlines[] = [
-                'id' => $gen_one->id,
+                'id' => $gen_one->member_id,
                 'name' => $gen_one->name,
                 'member_type_id' => $gen_one->member_type_id,
                 'member_type' => $gen_one->type ?? '',
                 'image' => $avatars[rand(0, count($avatars) - 1)],
+                'downlines' => $gen_one_downlines,
             ];
         }
 

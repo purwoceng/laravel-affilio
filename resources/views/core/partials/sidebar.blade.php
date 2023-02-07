@@ -156,6 +156,18 @@
                                  <span class="menu-text">Data Member</span>
                              </a>
                          </li>
+
+                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
+                            aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="{{ route('members.accounts.index') }}" class="menu-link menu-toggle">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Verifikasi Rekening</span>
+                            </a>
+                        </li>
+
+
                          <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('members.blocked.index') }}" class="menu-link menu-toggle">

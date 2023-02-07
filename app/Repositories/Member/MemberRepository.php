@@ -124,8 +124,14 @@ class MemberRepository implements MemberRepositoryInterface
         $query = DB::table('member_positions')
             ->join('members', 'members.id', '=', 'member_positions.member_id')
             ->join('member_types', 'member_types.id', '=', 'members.member_type_id')
-            ->where('member_upline_id', $member_id)
-            ->where('generation', $generation);
+            ->where('member_positions.member_upline_id', $member_id)
+            ->where('member_positions.generation', $generation);
+
+        if ($founder_id) {
+            $query = $query->join('member_generations', 'member_generations.member_id', '=', 'members.id')
+                ->where('member_generations.networks', 'LIKE', "{$founder_id}.%");
+        }
+
         $result = $query
             ->limit($limit)
             ->offset($offset)
