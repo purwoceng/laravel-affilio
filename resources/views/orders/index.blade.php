@@ -368,7 +368,7 @@
                                     d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                 <path
                                     d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4
-                                    
+
                                     H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
                             </svg>
                             Sukses
@@ -490,6 +490,20 @@
                             </div>
                         </form>
                     </div>
+                    <div class="d-flex flex-row">
+                        <div class="p-1">
+                            <a href="{{ route('orders.exportexcel') }}" class="btn btn-sm btn-success my-2">
+                                <i class="fas fa-download fa-sm mr-1"></i>@lang('Export Excel')
+
+                            </a>
+                        </div>
+                        <div class="p-1">
+                            <button class="excel">
+                                <i class="fas fa-download fa-sm mr-1"></i>@lang('Export Excel')
+
+                            </button>
+                        </div>
+                    </div>
                     <table id="js-orders-table"
                         class="table table-bordered table-hover table-head-custom table-checkable nowrap">
                         <thead class="thead-secondary">
@@ -526,7 +540,6 @@
     {{-- <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
-
     <script>
         'use strict';
 
@@ -940,6 +953,18 @@
                 totalComplain.html(data.total_complain);
                 totalPersenComplain.html(data.total_persen_complain);
             };
+
+            //exportexcel
+            document.querySelector(".excel").addEventListener("click", function() {
+            Swal.fire({
+                title: "Pilih Export Excel Berdasarkan",
+                showCancelButton: true,
+                confirmButtonText: "Tanggal",
+                confirmButtonColor: "#00ff99",
+                cancelButtonColor: "#ff0099"
+            });
+            });
+
 
             // Detail Order
             let orderModal = $('#js-detail-modal');

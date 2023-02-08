@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Exports\OrderExport;
 use App\Models\Order;
 use Illuminate\Support\Str;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\Order\OrderRepositoryInterface;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -156,5 +158,13 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportexcel(Request $request)
+    {
+        $from_date=$request->from_date;
+        $to_date = $request->to_date;
+
+        return Excel::download(new OrderExport($from_date,$to_date), 'order.xlsx');
     }
 }

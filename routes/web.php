@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('orders')->name('orders.')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index');
         Route::get('/show/{id}',[OrderController::class,'show'])->name('show');
+        Route::get('/exportexcel',[OrderController::class,'exportexcel'])->name('exportexcel');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
 
