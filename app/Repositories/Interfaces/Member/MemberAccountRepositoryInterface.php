@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces\Member;
 
-interface MemberRepositoryInterface
+interface MemberAccountRepositoryInterface
 {
     public function getMemberActive($limit, $start);
 
@@ -11,6 +11,4 @@ interface MemberRepositoryInterface
     public function getDataTable($request);
 
     public function getDataById($id);
-
-    public function getDownline($member_id, $generation = 1, $limit = 10, $offset = 0, $founder_id = 0);
 }

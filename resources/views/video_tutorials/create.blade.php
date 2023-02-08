@@ -141,7 +141,6 @@
                                 aria-describedby="member-type-helper"
                                 required>
                                 <option selected disabled value="0">Pilih Tipe Member</option>
-
                                 @foreach ($member_types as $key => $member_type)
                                     <option
                                         value="{{ $member_type->id }}"
@@ -150,7 +149,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            
+
                             @error('member_type_id')
                                 <small id="member-type-helper" class="form-text text-danger">
                                     {{ $message }}

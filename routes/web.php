@@ -30,6 +30,9 @@ use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
+use App\Http\Controllers\Member\MemberAccountController;
+use App\Http\Controllers\Member\MemberVerificationAccountController;
+use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\ProductInactive\ProductInactiveController;
 
 /*
@@ -55,6 +58,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [MemberController::class, 'update'])->name('update');
         Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
+
+        Route::prefix('accounts')->name('accounts.')->group(function () {
+            Route::get('/',[MemberAccountController::class,'index'])->name('index');
+            Route::post('/verification',[MemberAccountController::class,'verification'])->name('verification');
+        });
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');

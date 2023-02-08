@@ -24,7 +24,7 @@ class InvoiceUnpaidRepository implements InvoiceUnpaidRepositoryInterface
 
     public function getDataById($id)
     {
-        return Invoice::where('status', 'cancel')->where('id', $id)->first();
+        return Invoice::where('status', 'unpaid')->where('id', $id)->first();
     }
 
     public function getDataTable($request)

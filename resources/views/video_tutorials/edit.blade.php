@@ -26,7 +26,7 @@
                         </span>
                     @endif
 
-                    
+
                     <form action="{{ route('video_tutorials.update', $video_tutorial->id) }}" method="post">
                         @csrf
                         @method('PUT')
@@ -82,7 +82,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            
+
                             @error('member_type_id')
                                 <small id="member-type-helper" class="form-text text-danger">
                                     {{ $message }}

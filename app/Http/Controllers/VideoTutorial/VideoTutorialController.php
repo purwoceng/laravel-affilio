@@ -32,17 +32,17 @@ class VideoTutorialController extends Controller
                 'id' => 3,
                 'name' => 'Leader',
             ],
-            
+
             [
                 'id' => 4,
                 'name' => 'Super Leader',
             ],
-        
+
             [
                 'id' => 5,
                 'name' => 'Bronze',
             ],
-    
+
             [
                 'id' => 6,
                 'name' => 'Super Bronze',
@@ -83,6 +83,10 @@ class VideoTutorialController extends Controller
                 'id' => 14,
                 'name' => 'Super Diamond',
             ],
+            [
+                'id' => 15,
+                'name' => 'Semua',
+            ],
         ];
     }
 
@@ -110,7 +114,7 @@ class VideoTutorialController extends Controller
     {
         try {
             $data = $this->repository->getVideoTutorialById($id);
-            
+
             if (!$data) {
                 throw new Exception("Data video dengan id {$id} tidak ditemukan");
             }
