@@ -198,11 +198,14 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-lg-center text-center small',
                         render: function(data, type, row, meta) {
                             let elements = '';
 
-                            elements += `
+                            if (row.publish) {
+                                elements += '<span class="text-center">-</span>';
+                            } else {
+                                elements += `
                                 <div class="dropdown dropdown-inline">
                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown">
                                         <i class="la la-cog"></i>
@@ -216,7 +219,9 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>`;
+                                </div>
+                                `;
+                            }
 
                             return elements;
                         }
@@ -312,7 +317,8 @@
                             },
                         });
                         setTimeout(function() {
-                            let urlActivation = "{{ route('members.accounts.verification') }}";
+                            let urlActivation =
+                                "{{ route('members.accounts.verification') }}";
                             let memberId = $(e.target).data('id');
                             $.ajax({
                                 type: "POST",
