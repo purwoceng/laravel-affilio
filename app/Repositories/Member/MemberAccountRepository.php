@@ -14,12 +14,12 @@ class MemberAccountRepository implements MemberAccountRepositoryInterface
 
     public function getMemberActive($limit, $start)
     {
-        return MemberAccount::offset($start)->limit($limit);
+        return MemberAccount::where('is_deleted',0)->offset($start)->limit($limit);
     }
 
     public function getCountMemberActive()
     {
-        return MemberAccount::count();
+        return MemberAccount::where('is_deleted',0)->count();
     }
 
     public function getDataById($id)
