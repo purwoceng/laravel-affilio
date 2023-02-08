@@ -106,7 +106,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-9">
                                         <input type="text" class="form-control" placeholder="Masukkan Nomor Telp"
-                                            name="whatsapp_number" value="{{ $data->whatsapp_number }}" disabled />
+                                            name="no_wa" value="{{ $data->no_wa }}" disabled />
                                     </div>
                                 </div>
 
