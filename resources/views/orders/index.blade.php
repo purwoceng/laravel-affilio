@@ -492,16 +492,10 @@
                     </div>
                     <div class="d-flex flex-row">
                         <div class="p-1">
-                            <a href="{{ route('orders.exportexcel') }}" class="btn btn-sm btn-success my-2">
-                                <i class="fas fa-download fa-sm mr-1"></i>@lang('Export Excel')
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success my-2 excel" data-toggle="modal">
+                                <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
 
                             </a>
-                        </div>
-                        <div class="p-1">
-                            <button class="excel">
-                                <i class="fas fa-download fa-sm mr-1"></i>@lang('Export Excel')
-
-                            </button>
                         </div>
                     </div>
                     <table id="js-orders-table"
@@ -538,10 +532,15 @@
 
 @push('js')
     {{-- <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script> --}}
+    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
     <script>
         'use strict';
+
 
         $(document).ready(function() {
             const ajaxUrl = "{{ route('orders.index') }}";
@@ -955,16 +954,61 @@
             };
 
             //exportexcel
-            document.querySelector(".excel").addEventListener("click", function() {
-            Swal.fire({
-                title: "Pilih Export Excel Berdasarkan",
-                showCancelButton: true,
-                confirmButtonText: "Tanggal",
-                confirmButtonColor: "#00ff99",
-                cancelButtonColor: "#ff0099"
-            });
-            });
+            let excelModal = $('#js-detail-modal');
+            $(document).on("click", ".excel", function(e) {
+                let elementHTML = `
+                <div class="form-group row">
+                    <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
+                        <div class="col-sm-10">
+                            <div class='input-group' id='js-daterange-picker'>
+                                <input type='text' class="form-control filter"
+                                        name="date_range1" placeholder="Select date range" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Status Pesanan</label>
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm filter" data-name="status"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Pilih Status Order</option>
+                                            <option value="all">Semua</option>
+                                            <option value="unpaid">Unpaid</option>
+                                            <option value="paid">Paid</option>
+                                            <option value="success">Success</option>
+                                            <option value="cancel_unpaid">Cancel Unpaid</option>
+                                            <option value="request_pickup">Riquest Pickup</option>
+                                            <option value="shipping">Shipping</option>
+                                            <option value="on_return_shipping">On Return Shipping</option>
+                                            <option value="on_return_apply">On Return Apply</option>
+                                            <option value="received">Received</option>
+                                            <option value="reject">Reject</option>
+                                            <option value="claim_not_process">Claim Not Process</option>
+                                            <option value="refund_disbursed">Refund Disbursed</option>
+                                            <option value="disbursed">Disbursed</option>
+                                        </select>
+                    </div>
+                </div>
 
+                `;
+
+
+                let elementFooter = `
+                            <button type="button" class="btn btn-light-success font-weight-bold" href="{{ route('orders.exportexcel') }}">Export</button>
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button>
+                            `;
+
+                excelModal.find(".modal-title").html('Input Export Excel');
+                excelModal.find(".modal-body").html(elementHTML);
+                excelModal.find(".modal-footer").html(elementFooter);
+                excelModal.modal('show');
+
+            });
 
             // Detail Order
             let orderModal = $('#js-detail-modal');
@@ -1137,6 +1181,17 @@
                         }
                     });
             });
+
+            //js datepicker excel
+            $('#js-detail-modal').on('shown.bs.modal', function(e) {
+                $('input[name="date_range1"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+                        ' to ' + end.format('YYYY-MM-DD'));
+                });
+            });
+
         });
     </script>
 @endpush

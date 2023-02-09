@@ -14,6 +14,15 @@ class OrderExport implements FromView, WithEvents, ShouldAutoSize
     /**
     * @return \Illuminate\Support\Collection
     */
+
+    protected $startDate;
+    protected $endDate;
+
+    public function __construct($starDate,$endDate)
+    {
+        $this->startDate = $starDate;
+        $this->endDate = $endDate;
+    }
     public function view():View
     {
         return view('orders.exportexcel',[
