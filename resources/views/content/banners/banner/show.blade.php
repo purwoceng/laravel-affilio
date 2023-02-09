@@ -38,19 +38,21 @@
                                     <label class="col-2 col-form-label">Nama <span class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" placeholder="Masukkan nama banner"
-                                        name="name" value="{{ $data->name }}" disabled />
+                                            name="name" value="{{ $data->name }}" disabled />
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">File Foto<span class="text-danger">*</span></label>
                                     <div class="col-10">
-                                        <img src="{{ asset('storage/' . $data->image) }}" class="img-fluid" width="150px">
+                                        <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid"
+                                            width="150px">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Tipe Banner<span class="text-danger">*</span></label>
+                                    <label class="col-2 col-form-label">Tipe Banner<span
+                                            class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <select class="custom-select form-control" name="banner_category_id">
                                             <option disabled>Pilih kategori banner</option>
@@ -67,7 +69,7 @@
                                     <label class="col-2 col-form-label">Target Url</label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="target_url" name="target_url"
-                                        value="{{ $data->target_url }}"" placeholder="" disabled />
+                                            value="{{ $data->target_url }}"" placeholder="" disabled />
                                     </div>
                                 </div>
 
@@ -75,7 +77,7 @@
                                     <label class="col-2 col-form-label">Deskripsi</label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="description" name="description"
-                                        value="{{ $data->description }}" placeholder="" disabled />
+                                            value="{{ $data->description }}" placeholder="" disabled />
                                     </div>
                                 </div>
 
