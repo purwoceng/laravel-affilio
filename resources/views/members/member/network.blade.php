@@ -104,7 +104,6 @@
                                                             </div>
                                                         @endforeach
                                                     </div>
-                                                
                                                 @else 
                                                     <div class="tree__children">
                                                         <div class="tree">
