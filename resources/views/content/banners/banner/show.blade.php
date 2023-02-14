@@ -43,7 +43,16 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">File Foto<span class="text-danger">*</span></label>
+                                    <label class="col-2 col-form-label">Tipe <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan tipe banner"
+                                            name="type" value="{{ $data->type }}" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">File Banner<span
+                                            class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid"
                                             width="150px">
@@ -51,8 +60,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Tipe Banner<span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-2 col-form-label">Kategori<span class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <select class="custom-select form-control" name="banner_category_id">
                                             <option disabled>Pilih kategori banner</option>
@@ -66,7 +74,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Target Url</label>
+                                    <label class="col-2 col-form-label">Target</label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="target_url" name="target_url"
                                             value="{{ $data->target_url }}"" placeholder="" disabled />
