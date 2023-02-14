@@ -490,6 +490,7 @@
                             </div>
                         </form>
                     </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12" >
                     <div class="d-flex flex-row">
                         <div class="p-1">
                             <a href="javascript:void(0)" class="btn btn-sm btn-success my-2 excel" data-toggle="modal">
@@ -498,6 +499,7 @@
                             </a>
                         </div>
                     </div>
+                </div>
                     <table id="js-orders-table"
                         class="table table-bordered table-hover table-head-custom table-checkable nowrap">
                         <thead class="thead-secondary">
@@ -957,50 +959,52 @@
             let excelModal = $('#js-detail-modal');
             $(document).on("click", ".excel", function(e) {
                 let elementHTML = `
-                <div class="form-group row">
-                    <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
-                        <div class="col-sm-10">
-                            <div class='input-group' id='js-daterange-picker'>
-                                <input type='text' class="form-control filter"
-                                        name="date_range1" placeholder="Select date range" />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar-check-o"></i>
-                                        </span>
-                                    </div>
+                <form method="POST" target="_blank" action="{{ route('orders.exportexcel') }}">
+                    <div class="form-group row">
+                        <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
+                            <div class="col-sm-10">
+                                <div class='input-group' id='js-daterange-picker'>
+                                    <input type='text' class="form-control filter"
+                                            name="date_range1" placeholder="Select date range" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                </div>
                             </div>
-                        </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Status Pesanan</label>
-                    <div class="col-sm-10">
-                        <select class="form-control form-control-sm filter" data-name="status"
-                                            placeholder="Type Here">
-                                            <option disabled selected>Pilih Status Order</option>
-                                            <option value="all">Semua</option>
-                                            <option value="unpaid">Unpaid</option>
-                                            <option value="paid">Paid</option>
-                                            <option value="success">Success</option>
-                                            <option value="cancel_unpaid">Cancel Unpaid</option>
-                                            <option value="request_pickup">Riquest Pickup</option>
-                                            <option value="shipping">Shipping</option>
-                                            <option value="on_return_shipping">On Return Shipping</option>
-                                            <option value="on_return_apply">On Return Apply</option>
-                                            <option value="received">Received</option>
-                                            <option value="reject">Reject</option>
-                                            <option value="claim_not_process">Claim Not Process</option>
-                                            <option value="refund_disbursed">Refund Disbursed</option>
-                                            <option value="disbursed">Disbursed</option>
-                                        </select>
                     </div>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Status Pesanan</label>
+                        <div class="col-sm-10">
+                            <select class="form-control form-control-sm filter" data-name="status1"
+                                                placeholder="Type Here">
+                                                <option disabled selected>Pilih Status Order</option>
+                                                <option value="all">Semua</option>
+                                                <option value="unpaid">Unpaid</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="success">Success</option>
+                                                <option value="cancel_unpaid">Cancel Unpaid</option>
+                                                <option value="request_pickup">Riquest Pickup</option>
+                                                <option value="shipping">Shipping</option>
+                                                <option value="on_return_shipping">On Return Shipping</option>
+                                                <option value="on_return_apply">On Return Apply</option>
+                                                <option value="received">Received</option>
+                                                <option value="reject">Reject</option>
+                                                <option value="claim_not_process">Claim Not Process</option>
+                                                <option value="refund_disbursed">Refund Disbursed</option>
+                                                <option value="disbursed">Disbursed</option>
+                                            </select>
+                        </div>
+                    </div>
+
 
                 `;
 
 
                 let elementFooter = `
-                            <button type="button" class="btn btn-light-success font-weight-bold" href="{{ route('orders.exportexcel') }}">Export</button>
-                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
                             `;
 
                 excelModal.find(".modal-title").html('Input Export Excel');
@@ -1191,6 +1195,17 @@
                         ' to ' + end.format('YYYY-MM-DD'));
                 });
             });
+
+            //button export
+            $(document).on('click', '#submitexcel', function(){
+
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('orders.exportexcel') }}",
+
+                });
+            });
+
 
         });
     </script>
