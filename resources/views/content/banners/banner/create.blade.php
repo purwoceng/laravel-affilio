@@ -48,6 +48,17 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Tipe <span class="text-danger">*</span></label>
+                                    <select class="custom-select form-control" name="type" required>
+                                        <option disabled>Pilih tipe banner</option>
+                                        <option value="store">Store</option>
+                                        <option value="product">Product</option>
+                                        <option value="link">Link</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
                                     <label>File Foto<span class="text-danger">*</span></label>
                                     <div></div>
                                     <div class="custom-file">
@@ -58,7 +69,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tipe Banner<span class="text-danger">*</span></label>
+                                    <label>Kategori<span class="text-danger">*</span></label>
                                     <div></div>
                                     <select class="custom-select form-control" name="banner_category_id" required>
                                         <option selected disabled>Pilih kategori banner</option>
@@ -69,15 +80,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="target_url">Target Url</label>
+                                    <label for="target_url">Target </label>
                                     <input type="text" class="form-control" id="target_url" name="target_url"
-                                        value="" placeholder="Masukkan target url"  />
+                                        value="" placeholder="Masukkan target url" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">Deskripsi</label>
                                     <input type="text" class="form-control" id="description" name="description"
-                                        value="" placeholder="Masukkan target url"  />
+                                        value="" placeholder="Masukkan target url" />
                                 </div>
 
                                 <div class="d-flex flex-row">
