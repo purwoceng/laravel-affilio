@@ -94,7 +94,7 @@ class OrderController extends Controller
         }
         $order = [
             'id' => $order->id,
-            'invoice_id' => $order->invoice_id,
+            'invoice_code' => $order->invoice_code,
             'code' => $order->code,
             'customer_name' => Str::ucfirst($order->customer_name),
             'fee' => formatRupiah($order->fee),
@@ -103,12 +103,12 @@ class OrderController extends Controller
             'total' => formatRupiah($order->total),
             'status' => $order->status,
             'phone' => $order->phone,
-            'resi' => $order->resi,
+            'resi' => !empty($order->resi) ? $order->resi: '-',
             'shipping_courier' => $order->shipping_courier,
             'shipping_service' => $order->shipping_service,
             'address' => $order->address,
             'full_address' => $order->subdistrict . ', ' . $order->city . ', '. $order->province,
-            'message' => empty($order->message) ? $order->message : 'Tidak Ada Catatan',
+            'message' => !empty($order->message) ? $order->message : 'Tidak Ada Catatan',
             'zip_code' => $order->zip_code ?? '-',
             'date_created' =>  date('Y-m-d H:i', strtotime($order->date_created)),
         ];

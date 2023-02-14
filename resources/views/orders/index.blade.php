@@ -433,6 +433,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="filter-wrapper">
                         <form action="#" class="form" id="filter">
                             <div class="row">
@@ -447,6 +449,13 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-sm filter"
                                             data-name="code" placeholder="Kode Order" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="invoice_code" placeholder="Kode Invoice" />
                                     </div>
                                 </div>
 
@@ -490,12 +499,32 @@
                             </div>
                         </form>
                     </div>
+
+                    <div class="js-action mt-2">
+                        <div class="d-flex flex-row">
+                            <div class="btn-group">
+                                <div class="m-1">
+                                    <button class="btn btn-sm btn-primary shadow-sm" id="js-btn-sinkron-order" disabled><i
+                                            class="fas fa-sync fa-sm text-white-50"></i> Sinkronkan Massal</button>
+                                </div>
+                            </div>
+
+                            <div class="btn-group">
+                                <div class="m-1">
+                                    <button class="btn btn-sm btn-warning shadow-sm text-white"
+                                        id="js-btn-checkout-voucher" disabled><i
+                                            class="fas fa-tag fa-sm text-white-50"></i> Checkout Massal Pesanan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table id="js-orders-table"
                         class="table table-bordered table-hover table-head-custom table-checkable nowrap">
                         <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center" width="10%">#</th>
                                 <th class="text-center" width="10%">Order Code</th>
+                                <th class="text-center" width="10%">Invoice Code</th>
                                 <th class="text-center" width="10%">Nama Pembeli</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
                                 <th class="text-center" width="10%">Ongkir</th>
@@ -506,6 +535,9 @@
                                 <th class="text-center" width="10%">Status</th>
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
+                                <th scope="col" class="text-center" width="5%">Terakhir Disinkronkan</th>
+                                <th scope="col" class="text-center" width="5%"><input type="checkbox"
+                                        value="" id="checkAll"></th>
                                 <th class="text-center" width="10%">Aksi</th>
                             </tr>
                         </thead>
@@ -534,6 +566,7 @@
             const ajaxUrl = "{{ route('orders.index') }}";
 
             var ordersTable = $('#js-orders-table').DataTable({
+                pagingType: 'full_numbers',
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -544,7 +577,7 @@
                     infoFiltered: "",
                 },
                 lengthChange: false,
-                pageLength: 20,
+                pageLength: 50,
                 order: [
                     [0, 'DESC']
                 ],
@@ -565,6 +598,14 @@
                     {
                         data: 'code',
                         name: 'code',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'invoice_code',
+                        name: 'invoice_code',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -652,6 +693,45 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                    },
+                    {
+                        data: 'last_synced_elapsed',
+                        name: 'last_synced_elapsed',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                        render: function(data, type, row) {
+                            let elements =
+                                `<div class="d-block small"><span class="small">${row.last_synced_elapsed}</span></div>`;
+
+                            if (row.last_synced_stamp >= 900 && !['-', 'pending', 'cancel']
+                                .includes(row
+                                    .status)) {
+                                elements += `<div class="d-block mt-2">
+                                    <button class="btn btn-sm btn-primary px-3 js-sync-order-btn"
+                                        data-id="${row.id}"><small>Sinkronkan</small></button>
+                                </div>`;
+                            }
+
+                            return elements;
+                        }
+                    },
+                    {
+                        data: 'checkbox',
+                        className: 'text-center small',
+                        searchable: false,
+                        orderable: false,
+                        render: function(data, type, row) {
+                            let elements = ``;
+                            if (row.last_synced_stamp >= 900 && !['-', 'pending', 'cancel',
+                                    'reject'
+                                ].includes(row.status)) {
+                                elements =
+                                    `<input type="checkbox" name="orders[]" class="orders"  value="${row.id}" data-id="${row.id}" data-customer="${row.customer_name}" data-datecreated="${row.date_created}" data-whatsapp="${row.whatsapp}">`;
+                            }
+                            return elements;
+                        }
                     },
                     {
                         data: 'actions',
@@ -984,7 +1064,9 @@
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-end">
                                             <div class="d-flex flex-column">
-
+                                                <div class="p-1">
+                                                    <h4 class="mb-0 font-weight-bold text-right">INVOICE #${data.order.invoice_code ? data.order.invoice_code :'-'}</h4>
+                                                </div>
                                                 <small class="p-1 text-right">Tanggal Pesanan : ${data.order.date_created} </small>
                                             </div>
                                         </div>
@@ -1112,6 +1194,554 @@
                         }
                     });
             });
+
+
+            // Sync order status
+            $(document).on('click', '.js-sync-order-btn', function(e) {
+                const el = $(e.target);
+
+                Swal.fire({
+                        title: 'Sinkronkan Data Pesanan',
+                        text: 'Anda yakin ingin menyinkronkan data pesanan ini? Dengan menyinkronkan ' +
+                            'pesanan ini Anda akan memperoleh status terbaru dari pesanan yang telah ada' +
+                            ' di Baleomol.com',
+                        icon: 'warning',
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        confirmButtonText: 'Lanjutkan',
+                        cancelButtonText: 'Batal',
+                    })
+                    .then(function(res) {
+                        if (res.value) {
+                            Swal.fire({
+                                showCloseButton: false,
+                                showConfirmButton: false,
+                                icon: 'info',
+                                title: 'Harap Tunggu',
+                                text: 'Sedang memproses permintaan sinkron data Anda...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: function() {
+                                    Swal.showLoading();
+                                },
+                            });
+
+                            setTimeout(function() {
+                                const data = {
+                                    order_id: Number(el.data('id'))
+                                };
+                                const ajaxConfigs = {
+                                    url: '{{ url('/api/sync-order') }}',
+                                    data: data,
+                                    method: 'POST',
+                                    dataType: 'json',
+                                    failed: function(err) {
+                                        Swal.fire('Terjadi Kesalahan', JSON.stringify({
+                                            err
+                                        }), 'error');
+                                    },
+                                    success: function(res) {
+                                        if (res.status == 'success') {
+                                            const data = res.data;
+
+                                            Swal.fire(
+                                                'Data Berhasil Diperbarui',
+                                                `Pesanan #${data.origin_order_code} berhasil diperbarui. Anda dapat memperbarui lagi pesanan ini setelah 15 menit`,
+                                                'success'
+                                            ).then(function() {
+                                                getDataFiltered();
+                                            });
+                                        } else {
+                                            const err = res.errors || {};
+
+                                            Swal.fire(
+                                                err.title || 'Terjadi Kesalahan',
+                                                err.detail ||
+                                                'Mohon maaf terjadi kesalahan saat ' +
+                                                'menyinkronkan data. Silahkan coba kembali ' +
+                                                'beberapa saat lagi',
+                                                'warning'
+                                            );
+                                        }
+                                    }
+                                };
+
+                                $.ajax(ajaxConfigs);
+                            }, 900);
+                        }
+                    });
+            });
+
+
+            // Checkbox Orderan
+            const checkAll = $("#checkAll");
+            const checkboxsingle = $('input:checkbox');
+            const sinkronMasalBtn = $('#js-btn-sinkron-order');
+            const checkoutVoucherBtn = $('#js-btn-checkout-voucher');
+
+            checkAll.click(function() {
+                if (!$(this).is(':checked')) {
+                    $('input:checkbox').not(this).prop('checked', this.checked);
+                    sinkronMasalBtn.prop('disabled', true);
+                    checkoutVoucherBtn.prop('disabled', true);
+                } else {
+                    $('input:checkbox').not(this).prop('checked', this.checked);
+                }
+            });
+
+            //function checkBox single
+            $(document).on('click', 'input:checkbox', function(e) {
+                if (!$(this).is(':checked')) {
+                    let data = $(['.orders:checked', '.js-order-not-complete:checked']);
+                    $('#checkAll').prop('checked', false);
+
+                    if (data.length <= 0) {
+                        sinkronMasalBtn.prop('disabled', true);
+                        checkoutVoucherBtn.prop('disabled', true);
+                    }
+                } else {
+                    sinkronMasalBtn.prop('disabled', false);
+                    checkoutVoucherBtn.prop('disabled', false);
+                }
+            });
+
+            //BULK CHECKOUT VOUCHER MASAL
+            checkoutVoucherBtn.click((e) => {
+                const ordersId = [];
+                const deleteChecked = $('.js-orders-delete:checked');
+                const deleteReject = $('.js-reject:checked');
+                const checkOut = $('.js-checkout-order:checked');
+                const notCompleteChecked = $('.js-order-not-complete:checked');
+                const checked = $('.orders:checked');
+                const finalChecked = [...checkOut];
+                const totalChecked = [...deleteChecked, ...checked, ...deleteReject, ...checkOut, ...
+                    notCompleteChecked
+                ];
+                if (finalChecked.length >= 1) {
+                    $.each(finalChecked, function(i, item) {
+                        ordersId.push($(item).val());
+                    });
+                    checkoutVoucherMultipleHandler(ordersId, totalChecked);
+                } else if ($('.orders').is(':checked') === true || $('.js-reject').is(':checked') ===
+                    true || $('.js-orders-delete').is(':checked') === true) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Checkout tidak tersedia untuk orderan yang dipilih`,
+                        text: `Silahkan periksa status orderan`
+                    });
+                } else if ($('input[type=checkbox]').hasClass("js-order-not-complete") == true) {
+                    let element = '';
+                    let table = '';
+                    let thead = '';
+
+                    thead += `
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Nama Pembeli</th>
+                    <th>No Whatsapp</th>
+                    <th>Tanggal Pesanan</th>
+                </tr>`;
+                    $.each(notCompleteChecked, function(no, item) {
+                        element += `
+                    <tr>
+                        <td>${no+1}</td>
+                        <td>${$(item).data('customer')}</td>
+                        <td>${$(item).data('whatsapp')}</td>
+                        <td>${$(item).data('datecreated')}</td>
+                    </tr>`;
+                    });
+
+                    table += `
+                <table class="table table-bordered">
+                    <thead>
+                        ${thead}
+                    </thead>
+                        <tbody>
+                        ${element}
+                    </tbody>
+                </table>
+                `;
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Orderan yang dipilih Belum lengkap`,
+                        text: `mohon lengkapi data order terlebih dahulu`,
+                        html: table
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Orderan Belum Dipilih`,
+                        text: `mohon coba kembali`
+                    })
+                }
+            });
+
+            async function checkoutVoucherMultipleHandler(ordersId, totalChecked) {
+                try {
+                    const processed = [];
+                    const totalProses = totalChecked.length;
+                    const totalOrderid = ordersId.length;
+                    const orders = [...ordersId];
+                    let success = 0;
+                    let failed = 0;
+
+                    async function recursive() {
+                        if (processed.length != ordersId.length) {
+                            const orderId = orders.pop();
+                            processed.push(orderId);
+                            Swal.fire({
+                                timer: 5000,
+                                icon: 'info',
+                                title: `Sedang memproses permintaan, Mohon jangan berpindah halaman`,
+                                animation: false,
+                                text: `Memproses ${processed.length} dari ${totalProses} pesanan. ${success} Berhasil.`,
+                                allowOutsideClick: false,
+                                showConfirmButton: false,
+                                onRender: function() {
+                                    Swal.showLoading();
+                                }
+                            });
+                            const response = await singleCheckoutVoucherHandler(orderId);
+                            response.success ? success++ : failed++;
+                            await recursive();
+                        } else {
+                            Swal.close();
+                            if (totalProses != totalOrderid) {
+                                errorStatus = totalProses - totalOrderid;
+                                for (i = 0; i < errorStatus; i++) {
+                                    failed++
+                                }
+                            }
+                            Swal.fire({
+                                timer: 6000,
+                                icon: success > 0 ? 'success' : 'error',
+                                title: `${success} Pesanan berhasil dicheckout. ${failed} Pesanan gagal dicheckout.`,
+                                html: `Silahkan cek status pesanan Anda. ${failed > 0 ? `<p style="color:red;">Pastikan kembali pesanan anda</p>` : ''}`,
+                                showConfirmButton: true
+                            }).then(function() {
+                                $('#checkAll').prop('checked', false);
+                                deleteMasalBtn.prop('disabled', true);
+                                sinkronMasalBtn.prop('disabled', true);
+                                checkoutHutangBtn.prop('disabled', true);
+                                checkoutVoucherBtn.prop('disabled', true);
+                                getDataFiltered();
+                            });
+                        }
+                    }
+                    await recursive();
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Kami mengalami kendala`,
+                        text: `mohon coba kembali`
+                    })
+                }
+            }
+
+            async function singleCheckoutVoucherHandler(orderId) {
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        const getOrderOptions = {
+                            type: 'GET',
+                            url: ``,
+                            dataType: 'json',
+                            data: {
+                                order_id: orderId,
+                            },
+                        };
+
+                        $.ajax(getOrderOptions)
+                            .done(function(res) {
+                                if (res.status === 'success') {
+                                    let products = [];
+                                    let orderId = res.data.order.id;
+                                    let memberKey_ = res.data.member_key;
+                                    let address = res.data.order.address || '';
+                                    let fullAddress = address;
+
+                                    if (res.data.order_products.length > 0) {
+                                        for (let i = 0; i < res.data.order_products
+                                            .length; i++) {
+                                            let item = res.data.order_products[i];
+                                            let variant = item.variant || {};
+                                            let product = {
+                                                id_product: item.origin_product_id || 0,
+                                                quantity: item.quantity || 0,
+                                                id_variation: variant.id || 0,
+                                                variant: variant.name || '',
+                                                sell_price: item.price || 0,
+                                                total_sell_price: item.total || 0,
+                                            };
+
+                                            products.push(product);
+                                        }
+                                    }
+
+                                    const postOptions = {
+                                        method: 'POST',
+                                        headers: {
+                                            api_key: 'ndandu',
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            origin_lp_order_id: orderId,
+                                            products: products,
+                                            address: fullAddress,
+                                            member_key: memberKey_,
+                                            name: res.data.order.name || '',
+                                            cod_fee: res.data.order.cod_fee ||
+                                                0,
+                                            city_id: res.data.order.city_id ||
+                                                0,
+                                            whatsapp: res.data.order.whatsapp ||
+                                                '',
+                                            id_seller: res.data.order
+                                                .supplier_id || 0,
+                                            province_id: res.data.order
+                                                .province_id || 0,
+                                            postal_code: res.data.order
+                                                .postal_code || '',
+                                            shipping_cost: res.data.order
+                                                .shipping_fee || 0,
+                                            latitude: res.data.order.latitude ||
+                                                '',
+                                            longitude: res.data.order
+                                                .longitude || '',
+                                            note: res.data.order.note || '',
+                                            subdistrict_id: res.data.order
+                                                .subdistrict_id ||
+                                                0,
+                                            shipping_courier: res.data.order
+                                                .shipping_courier ||
+                                                '',
+                                            shipping_service: res.data.order
+                                                .shipping_service ||
+                                                '',
+                                            is_seller_jne: res.data.order
+                                                .is_seller_jne || 0
+                                        }),
+                                    };
+
+                                    fetch(`{{ config('app.baleomol_ajax_url') . 'landing_page/checkout' }}`,
+                                            postOptions)
+                                        .then(function(res) {
+                                            return res.json();
+                                        })
+                                        .then(function(data) {
+                                            if (data.success) {
+                                                let landingpage_order_id = data.data
+                                                    .landingpage_order_id;
+                                                let landingpage_order_code = data.data
+                                                    .landingpage_order_code;
+                                                let landingpage_invoice_id = data.data
+                                                    .landingpage_invoice_id;
+                                                let landingpage_invoice_code = data.data
+                                                    .landingpage_invoice_code;
+                                                let rts_cost = data.data.rts_cost;
+                                                let status_checkout = data.data.status;
+
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: ``,
+                                                    data: {
+                                                        _token: "{{ csrf_token() }}",
+                                                        orderId: orderId,
+                                                        origin_order_id: landingpage_order_id,
+                                                        origin_order_code: landingpage_order_code,
+                                                        origin_invoice_id: landingpage_invoice_id,
+                                                        origin_invoice_code: landingpage_invoice_code,
+                                                        rts_cost: rts_cost,
+                                                        status: status_checkout,
+                                                    },
+                                                    success: function(response) {
+                                                        resolve({
+                                                            success: true,
+                                                            data: response
+                                                                .data
+                                                        });
+                                                    }
+                                                });
+                                            } else {
+                                                reject({
+                                                    success: false,
+                                                    data: error
+                                                });
+                                            }
+                                        }, function(err) {
+                                            reject({
+                                                success: false,
+                                                data: error
+                                            });
+                                        })
+                                        .catch((error) => {
+                                            reject({
+                                                success: false,
+                                                data: error
+                                            });
+                                        });
+                                } else {
+                                    reject({
+                                        success: false,
+                                        data: error
+                                    });
+                                }
+                            })
+                            .fail(function(err) {
+                                reject({
+                                    success: false,
+                                    data: error
+                                });
+                            });
+                    } catch (error) {
+                        reject({
+                            success: false,
+                            data: error
+                        });
+                    }
+                });
+            }
+
+
+            sinkronMasalBtn.click((e) => {
+                const ordersId = [];
+                const deleteChecked = $('.js-orders-delete:checked');
+                const deleteReject = $('.js-reject:checked');
+                const checkOut = $('.js-checkout-order:checked');
+                const notCompleteChecked = $('.js-order-not-complete:checked');
+                const checked = $('.orders:checked');
+                const finalChecked = [...checked, ...deleteReject];
+                const totalChecked = [...deleteChecked, ...checked, ...deleteReject, ...checkOut, ...
+                    notCompleteChecked
+                ];
+                if (finalChecked.length >= 1) {
+                    $.each(finalChecked, function(i, item) {
+                        ordersId.push($(item).val());
+                    });
+                    syncronMultipleHandler(ordersId, totalChecked);
+                } else if ($('input[type=checkbox]').hasClass("orders") == true || ('input[type=checkbox]')
+                    .hasClass("js-order-not-complete") == true) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Sinkron tidak tersedia untuk orderan ini`,
+                        text: `Silahkan checkout order atau periksa status orderan`
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Orderan Belum Dipilih`,
+                        text: `mohon coba kembali`
+                    });
+                }
+            });
+
+            async function syncronMultipleHandler(ordersId, totalChecked) {
+                try {
+                    const processed = [];
+                    const totalProses = totalChecked.length;
+                    const totalOrderid = ordersId.length;
+                    const orders = [...ordersId];
+                    let success = 0;
+                    let failed = 0;
+
+                    async function recursive() {
+                        if (processed.length != ordersId.length) {
+                            const orderId = orders.pop();
+                            processed.push(orderId);
+                            Swal.fire({
+                                icon: 'info',
+                                title: `Sedang memproses permintaan, Mohon jangan berpindah halaman`,
+                                animation: false,
+                                text: `Memproses ${processed.length} dari ${totalProses} pesanan. ${success} Berhasil.`,
+                                allowOutsideClick: false,
+                                showConfirmButton: false,
+                                onRender: function() {
+                                    Swal.showLoading();
+                                }
+                            });
+                            const response = await singleSyncronHandler(orderId);
+                            response.success ? success++ : failed++;
+                            await recursive();
+                        } else {
+                            Swal.close();
+                            if (totalProses != totalOrderid) {
+                                errorStatus = totalProses - totalOrderid;
+                                for (i = 0; i < errorStatus; i++) {
+                                    failed++
+                                }
+                            }
+                            Swal.fire({
+                                icon: success > 0 ? 'success' : 'error',
+                                title: `${success} Pesanan berhasil disinkronkan. ${failed} Pesanan gagal disinkronkan.`,
+                                html: `Silahkan cek status pesanan Anda. ${failed > 0 ? `<p style="color:red;">Pastikan kembali pesanan anda</p>` : ''}`,
+                                showConfirmButton: true
+                            }).then(function() {
+                                $('#checkAll').prop('checked', false);
+                                sinkronMasalBtn.prop('disabled', true);
+                                deleteMasalBtn.prop('disabled', true);
+                                checkoutHutangBtn.prop('disabled', true);
+                                checkoutVoucherBtn.prop('disabled', true);
+                                getDataFiltered();
+                                // location.reload();
+                            });
+                        }
+                    }
+                    await recursive();
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Kami mengalami kendala`,
+                        text: `mohon coba kembali`
+                    })
+                }
+            }
+
+            async function singleSyncronHandler(orderId) {
+                return new Promise(async (resolve, reject) => {
+                    try {
+                        const ajaxPath = '{{ url('/api/sync-order') }}';
+                        const order_id = orderId;
+
+                        let options = {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        };
+                        options.method = 'POST';
+                        options.body = JSON.stringify({
+                            order_id
+                        });
+
+                        const response = await fetch(ajaxPath, options);
+                        const resp = await response.json();
+                        if (response.status == 200) {
+                            if (resp.status == "success") {
+                                resolve({
+                                    success: true,
+                                    data: resp.data
+                                });
+                            } else {
+                                resolve({
+                                    success: false,
+                                    data: resp.error
+                                });
+                            }
+                        } else {
+                            resolve({
+                                success: false,
+                                data: resp
+                            });
+                        }
+
+                    } catch (error) {
+                        reject({
+                            success: false,
+                            data: error
+                        });
+                    }
+                });
+            }
         });
     </script>
 @endpush
