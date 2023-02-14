@@ -29,8 +29,8 @@
                         </div>
                     @endif
 
-                    <table id="js-table-banner"
-                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
+                    <table id="js-table-banner" class="table table-separate table-head-custom table-checkable nowrap"
+                        style="width:100%">
                         <div class="d-flex flex-row">
                             <div class="p-1">
                                 <a href="{{ route('banners.create') }}" class="btn btn-sm btn-primary my-2"> <i
@@ -43,8 +43,9 @@
                                 <th>#</th>
                                 <th>Gambar</th>
                                 <th>Nama </th>
-                                <th>Tipe Kategori</th>
-                                <th>Target Url</th>
+                                <th>Tipe</th>
+                                <th>Kategori</th>
+                                <th>Target</th>
                                 <th>Deskripsi</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
@@ -106,7 +107,7 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
-                        render: function (data, type, row, meta) {                        
+                        render: function(data, type, row, meta) {
                             if (data) return `<img src="${data}" class="image-fluid" width="80px">`;
 
                             return '-';
@@ -115,6 +116,14 @@
                     {
                         data: 'name',
                         name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'type',
+                        name: 'type',
                         sortable: false,
                         orderable: false,
                         searchable: false,

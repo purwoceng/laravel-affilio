@@ -54,14 +54,8 @@
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Tipe CS<span class="text-danger">*</span></label>
                                     <div class="col-9">
-                                        <select class="custom-select form-control" name="cs_category_id">
-                                            <option disabled>Pilih kategori banner</option>
-                                            @foreach ($csNumberCategories as $category)
-                                                <option
-                                                    value="{{ $category->id }} {{ $category->id == $data->banner_category_id ? 'selected' : '' }}">
-                                                    {{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" placeholder="Tipe Cs"
+                                        name="category_type" value="{{ $data->category_type->name }}" disabled />
                                     </div>
                                 </div>
 
