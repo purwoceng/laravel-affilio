@@ -965,7 +965,7 @@
                             <div class="col-sm-10">
                                 <div class='input-group' id='js-daterange-picker'>
                                     <input type='text' class="form-control filter"
-                                            name="date_range1" placeholder="Select date range" />
+                                            id="date_range1" name="date_range1" placeholder="Select date range" />
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="la la-calendar-check-o"></i>
@@ -977,7 +977,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Status Pesanan</label>
                         <div class="col-sm-10">
-                            <select class="form-control form-control-sm filter" data-name="status1"
+                            <select class="form-control form-control-sm filter" data-name="status1" id="status1"
                                                 placeholder="Type Here">
                                                 <option disabled selected>Pilih Status Order</option>
                                                 <option value="all">Semua</option>
@@ -1198,11 +1198,15 @@
 
             //button export
             $(document).on('click', '#submitexcel', function(){
-
+                var date_range1 = $("#date_range1").val();
+                var status1 = $("#status1").val();
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('orders.exportexcel') }}",
-
+                    data :{
+                        "daterange1":date_range1,
+                        "status1":status1
+                    },
                 });
             });
 
