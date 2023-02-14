@@ -25,8 +25,8 @@
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-invoice-paid" class="table table-separate table-head-custom table-checkable nowrap"
-                        style="width:100%">
+                    <table id="js-table-invoice-paid"
+                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
@@ -193,23 +193,23 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            let showUrl = `{{ url('/invoices/paid/show/${row.id}') }}`;
                             let elements = '';
+                            let showUrl = `{{ url('/invoices/paid/show/${row.id}') }}`;
 
                             elements += `
-                            <div class= "dropdown dropdown-inline"><a href="javascript:void(0)"
+                                    <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
                                         class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
                                             class="la la-cog"></i></a>
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${showUrl}" >
+                                                <a class="nav-link" href="${showUrl}">
                                                     <span class="nav-text">Detail</span></a>
                                             </li>
                                         </ul>
                                     </div>
-                                </div> 
-                                `;
+                                </div>
+                    `;
 
                             return elements;
                         }
@@ -263,7 +263,7 @@
                 params = params.replace(/\&$/, '');
 
                 if (params != '') {
-                    url = `$ {url}? ${params}`;
+                    url = `${url}?${params}`;
                 }
                 return url;
             };

@@ -193,23 +193,23 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            let showUrl = `{{ url('/invoices/cancel/show/${row.id}') }}`;
                             let elements = '';
+                            let showUrl = `{{ url('/invoices/cancel/show/${row.id}') }}`;
 
                             elements += `
-                                    <div class = "dropdown dropdown-inline" > <a href="javascript:void(0)"
-                                        class = "btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                                                    class="la la-cog"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                                        <ul class="nav nav-hoverable flex-column">
-                                                        <li class="nav-item">
-                                                        <a class="nav-link" href="${showUrl}" >
-                                                            <span class="nav-text">Detail</span></a>
-                                                        </li>
-                                                        </ul>
-                                                        </div>
-                                                        </div>
-                                                    `;
+                                    <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                                        class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
+                                            class="la la-cog"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                        <ul class="nav nav-hoverable flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${showUrl}">
+                                                    <span class="nav-text">Detail</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                    `;
 
                             return elements;
                         }
@@ -256,14 +256,14 @@
 
                 $.each(data, function(key, value) {
                     if (!!value) {
-                        params += ` $ {key} = $ {value} & `;
+                        params += `${key}=${value}&`;
                     }
                 });
 
                 params = params.replace(/\&$/, '');
 
                 if (params != '') {
-                    url = `$ {url}? ${params}`;
+                    url = `${url}?${params}`;
                 }
                 return url;
             };
