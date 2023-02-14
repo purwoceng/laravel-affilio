@@ -63,7 +63,7 @@ class BannerController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
-        ],$messages);
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -91,7 +91,6 @@ class BannerController extends Controller
             $path_file = 'storage/system_storage/banners/thumbnail/' . $fileName;
             $createData['image'] = $path_file;
             Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/banners/thumbnail/') . $fileName));
-            
         }
 
         $result = $this->bannerRepository->create($createData);
@@ -151,7 +150,7 @@ class BannerController extends Controller
             'target_url' => 'max:255',
             'description' => 'max:255',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
-        ],$messages);
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();

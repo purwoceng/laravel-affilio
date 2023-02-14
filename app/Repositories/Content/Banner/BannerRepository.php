@@ -19,17 +19,17 @@ class BannerRepository implements BannerRepositoryInterface
 
     public function update($id, array $data)
     {
-        return Banner::where('id',$id)->update($data);
+        return Banner::where('id', $id)->update($data);
     }
 
     public function delete($id)
     {
-        return Banner::where('id',$id)->forcedelete();
+        return Banner::where('id', $id)->forcedelete();
     }
 
     public function getDataById($id)
     {
-        return Banner::where('id',$id)->first();
+        return Banner::where('id', $id)->first();
     }
 
     public function getData($limit, $start)
@@ -60,6 +60,7 @@ class BannerRepository implements BannerRepositoryInterface
                 $id = $banner->id;
                 $category_type = $banner->category_type->name;
                 $name = $banner->name;
+                $type = $banner->type;
                 $image = $banner->image;
                 $image_url = $banner->image ? config('app.s3_url') . $banner->image : '';
                 $target_url = $banner->target_url;
@@ -72,6 +73,7 @@ class BannerRepository implements BannerRepositoryInterface
                     'id',
                     'category_type',
                     'name',
+                    'type',
                     'image',
                     'image_url',
                     'target_url',
