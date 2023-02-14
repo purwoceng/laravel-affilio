@@ -959,7 +959,6 @@
             let excelModal = $('#js-detail-modal');
             $(document).on("click", ".excel", function(e) {
                 let elementHTML = `
-                <form method="POST" target="_blank" action="{{ route('orders.exportexcel') }}">
                     <div class="form-group row">
                         <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
                             <div class="col-sm-10">
@@ -979,8 +978,8 @@
                         <div class="col-sm-10">
                             <select class="form-control form-control-sm filter" data-name="status1" id="status1"
                                                 placeholder="Type Here">
-                                                <option disabled selected>Pilih Status Order</option>
-                                                <option value="all">Semua</option>
+                                                <option disabled >Pilih Status Order</option>
+                                                <option value="all" selected>Semua</option>
                                                 <option value="unpaid">Unpaid</option>
                                                 <option value="paid">Paid</option>
                                                 <option value="success">Success</option>
@@ -1206,6 +1205,9 @@
                     data :{
                         "daterange1":date_range1,
                         "status1":status1
+                    },
+
+                    success:function(response){
                     },
                 });
             });
