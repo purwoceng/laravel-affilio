@@ -56,6 +56,13 @@ class OrderRepository implements OrderRepositoryInterface
             $totalFiltered = $totalData;
         }
 
+        if ($request->filled('invoice_code')) {
+            $keyword = $request->get('invoice_code');
+            $getQuery->where('invoice_code', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
+
         if ($request->filled('phone')) {
             $keyword = $request->get('phone');
             $getQuery->where('phone', 'like', '%' . $keyword . '%');
@@ -92,7 +99,7 @@ class OrderRepository implements OrderRepositoryInterface
         if (!empty($getResults)) {
             foreach ($getResults  as $key => $order) {
                 $id = $order->id;
-                $invoiceId = $order->invoice_id;
+                $invoiceCode = $order->invoice_code;
                 $code = $order->code;
                 $name = $order->customer_name;
                 $resi = !empty($order->resi) ?  $order->resi : '-';
@@ -102,13 +109,25 @@ class OrderRepository implements OrderRepositoryInterface
                 $phone = $order->phone;
                 $address = $order->address;
                 $status = $order->status;
+                $payment_status = $order->payment_status;
                 $shippingCourier = strtoupper($order->shipping_courier);
                 $shippingService = $order->shipping_service ?? '-';
                 $courier = $shippingCourier . ' - ' . $shippingService;
                 $dateCreated = date('Y-m-d H:i', strtotime($order->date_created));
+
+                $lastSyncedDate = $order->date_last_synced;
+                $lastSyncedStamp = 900;
+                $lastSyncedElapsed = 'Belum pernah';
+
+                if (!!$lastSyncedDate) {
+                    $timeline = timeLine($lastSyncedDate);
+                    $lastSyncedStamp = $timeline['timestamp'] ?? $lastSyncedStamp;
+                    $lastSyncedElapsed = $timeline['elapsed'] ?? $lastSyncedElapsed;
+                }
+
                 $data[] = array(
                     'id' => $id,
-                    'invoice_id' => $invoiceId,
+                    'invoice_code' => $invoiceCode,
                     'code' => $code,
                     'name' => $name,
                     'resi' => $resi,
@@ -118,8 +137,11 @@ class OrderRepository implements OrderRepositoryInterface
                     'phone' => $phone,
                     'address' => $address,
                     'status' => $status,
+                    'payment_status' => $payment_status,
                     'courier' => $courier,
                     'date_created' => $dateCreated,
+                    'last_synced_stamp' => $lastSyncedStamp,
+                    'last_synced_elapsed' => $lastSyncedElapsed,
                     'actions' => $id,
                 );
             }

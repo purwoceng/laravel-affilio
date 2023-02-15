@@ -70,6 +70,7 @@ class BannerController extends Controller
         }
 
         $name = $request->name;
+        $type = $request->type;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
         $bannerCategoryId = $request->banner_category_id;
@@ -77,6 +78,7 @@ class BannerController extends Controller
         $createData = [
             'banner_category_id' => $bannerCategoryId,
             'name' => $name,
+            'type' => $type,
             'target_url' => $target_url,
             'description' => $description,
             'path' => '',
@@ -157,6 +159,7 @@ class BannerController extends Controller
         }
 
         $name = $request->name;
+        $type = $request->type;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
         $bannerCategoryId = $request->banner_category_id;
@@ -164,6 +167,7 @@ class BannerController extends Controller
         $updateData = [
             'banner_category_id' => $bannerCategoryId,
             'name' => $name,
+            'type' => $type,
             'target_url' => $target_url,
             'description' => $description,
             'path' => '',

@@ -14,8 +14,12 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
+<<<<<<< HEAD
         "league/flysystem-aws-s3-v3": "~1.0",
         "maatwebsite/excel": "^3.1",
+=======
+        "league/flysystem-aws-s3-v3": "1.0",
+>>>>>>> 31479ba58bb74840d6a5ec6aa7b558281bfea6bb
         "spatie/laravel-permission": "^5.7"
     },
     "require-dev": {
