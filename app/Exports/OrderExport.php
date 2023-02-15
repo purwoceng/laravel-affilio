@@ -15,21 +15,36 @@ class OrderExport implements FromView, WithEvents, ShouldAutoSize
     * @return \Illuminate\Support\Collection
     */
 
-  public $view;
-  public $data;
+    public $view;
+    public $startDate;
+    public $endDate;
+    public $orderStatus;
 
-    // public function __construct(string $date_range1, string $status1)
-    // {
-    //     $this->date_range1=$date_range1;
-    //     $this->status1 = $status1;
-    // }
+    public function __construct($status = '', $dateRange = [])
+    {
+        $this->orderStatus = $status;
+
+        if (isset($dateRange[0])) $this->startDate = $dateRange[0];
+
+        if (isset($dateRange[1])) $this->endDate = $dateRange[1];
+    }
+
     public function view():View
     {
-        // return view('orders.exportexcel',[
-        //     'data'=>Order::where('date_range1','like','%'.$this->date_range1.'%')->where('status1','like','%'.$this->status1.'%')->get()
-        // ]);
-        return view('orders.exportexcel',[
-            'orders'=>Order::all()
+        $query = Order::whereNotNull('id');
+
+        if ($this->orderStatus) {
+            $query = $query->where('status', $this->orderStatus);
+        }
+
+        if ($this->startDate && $this->endDate) {
+            $query = $query->whereBetween('date_created', [$this->startDate, $this->endDate]);
+        }
+
+        $orders = $query->get();
+
+        return view('orders.exportexcel', [
+            'orders' => $orders,
         ]);
     }
 

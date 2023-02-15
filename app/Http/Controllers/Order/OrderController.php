@@ -162,15 +162,24 @@ class OrderController extends Controller
 
     public function exportexcel(Request $request)
     {
-        dd($request->all());
-        exit;
-        $from = date('m-d-Y');
-        $to = date('m-d-Y');
+        $dateRange = [];
+        $status = '';
 
-       exportexcel::whereBetween('daterange1',[$from,$to])->get();
-       if($status1 != ''){
-            $status1 = OrderExport;
-       };
-        return Excel::download(new OrderExport, 'order.xlsx');
+        if (isset($request->daterange1)) {
+            $dateRange = explode('-', $request->daterange1);
+            $dateRange = array_map(function ($item) {
+                $date = trim($item);
+                $date = strtotime($date);
+                $date = date('Y-m-d H:i:s', $date);
+
+                return $date;
+            }, $dateRange);
+        }
+
+        if (isset($request->status1)) {
+            $status = $request->status1;
+        }
+
+        return Excel::download(new OrderExport($status, $dateRange), 'order.xlsx');
     }
 }
