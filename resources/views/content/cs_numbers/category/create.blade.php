@@ -46,12 +46,6 @@
                                     <input type="text" class="form-control" placeholder="Masukkan nama kategori"
                                         name="name" value="" required />
                                 </div>
-                                <div class="form-group">
-                                    <label for="code">Tipe<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="code" name="code" value=""
-                                        placeholder="Masukkan tipe kategori" required />
-                                </div>
-
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('cs-number.category.index') }}"

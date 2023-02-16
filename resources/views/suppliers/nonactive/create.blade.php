@@ -177,7 +177,6 @@
                     },
                     processResults: function(data, params) {
                         var result = { results: [] };
-
                         if (data.success) {
                             const { results: resultData } = data.data;
 
@@ -190,7 +189,7 @@
                                     city: item.store?.city,
                                     province: item.store?.province,
                                     username: item.username,
-                                    image_url :item.cover|| '',
+                                    image_url :item.store.logo|| '',
                                 }
                             });
 

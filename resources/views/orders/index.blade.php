@@ -469,7 +469,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-sm filter"
-                                            data-name="rese" placeholder="Nomor Resi" />
+                                            data-name="resi" placeholder="Nomor Resi" />
                                     </div>
                                 </div>
 
@@ -544,8 +544,8 @@
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
                                 <th scope="col" class="text-center" width="5%">Terakhir Disinkronkan</th>
-                                <th scope="col" class="text-center" width="5%"><input type="checkbox"
-                                        value="" id="checkAll"></th>
+                                <th scope="col" class="text-center" width="5%">Checklist <input type="checkbox"
+                                        value="" id="checkAll" class="pt-2"></th>
                                 <th class="text-center" width="10%">Aksi</th>
                             </tr>
                         </thead>
