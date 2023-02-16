@@ -17,9 +17,19 @@ class MemberBlockedRepository implements MemberBlockedRepositoryInterface
         return Member::where('is_blocked', '1')->where('publish', '1')->offset($start)->limit($limit);
     }
 
+    public function update($id, array $data)
+    {
+        return Member::where('id',$id)->update($data);
+    }
+
     public function getCountMemberBlocked()
     {
         return Member::where('is_blocked', '1')->where('publish', '1')->count();
+    }
+
+    public function getDataById($id)
+    {
+        return Member::where('id', $id)->first();
     }
 
     public function getDataTable($request)

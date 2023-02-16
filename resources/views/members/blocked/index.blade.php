@@ -217,6 +217,10 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
+                            let showUrl =
+                                `{{ url('members/blocked/show/${row.id}') }}`;
+                            let editUrl =
+                                `{{ url('members/blocked/edit/${row.id}') }}`;
                             let elements = '';
 
                             elements += `
@@ -227,12 +231,12 @@
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/detail/${row.id}">
+                                                <a class="nav-link" href="${showUrl}">
                                                     <span class="nav-text">Detail</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/edit/${row.id}">
+                                                <a class="nav-link" href="${editUrl}">
                                                     <span class="nav-text">Edit Member</span>
                                                 </a>
                                             </li>
