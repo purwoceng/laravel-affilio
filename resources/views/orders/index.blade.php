@@ -469,7 +469,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-sm filter"
-                                            data-name="rese" placeholder="Nomor Resi" />
+                                            data-name="resi" placeholder="Nomor Resi" />
                                     </div>
                                 </div>
 
@@ -500,8 +500,16 @@
                         </form>
                     </div>
 
+
                     <div class="js-action mt-2">
                         <div class="d-flex flex-row">
+                            <div class="btn-group">
+                                <div class="m-1">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel" data-toggle="modal">
+                                        <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                                    </a>
+                                </div>
+                            </div>
                             <div class="btn-group">
                                 <div class="m-1">
                                     <button class="btn btn-sm btn-primary shadow-sm" id="js-btn-sinkron-order" disabled><i
@@ -536,8 +544,8 @@
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
                                 <th scope="col" class="text-center" width="5%">Terakhir Disinkronkan</th>
-                                <th scope="col" class="text-center" width="5%"><input type="checkbox"
-                                        value="" id="checkAll"></th>
+                                <th scope="col" class="text-center" width="5%">Checklist <input type="checkbox"
+                                        value="" id="checkAll" class="pt-2"></th>
                                 <th class="text-center" width="10%">Aksi</th>
                             </tr>
                         </thead>
@@ -556,11 +564,15 @@
 
 @push('js')
     {{-- <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script> --}}
+    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
-
     <script>
         'use strict';
+
 
         $(document).ready(function() {
             const ajaxUrl = "{{ route('orders.index') }}";
@@ -1021,6 +1033,64 @@
                 totalPersenComplain.html(data.total_persen_complain);
             };
 
+            //exportexcel
+            let excelModal = $('#js-detail-modal');
+            $(document).on("click", ".excel", function(e) {
+                let elementHTML = `
+                    <div class="form-group row">
+                        <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
+                            <div class="col-sm-10">
+                                <div class='input-group' id='js-daterange-picker'>
+                                    <input type='text' class="form-control filter"
+                                            id="date_range1" name="date_range1" placeholder="Select date range" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Status Pesanan</label>
+                        <div class="col-sm-10">
+                            <select class="form-control form-control-sm filter" data-name="status1" id="status1"
+                                                placeholder="Type Here">
+                                                <option disabled >Pilih Status Order</option>
+                                                <option value="all" selected>Semua</option>
+                                                <option value="unpaid">Unpaid</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="success">Success</option>
+                                                <option value="cancel_unpaid">Cancel Unpaid</option>
+                                                <option value="request_pickup">Riquest Pickup</option>
+                                                <option value="shipping">Shipping</option>
+                                                <option value="on_return_shipping">On Return Shipping</option>
+                                                <option value="on_return_apply">On Return Apply</option>
+                                                <option value="received">Received</option>
+                                                <option value="reject">Reject</option>
+                                                <option value="claim_not_process">Claim Not Process</option>
+                                                <option value="refund_disbursed">Refund Disbursed</option>
+                                                <option value="disbursed">Disbursed</option>
+                                            </select>
+                        </div>
+                    </div>
+
+
+                `;
+
+
+                let elementFooter = `
+                            <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
+                            `;
+
+                excelModal.find(".modal-title").html('Input Export Excel');
+                excelModal.find(".modal-body").html(elementHTML);
+                excelModal.find(".modal-footer").html(elementFooter);
+                excelModal.modal('show');
+
+            });
+
             // Detail Order
             let orderModal = $('#js-detail-modal');
             $(document).on("click", ".js-detail-order", function(e) {
@@ -1195,6 +1265,55 @@
                     });
             });
 
+            //js datepicker excel
+            $('#js-detail-modal').on('shown.bs.modal', function(e) {
+                $('input[name="date_range1"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+                        ' to ' + end.format('YYYY-MM-DD'));
+                });
+            });
+
+            //button export
+            $(document).on('click', '#submitexcel', function(){
+                var date_range1 = $("#date_range1").val();
+                var status1 = $("#status1").val();
+                var x = document.getElementById("submitexcel");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'GET',
+                    url: "{{ route('orders.exportexcel') }}",
+                    data :{
+                        "daterange1":date_range1,
+                        "status1":status1
+                    },
+                    cache: false,
+                    xhr: function () {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function (data) {
+                        const url = window.URL || window.webkitURL;
+                        const downloadURL = url.createObjectURL(data);
+                        var a = $("<a />");
+                        a.attr("download", 'order.xlsx');
+                        a.attr("href", downloadURL);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                }
+            });
+            });
 
             // Sync order status
             $(document).on('click', '.js-sync-order-btn', function(e) {
@@ -1742,6 +1861,7 @@
                     }
                 });
             }
+
         });
     </script>
 @endpush

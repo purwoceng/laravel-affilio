@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\HomePage;
 
+use App\Models\CsNumber;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\CsNumber;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Interfaces\Content\CS\CsNumberCategoryRepositoryInterface;
@@ -52,13 +53,11 @@ class CsNumberCategoryController extends Controller
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'name.unique' => 'Nama kategori sudah digunakan',
-            'code.required' => 'Tipe tidak boleh kosong',
-            'code.unique' => 'Tipe kategori sudah digunakan',
         ];
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|unique:cs_number_categories,code|max:64',
+            'code' => 'unique:cs_number_categories,code|max:64',
         ], $messages);
 
         if ($validator->fails()) {
@@ -68,7 +67,7 @@ class CsNumberCategoryController extends Controller
 
         $createData = [
             'name' => $request->name,
-            'code' => $request->code,
+            'code' => Str::slug($request->name, "_"),
         ];
 
         $result = $this->csCategoryRepository->create($createData);
@@ -117,13 +116,11 @@ class CsNumberCategoryController extends Controller
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'name.unique' => 'Nama kategori sudah digunakan',
-            'code.required' => 'Tipe tidak boleh kosong',
-            'code.unique' => 'Tipe kategori sudah digunakan',
         ];
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'code' => 'required|unique:cs_number_categories,code|max:64',
+            'code' => 'unique:cs_number_categories,code|max:64',
         ], $messages);
 
         if ($validator->fails()) {
@@ -133,7 +130,7 @@ class CsNumberCategoryController extends Controller
 
         $updateData = [
             'name' => $request->name,
-            'code' => $request->code,
+            'code' => Str::slug($request->name, "_"),
         ];
 
         $result = $this->csCategoryRepository->update($id, $updateData);

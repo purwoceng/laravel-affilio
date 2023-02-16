@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Exports\OrderExport;
 use App\Models\Order;
 use Illuminate\Support\Str;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\Order\OrderRepositoryInterface;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -156,5 +158,28 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportexcel(Request $request)
+    {
+        $dateRange = [];
+        $status = '';
+
+        if (isset($request->daterange1)) {
+            $dateRange = explode('-', $request->daterange1);
+            $dateRange = array_map(function ($item) {
+                $date = trim($item);
+                $date = strtotime($date);
+                $date = date('Y-m-d H:i:s', $date);
+
+                return $date;
+            }, $dateRange);
+        }
+
+        if (isset($request->status1)) {
+            $status = $request->status1;
+        }
+
+        return Excel::download(new OrderExport($status, $dateRange), 'order.xlsx');
     }
 }
