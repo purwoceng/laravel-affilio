@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [MemberBlockedController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [MemberBlockedController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [MemberBlockedController::class, 'update'])->name('update');
         });
 
         Route::prefix('reset-password')->name('reset-password.')->group(function(){
