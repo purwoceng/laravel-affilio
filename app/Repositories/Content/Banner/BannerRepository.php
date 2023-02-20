@@ -59,8 +59,8 @@ class BannerRepository implements BannerRepositoryInterface
             foreach ($getResults  as $key => $banner) {
                 $id = $banner->id;
                 $category_type = $banner->category_type->name;
-                $name = $banner->name;
                 $type = $banner->type;
+                $name = $banner->name;
                 $image = $banner->image;
                 $image_url = $banner->image ? config('app.s3_url') . $banner->image : '';
                 $target_url = $banner->target_url;
@@ -70,8 +70,8 @@ class BannerRepository implements BannerRepositoryInterface
                 $data[] = compact(
                     'id',
                     'category_type',
-                    'name',
                     'type',
+                    'name',
                     'image',
                     'image_url',
                     'target_url',
