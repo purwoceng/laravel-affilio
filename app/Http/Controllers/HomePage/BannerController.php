@@ -69,20 +69,18 @@ class BannerController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $name = $request->name;
         $type = $request->type;
+        $name = $request->name;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
         $bannerCategoryId = $request->banner_category_id;
 
         $createData = [
             'banner_category_id' => $bannerCategoryId,
-            'name' => $name,
             'type' => $type,
+            'name' => $name,
             'target_url' => $target_url,
             'description' => $description,
-            'path' => '',
-            'path_url' => '',
         ];
 
         $thumbnailImage = $request->file('thumbnail_image');
@@ -158,20 +156,18 @@ class BannerController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $name = $request->name;
         $type = $request->type;
+        $name = $request->name;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
         $bannerCategoryId = $request->banner_category_id;
 
         $updateData = [
             'banner_category_id' => $bannerCategoryId,
-            'name' => $name,
             'type' => $type,
+            'name' => $name,
             'target_url' => $target_url,
             'description' => $description,
-            'path' => '',
-            'path_url' => '',
         ];
 
         $thumbnailImage = $request->file('thumbnail_image');
