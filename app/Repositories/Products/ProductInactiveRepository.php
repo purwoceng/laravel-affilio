@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\ProductInactive;
+namespace App\Repositories\Products;
 
 use App\Models\ProductInactive;
-use App\Repositories\Interfaces\ProductInactive\ProductInactiveRepositoryInterface;
+use App\Repositories\Interfaces\Products\ProductInactiveRepositoryInterface;
 
 class ProductInactiveRepository implements ProductInactiveRepositoryInterface
 {

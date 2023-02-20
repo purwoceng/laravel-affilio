@@ -97,7 +97,7 @@
                     <div class="card-title">
                         <h3 class="card-label">Produk Nonaktif</h3>
                     </div>
-                    <a class="btn btn-success float-right" href={{ route('product_inactive.create') }} title="Tambah Produk Nonaktif">
+                    <a class="btn btn-success float-right" href={{ route('products.inactive.create') }} title="Tambah Produk Nonaktif">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
@@ -128,8 +128,8 @@
         'use strict';
 
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('product_inactive.index') }}";
-            
+            const ajaxUrl = "{{ route('products.inactive.index') }}";
+
             $('#js-supplier-table').DataTable({
                 destroy: true,
                 processing: true,
