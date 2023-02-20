@@ -2,11 +2,7 @@
 @section('title', __('Produk Rekomendasi'))
 
 @push('css')
-    <link
-        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
-        rel="stylesheet"
-        type="text/css"
-    />
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
         .product-cell {
@@ -97,7 +93,8 @@
                     <div class="card-title">
                         <h3 class="card-label">Produk Rekomendasi</h3>
                     </div>
-                    <a class="btn btn-success float-right" href={{ route('product_home.create') }} title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href={{ route('product_home.create') }}
+                        title="Tambah Produk Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
@@ -109,6 +106,7 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Produk</th>
+                                <th>Type</th>
                                 <th>Nomor Urut</th>
                                 <th>Status</th>
                                 <th>Dibuat</th>
@@ -131,7 +129,7 @@
 
         $(document).ready(function() {
             const ajaxUrl = "{{ route('product_home.index') }}";
-            
+
             $('#js-product-table').DataTable({
                 destroy: true,
                 processing: true,
@@ -153,8 +151,7 @@
                     type: 'GET',
                 },
                 scrollX: true,
-                columns: [
-                    {
+                columns: [{
                         data: null,
                         sortable: false,
                         className: 'text-center',
@@ -200,6 +197,14 @@
                         }
                     },
                     {
+                        data: 'type',
+                        name: 'type',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
                         data: 'queue_number',
                         name: 'queue_number',
                         sortable: false,
@@ -218,9 +223,11 @@
                             let element = '';
 
                             if (Number(data)) {
-                                element += `<span class="label label-light-success label-inline label-bold">Aktif</span>`;
+                                element +=
+                                    `<span class="label label-light-success label-inline label-bold">Aktif</span>`;
                             } else {
-                                element += `<span class="label label-light-danger label-inline label-bold">Non-Aktif</span>`;
+                                element +=
+                                    `<span class="label label-light-danger label-inline label-bold">Non-Aktif</span>`;
                             }
 
                             return element;
@@ -241,7 +248,7 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render : function(data, type, row, meta) {
+                        render: function(data, type, row, meta) {
                             let elements = '';
 
                             elements += `<div class="dropdown dropdown-inline">

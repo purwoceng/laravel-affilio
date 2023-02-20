@@ -16,6 +16,7 @@ class ProductHome extends Model
 
     protected $fillable = [
         'product_id',
+        'type',
         'product_home_type_id',
         'queue_number',
         'redis_key',
