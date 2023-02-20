@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Interfaces\ProductInactive;
+namespace App\Repositories\Interfaces\Products;
 
 interface ProductInactiveRepositoryInterface
 {

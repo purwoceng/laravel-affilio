@@ -4,13 +4,13 @@
     <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
-@section('title', __('Akses: Pengguna'))
+@section('title', __('Produk: Produk Wishlist'))
 
 @section('content')
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Manajemen Akses: Pengguna</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk Wishlist</h5>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Data Pengguna</h3>
+                        <h3 class="card-label">Data Produk Wishlist</h3>
                     </div>
                 </div>
 

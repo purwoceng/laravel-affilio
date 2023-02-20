@@ -97,7 +97,7 @@
                         </span>
                     @endif
 
-                    <form action="{{ route('product_inactive.store') }}" method="post">
+                    <form action="{{ route('products.inactive.store') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
@@ -117,7 +117,7 @@
                         <input type="hidden" name="origin_supplier_id" value="" />
                         <input type="hidden" name="origin_supplier_username" value="" />
 
-                        <a class="btn btn-outline-danger" href="{{ route('product_inactive.index') }}">Kembali</a>
+                        <a class="btn btn-outline-danger" href="{{ route('products.inactive.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -205,7 +205,7 @@
 
                         return result;
                     },
-                    
+
                 },
                 templateResult: formatProduct,
                 // templateSelection: formatProductSelection,
