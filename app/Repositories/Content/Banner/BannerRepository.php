@@ -65,8 +65,6 @@ class BannerRepository implements BannerRepositoryInterface
                 $image_url = $banner->image ? config('app.s3_url') . $banner->image : '';
                 $target_url = $banner->target_url;
                 $description = $banner->description;
-                $path = $banner->path;
-                $path_url = $banner->path_url;
                 $created_at = $banner->created_at->format('Y-m-d H:i:s');
 
                 $data[] = compact(
@@ -78,8 +76,6 @@ class BannerRepository implements BannerRepositoryInterface
                     'image_url',
                     'target_url',
                     'description',
-                    'path',
-                    'path_url',
                     'created_at',
                 );
             }

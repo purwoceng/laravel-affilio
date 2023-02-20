@@ -81,8 +81,6 @@ class BannerController extends Controller
             'type' => $type,
             'target_url' => $target_url,
             'description' => $description,
-            'path' => '',
-            'path_url' => '',
         ];
 
         $thumbnailImage = $request->file('thumbnail_image');
@@ -170,8 +168,6 @@ class BannerController extends Controller
             'type' => $type,
             'target_url' => $target_url,
             'description' => $description,
-            'path' => '',
-            'path_url' => '',
         ];
 
         $thumbnailImage = $request->file('thumbnail_image');

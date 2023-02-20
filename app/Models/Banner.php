@@ -20,8 +20,6 @@ class Banner extends Model
         'image',
         'target_url',
         'description',
-        'path',
-        'path_url',
     ];
 
     protected $casts = [
