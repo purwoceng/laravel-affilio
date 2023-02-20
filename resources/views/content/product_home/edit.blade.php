@@ -103,11 +103,10 @@
 
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
-                            <select name="product_id"
-                                id="input-product-id"
-                                class="js-product-selector form-control"
+                            <select name="product_id" id="input-product-id" class="js-product-selector form-control"
                                 required>
-                                <option selected value="{{ $product->product_id }}">{{ $real_product['productName'] }}</option>
+                                <option selected value="{{ $product->product_id }}">{{ $real_product['productName'] }}
+                                </option>
                             </select>
 
                             @error('product_id')
@@ -116,23 +115,29 @@
                                 </small>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label>Tipe <span class="text-danger">*</span></label>
+                            <select class="custom-select form-control" name="type" required>
+                                <option disabled>Pilih tipe</option>
+                                <option value="rekomendasi">Rekomendasi</option>
+                                <option value="affilio">Affilio</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="input-queue-number">Urutan</label>
-                            <select name="queue_number"
-                                id="input-queue-number"
-                                class="form-control"
-                                aria-describedby="queue-helper"
-                                required>
+                            <select name="queue_number" id="input-queue-number" class="form-control"
+                                aria-describedby="queue-helper" required>
                                 <option selected disabled value="0">Pilih nomor urut</option>
 
                                 @foreach ($available_numbers as $number)
-                                    <option value="{{ $number }}" 
+                                    <option value="{{ $number }}"
                                         {{ $number == $product->queue_number ? 'selected' : '' }}>
-                                        Ke-{{ $number}}
+                                        Ke-{{ $number }}
                                     </option>
                                 @endforeach
                             </select>
-                            
+
                             @error('queue_number')
                                 <small id="queue-helper" class="form-text text-danger">
                                     {{ $message }}
@@ -140,24 +145,19 @@
                             @enderror
                         </div>
 
-                        
+
                         <div class="form-group">
                             <label for="input-is-active">Status</label>
-                            <select name="is_active"
-                                id="input-is-active"
-                                class="form-control"
-                                aria-describedby="is-active-helper"
-                                required>
-                                <option value="1"
-                                    {{ $product->is_active == '1' ? 'selected' : '' }}>
+                            <select name="is_active" id="input-is-active" class="form-control"
+                                aria-describedby="is-active-helper" required>
+                                <option value="1" {{ $product->is_active == '1' ? 'selected' : '' }}>
                                     Aktif
                                 </option>
-                                <option value="0" 
-                                    {{ $product->is_active == '0' ? 'selected' : '' }}>
+                                <option value="0" {{ $product->is_active == '0' ? 'selected' : '' }}>
                                     Non-aktif
                                 </option>
                             </select>
-                            
+
                             @error('is_active')
                                 <small id="is-active-helper" class="form-text text-danger">
                                     {{ $message }}
@@ -222,7 +222,9 @@
                     url: productsEndpoint,
                     dataType: 'json',
                     data: function(params) {
-                        const query = { limit: 10 };
+                        const query = {
+                            limit: 10
+                        };
                         if (params.term) query.keyword = params.term;
 
                         return query;
@@ -231,10 +233,14 @@
                         Authorization: `Bearer {{ config('app.baleomol_key') }}`,
                     },
                     processResults: function(data, params) {
-                        var result = { results: [] };
+                        var result = {
+                            results: []
+                        };
 
                         if (data.success) {
-                            const { results: resultData } = data.data;
+                            const {
+                                results: resultData
+                            } = data.data;
                             const products = resultData.map(item => {
                                 return {
                                     id: item.productId,
@@ -254,7 +260,7 @@
 
                         return result;
                     },
-                    
+
                 },
                 templateResult: formatProduct,
                 // templateSelection: formatProductSelection,

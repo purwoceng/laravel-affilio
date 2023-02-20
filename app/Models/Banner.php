@@ -15,13 +15,11 @@ class Banner extends Model
     protected $fillable = [
         'id',
         'banner_category_id',
-        'name',
         'type',
+        'name',
         'image',
         'target_url',
         'description',
-        'path',
-        'path_url',
     ];
 
     protected $casts = [
