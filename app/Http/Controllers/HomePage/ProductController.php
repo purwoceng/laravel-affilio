@@ -79,9 +79,7 @@ class ProductController extends Controller
             'product_id' => $request->product_id,
             'type' => $request->type,
             'queue_number' => $request->queue_number,
-            'product_home_type_id' => 1,
             'is_active' => '1',
-            'redis_key' => '',
         ]);
 
         if ($product_home) {

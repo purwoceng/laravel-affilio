@@ -100,7 +100,6 @@ class ProductRepository implements ProductRepositoryInterface
                 $id = $product_home->id;
                 $type = $product_home->type;
                 $product_id = $product_home->product_id;
-                $product_home_type_id = $product_home->product_home_type_id;
                 $queue_number = $product_home->queue_number;
                 $is_active = $product_home->is_active;
                 $actions = $id;
@@ -110,7 +109,6 @@ class ProductRepository implements ProductRepositoryInterface
                     'id',
                     'type',
                     'product_id',
-                    'product_home_type_id',
                     'queue_number',
                     'is_active',
                     'actions',
