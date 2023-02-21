@@ -120,14 +120,41 @@
                  </a>
              </li>
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('product-inactive*') ? 'active' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="{{ route('product_inactive.index') }}" class="menu-link menu-toggle">
+             <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
                          <i class="fas fa-box"></i>
                      </span>
-                     <span class="menu-text">Produk Non-aktif</span>
+                     <span class="menu-text">Produk</span>
+                     <i class="menu-arrow"></i>
                  </a>
+                 <div class="menu-submenu">
+                     <i class="menu-arrow"></i>
+                     <ul class="menu-subnav">
+
+                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/inactive*') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('products.inactive.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Produk Nonaktif</span>
+                             </a>
+                         </li>
+
+                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/wishlist*') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('products.wishlists.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Produk Wishlist</span>
+                             </a>
+                         </li>
+
+
+                     </ul>
+                 </div>
              </li>
 
              <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
@@ -158,14 +185,14 @@
                          </li>
 
                          <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
-                            aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="{{ route('members.accounts.index') }}" class="menu-link menu-toggle">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Verifikasi Rekening</span>
-                            </a>
-                        </li>
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('members.accounts.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Verifikasi Rekening</span>
+                             </a>
+                         </li>
 
 
                          <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"

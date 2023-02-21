@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\ProductInactive;
+namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductInactive;
-use App\Repositories\ProductInactive\ProductInactiveRepository;
+use App\Repositories\Products\ProductInactiveRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,14 +24,14 @@ class ProductInactiveController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         if ($request->ajax()) {
             $data = $this->repository->getDataTable($request);
 
             return response()->json($data);
         }
 
-        return view('product_inactive.index');
+        return view('products.inactive.index');
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductInactiveController extends Controller
      */
     public function create()
     {
-        return view('product_inactive.create');
+        return view('products.inactive.create');
     }
 
     /**
@@ -87,7 +87,7 @@ class ProductInactiveController extends Controller
 
         if ($productInactive) {
             return redirect()
-                ->route('product_inactive.index')
+                ->route('products.inactive.index')
                 ->with([
                     'success' => 'Berhasil menambah data baru produk non aktif.'
                 ]);
@@ -154,13 +154,13 @@ class ProductInactiveController extends Controller
 
             if ($data->delete()) {
                 return redirect()
-                    ->route('product_inactive.index')
+                    ->route('products.inactive.index')
                     ->with([
                         'success' => 'Berhasil menghapus data produk nonaktif.'
                     ]);
             } else {
                 return redirect()
-                    ->route('product_inactive.index')
+                    ->route('products.inactive.index')
                     ->with([
                         'error' => "Gagal menghapus data - Produk nonaktif dengan nama {$response_data->name} tidak ditemukan.",
                     ]);

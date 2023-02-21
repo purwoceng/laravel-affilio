@@ -31,9 +31,9 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\Member\MemberAccountController;
-use App\Http\Controllers\Member\MemberVerificationAccountController;
 use App\Http\Controllers\Product\MarkupProductController;
-use App\Http\Controllers\ProductInactive\ProductInactiveController;
+use App\Http\Controllers\Product\ProductInactiveController;
+use App\Http\Controllers\Product\ProductWishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,21 +60,24 @@ Route::middleware('auth')->group(function () {
         Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
 
         Route::prefix('accounts')->name('accounts.')->group(function () {
-            Route::get('/',[MemberAccountController::class,'index'])->name('index');
-            Route::post('/verification',[MemberAccountController::class,'verification'])->name('verification');
+            Route::get('/', [MemberAccountController::class, 'index'])->name('index');
+            Route::post('/verification', [MemberAccountController::class, 'verification'])->name('verification');
         });
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
             Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [MemberBlockedController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [MemberBlockedController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [MemberBlockedController::class, 'update'])->name('update');
         });
 
-        Route::prefix('reset-password')->name('reset-password.')->group(function(){
-            Route::get('/{id}',[MemberResetPassword::class,'resetPassword'])->name('resetPassword');
+        Route::prefix('reset-password')->name('reset-password.')->group(function () {
+            Route::get('/{id}', [MemberResetPassword::class, 'resetPassword'])->name('resetPassword');
             Route::put('/update/{id}', [MemberResetPassword::class, 'updatePassword'])->name('updatePassword');
         });
 
-        Route::prefix('reset-pin')->name('reset-pin.')->group(function(){
-            Route::get('/{id}',[MemberResetPin::class,'resetPin'])->name('resetPin');
+        Route::prefix('reset-pin')->name('reset-pin.')->group(function () {
+            Route::get('/{id}', [MemberResetPin::class, 'resetPin'])->name('resetPin');
             Route::put('/update/{id}', [MemberResetPin::class, 'updatePin'])->name('updatePin');
         });
 
@@ -92,12 +95,12 @@ Route::middleware('auth')->group(function () {
     // Orders Menu
     Route::prefix('orders')->name('orders.')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index');
-        Route::get('/show/{id}',[OrderController::class,'show'])->name('show');
-        Route::get('/exportexcel',[OrderController::class,'exportexcel'])->name('exportexcel');
+        Route::get('/show/{id}', [OrderController::class, 'show'])->name('show');
+        Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
 
-        Route::get('/get-order', [OrderCheckoutController::class,'getOrder'])->name('getOrder');
+        Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
     });
 
     //Invoice Menu
@@ -259,7 +262,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('markup-product')
         ->name('markup_product.')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [MarkupProductController::class, 'index'])->name('index');
             Route::get('/edit/{id}', [MarkupProductController::class, 'edit'])->name('edit');
             Route::get('/create', [MarkupProductController::class, 'create'])->name('create');
@@ -280,12 +283,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('delete');
         });
 
-    Route::prefix('product-inactive')
-        ->name('product_inactive.')
-        ->group(function () {
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::prefix('wishlist')->name('wishlists.')->group(function () {
+            Route::get('/', [ProductWishlistController::class,'index'])->name('index');
+            Route::get('/show/{id}', [ProductWishlistController::class, 'show'])->name('show');
+        });
+
+        Route::prefix('inactive')->name('inactive.')->group(function () {
             Route::get('/', [ProductInactiveController::class, 'index'])->name('index');
             Route::get('/create', [ProductInactiveController::class, 'create'])->name('create');
             Route::post('/store', [ProductInactiveController::class, 'store'])->name('store');
             Route::get('/delete/{id}', [ProductInactiveController::class, 'destroy'])->name('delete');
         });
+    });
 });

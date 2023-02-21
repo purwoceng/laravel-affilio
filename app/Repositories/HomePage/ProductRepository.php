@@ -12,7 +12,7 @@ class ProductRepository implements ProductRepositoryInterface
     {
         // 
     }
-    
+
     public function getProductHomeTypes($limit, $start)
     {
         return ProductHomeType::offset($start)->limit($limit);
@@ -42,6 +42,7 @@ class ProductRepository implements ProductRepositoryInterface
         if (!empty($product_home_types)) {
             foreach ($product_home_types  as $key => $product_home_type) {
                 $id = $product_home_type->id;
+                $type = $product_home_type->type;
                 $name = $product_home_type->name;
                 $code = $product_home_type->code;
                 $actions = ['id' => $id, 'name' => $name];
@@ -49,6 +50,7 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $data[] = compact(
                     'id',
+                    'type',
                     'name',
                     'code',
                     'created_at',
@@ -96,8 +98,8 @@ class ProductRepository implements ProductRepositoryInterface
         if (!empty($product_homes)) {
             foreach ($product_homes  as $key => $product_home) {
                 $id = $product_home->id;
+                $type = $product_home->type;
                 $product_id = $product_home->product_id;
-                $product_home_type_id = $product_home->product_home_type_id;
                 $queue_number = $product_home->queue_number;
                 $is_active = $product_home->is_active;
                 $actions = $id;
@@ -105,8 +107,8 @@ class ProductRepository implements ProductRepositoryInterface
 
                 $data[] = compact(
                     'id',
+                    'type',
                     'product_id',
-                    'product_home_type_id',
                     'queue_number',
                     'is_active',
                     'actions',

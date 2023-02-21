@@ -53,13 +53,13 @@ class ProductController extends Controller
         $arr_range = range(1, 50);
         $data = ProductHome::whereNull('deleted_at')->get();
 
-        $exists_numbers = array_map(function($product) {
+        $exists_numbers = array_map(function ($product) {
             return $product->queue_number;
         }, json_decode(json_encode($data, true)));
 
         $available_numbers = array_filter(
             $arr_range,
-            function($number) use ($exists_numbers) {
+            function ($number) use ($exists_numbers) {
                 if (in_array($number, $exists_numbers)) return false;
                 return true;
             }
@@ -77,10 +77,9 @@ class ProductController extends Controller
 
         $product_home = ProductHome::create([
             'product_id' => $request->product_id,
+            'type' => $request->type,
             'queue_number' => $request->queue_number,
-            'product_home_type_id' => 1,
             'is_active' => '1',
-            'redis_key' => '',
         ]);
 
         if ($product_home) {
@@ -105,28 +104,28 @@ class ProductController extends Controller
 
         if ($product) {
             $arr_range = range(1, 50);
-            $data = ProductHome::where('id', '!=' , $id)->whereNull('deleted_at')->get();
-    
-            $exists_numbers = array_map(function($product) {
+            $data = ProductHome::where('id', '!=', $id)->whereNull('deleted_at')->get();
+
+            $exists_numbers = array_map(function ($product) {
                 return $product->queue_number;
             }, json_decode(json_encode($data, true)));
-    
+
             $available_numbers = array_filter(
                 $arr_range,
-                function($number) use ($exists_numbers) {
+                function ($number) use ($exists_numbers) {
                     if (in_array($number, $exists_numbers)) return false;
                     return true;
                 }
             );
-    
+
             $token = config('app.baleomol_key');
             $url = config('app.baleomol_url') . '/products/' . $product['product_id'];
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
             ])->get($url);
-    
+
             $real_product = $response['data'];
-    
+
             return view(
                 'content.product_home.edit',
                 compact('product', 'available_numbers', 'real_product'),
@@ -149,6 +148,7 @@ class ProductController extends Controller
 
         $product = ProductHome::findOrFail($id);
         $product->product_id = $request->product_id;
+        $product->type = $request->type;
         $product->queue_number = $request->queue_number;
         $product->is_active = $request->is_active;
         $product->save();
@@ -178,13 +178,13 @@ class ProductController extends Controller
 
         $data = ProductHome::where('id', '!=', $exception_id)->where('is_active', 1)->get();
 
-        $exists_numbers = array_map(function($product) {
+        $exists_numbers = array_map(function ($product) {
             return $product->queue_number;
         }, json_decode(json_encode($data, true)));
 
         $available_numbers = array_filter(
             $arr_range,
-            function($number) use ($exists_numbers) {
+            function ($number) use ($exists_numbers) {
                 if (in_array($number, $exists_numbers)) return false;
                 return true;
             }
@@ -196,13 +196,13 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = ProductHome::find($id);
-        
+
         if ($product) {
             $product->is_active = '0';
             $product->save();
-    
+
             $product->delete();
-     
+
             return redirect()
                 ->route('product_home.index')
                 ->with([

@@ -11,14 +11,13 @@ class ProductHome extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'product_home';
+    protected $table = 'product_recommendation';
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'product_id',
-        'product_home_type_id',
+        'type',
         'queue_number',
-        'redis_key',
         'is_active',
     ];
 
