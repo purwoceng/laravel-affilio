@@ -99,8 +99,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
-
         Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
+        Route::post('/update-checkout-order',[OrderCheckoutController::class,'updateOrder'])->name('updateOrder');
+
     });
 
     //Invoice Menu
