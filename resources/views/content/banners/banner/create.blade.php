@@ -184,13 +184,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Kategori<span class="text-danger">*</span></label>
-                                    <div></div>
-                                    <select class="custom-select form-control" name="banner_category_id" required>
-                                        <option selected disabled>Pilih kategori banner</option>
-                                        @foreach ($bannerCategories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
+                                    <label>Posisi <span class="text-danger">*</span></label>
+                                    <select class="custom-select form-control" name="position" required>
+                                        <option selected disabled>Silakan pilih posisi banner</option>
+                                        <option value="home_top_section">Home Top Section</option>
+                                        <option value="home_bottom_section">Home Bottom Section</option>
                                     </select>
                                 </div>
 

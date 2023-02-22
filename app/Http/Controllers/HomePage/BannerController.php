@@ -63,6 +63,9 @@ class BannerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
+            'type' => 'required',
+            'target_url' => 'required|max:255',
+            'position' => 'required',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
         ], $messages);
 
@@ -71,13 +74,14 @@ class BannerController extends Controller
         }
 
         $type = $request->type;
+        $position = $request->position;
         $name = $request->name;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
-        $bannerCategoryId = $request->banner_category_id;
 
         $createData = [
-            'banner_category_id' => $bannerCategoryId,
+            'banner_category_id' => 0,
+            'position' => $position,
             'type' => $type,
             'name' => $name,
             'target_url' => $target_url,
@@ -170,7 +174,9 @@ class BannerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'target_url' => 'max:255',
+            'type' => 'required',
+            'target_url' => 'required|max:255',
+            'position' => 'required',
             'description' => 'max:255',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
         ], $messages);
@@ -180,13 +186,14 @@ class BannerController extends Controller
         }
 
         $type = $request->type;
+        $position = $request->position;
         $name = $request->name;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
-        $bannerCategoryId = $request->banner_category_id;
 
         $updateData = [
-            'banner_category_id' => $bannerCategoryId,
+            'banner_category_id' => 0,
+            'position' => $position,
             'type' => $type,
             'name' => $name,
             'target_url' => $target_url,

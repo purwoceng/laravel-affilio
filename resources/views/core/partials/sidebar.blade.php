@@ -285,8 +285,17 @@
                                  <span class="menu-text">Konten</span>
                              </span>
                          </li>
+                          
+                         <li class="menu-item" aria-haspopup="true">
+                            <a href="{{ route('banners.index') }}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Banner</span>
+                            </a>
+                        </li>
 
-                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                         {{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                              <a href="javascript:void(0)" class="menu-link menu-toggle">
                                  <i class="menu-bullet menu-bullet-line">
                                      <span></span>
@@ -315,7 +324,7 @@
                                      </li>
                                  </ul>
                              </div>
-                         </li>
+                         </li> --}}
 
                          <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('product_home.index') }}" class="menu-link">
