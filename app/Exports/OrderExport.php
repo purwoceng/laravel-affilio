@@ -33,12 +33,12 @@ class OrderExport implements FromView, WithEvents, ShouldAutoSize
     {
         $query = Order::whereNotNull('id');
 
-        if ($this->orderStatus) {
+        if ($this->orderStatus != 'all') {
             $query = $query->where('status', $this->orderStatus);
         }
 
         if ($this->startDate && $this->endDate) {
-            $query = $query->whereBetween('date_created', [$this->startDate, $this->endDate]);
+            $query = $query->whereDate('date_created', [$this->startDate, $this->endDate]);
         }
 
         $orders = $query->get();
