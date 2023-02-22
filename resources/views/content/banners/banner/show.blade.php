@@ -51,6 +51,14 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label class="col-2 col-form-label">Posisi <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control"
+                                            name="type" value="{{ $data->position }}" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label class="col-2 col-form-label">File Banner<span
                                             class="text-danger">*</span></label>
                                     <div class="col-10">
@@ -59,7 +67,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-2 col-form-label">Kategori<span class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <select class="custom-select form-control" name="banner_category_id">
@@ -71,7 +79,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Target</label>
