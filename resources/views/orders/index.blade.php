@@ -501,7 +501,7 @@
                     </div>
 
 
-                    <div class="js-action mt-2">
+                    <div class="js-action mt-2 mb-4">
                         <div class="d-flex flex-row">
                             <div class="btn-group">
                                 <div class="m-1">
@@ -589,7 +589,10 @@
                 language: {
                     infoFiltered: "",
                 },
-                lengthChange: false,
+                lengthMenu: [
+                    [50,100, 200, 300, 400, 500],
+                    [50,100, 200, 300, 400, 500,]
+                ],
                 pageLength: 50,
                 order: [
                     [0, 'DESC']
