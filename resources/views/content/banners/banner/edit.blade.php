@@ -441,7 +441,6 @@
 
                 supplierSelector.on('select2:select', function (e) {
                     var data = e.params.data;
-                    console.log({data});
                     targetHiddenInput.val(data.id);
                 });
             }
@@ -452,8 +451,6 @@
                 urlTextWrapper.addClass('d-none');
                 productSelectorWrapper.addClass('d-none');
                 supplierSelectorWrapper.addClass('d-none');
-                
-                console.log({value1: value})
                 
                 if (rendered > 0) {
                     urlText.val('').trigger('change');
@@ -476,7 +473,6 @@
                     supplierSelectorWrapper.removeClass('d-none');
                     return;
                 } else if (value === 'product') {
-                    console.log({value})
                     if (productSelector.hasClass('not-triggered')) {
                         productSelector.removeClass('not-triggered');
                         triggerSelectProduct();
