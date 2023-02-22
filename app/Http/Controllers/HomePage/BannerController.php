@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Content\Banner\BannerRepository;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
@@ -127,7 +128,29 @@ class BannerController extends Controller
     {
         $bannerCategories = BannerCategory::get();
         $data = $this->bannerRepository->getDataById($id);
-        return view('content.banners.banner.edit', compact(['data', 'bannerCategories']));
+        $productData = [];
+        $supplierData = [];
+
+        $token = config('app.baleomol_key');
+
+        if ($data->type == 'store') {
+            $url = config('app.baleomol_url') . '/suppliers/' . $data->target_url;
+            $response = Http::withHeaders([ 'Authorization' => "Bearer {$token}" ])->get($url);
+            $supplierData = $response['data'];
+        }
+
+        if ($data->type == 'product') {
+            $url = config('app.baleomol_url') . '/products/' . $data->target_url;
+            $response = Http::withHeaders([ 'Authorization' => "Bearer {$token}" ])->get($url);
+            $productData = $response['data'];
+        }
+
+        return view('content.banners.banner.edit', compact([
+            'data',
+            'bannerCategories',
+            'productData',
+            'supplierData',
+        ]));
     }
 
     /**

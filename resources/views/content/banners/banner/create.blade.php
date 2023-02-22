@@ -220,12 +220,25 @@
     </div>
 @endsection
 
-
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         'use strict';
+        
+        function productParamsHandler(params) {
+            const query = { limit: 10 };
+            if (params.term) query.keyword = params.term;
+
+            return query;
+        }
+
+        function supplierParamsHandler(params) {
+            const query = { limit: 10 };
+            if (params.term) query.name = params.term;
+
+            return query;
+        }
 
         const API_URL = '{{ config('app.url') }}';
         const productsEndpoint = `${API_URL}/api/v1/products`;
@@ -294,6 +307,7 @@
                     ajax: {
                         ...SELECT2_AJAX_OPTIONS,
                         url: productsEndpoint,
+                        data: productParamsHandler,
                         processResults: function(data, params) {
                             var result = { results: [] };
 
@@ -358,6 +372,7 @@
                     ajax: {
                         ...SELECT2_AJAX_OPTIONS,
                         url: suppliersEndpoint,
+                        data: supplierParamsHandler,
                         processResults: function(data, params) {
                             var result = { results: [] };
 
