@@ -44,7 +44,7 @@
                                 <th>Gambar</th>
                                 <th>Nama </th>
                                 <th>Tipe</th>
-                                <th>Kategori</th>
+                                <th>Posisi</th>
                                 <th>Target</th>
                                 <th>Deskripsi</th>
                                 <th>Tanggal Dibuat</th>
@@ -130,8 +130,8 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'category_type',
-                        name: 'category_type',
+                        data: 'position_label',
+                        name: 'position_label',
                         sortable: false,
                         orderable: false,
                         searchable: false,

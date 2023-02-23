@@ -183,7 +183,7 @@
                                         <div class="js-product-selector-wrapper select2Wrapper d-none">
                                             <select id="input-product-id" class="js-product-selector not-triggered form-control">
                                                 @if ($data->type == 'product')
-                                                    <option selected value="{{ $data->target_url }}">{{ $supplierData['productName'] ?? '' }}</option>
+                                                    <option selected value="{{ $data->target_url }}">{{ $productData['productName'] ?? '' }}</option>
                                                 @endif
                                             </select>
                                         </div>
@@ -198,13 +198,12 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-2 col-form-label">Kategori <span class="text-danger">*</span></label>
+                                    <label class="col-2 col-form-label">Posisi <span class="text-danger">*</span></label>
                                     <div class="col-10">
-                                        <select class="custom-select form-control" name="banner_category_id" required>
-                                            <option selected disabled>Pilih kategori banner</option>
-                                            @foreach ($bannerCategories as $category)
-                                                <option value="{{ $category->id }}" {{ $category->id == $data->banner_category_id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                            @endforeach
+                                        <select class="custom-select form-control" name="position" required>
+                                            <option selected disabled>Silakan pilih posisi banner</option>
+                                            <option value="home_top_section" {{ $data->position == 'home_top_section' ? 'selected' : ''}}>Home Top Section</option>
+                                            <option value="home_bottom_section" {{ $data->position == 'home_bottom_section' ? 'selected' : ''}}>Home Bottom Section</option>
                                         </select>
                                     </div>
                                 </div>
@@ -224,7 +223,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-2 col-form-label">Kategori Banner<span
                                             class="text-danger">*</span></label>
                                     <div class="col-10">
@@ -237,13 +236,13 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Deskripsi</label>
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="description" name="description"
-                                            value="{{ $data->description }}" placeholder="Masukkan target url" />
+                                            value="{{ $data->description }}" placeholder="Deskripsi banner" />
                                     </div>
                                 </div>
 
@@ -442,7 +441,6 @@
 
                 supplierSelector.on('select2:select', function (e) {
                     var data = e.params.data;
-                    console.log({data});
                     targetHiddenInput.val(data.id);
                 });
             }
@@ -453,7 +451,7 @@
                 urlTextWrapper.addClass('d-none');
                 productSelectorWrapper.addClass('d-none');
                 supplierSelectorWrapper.addClass('d-none');
-
+                
                 if (rendered > 0) {
                     urlText.val('').trigger('change');
                     if (!supplierSelector.hasClass('not-triggered')) supplierSelector.val(null).trigger('change');
@@ -471,7 +469,7 @@
                         supplierSelector.removeClass('not-triggered');
                         triggerSelectSupplier();
                     }
-
+                    
                     supplierSelectorWrapper.removeClass('d-none');
                     return;
                 } else if (value === 'product') {
