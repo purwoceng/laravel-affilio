@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\SupplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +29,13 @@ Route::prefix('v1')
             ->group(function () {
                 Route::get('/', [ProductController::class, 'getProducts'])->name('index');
                 Route::get('/{id}', [ProductController::class, 'getProductById'])->name('detail');
+            });
+
+        // Suppliers
+        Route::prefix('suppliers')
+            ->name('suppliers.')
+            ->group(function () {
+                Route::get('/', [SupplierController::class, 'getSuppliers'])->name('index');
+                Route::get('/{id}', [SupplierController::class, 'getSupplierById'])->name('detail');
             });
     });

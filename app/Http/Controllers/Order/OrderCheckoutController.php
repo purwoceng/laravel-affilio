@@ -7,10 +7,10 @@ use Illuminate\Support\Str;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class OrderCheckoutController extends Controller
 {
-
     public function getOrder(Request $request)
     {
         if ($request->order_id) {
@@ -20,6 +20,7 @@ class OrderCheckoutController extends Controller
                 foreach ($orderProducts as $key => $value) {
                     $resultOrderProducts[] = [
                         'order_id' => $value->order_id,
+                        'product_id' => $value->product_id,
                         'product_name' => $value->product_name,
                         'original_price' => $value->original_price,
                         'price' => $value->price,
@@ -35,7 +36,7 @@ class OrderCheckoutController extends Controller
                         'total_profit_affiliator' => $value->total_profit_affiliator,
                         'total_profit_baleomol' => $value->total_profit_baleomol,
                         'total_weight' => $value->total_weight,
-                        'variant_name' => $value->options,
+                        'options' => $value->options,
                         'fee' => $value->fee,
                     ];
                 }
@@ -43,6 +44,9 @@ class OrderCheckoutController extends Controller
                     'id' => $order->id,
                     'invoice_id' => $order->invoice_id,
                     'member_id' => $order->member_id,
+                    'seller' => $order->seller,
+                    'dropshipper_name' => $order->dropshipper_name,
+                    'dropshipper_phone' => $order->dropshipper_phone,
                     'code' => $order->code,
                     'customer_name' => $order->customer_name,
                     'fee' => $order->fee,
@@ -52,10 +56,10 @@ class OrderCheckoutController extends Controller
                     'status' => $order->status,
                     'phone' => $order->phone,
                     'resi' => $order->resi,
-                    'shipping_courier' => $order->shipping_courier,
+                    'shipping_courier' => strtolower($order->shipping_courier),
                     'shipping_service' => $order->shipping_service,
                     'address' => $order->address,
-                    'subdistrict_id' => $order->subdisctrict_id,
+                    'subdistrict_id' => $order->subdistrict_id,
                     'city_id' => $order->city_id,
                     'province_id' => $order->province_id,
                     'subdistrict' => $order->subdistrict,
@@ -86,6 +90,40 @@ class OrderCheckoutController extends Controller
                 'status' => 'error',
                 'message' => 'Please fill `order_id` param!',
             ]);
+        }
+    }
+
+    public function updateOrder(Request $request)
+    {
+
+        $invoiceCode = $request->invoice_code;
+        $invoiceTotal = $request->invoice_total;
+        $orderData = json_decode($request->order_data,true);
+
+
+
+        for ($i=0; $i <count($orderData) ; $i++) {
+            $orderId = $orderData[$i]['partnership_order_id'];
+            $orderCode = $orderData[$i]['order_code'];
+            $originOrderId = $orderData[$i]['order_id'];
+            $status = 'paid';
+
+            $updateData = [
+                'invoice_code' => $invoiceCode,
+                'code' => $orderCode,
+                'status' => $status,
+                'date_paid' => Carbon::now(),
+            ];
+
+            Order::where('id',$orderId)->update($updateData);
+
+            return response()->json([
+                'status' => 'success',
+                'title' => 'Pesanan Sukses Checkout',
+                'message' => '<b>'. count($orderData) . '</b> Pesanan Anda telah berhasil checkout ke Baleomol.com. Kode Invoice anda: <b>#'. $invoiceCode .'</b>',
+                'icon' => 'success',
+            ]);
+
         }
     }
 }

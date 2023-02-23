@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Content\Banner\BannerRepository;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
@@ -62,6 +63,9 @@ class BannerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
+            'type' => 'required',
+            'target_url' => 'required|max:255',
+            'position' => 'required',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
         ], $messages);
 
@@ -70,13 +74,14 @@ class BannerController extends Controller
         }
 
         $type = $request->type;
+        $position = $request->position;
         $name = $request->name;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
-        $bannerCategoryId = $request->banner_category_id;
 
         $createData = [
-            'banner_category_id' => $bannerCategoryId,
+            'banner_category_id' => 0,
+            'position' => $position,
             'type' => $type,
             'name' => $name,
             'target_url' => $target_url,
@@ -127,7 +132,29 @@ class BannerController extends Controller
     {
         $bannerCategories = BannerCategory::get();
         $data = $this->bannerRepository->getDataById($id);
-        return view('content.banners.banner.edit', compact(['data', 'bannerCategories']));
+        $productData = [];
+        $supplierData = [];
+
+        $token = config('app.baleomol_key');
+
+        if ($data->type == 'store') {
+            $url = config('app.baleomol_url') . '/suppliers/' . $data->target_url;
+            $response = Http::withHeaders([ 'Authorization' => "Bearer {$token}" ])->get($url);
+            $supplierData = $response['data'];
+        }
+
+        if ($data->type == 'product') {
+            $url = config('app.baleomol_url') . '/products/' . $data->target_url;
+            $response = Http::withHeaders([ 'Authorization' => "Bearer {$token}" ])->get($url);
+            $productData = $response['data'];
+        }
+
+        return view('content.banners.banner.edit', compact([
+            'data',
+            'bannerCategories',
+            'productData',
+            'supplierData',
+        ]));
     }
 
     /**
@@ -147,7 +174,9 @@ class BannerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'target_url' => 'max:255',
+            'type' => 'required',
+            'target_url' => 'required|max:255',
+            'position' => 'required',
             'description' => 'max:255',
             'thumbnail_image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
         ], $messages);
@@ -157,13 +186,14 @@ class BannerController extends Controller
         }
 
         $type = $request->type;
+        $position = $request->position;
         $name = $request->name;
         $target_url = $request->target_url ?? '';
         $description = $request->description ?? '';
-        $bannerCategoryId = $request->banner_category_id;
 
         $updateData = [
-            'banner_category_id' => $bannerCategoryId,
+            'banner_category_id' => 0,
+            'position' => $position,
             'type' => $type,
             'name' => $name,
             'target_url' => $target_url,

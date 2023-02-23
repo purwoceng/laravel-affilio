@@ -501,11 +501,12 @@
                     </div>
 
 
-                    <div class="js-action mt-2">
+                    <div class="js-action mt-2 mb-4">
                         <div class="d-flex flex-row">
                             <div class="btn-group">
                                 <div class="m-1">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel" data-toggle="modal">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel"
+                                        data-toggle="modal">
                                         <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
                                     </a>
                                 </div>
@@ -588,7 +589,10 @@
                 language: {
                     infoFiltered: "",
                 },
-                lengthChange: false,
+                lengthMenu: [
+                    [50,100, 200, 300, 400, 500],
+                    [50,100, 200, 300, 400, 500,]
+                ],
                 pageLength: 50,
                 order: [
                     [0, 'DESC']
@@ -754,6 +758,11 @@
                         className: 'text-center small',
                         render: function(data, type, row, meta) {
                             let elements = '';
+                            let checkoutButton = '';
+
+                            if (row.status != 'paid') {
+                                checkoutButton += `<hr/ class="m-1"><a class="nav-link js-checkout-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                            }
 
                             elements += `<div class="dropdown dropdown-inline">
                                 <a href="javascript:void(0)"
@@ -766,9 +775,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
                                             </a>
-                                            <hr/ class="m-1">
-                                            <a class="nav-link js-checkout-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span>
-                                            </a>
+                                            ${checkoutButton}
                                         </li>
                                     </ul>
                                 </div>
@@ -1249,14 +1256,173 @@
                                         order_id: orderId,
                                     },
                                     success: function(response) {
-                                        console.log(response);
-                                        Swal.fire({
-                                            icon: 'info',
-                                            title: 'Masih dalam proses pengembangan',
-                                            text: 'Dalam proses integrasi dengan endpoint api checkout to baleomol!',
-                                        });
-                                    }
-                                });
+                                        if (response.status === 'success') {
+                                            let data = response.data;
+                                            let orderId = response.data.order.id;
+                                            let sellerUsername = data.order.seller || '';
+                                            let dropshipperName = data.order.dropshipper_name || '';
+                                            let dropshipperPhone = data.order.dropshipper_phone || '';
+                                            let receiverName = data.order.customer_name || '';
+                                            let receiverPhone = data.order.phone || 0;
+                                            let receiverAddress = data.order.address || '';
+                                            let receiverSubdistrictId = data.order.subdistrict_id || 0;
+                                            let receiverCityId = data.order.city_id || 0;
+                                            let receiverProvinceId = data.order.province_id || 0;
+                                            let receiverZipCode = data.order.zip_code || 0;
+                                            let receiverNote = data.order.message ||'';
+                                            let receipt = data.order.resi || '';
+                                            let shippingCourier = data.order.shipping_courier || '';
+                                            let shippingService = data.order.shipping_service || '';
+                                            let receiptLink = 'https://baleoassetsdev.s3.ap-southeast-1.amazonaws.com/uploads/ozil/2023/resi-dropshipper/file1672889279425Registration+Form+for+Google+Cloud+Fundamental+Trainings+1+Day++Trainocate+Indonesia.pdf';
+                                            let marketplaceSource = 'LAINNYA';
+                                            let products = [];
+
+                                            if (data.orderProducts.length > 0) {
+                                                for (let i = 0; i < data.orderProducts.length; i++) {
+                                                    let item = data.orderProducts[i];
+                                                    let variant = item.options ||{};
+                                                    let product = {
+                                                        productId: item.product_id || 0,
+                                                        quantity: item.amount || 0,
+                                                        variantId: variant.desc_id || 0,
+                                                        sellPrice: item.selling_price || 0,
+                                                    };
+                                                    products.push(product);
+                                                }
+                                            }
+
+                                            const postDatas = [{
+                                                'partnershipOrderId': orderId,
+                                                'sellerUsername': sellerUsername,
+                                                'dropshipperName': dropshipperName,
+                                                'dropshipperPhone': dropshipperPhone,
+                                                'receiverName': receiverName,
+                                                'receiverPhone': receiverPhone,
+                                                'receiverAddress': receiverAddress,
+                                                'receiverSubdistrictId': receiverSubdistrictId,
+                                                'receiverCityId': receiverCityId,
+                                                'receiverProvinceId': receiverProvinceId,
+                                                'receiverZipCode': receiverZipCode,
+                                                'receiverNote': receiverNote,
+                                                'receipt': receipt,
+                                                'shippingCourier': shippingCourier,
+                                                'shippingService': shippingService,
+                                                'receiptLink': receiptLink,
+                                                'marketplaceSource': marketplaceSource,
+                                                'products': products,
+                                            }];
+
+                                            const postOptions = {
+                                                method: 'POST',
+                                                headers: {
+                                                    Authorization: 'Bearer ' + `{{ config('app.baleomol_key') }}`,
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    'orderData': postDatas,
+                                                }),
+                                            };
+                                            fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
+                                                    postOptions)
+                                                .then(function(res) {
+                                                    return res.json();
+                                                })
+                                                .then(function(data) {
+                                                    if (data.success) {
+                                                        let invoiceId = data.data.invoiceId;
+                                                        let invoiceCode = data.data.invoiceCode;
+                                                        let invoiceTotal = data.data.invoiceTotal;
+                                                        let orderDatas = [];
+                                                        let results= [];
+
+                                                        for (let i = 0; i < data.data.orderData.length; i++) {
+                                                            let orderId = data.data.orderData[i].partnershipOrderId;
+                                                            results += JSON.stringify([{
+                                                                'order_id' :data.data.orderData[i].orderId,
+                                                                'order_code' :data.data.orderData[i].orderCode,
+                                                                'partnership_order_id' : data.data.orderData[i].partnershipOrderId,
+                                                                'products' :data.data.orderData[i].products,
+                                                            }]);
+                                                        }
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: `{{ route('orders.updateOrder') }}`,
+                                                            data: {
+                                                                _token: "{{ csrf_token() }}",
+                                                                invoice_code: invoiceCode,
+                                                                invoice_total : invoiceTotal,
+                                                                order_data:results,
+                                                            },
+                                                            success: function(response) {
+                                                                console.log(response,'sukses');
+                                                                Swal.fire({
+                                                                    title: response.title,
+                                                                    html: response.message,
+                                                                    icon: response.icon,
+                                                                });
+                                                            }
+                                                        })
+                                                        .then(function() {
+                                                            $(this).addClass('btn-disabled');
+                                                            getDataFiltered();
+                                                        });
+
+                                                    } else {
+                                                        let messages = '<ul>';
+                                                        for (let i = 0; i < data.data.length; i++) {
+                                                            for (let j = 0; j < data.data[i].products[0].errors.length; j++) {
+                                                                messages+= '<li style="text-align: left;">' + data.data[i].products[0].errors[j] + '</li>';
+                                                            }
+
+                                                        }
+                                                        messages += '</ul>';
+
+                                                        Swal.fire({
+                                                            title: data.message,
+                                                            html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' + messages,
+                                                            icon: 'error',
+                                                        });
+                                                    }
+                                                },function(err) {
+                                                    const error = err.errors || {};
+                                                    const errorTitle = error.title ||
+                                                        'Gagal Checkout Pesanan';
+                                                    const errorMessage = error.title ||
+                                                        'Maaf terjadi kesalahan saat checkout data pesanan Anda!';
+
+                                                    Swal.fire(
+                                                        errorTitle,
+                                                        errorMessage,
+                                                        'warning'
+                                                    );
+
+                                                })
+                                                .catch((error) => {
+                                                    console.log({error})
+                                                });
+
+
+
+                                        } else {
+                                            Swal.fire(
+                                                response.errors.title || '',
+                                                response.errors.message || '',
+                                                'warning',
+                                            );
+
+                                            $(this).removeClass('btn-disabled');
+                                        }
+                                    },
+                                    error: (function(err) {
+                                        Swal.fire(
+                                            'Terjadi Kesalahan',
+                                            'Kami tidak bisa menemukan data pesanan Anda, mohon coba kembali beberapa saat lagi!',
+                                            'warning',
+                                        );
+                                        $(this).removeClass('btn-disabled');
+                                    })
+                                })
 
                             }, 500);
                         } else {
@@ -1265,132 +1431,6 @@
                     });
             });
 
-            //js datepicker excel
-            $('#js-detail-modal').on('shown.bs.modal', function(e) {
-                $('input[name="date_range1"]').daterangepicker({
-                    opens: 'left'
-                }, function(start, end, label) {
-                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
-                        ' to ' + end.format('YYYY-MM-DD'));
-                });
-            });
-
-            //button export
-            $(document).on('click', '#submitexcel', function(){
-                var date_range1 = $("#date_range1").val();
-                var status1 = $("#status1").val();
-                var x = document.getElementById("submitexcel");
-                x.disabled = true;
-                var xhr = $.ajax({
-                    type: 'GET',
-                    url: "{{ route('orders.exportexcel') }}",
-                    data :{
-                        "daterange1":date_range1,
-                        "status1":status1
-                    },
-                    cache: false,
-                    xhr: function () {
-                        var xhr = new XMLHttpRequest();
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState == 2) {
-                                if (xhr.status == 200) {
-                                    xhr.responseType = "blob";
-                                } else {
-                                    xhr.responseType = "text";
-                                }
-                            }
-                        };
-                        return xhr;
-                    },
-                    success: function (data) {
-                        const url = window.URL || window.webkitURL;
-                        const downloadURL = url.createObjectURL(data);
-                        var a = $("<a />");
-                        a.attr("download", 'order.xlsx');
-                        a.attr("href", downloadURL);
-                        $("body").append(a);
-                        a[0].click();
-                        $("body").remove(a);
-                }
-            });
-            });
-
-            // Sync order status
-            $(document).on('click', '.js-sync-order-btn', function(e) {
-                const el = $(e.target);
-
-                Swal.fire({
-                        title: 'Sinkronkan Data Pesanan',
-                        text: 'Anda yakin ingin menyinkronkan data pesanan ini? Dengan menyinkronkan ' +
-                            'pesanan ini Anda akan memperoleh status terbaru dari pesanan yang telah ada' +
-                            ' di Baleomol.com',
-                        icon: 'warning',
-                        allowOutsideClick: false,
-                        showCancelButton: true,
-                        confirmButtonText: 'Lanjutkan',
-                        cancelButtonText: 'Batal',
-                    })
-                    .then(function(res) {
-                        if (res.value) {
-                            Swal.fire({
-                                showCloseButton: false,
-                                showConfirmButton: false,
-                                icon: 'info',
-                                title: 'Harap Tunggu',
-                                text: 'Sedang memproses permintaan sinkron data Anda...',
-                                allowOutsideClick: false,
-                                allowEscapeKey: false,
-                                allowEnterKey: false,
-                                onBeforeOpen: function() {
-                                    Swal.showLoading();
-                                },
-                            });
-
-                            setTimeout(function() {
-                                const data = {
-                                    order_id: Number(el.data('id'))
-                                };
-                                const ajaxConfigs = {
-                                    url: '{{ url('/api/sync-order') }}',
-                                    data: data,
-                                    method: 'POST',
-                                    dataType: 'json',
-                                    failed: function(err) {
-                                        Swal.fire('Terjadi Kesalahan', JSON.stringify({
-                                            err
-                                        }), 'error');
-                                    },
-                                    success: function(res) {
-                                        if (res.status == 'success') {
-                                            const data = res.data;
-
-                                            Swal.fire(
-                                                'Data Berhasil Diperbarui',
-                                                `Pesanan #${data.origin_order_code} berhasil diperbarui. Anda dapat memperbarui lagi pesanan ini setelah 15 menit`,
-                                                'success'
-                                            ).then(function() {
-                                                getDataFiltered();
-                                            });
-                                        } else {
-                                            const err = res.errors || {};
-
-                                            Swal.fire(
-                                                err.title || 'Terjadi Kesalahan',
-                                                err.detail ||
-                                                'Mohon maaf terjadi kesalahan saat ' +
-                                                'menyinkronkan data. Silahkan coba kembali ' +
-                                                'beberapa saat lagi',
-                                                'warning'
-                                            );
-                                        }
-                                    }
-                                };
-
-                                $.ajax(ajaxConfigs);
-                            }, 900);
-                        }
-                    });
-            });
 
 
             // Checkbox Orderan
@@ -1861,6 +1901,133 @@
                     }
                 });
             }
+
+            //js datepicker excel
+            $('#js-detail-modal').on('shown.bs.modal', function(e) {
+                $('input[name="date_range1"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+                        ' to ' + end.format('YYYY-MM-DD'));
+                });
+            });
+
+            //button export
+            $(document).on('click', '#submitexcel', function() {
+                var date_range1 = $("#date_range1").val();
+                var status1 = $("#status1").val();
+                var x = document.getElementById("submitexcel");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'GET',
+                    url: "{{ route('orders.exportexcel') }}",
+                    data: {
+                        "daterange1": date_range1,
+                        "status1": status1
+                    },
+                    cache: false,
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(data) {
+                        const url = window.URL || window.webkitURL;
+                        const downloadURL = url.createObjectURL(data);
+                        var a = $("<a />");
+                        a.attr("download", 'order.xlsx');
+                        a.attr("href", downloadURL);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                });
+            });
+
+            // Sync order status
+            $(document).on('click', '.js-sync-order-btn', function(e) {
+                const el = $(e.target);
+
+                Swal.fire({
+                        title: 'Sinkronkan Data Pesanan',
+                        text: 'Anda yakin ingin menyinkronkan data pesanan ini? Dengan menyinkronkan ' +
+                            'pesanan ini Anda akan memperoleh status terbaru dari pesanan yang telah ada' +
+                            ' di Baleomol.com',
+                        icon: 'warning',
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        confirmButtonText: 'Lanjutkan',
+                        cancelButtonText: 'Batal',
+                    })
+                    .then(function(res) {
+                        if (res.value) {
+                            Swal.fire({
+                                showCloseButton: false,
+                                showConfirmButton: false,
+                                icon: 'info',
+                                title: 'Harap Tunggu',
+                                text: 'Sedang memproses permintaan sinkron data Anda...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: function() {
+                                    Swal.showLoading();
+                                },
+                            });
+
+                            setTimeout(function() {
+                                const data = {
+                                    order_id: Number(el.data('id'))
+                                };
+                                const ajaxConfigs = {
+                                    url: '{{ url('/api/sync-order') }}',
+                                    data: data,
+                                    method: 'POST',
+                                    dataType: 'json',
+                                    failed: function(err) {
+                                        Swal.fire('Terjadi Kesalahan', JSON.stringify({
+                                            err
+                                        }), 'error');
+                                    },
+                                    success: function(res) {
+                                        if (res.status == 'success') {
+                                            const data = res.data;
+
+                                            Swal.fire(
+                                                'Data Berhasil Diperbarui',
+                                                `Pesanan #${data.origin_order_code} berhasil diperbarui. Anda dapat memperbarui lagi pesanan ini setelah 15 menit`,
+                                                'success'
+                                            ).then(function() {
+                                                getDataFiltered();
+                                            });
+                                        } else {
+                                            const err = res.errors || {};
+
+                                            Swal.fire(
+                                                err.title || 'Terjadi Kesalahan',
+                                                err.detail ||
+                                                'Mohon maaf terjadi kesalahan saat ' +
+                                                'menyinkronkan data. Silahkan coba kembali ' +
+                                                'beberapa saat lagi',
+                                                'warning'
+                                            );
+                                        }
+                                    }
+                                };
+
+                                $.ajax(ajaxConfigs);
+                            }, 900);
+                        }
+                    });
+            });
 
         });
     </script>

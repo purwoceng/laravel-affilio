@@ -58,7 +58,9 @@ class BannerRepository implements BannerRepositoryInterface
         if (!empty($getResults)) {
             foreach ($getResults  as $key => $banner) {
                 $id = $banner->id;
-                $category_type = $banner->category_type->name;
+                $category_type = '';
+                $position = $banner->position;
+                $position_label = implode(' ', explode('_', $banner->position));
                 $type = $banner->type;
                 $name = $banner->name;
                 $image = $banner->image;
@@ -75,6 +77,8 @@ class BannerRepository implements BannerRepositoryInterface
                     'image',
                     'image_url',
                     'target_url',
+                    'position',
+                    'position_label',
                     'description',
                     'created_at',
                 );
