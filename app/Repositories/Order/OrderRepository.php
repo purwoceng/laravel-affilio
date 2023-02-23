@@ -108,6 +108,7 @@ class OrderRepository implements OrderRepositoryInterface
                 $total = $order->total;
                 $phone = $order->phone;
                 $address = $order->address;
+                $baleomolStatus = $order->baleomol_status;
                 $status = $order->status;
                 $payment_status = $order->payment_status;
                 $shippingCourier = strtoupper($order->shipping_courier);
@@ -136,6 +137,7 @@ class OrderRepository implements OrderRepositoryInterface
                     'total' =>  formatRupiah($total),
                     'phone' => $phone,
                     'address' => $address,
+                    'baleomol_status' => $baleomolStatus,
                     'status' => $status,
                     'payment_status' => $payment_status,
                     'courier' => $courier,
