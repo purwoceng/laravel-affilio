@@ -111,7 +111,7 @@ class OrderCheckoutController extends Controller
             $updateData = [
                 'invoice_code' => $invoiceCode,
                 'code' => $orderCode,
-                'status' => $status,
+                'baleomol_status' => $status,
                 'date_paid' => Carbon::now(),
             ];
 
