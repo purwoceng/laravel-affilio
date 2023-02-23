@@ -1350,6 +1350,7 @@
                                                             url: `{{ route('orders.updateOrder') }}`,
                                                             data: {
                                                                 _token: "{{ csrf_token() }}",
+                                                                invoice_id : invoiceId,
                                                                 invoice_code: invoiceCode,
                                                                 invoice_total : invoiceTotal,
                                                                 order_data:results,

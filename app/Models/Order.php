@@ -15,12 +15,14 @@ class Order extends Model
     protected $fillable = [
         'id',
         'invoice_code',
+        'baleo_invoice_code',
         'member_id',
         'seller_id',
         'seller_store_name',
         'seller_logo',
         'browser_id',
         'code',
+        'baleo_order_code',
         'username',
         'seller',
         'customer_name',
@@ -70,6 +72,7 @@ class Order extends Model
     protected $casts = [
         'date_created'  => 'datetime:Y-m-d H:i:s',
         'date_paid' => 'datetime:Y-m-d H:i:s',
+        'date_checkout_baleo' => 'datetime:Y-m-d H:i:s',
         'date_confirmed' => 'datetime:Y-m-d H:i:s',
         'date_rejected' => 'datetime:Y-m-d H:i:s',
         'date_waybill_generated' => 'datetime:Y-m-d H:i:s',
