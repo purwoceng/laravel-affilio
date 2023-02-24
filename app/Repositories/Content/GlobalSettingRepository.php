@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\content;
+namespace App\Repositories\Content;
 
 use App\Models\GlobalSetting;
-use App\Repositories\Interfaces\content\GlobalSettingRepositoryInterface;
+use App\Repositories\Interfaces\Content\GlobalSettingRepositoryInterface;
 
 
 class GlobalSettingRepository implements GlobalSettingRepositoryInterface
