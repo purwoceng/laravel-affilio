@@ -95,12 +95,13 @@
                                 </div>
                             </form>
                         </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 philosophy-bubbl"  class="philosophy-bubbl">
+                        @if ($product_data['isVariationActive'] === true)
+                            <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
                                     <label class="col-12 col-form-label"><b>Detail Varian Produk Wishlist</b></label>
                                 </div>
-                                <div class="card-body" id="myTable1div">
-                                    <table class="table table-striped table-head-custom table-checkable nowrap" name="tableToday">
+                                <div class="card-body"  name="event1">
+                                    <table class="table table-striped table-head-custom table-checkable nowrap" id="myDIV">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -126,6 +127,15 @@
                                     </table>
                                 </div>
                             </div>
+                            @else
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-12 col-form-label"><b>Tidak Ada Detail Varian Produk Wishlist</b></label>
+                                </div>
+                            </div>
+                            @endif
+
+
                             <div class="d-flex flex-row">
                                 <div class="p-1">
                                     <a href="{{ url('/products/wishlist') }}" class="btn btn-secondary">Kembali</a>
@@ -138,13 +148,4 @@
         </div>
     </div>
 @endsection
-
-<script>
-   function isEmptyTable(){
-    var tdTable = document.getElementsByName('tdTable')[0].textContent;
-    var table = document.getElementsByName('tableToday')[0];
-    if(tdTable == "")
-        table.style.display = 'none';
-    }
-</script>
 
