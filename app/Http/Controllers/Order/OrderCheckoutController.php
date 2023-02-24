@@ -95,12 +95,10 @@ class OrderCheckoutController extends Controller
 
     public function updateOrder(Request $request)
     {
-
+        $invoiceId = $request->invoice_id;
         $invoiceCode = $request->invoice_code;
         $invoiceTotal = $request->invoice_total;
         $orderData = json_decode($request->order_data,true);
-
-
 
         for ($i=0; $i <count($orderData) ; $i++) {
             $orderId = $orderData[$i]['partnership_order_id'];
@@ -109,21 +107,22 @@ class OrderCheckoutController extends Controller
             $status = 'paid';
 
             $updateData = [
-                'invoice_code' => $invoiceCode,
-                'code' => $orderCode,
-                'status' => $status,
-                'date_paid' => Carbon::now(),
+                'baleo_invoice_id' => $invoiceId,
+                'baleo_order_id' => $originOrderId,
+                'baleo_invoice_code' => $invoiceCode,
+                'baleo_order_code' => $orderCode,
+                'baleomol_status' => $status,
+                'date_checkout_baleo' => Carbon::now(),
             ];
 
             Order::where('id',$orderId)->update($updateData);
-
-            return response()->json([
-                'status' => 'success',
-                'title' => 'Pesanan Sukses Checkout',
-                'message' => '<b>'. count($orderData) . '</b> Pesanan Anda telah berhasil checkout ke Baleomol.com. Kode Invoice anda: <b>#'. $invoiceCode .'</b>',
-                'icon' => 'success',
-            ]);
-
         }
+
+        return response()->json([
+            'status' => 'success',
+            'title' => 'Pesanan Sukses Checkout',
+            'message' => '<b>'. count($orderData) . '</b> Pesanan Anda telah berhasil checkout ke Baleomol.com. Kode Invoice anda: <b>#'. $invoiceCode .'</b>',
+            'icon' => 'success',
+        ]);
     }
 }
