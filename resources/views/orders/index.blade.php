@@ -541,6 +541,7 @@
                                 <th class="text-center" width="10%">Total</th>
                                 <th class="text-center" width="10%">Nomor HP</th>
                                 <th class="text-center" width="10%">Alamat</th>
+                                <th class="text-center" width="10%">Baleomol Status</th>
                                 <th class="text-center" width="10%">Status</th>
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
@@ -682,6 +683,17 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                    },
+                    {
+                        data: 'baleomol_status',
+                        name: 'baleomol_status',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.baleomol_status);
+                        }
                     },
                     {
                         data: 'status',
@@ -1220,7 +1232,6 @@
             // Checkout To Baleomol.com
             $(document).on("click", ".js-checkout-order", function(e) {
                 let orderId = $(e.target).data('id');
-
                 Swal.fire({
                         title: 'Meneruskan Pesanan ke Baleomol.com',
                         html: `Anda yakin ingin checkout meneruskan pesanan ini?`,
@@ -1253,65 +1264,10 @@
                                     type: "GET",
                                     url: urlGetOrder,
                                     data: {
-                                        order_id: orderId,
+                                        order_data: [{ 'order_id' : orderId}],
                                     },
                                     success: function(response) {
                                         if (response.status === 'success') {
-                                            let data = response.data;
-                                            let orderId = response.data.order.id;
-                                            let sellerUsername = data.order.seller || '';
-                                            let dropshipperName = data.order.dropshipper_name || '';
-                                            let dropshipperPhone = data.order.dropshipper_phone || '';
-                                            let receiverName = data.order.customer_name || '';
-                                            let receiverPhone = data.order.phone || 0;
-                                            let receiverAddress = data.order.address || '';
-                                            let receiverSubdistrictId = data.order.subdistrict_id || 0;
-                                            let receiverCityId = data.order.city_id || 0;
-                                            let receiverProvinceId = data.order.province_id || 0;
-                                            let receiverZipCode = data.order.zip_code || 0;
-                                            let receiverNote = data.order.message ||'';
-                                            let receipt = data.order.resi || '';
-                                            let shippingCourier = data.order.shipping_courier || '';
-                                            let shippingService = data.order.shipping_service || '';
-                                            let receiptLink = 'https://baleoassetsdev.s3.ap-southeast-1.amazonaws.com/uploads/ozil/2023/resi-dropshipper/file1672889279425Registration+Form+for+Google+Cloud+Fundamental+Trainings+1+Day++Trainocate+Indonesia.pdf';
-                                            let marketplaceSource = 'LAINNYA';
-                                            let products = [];
-
-                                            if (data.orderProducts.length > 0) {
-                                                for (let i = 0; i < data.orderProducts.length; i++) {
-                                                    let item = data.orderProducts[i];
-                                                    let variant = item.options ||{};
-                                                    let product = {
-                                                        productId: item.product_id || 0,
-                                                        quantity: item.amount || 0,
-                                                        variantId: variant.desc_id || 0,
-                                                        sellPrice: item.selling_price || 0,
-                                                    };
-                                                    products.push(product);
-                                                }
-                                            }
-
-                                            const postDatas = [{
-                                                'partnershipOrderId': orderId,
-                                                'sellerUsername': sellerUsername,
-                                                'dropshipperName': dropshipperName,
-                                                'dropshipperPhone': dropshipperPhone,
-                                                'receiverName': receiverName,
-                                                'receiverPhone': receiverPhone,
-                                                'receiverAddress': receiverAddress,
-                                                'receiverSubdistrictId': receiverSubdistrictId,
-                                                'receiverCityId': receiverCityId,
-                                                'receiverProvinceId': receiverProvinceId,
-                                                'receiverZipCode': receiverZipCode,
-                                                'receiverNote': receiverNote,
-                                                'receipt': receipt,
-                                                'shippingCourier': shippingCourier,
-                                                'shippingService': shippingService,
-                                                'receiptLink': receiptLink,
-                                                'marketplaceSource': marketplaceSource,
-                                                'products': products,
-                                            }];
-
                                             const postOptions = {
                                                 method: 'POST',
                                                 headers: {
@@ -1319,7 +1275,7 @@
                                                     'Content-Type': 'application/json',
                                                 },
                                                 body: JSON.stringify({
-                                                    'orderData': postDatas,
+                                                    'orderData': response.data,
                                                 }),
                                             };
                                             fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
@@ -1356,7 +1312,6 @@
                                                                 order_data:results,
                                                             },
                                                             success: function(response) {
-                                                                console.log(response,'sukses');
                                                                 Swal.fire({
                                                                     title: response.title,
                                                                     html: response.message,

@@ -13,80 +13,65 @@ class OrderCheckoutController extends Controller
 {
     public function getOrder(Request $request)
     {
-        if ($request->order_id) {
-            $order = Order::where('id', $request->order_id)->first();
-            if ($order->id) {
-                $orderProducts = OrderProduct::where('order_id', $request->order_id)->get();
-                foreach ($orderProducts as $key => $value) {
-                    $resultOrderProducts[] = [
-                        'order_id' => $value->order_id,
-                        'product_id' => $value->product_id,
-                        'product_name' => $value->product_name,
-                        'original_price' => $value->original_price,
-                        'price' => $value->price,
-                        'weight' => $value->weight,
-                        'amount' => $value->amount,
-                        'total_origin_price' => $value->total_origin_price,
-                        'total' => $value->total,
-                        'markup_price' => $value->markup_price,
-                        'selling_price' => $value->selling_price,
-                        'total' => $value->total,
-                        'total_original_price' => $value->total_original_price,
-                        'total_profit' => $value->total_profit,
-                        'total_profit_affiliator' => $value->total_profit_affiliator,
-                        'total_profit_baleomol' => $value->total_profit_baleomol,
-                        'total_weight' => $value->total_weight,
-                        'options' => $value->options,
-                        'fee' => $value->fee,
-                    ];
-                }
-                $order = [
-                    'id' => $order->id,
-                    'invoice_id' => $order->invoice_id,
-                    'member_id' => $order->member_id,
-                    'seller' => $order->seller,
-                    'dropshipper_name' => $order->dropshipper_name,
-                    'dropshipper_phone' => $order->dropshipper_phone,
-                    'code' => $order->code,
-                    'customer_name' => $order->customer_name,
-                    'fee' => $order->fee,
-                    'shipping_cost' => $order->shipping_cost,
-                    'value' => $order->value,
-                    'total' => $order->total,
-                    'status' => $order->status,
-                    'phone' => $order->phone,
-                    'resi' => $order->resi,
-                    'shipping_courier' => strtolower($order->shipping_courier),
-                    'shipping_service' => $order->shipping_service,
-                    'address' => $order->address,
-                    'subdistrict_id' => $order->subdistrict_id,
-                    'city_id' => $order->city_id,
-                    'province_id' => $order->province_id,
-                    'subdistrict' => $order->subdistrict,
-                    'city' =>$order->city,
-                    'province' =>  $order->province,
-                    'country' => $order->country,
-                    'message' => empty($order->message) ? $order->message : 'Tidak Ada Catatan',
-                    'zip_code' => $order->zip_code ?? '-',
-                    'date_created' =>  date('Y-m-d H:i', strtotime($order->date_created)),
-                ];
+        $arrayOrderIds = $request->order_data;
 
-                return response()->json([
-                    200,
-                    'status' =>'success',
-                    'data' => [
-                        'order' => $order,
-                        'orderProducts' => $resultOrderProducts,
-                    ],
-                ]);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Order data not found!',
-                ]);
+        if (!empty($arrayOrderIds)) {
+            if (count($arrayOrderIds) > 0) {
+                foreach ($arrayOrderIds as $key) {
+                   $orderId = $key['order_id'];
+                   $order = Order::where('id', $orderId)->first();
+
+                    if (!empty($order)) {
+                        $resultOrderProducts = [];
+                        $results = [];
+                        $orderProducts = OrderProduct::where('order_id',$order->id)->get();
+                            foreach ($orderProducts as $key => $orderProduct) {
+                                $variant = json_decode($orderProduct->options,true);
+                                $resultOrderProducts[] = [
+                                    'productId' => $orderProduct->product_id,
+                                    'quantity' => $orderProduct->amount,
+                                    'variantId'=> $variant['desc_id'] ?? 0,
+                                    'sellPrice'=> $orderProduct->selling_price ?? 0,
+                                ];
+
+                            }
+
+                            $results[]= [
+                                'partnershipOrderId' => $order->id,
+                                'sellerUsername' => $order->seller,
+                                'dropshipperName' => $order->dropshipper_name,
+                                'dropshipperPhone' => $order->dropshipper_phone,
+                                'receiverName' => $order->customer_name,
+                                'receiverPhone' => $order->phone,
+                                'receiverAddress' => $order->address,
+                                'receiverSubdistrictId' => $order->subdistrict_id,
+                                'receiverCityId' => $order->city_id,
+                                'receiverProvinceId' => $order->province_id,
+                                'receiverZipCode' => $order->zip_code,
+                                'receiverNote' => $order->message ?? '-',
+                                'receipt' => $order->resi ?? '',
+                                'shippingCourier' => strtolower($order->shipping_courier),
+                                'shippingService' => $order->shipping_service,
+                                'receiptLink' => 'https://baleoassetsdev.s3.ap-southeast-1.amazonaws.com/uploads/ozil/2023/resi-dropshipper/file1672889279425Registration+Form+for+Google+Cloud+Fundamental+Trainings+1+Day++Trainocate+Indonesia.pdf',
+                                'marketplaceSource' => 'LAINNYA',
+                                'products' => $resultOrderProducts,
+                            ];
+
+                            return response()->json([
+                            200,
+                            'status' =>'success',
+                            'data' => $results,
+                            ]);
+                    } else {
+                        return response()->json([
+                            'status' => 'error',
+                            'message' => 'Order data not found!',
+                        ]);
+                    }
+                }
             }
         } else {
-            return response()->json([
+           return response()->json([
                 'status' => 'error',
                 'message' => 'Please fill `order_id` param!',
             ]);
