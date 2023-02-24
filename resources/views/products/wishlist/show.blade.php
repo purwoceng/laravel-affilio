@@ -23,7 +23,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-5">
                             <form>
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Gambar Detail Produk Wishlist</b></label>
+                                    <label class="col-12 col-form-label"><b>Gambar Produk Wishlist</b></label>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-9">
@@ -130,7 +130,7 @@
                             @else
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Tidak Ada Detail Varian Produk Wishlist</b></label>
+                                    <label class="col-12 col-form-label"><b>Tidak Ada Varian Produk Wishlist</b></label>
                                 </div>
                             </div>
                             @endif
