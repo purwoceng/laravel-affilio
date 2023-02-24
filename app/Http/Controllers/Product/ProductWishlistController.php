@@ -68,9 +68,9 @@ class ProductWishlistController extends Controller
         ])->get($url);
 
         $product_data = $response['data'];
-        dd($product_data);
-        exit;
-        return view('products.wishlist.show');
+        // dd($product_data);
+        // exit;
+        return view('products.wishlist.show',compact('product_data'));
     }
 
     /**
