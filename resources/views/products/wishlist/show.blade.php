@@ -98,7 +98,7 @@
                         @if ($product_data['isVariationActive'] === true)
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Detail Varian Produk Wishlist</b></label>
+                                    <label class="col-12 col-form-label"><b>Detail Varian Produk Wishlist {{ $product_data['productName'] }}</b></label>
                                 </div>
                                 <div class="card-body"  name="event1">
                                     <table class="table table-striped table-head-custom table-checkable nowrap" id="myDIV">
@@ -130,7 +130,7 @@
                             @else
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Tidak Ada Varian Produk Wishlist</b></label>
+                                    <label class="col-12 col-form-label"><b>Tidak Ada Varian Produk Wishlist Untuk {{ $product_data['productName'] }}</b></label>
                                 </div>
                             </div>
                             @endif
