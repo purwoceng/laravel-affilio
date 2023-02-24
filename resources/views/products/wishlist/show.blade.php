@@ -87,6 +87,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-3 col-form-label">Berat Produk</label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" placeholder=""
+                                        name="" value="{{ $product_data['weight'] }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-3 col-form-label">Deskripsi Produk</label>
                                     <div class="col-9">
                                         <textarea class="form-control" placeholder="" rows="9"
@@ -98,10 +105,10 @@
                         @if ($product_data['isVariationActive'] === true)
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Detail Varian Produk Wishlist {{ $product_data['productName'] }}</b></label>
+                                    <label class="col-12 col-form-label"><b>Tabel Varian Produk Wishlist {{ $product_data['productName'] }}</b></label>
                                 </div>
                                 <div class="card-body"  name="event1">
-                                    <table class="table table-striped table-head-custom table-checkable nowrap" id="myDIV">
+                                    <table class="table table-striped table-head-custom table-checkable nowrap">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -116,11 +123,11 @@
                                                 @php $no = 1; @endphp
                                                 @foreach ($product_data['productVariationDescription'] as $item)
                                             </tr>
-                                                    <td name="tdTable">{{ $no++ }}</td>
-                                                    <td name="tdTable">{{ $item['name'] }}</td>
-                                                    <td name="tdTable">{{ $item['stock'] }}</td>
-                                                    <td name="tdTable">Rp. {{ $item['priceFormat'] }}</td>
-                                                    <td name="tdTable">{{ $item['weight']}}</td>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $item['name'] }}</td>
+                                                    <td>{{ $item['stock'] }}</td>
+                                                    <td>Rp. {{ $item['priceFormat'] }}</td>
+                                                    <td>{{ $item['weight']}}</td>
                                             </tr>
                                                 @endforeach
                                         </tbody>
