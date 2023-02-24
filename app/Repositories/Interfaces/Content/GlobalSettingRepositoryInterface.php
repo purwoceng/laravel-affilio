@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Interfaces\content;
+namespace App\Repositories\Interfaces\Content;
 
 interface GlobalSettingRepositoryInterface
 {
