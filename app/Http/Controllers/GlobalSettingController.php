@@ -6,7 +6,7 @@ use App\Models\GlobalSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use App\Repositories\content\GlobalSettingRepository;
+use App\Repositories\Content\GlobalSettingRepository;
 
 class GlobalSettingController extends Controller
 {
