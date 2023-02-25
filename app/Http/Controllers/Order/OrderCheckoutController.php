@@ -17,13 +17,14 @@ class OrderCheckoutController extends Controller
 
         if (!empty($arrayOrderIds)) {
             if (count($arrayOrderIds) > 0) {
+                $results = [];
                 foreach ($arrayOrderIds as $key) {
                    $orderId = $key['order_id'];
                    $order = Order::where('id', $orderId)->first();
 
                     if (!empty($order)) {
                         $resultOrderProducts = [];
-                        $results = [];
+
                         $orderProducts = OrderProduct::where('order_id',$order->id)->get();
                             foreach ($orderProducts as $key => $orderProduct) {
                                 $variant = json_decode($orderProduct->options,true);
@@ -56,12 +57,6 @@ class OrderCheckoutController extends Controller
                                 'marketplaceSource' => 'LAINNYA',
                                 'products' => $resultOrderProducts,
                             ];
-
-                            return response()->json([
-                            200,
-                            'status' =>'success',
-                            'data' => $results,
-                            ]);
                     } else {
                         return response()->json([
                             'status' => 'error',
@@ -69,6 +64,12 @@ class OrderCheckoutController extends Controller
                         ]);
                     }
                 }
+
+                return response()->json([
+                'status' =>'success',
+                'message' => 'Show all data order',
+                'data' => $results,
+                ], 200);
             }
         } else {
            return response()->json([
@@ -85,6 +86,18 @@ class OrderCheckoutController extends Controller
         $invoiceTotal = $request->invoice_total;
         $orderData = json_decode($request->order_data,true);
 
+        dd($request->all());
+        exit;
+        if (empty($orderData)) {
+            return response()->json([
+                'status' => 'false',
+                'title' => 'No Pesanan tidak ditemukan',
+                'message' => 'Tidak ditemukan nomor pesanan tersebut',
+                'icon' => 'error',
+            ]);
+        }
+        dd($orderData);
+        exit;
         for ($i=0; $i <count($orderData) ; $i++) {
             $orderId = $orderData[$i]['partnership_order_id'];
             $orderCode = $orderData[$i]['order_code'];
