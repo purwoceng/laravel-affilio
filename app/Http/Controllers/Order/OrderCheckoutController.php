@@ -84,10 +84,8 @@ class OrderCheckoutController extends Controller
         $invoiceId = $request->invoice_id;
         $invoiceCode = $request->invoice_code;
         $invoiceTotal = $request->invoice_total;
-        $orderData = json_decode($request->order_data,true);
+        $orderData =  json_decode($request->order_data,true);
 
-        dd($request->all());
-        exit;
         if (empty($orderData)) {
             return response()->json([
                 'status' => 'false',
@@ -96,8 +94,6 @@ class OrderCheckoutController extends Controller
                 'icon' => 'error',
             ]);
         }
-        dd($orderData);
-        exit;
         for ($i=0; $i <count($orderData) ; $i++) {
             $orderId = $orderData[$i]['partnership_order_id'];
             $orderCode = $orderData[$i]['order_code'];
