@@ -2,6 +2,7 @@
 <table class="table-all" border="1">
     <thead>
         <tr>
+            <th>No</th>
             <th>Order Kode</th>
             <th>Nama Pembeli</th>
             <th>Nomor Resi</th>
@@ -16,8 +17,10 @@
         </tr>
     </thead>
     <tbody>
+        @php $no = 1; @endphp
         @foreach ($orders as $order)
         <tr>
+            <td>{{ $no++ }}</td>
             <td>{{ $order->code}}</td>
             <td>{{ $order->customer_name}}</td>
             <td>{{ $order->resi}}</td>

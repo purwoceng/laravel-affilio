@@ -1901,7 +1901,7 @@
                         const url = window.URL || window.webkitURL;
                         const downloadURL = url.createObjectURL(data);
                         var a = $("<a />");
-                        a.attr("download", 'order.xlsx');
+                        a.attr("download", 'Daftar Pesanan-'+status1+'-Tanggal-'+ date_range1+'.xlsx');
                         a.attr("href", downloadURL);
                         $("body").append(a);
                         a[0].click();

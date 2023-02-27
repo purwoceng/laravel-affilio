@@ -285,7 +285,7 @@
                                  <span class="menu-text">Konten</span>
                              </span>
                          </li>
-                          
+
                          <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('banners.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
@@ -397,6 +397,14 @@
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Video Tutorial</span>
+                             </a>
+                         </li>
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('video_training.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Video Training</span>
                              </a>
                          </li>
                          <li class="menu-item" aria-haspopup="true">
