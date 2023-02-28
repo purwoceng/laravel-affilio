@@ -39,7 +39,7 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('members.member_type.update', $data->id) }}">
+                            <form method="POST" action="{{ route('members.member_type.update', $data->id) }}"  enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
@@ -47,6 +47,16 @@
                                     <input type="text" class="form-control" placeholder="Masukkan Tipe Member"
                                         name="type" value="{{ $data->type }}" required />
                                 </div>
+                              <div class="form-group">
+                                    <label>Logo Member <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" placeholder="Masukkan Logo Member"
+                                        name="image" value=""  />
+                                </div>
+                                <div class="col-4">
+                                    <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid"
+                                        width="150px">
+                                </div>
+                                <br>
                                 <div class="form-group">
                                     <label>Minimum Omset<span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="min_omset"

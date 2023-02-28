@@ -39,12 +39,21 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('members.member_type.store') }}">
+                            <form method="POST" action="{{ route('members.member_type.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label>Tipe Member <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" placeholder="Masukkan Tipe Member"
                                         name="type" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>File Foto<span class="text-danger">*</span></label>
+                                    <div></div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="image" />
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="code">Minimum Omset<span class="text-danger">*</span></label>

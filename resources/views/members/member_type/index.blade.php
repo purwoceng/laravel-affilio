@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <thead>
-                            
+
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
                                     <div class="row">
@@ -83,6 +83,7 @@
                             <tr class="text-center small">
                                 <th>#</th>
                                 <th>Tipe Member </th>
+                                <th>Logo  Member </th>
                                 <th>Minimum Omset</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Tanggal Diubah</th>
@@ -144,6 +145,18 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'image_url',
+                        name: 'image_url',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            return '-';
+                        }
                     },
                     {
                         data: 'min_omset',
