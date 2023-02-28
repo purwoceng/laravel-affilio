@@ -15,6 +15,7 @@ class MemberType extends Model
     protected $fillable = [
         'id',
         'type',
+        'image',
         'min_omset',
     ];
 

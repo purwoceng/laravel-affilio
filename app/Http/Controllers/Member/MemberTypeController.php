@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Member;
 
-
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 use App\Repositories\Member\MemberTypeRepository;
+use Illuminate\Support\Facades\Storage;
 
 class MemberTypeController extends Controller
 {
@@ -24,10 +25,11 @@ class MemberTypeController extends Controller
      */
     public function index(Request $request)
     {
+        $getMemberType= MemberType::get();
         if ($request->ajax()) {
             return $this->memberTypeRepository->getDataTable($request);
         }
-        return view('members.member_type.index');
+        return view('members.member_type.index',compact('getMemberType'));
     }
 
     /**
@@ -58,6 +60,7 @@ class MemberTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'type' => 'required|max:64',
             'min_omset' => 'numeric|min:0|max:1000000000000',
+            'image' =>'nullable',
         ], $messages);
 
         if ($validator->fails()) {
@@ -65,11 +68,27 @@ class MemberTypeController extends Controller
                 ->withInput();
         }
 
+        $type = $request->type;
+        $min_omset = $request->min_omset;
+
         $createData = [
-            'type' => $request->type,
-            'min_omset' => $request->min_omset,
+            'type' => $type,
+            'min_omset' => $min_omset,
         ];
+
+        $image = $request->file('image');
+
+        if($image) {
+            $filename = 'Tipe-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/membertype/'), $filename);
+            $path_file = 'storage/system_storage/membertype/' . $filename;
+            $createData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/membertype/') . $filename));
+
+        }
+
         $result = $this->memberTypeRepository->create($createData);
+
 
         if ($result) {
             return redirect()->route('members.member_type.index')
@@ -130,13 +149,31 @@ class MemberTypeController extends Controller
                 ->withInput();
         }
 
+        $type = $request->type;
+        $min_omset = $request->min_omset;
+
         $updateData = [
-            'type' => $request->type,
-            'min_omset' => $request->min_omset,
+            'type' => $type,
+            'min_omset' => $min_omset,
 
         ];
 
+        $image = $request->file('image');
+
+        if($image) {
+
+            $filename = 'Tipe-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/membertype/'), $filename);
+            $path_file = 'storage/system_storage/membertype/' . $filename;
+            $updateData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/membertype/') . $filename));
+
+        }
+
+
         $result = $this->memberTypeRepository->update($id, $updateData);
+
+
 
         if ($result) {
             return redirect()->route('members.member_type.index')

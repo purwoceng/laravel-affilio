@@ -541,6 +541,7 @@
                                 <th class="text-center" width="10%">Total</th>
                                 <th class="text-center" width="10%">Nomor HP</th>
                                 <th class="text-center" width="10%">Alamat</th>
+                                <th class="text-center" width="10%">Baleomol Status</th>
                                 <th class="text-center" width="10%">Status</th>
                                 <th class="text-center" width="10%">Kurir</th>
                                 <th class="text-center" width="10%">Tanggal Pemesanan</th>
@@ -684,6 +685,17 @@
                         className: 'text-center small',
                     },
                     {
+                        data: 'baleomol_status',
+                        name: 'baleomol_status',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.baleomol_status);
+                        }
+                    },
+                    {
                         data: 'status',
                         name: 'status',
                         sortable: false,
@@ -721,9 +733,7 @@
                             let elements =
                                 `<div class="d-block small"><span class="small">${row.last_synced_elapsed}</span></div>`;
 
-                            if (row.last_synced_stamp >= 900 && !['-', 'pending', 'cancel']
-                                .includes(row
-                                    .status)) {
+                            if (row.last_synced_stamp >= 900 && !['unpaid'].includes(row.baleomol_status)) {
                                 elements += `<div class="d-block mt-2">
                                     <button class="btn btn-sm btn-primary px-3 js-sync-order-btn"
                                         data-id="${row.id}"><small>Sinkronkan</small></button>
@@ -740,11 +750,11 @@
                         orderable: false,
                         render: function(data, type, row) {
                             let elements = ``;
-                            if (row.last_synced_stamp >= 900 && !['-', 'pending', 'cancel',
-                                    'reject'
-                                ].includes(row.status)) {
+                            if (row.last_synced_stamp >= 900 && !['unpaid'].includes(row.baleomol_status)) {
                                 elements =
-                                    `<input type="checkbox" name="orders[]" class="orders"  value="${row.id}" data-id="${row.id}" data-customer="${row.customer_name}" data-datecreated="${row.date_created}" data-whatsapp="${row.whatsapp}">`;
+                                    `<input type="checkbox" name="orders[]" class="js-syncron-order"  value="${row.id}" data-id="${row.id}" data-customer="${row.name}" data-date_created="${row.date_created}" data-whatsapp="${row.phone}">`;
+                            } if (row.status == 'paid' && row.payment_status == 'paid' && row.baleomol_status == 'unpaid') {
+                                elements =`<input type="checkbox" name="orders[]" class="js-checkout-order"  value="${row.id}" data-id="${row.id}" data-customer="${row.name}" data-date_created="${row.date_created}" data-whatsapp="${row.phone}">`;
                             }
                             return elements;
                         }
@@ -761,7 +771,7 @@
                             let checkoutButton = '';
 
                             if (row.baleomol_status ==='unpaid' && row.status === 'paid' && row.payment_status === 'paid') {
-                                checkoutButton += `<hr/ class="m-1"><a class="nav-link js-checkout-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                                checkoutButton += `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
                             }
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -1218,9 +1228,8 @@
             });
 
             // Checkout To Baleomol.com
-            $(document).on("click", ".js-checkout-order", function(e) {
+            $(document).on("click", ".js-checkout-item-order", function(e) {
                 let orderId = $(e.target).data('id');
-
                 Swal.fire({
                         title: 'Meneruskan Pesanan ke Baleomol.com',
                         html: `Anda yakin ingin checkout meneruskan pesanan ini?`,
@@ -1253,65 +1262,10 @@
                                     type: "GET",
                                     url: urlGetOrder,
                                     data: {
-                                        order_id: orderId,
+                                        order_data: [{ 'order_id' : orderId}],
                                     },
                                     success: function(response) {
                                         if (response.status === 'success') {
-                                            let data = response.data;
-                                            let orderId = response.data.order.id;
-                                            let sellerUsername = data.order.seller || '';
-                                            let dropshipperName = data.order.dropshipper_name || '';
-                                            let dropshipperPhone = data.order.dropshipper_phone || '';
-                                            let receiverName = data.order.customer_name || '';
-                                            let receiverPhone = data.order.phone || 0;
-                                            let receiverAddress = data.order.address || '';
-                                            let receiverSubdistrictId = data.order.subdistrict_id || 0;
-                                            let receiverCityId = data.order.city_id || 0;
-                                            let receiverProvinceId = data.order.province_id || 0;
-                                            let receiverZipCode = data.order.zip_code || 0;
-                                            let receiverNote = data.order.message ||'';
-                                            let receipt = data.order.resi || '';
-                                            let shippingCourier = data.order.shipping_courier || '';
-                                            let shippingService = data.order.shipping_service || '';
-                                            let receiptLink = 'https://baleoassetsdev.s3.ap-southeast-1.amazonaws.com/uploads/ozil/2023/resi-dropshipper/file1672889279425Registration+Form+for+Google+Cloud+Fundamental+Trainings+1+Day++Trainocate+Indonesia.pdf';
-                                            let marketplaceSource = 'LAINNYA';
-                                            let products = [];
-
-                                            if (data.orderProducts.length > 0) {
-                                                for (let i = 0; i < data.orderProducts.length; i++) {
-                                                    let item = data.orderProducts[i];
-                                                    let variant = item.options ||{};
-                                                    let product = {
-                                                        productId: item.product_id || 0,
-                                                        quantity: item.amount || 0,
-                                                        variantId: variant.desc_id || 0,
-                                                        sellPrice: item.selling_price || 0,
-                                                    };
-                                                    products.push(product);
-                                                }
-                                            }
-
-                                            const postDatas = [{
-                                                'partnershipOrderId': orderId,
-                                                'sellerUsername': sellerUsername,
-                                                'dropshipperName': dropshipperName,
-                                                'dropshipperPhone': dropshipperPhone,
-                                                'receiverName': receiverName,
-                                                'receiverPhone': receiverPhone,
-                                                'receiverAddress': receiverAddress,
-                                                'receiverSubdistrictId': receiverSubdistrictId,
-                                                'receiverCityId': receiverCityId,
-                                                'receiverProvinceId': receiverProvinceId,
-                                                'receiverZipCode': receiverZipCode,
-                                                'receiverNote': receiverNote,
-                                                'receipt': receipt,
-                                                'shippingCourier': shippingCourier,
-                                                'shippingService': shippingService,
-                                                'receiptLink': receiptLink,
-                                                'marketplaceSource': marketplaceSource,
-                                                'products': products,
-                                            }];
-
                                             const postOptions = {
                                                 method: 'POST',
                                                 headers: {
@@ -1319,7 +1273,7 @@
                                                     'Content-Type': 'application/json',
                                                 },
                                                 body: JSON.stringify({
-                                                    'orderData': postDatas,
+                                                    'orderData': response.data,
                                                 }),
                                             };
                                             fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
@@ -1356,7 +1310,6 @@
                                                                 order_data:results,
                                                             },
                                                             success: function(response) {
-                                                                console.log(response,'sukses');
                                                                 Swal.fire({
                                                                     title: response.title,
                                                                     html: response.message,
@@ -1370,20 +1323,20 @@
                                                         });
 
                                                     } else {
-                                                        let messages = '<ul>';
-                                                        for (let i = 0; i < data.data.length; i++) {
-                                                            for (let j = 0; j < data.data[i].products[0].errors.length; j++) {
-                                                                messages+= '<li style="text-align: left;">' + data.data[i].products[0].errors[j] + '</li>';
+                                                        let messages = '';
+                                                            messages += '<ul>';
+                                                            for (let i = 0; i < data.data.length; i++) {
+                                                                for (let j = 0; j < data.data[i].products[0].errors.length; j++) {
+                                                                    messages+= '<li style="text-align: left;">' + data.data[i].products[0].errors[j] + '</li>';
+                                                                }
                                                             }
+                                                            messages += '</ul>';
+                                                            Swal.fire({
+                                                                title: data.message,
+                                                                html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' + messages,
+                                                                icon: 'error',
+                                                            });
 
-                                                        }
-                                                        messages += '</ul>';
-
-                                                        Swal.fire({
-                                                            title: data.message,
-                                                            html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' + messages,
-                                                            icon: 'error',
-                                                        });
                                                     }
                                                 },function(err) {
                                                     const error = err.errors || {};
@@ -1435,7 +1388,6 @@
             });
 
 
-
             // Checkbox Orderan
             const checkAll = $("#checkAll");
             const checkboxsingle = $('input:checkbox');
@@ -1455,13 +1407,9 @@
             //function checkBox single
             $(document).on('click', 'input:checkbox', function(e) {
                 if (!$(this).is(':checked')) {
-                    let data = $(['.orders:checked', '.js-order-not-complete:checked']);
                     $('#checkAll').prop('checked', false);
-
-                    if (data.length <= 0) {
-                        // sinkronMasalBtn.prop('disabled', true);
-                        checkoutVoucherBtn.prop('disabled', true);
-                    }
+                    // sinkronMasalBtn.prop('disabled', true);
+                    checkoutVoucherBtn.prop('disabled', true);
                 } else {
                     // sinkronMasalBtn.prop('disabled', false);
                     checkoutVoucherBtn.prop('disabled', false);
@@ -1471,67 +1419,165 @@
             //BULK CHECKOUT VOUCHER MASAL
             checkoutVoucherBtn.click((e) => {
                 const ordersId = [];
-                const deleteChecked = $('.js-orders-delete:checked');
-                const deleteReject = $('.js-reject:checked');
                 const checkOut = $('.js-checkout-order:checked');
-                const notCompleteChecked = $('.js-order-not-complete:checked');
+                const syncronChecked = $('.js-syncron-order:checked');
                 const checked = $('.orders:checked');
                 const finalChecked = [...checkOut];
-                const totalChecked = [...deleteChecked, ...checked, ...deleteReject, ...checkOut, ...
-                    notCompleteChecked
-                ];
+                const totalChecked = [...checked,...checkOut];
                 if (finalChecked.length >= 1) {
                     $.each(finalChecked, function(i, item) {
-                        ordersId.push($(item).val());
+                        ordersId.push({'order_id' : $(item).val()});
                     });
-                    checkoutVoucherMultipleHandler(ordersId, totalChecked);
-                } else if ($('.orders').is(':checked') === true || $('.js-reject').is(':checked') ===
-                    true || $('.js-orders-delete').is(':checked') === true) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: `Checkout tidak tersedia untuk orderan yang dipilih`,
-                        text: `Silahkan periksa status orderan`
-                    });
-                } else if ($('input[type=checkbox]').hasClass("js-order-not-complete") == true) {
-                    let element = '';
-                    let table = '';
-                    let thead = '';
-
-                    thead += `
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Nama Pembeli</th>
-                    <th>No Whatsapp</th>
-                    <th>Tanggal Pesanan</th>
-                </tr>`;
-                    $.each(notCompleteChecked, function(no, item) {
-                        element += `
-                    <tr>
-                        <td>${no+1}</td>
-                        <td>${$(item).data('customer')}</td>
-                        <td>${$(item).data('whatsapp')}</td>
-                        <td>${$(item).data('datecreated')}</td>
-                    </tr>`;
-                    });
-
-                    table += `
-                <table class="table table-bordered">
-                    <thead>
-                        ${thead}
-                    </thead>
-                        <tbody>
-                        ${element}
-                    </tbody>
-                </table>
-                `;
 
                     Swal.fire({
-                        icon: 'warning',
-                        title: `Orderan yang dipilih Belum lengkap`,
-                        text: `mohon lengkapi data order terlebih dahulu`,
-                        html: table
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        icon: 'info',
+                        title: 'Harap Tunggu',
+                        html: 'Total ada <b>' + finalChecked.length +  '</b> pesanan, Sedang meneruskan pesanan massal anda ke baleomol.com',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: function() {
+                            Swal.showLoading();
+                        },
                     });
-                } else {
+
+                    setTimeout(function() {
+                                let urlGetOrder = "{{ route('orders.getOrder') }}";
+                                $.ajax({
+                                    type: "GET",
+                                    url: urlGetOrder,
+                                    data: {
+                                        order_data: ordersId,
+                                    },
+                                    success: function(response) {
+
+                                        if (response.status === 'success') {
+                                            const postOptions = {
+                                                method: 'POST',
+                                                headers: {
+                                                    Authorization: 'Bearer ' + `{{ config('app.baleomol_key') }}`,
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    'orderData': response.data,
+                                                }),
+                                            };
+                                            fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
+                                                    postOptions)
+                                                .then(function(res) {
+                                                    return res.json();
+                                                })
+                                                .then(function(data) {
+                                                    if (data.success) {
+                                                        let invoiceId = data.data.invoiceId;
+                                                        let invoiceCode = data.data.invoiceCode;
+                                                        let invoiceTotal = data.data.invoiceTotal;
+                                                        let orderDatas = [];
+                                                        let results= [];
+
+                                                        for (let i = 0; i < data.data.orderData.length; i++) {
+                                                            let orderId = data.data.orderData[i].partnershipOrderId;
+                                                            results += JSON.stringify([{
+                                                                'order_id' :data.data.orderData[i].orderId,
+                                                                'order_code' :data.data.orderData[i].orderCode,
+                                                                'partnership_order_id' : data.data.orderData[i].partnershipOrderId,
+                                                                'products' :data.data.orderData[i].products,
+                                                            }]);
+                                                        }
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: `{{ route('orders.updateOrder') }}`,
+                                                            data: {
+                                                                _token: "{{ csrf_token() }}",
+                                                                invoice_id : invoiceId,
+                                                                invoice_code: invoiceCode,
+                                                                invoice_total : invoiceTotal,
+                                                                order_data:results,
+                                                            },
+                                                            success: function(response) {
+                                                                Swal.fire({
+                                                                    title: response.title,
+                                                                    html: response.message,
+                                                                    icon: response.icon,
+                                                                });
+                                                            }
+                                                        })
+                                                        .then(function() {
+                                                            $(this).addClass('btn-disabled');
+                                                            getDataFiltered();
+                                                        });
+
+                                                    } else {
+                                                        let messages = '';
+                                                        if (data.data === undefined || data.data == null || data.data.length <= 0) {
+                                                                  Swal.fire({
+                                                                    title: data.message,
+                                                                    html: 'Mohon maaf anda tidak dapat melakukan checkout pesanan dikarenakan </br> Vocuher anda <b>"Tidak Cukup"</b>',
+                                                                    icon: 'error',
+                                                                });
+                                                        } else {
+                                                            messages += '<ul>';
+                                                            for (let i = 0; i < data.data.length; i++) {
+                                                                for (let j = 0; j < data.data[i].products[0].errors.length; j++) {
+                                                                    messages+= '<li style="text-align: left;">' + data.data[i].products[0].errors[j] + '</li>';
+                                                                }
+
+                                                            }
+                                                            messages += '</ul>';
+                                                            Swal.fire({
+                                                                title: data.message,
+                                                                html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' + messages,
+                                                                icon: 'error',
+                                                            });
+                                                        }
+                                                    }
+                                                },function(err) {
+                                                    const error = err.errors || {};
+                                                    const errorTitle = error.title ||
+                                                        'Gagal Checkout Pesanan';
+                                                    const errorMessage = error.title ||
+                                                        'Maaf terjadi kesalahan saat checkout data pesanan Anda!';
+
+                                                    Swal.fire(
+                                                        errorTitle,
+                                                        errorMessage,
+                                                        'warning'
+                                                    );
+                                                    $(this).removeClass('btn-disabled');
+                                                })
+                                                .catch((error) => {
+                                                    console.log({error})
+                                                });
+
+
+
+                                        } else {
+                                            Swal.fire(
+                                                response.errors.title || '',
+                                                response.errors.message || '',
+                                                'warning',
+                                            );
+
+                                            $(this).removeClass('btn-disabled');
+                                        }
+                                    },
+                                    error: (function(err) {
+                                        Swal.fire(
+                                            'Terjadi Kesalahan',
+                                            'Kami tidak bisa menemukan data pesanan Anda, mohon coba kembali beberapa saat lagi!',
+                                            'warning',
+                                        );
+                                        $(this).removeClass('btn-disabled');
+                                    })
+                                });
+
+                            }, 500);
+
+
+                }else {
                     Swal.fire({
                         icon: 'warning',
                         title: `Orderan Belum Dipilih`,
@@ -1540,230 +1586,7 @@
                 }
             });
 
-            async function checkoutVoucherMultipleHandler(ordersId, totalChecked) {
-                try {
-                    const processed = [];
-                    const totalProses = totalChecked.length;
-                    const totalOrderid = ordersId.length;
-                    const orders = [...ordersId];
-                    let success = 0;
-                    let failed = 0;
 
-                    async function recursive() {
-                        if (processed.length != ordersId.length) {
-                            const orderId = orders.pop();
-                            processed.push(orderId);
-                            Swal.fire({
-                                timer: 5000,
-                                icon: 'info',
-                                title: `Sedang memproses permintaan, Mohon jangan berpindah halaman`,
-                                animation: false,
-                                text: `Memproses ${processed.length} dari ${totalProses} pesanan. ${success} Berhasil.`,
-                                allowOutsideClick: false,
-                                showConfirmButton: false,
-                                onRender: function() {
-                                    Swal.showLoading();
-                                }
-                            });
-                            const response = await singleCheckoutVoucherHandler(orderId);
-                            response.success ? success++ : failed++;
-                            await recursive();
-                        } else {
-                            Swal.close();
-                            if (totalProses != totalOrderid) {
-                                errorStatus = totalProses - totalOrderid;
-                                for (i = 0; i < errorStatus; i++) {
-                                    failed++
-                                }
-                            }
-                            Swal.fire({
-                                timer: 6000,
-                                icon: success > 0 ? 'success' : 'error',
-                                title: `${success} Pesanan berhasil dicheckout. ${failed} Pesanan gagal dicheckout.`,
-                                html: `Silahkan cek status pesanan Anda. ${failed > 0 ? `<p style="color:red;">Pastikan kembali pesanan anda</p>` : ''}`,
-                                showConfirmButton: true
-                            }).then(function() {
-                                $('#checkAll').prop('checked', false);
-                                deleteMasalBtn.prop('disabled', true);
-                                sinkronMasalBtn.prop('disabled', true);
-                                checkoutHutangBtn.prop('disabled', true);
-                                checkoutVoucherBtn.prop('disabled', true);
-                                getDataFiltered();
-                            });
-                        }
-                    }
-                    await recursive();
-                } catch (error) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: `Kami mengalami kendala`,
-                        text: `mohon coba kembali`
-                    })
-                }
-            }
-
-            async function singleCheckoutVoucherHandler(orderId) {
-                return new Promise(async (resolve, reject) => {
-                    try {
-                        const getOrderOptions = {
-                            type: 'GET',
-                            url: ``,
-                            dataType: 'json',
-                            data: {
-                                order_id: orderId,
-                            },
-                        };
-
-                        $.ajax(getOrderOptions)
-                            .done(function(res) {
-                                if (res.status === 'success') {
-                                    let products = [];
-                                    let orderId = res.data.order.id;
-                                    let memberKey_ = res.data.member_key;
-                                    let address = res.data.order.address || '';
-                                    let fullAddress = address;
-
-                                    if (res.data.order_products.length > 0) {
-                                        for (let i = 0; i < res.data.order_products
-                                            .length; i++) {
-                                            let item = res.data.order_products[i];
-                                            let variant = item.variant || {};
-                                            let product = {
-                                                id_product: item.origin_product_id || 0,
-                                                quantity: item.quantity || 0,
-                                                id_variation: variant.id || 0,
-                                                variant: variant.name || '',
-                                                sell_price: item.price || 0,
-                                                total_sell_price: item.total || 0,
-                                            };
-
-                                            products.push(product);
-                                        }
-                                    }
-
-                                    const postOptions = {
-                                        method: 'POST',
-                                        headers: {
-                                            api_key: 'ndandu',
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            origin_lp_order_id: orderId,
-                                            products: products,
-                                            address: fullAddress,
-                                            member_key: memberKey_,
-                                            name: res.data.order.name || '',
-                                            cod_fee: res.data.order.cod_fee ||
-                                                0,
-                                            city_id: res.data.order.city_id ||
-                                                0,
-                                            whatsapp: res.data.order.whatsapp ||
-                                                '',
-                                            id_seller: res.data.order
-                                                .supplier_id || 0,
-                                            province_id: res.data.order
-                                                .province_id || 0,
-                                            postal_code: res.data.order
-                                                .postal_code || '',
-                                            shipping_cost: res.data.order
-                                                .shipping_fee || 0,
-                                            latitude: res.data.order.latitude ||
-                                                '',
-                                            longitude: res.data.order
-                                                .longitude || '',
-                                            note: res.data.order.note || '',
-                                            subdistrict_id: res.data.order
-                                                .subdistrict_id ||
-                                                0,
-                                            shipping_courier: res.data.order
-                                                .shipping_courier ||
-                                                '',
-                                            shipping_service: res.data.order
-                                                .shipping_service ||
-                                                '',
-                                            is_seller_jne: res.data.order
-                                                .is_seller_jne || 0
-                                        }),
-                                    };
-
-                                    fetch(`{{ config('app.baleomol_ajax_url') . 'landing_page/checkout' }}`,
-                                            postOptions)
-                                        .then(function(res) {
-                                            return res.json();
-                                        })
-                                        .then(function(data) {
-                                            if (data.success) {
-                                                let landingpage_order_id = data.data
-                                                    .landingpage_order_id;
-                                                let landingpage_order_code = data.data
-                                                    .landingpage_order_code;
-                                                let landingpage_invoice_id = data.data
-                                                    .landingpage_invoice_id;
-                                                let landingpage_invoice_code = data.data
-                                                    .landingpage_invoice_code;
-                                                let rts_cost = data.data.rts_cost;
-                                                let status_checkout = data.data.status;
-
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: ``,
-                                                    data: {
-                                                        _token: "{{ csrf_token() }}",
-                                                        orderId: orderId,
-                                                        origin_order_id: landingpage_order_id,
-                                                        origin_order_code: landingpage_order_code,
-                                                        origin_invoice_id: landingpage_invoice_id,
-                                                        origin_invoice_code: landingpage_invoice_code,
-                                                        rts_cost: rts_cost,
-                                                        status: status_checkout,
-                                                    },
-                                                    success: function(response) {
-                                                        resolve({
-                                                            success: true,
-                                                            data: response
-                                                                .data
-                                                        });
-                                                    }
-                                                });
-                                            } else {
-                                                reject({
-                                                    success: false,
-                                                    data: error
-                                                });
-                                            }
-                                        }, function(err) {
-                                            reject({
-                                                success: false,
-                                                data: error
-                                            });
-                                        })
-                                        .catch((error) => {
-                                            reject({
-                                                success: false,
-                                                data: error
-                                            });
-                                        });
-                                } else {
-                                    reject({
-                                        success: false,
-                                        data: error
-                                    });
-                                }
-                            })
-                            .fail(function(err) {
-                                reject({
-                                    success: false,
-                                    data: error
-                                });
-                            });
-                    } catch (error) {
-                        reject({
-                            success: false,
-                            data: error
-                        });
-                    }
-                });
-            }
 
 
             // sinkronMasalBtn.click((e) => {
@@ -1946,7 +1769,7 @@
                         const url = window.URL || window.webkitURL;
                         const downloadURL = url.createObjectURL(data);
                         var a = $("<a />");
-                        a.attr("download", 'order.xlsx');
+                        a.attr("download", 'Daftar Pesanan-'+status1+'-Tanggal-'+ date_range1+'.xlsx');
                         a.attr("href", downloadURL);
                         $("body").append(a);
                         a[0].click();

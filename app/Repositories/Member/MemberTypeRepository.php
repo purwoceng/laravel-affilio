@@ -9,7 +9,7 @@ class MemberTypeRepository implements MemberTypeRepositoryInterface
 {
     public function __construct()
     {
-        
+
     }
 
     public function create(array $data)
@@ -67,15 +67,19 @@ class MemberTypeRepository implements MemberTypeRepositoryInterface
             foreach ($getMemberType as $key => $getMemberType) {
                 $id = $getMemberType->id;
                 $type = $getMemberType->type;
+                $image = $getMemberType->image;
+                $image_url = $getMemberType->image ? config('app.s3_url') . $getMemberType->image : '';
                 $min_omset = $getMemberType->min_omset??'-';
                 $created_at = date('Y-m-d H:i', strtotime($getMemberType->created_at));
                 $updated_at = date('Y-m-d H:i', strtotime($getMemberType->updated_at));
                 $dataArray[] = [
                     'id' => $id,
                     'type' => $type,
+                    'image' => $image,
+                    'image_url' => $image_url,
                     'min_omset' => $min_omset,
-                    'created_at'=> $created_at, 
-                    'updated_at'=> $updated_at, 
+                    'created_at'=> $created_at,
+                    'updated_at'=> $updated_at,
                     'actions' => $id,
                 ];
             }
