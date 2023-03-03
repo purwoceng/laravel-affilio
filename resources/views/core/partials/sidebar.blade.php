@@ -120,7 +120,8 @@
                  </a>
              </li>
 
-             <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+             <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}"
+                 aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
                          <i class="fas fa-box"></i>
@@ -285,46 +286,15 @@
                                  <span class="menu-text">Konten</span>
                              </span>
                          </li>
-                          
-                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('banners.index') }}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Banner</span>
-                            </a>
-                        </li>
 
-                         {{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('banners.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Banner</span>
-                                 <i class="menu-arrow"></i>
                              </a>
-                             <div class="menu-submenu">
-                                 <i class="menu-arrow"></i>
-                                 <ul class="menu-subnav">
-                                     <li class="menu-item" aria-haspopup="true">
-                                         <a href="{{ route('banners.category.index') }}" class="menu-link">
-                                             <i class="menu-bullet menu-bullet-dot">
-                                                 <span></span>
-                                             </i>
-                                             <span class="menu-text">Kategori</span>
-                                         </a>
-                                     </li>
-                                     <li class="menu-item" aria-haspopup="true">
-                                         <a href="{{ route('banners.index') }}" class="menu-link">
-                                             <i class="menu-bullet menu-bullet-dot">
-                                                 <span></span>
-                                             </i>
-                                             <span class="menu-text">Data Banner</span>
-                                         </a>
-                                     </li>
-                                 </ul>
-                             </div>
-                         </li> --}}
+                         </li>
 
                          <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('product_home.index') }}" class="menu-link">
@@ -410,6 +380,24 @@
 
                      </ul>
                  </div>
+             </li>
+
+             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('event*') ? 'active' : '' }}"
+                 aria-haspopup="true" data-menu-toggle="hover">
+                 <a href="{{ route('event.index') }}" class="menu-link menu-toggle">
+                     <span class="svg-icon menu-icon">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                             class="bi bi-calendar2-event" viewBox="0 0 16 16">
+                             <path
+                                 d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                             <path
+                                 d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                             <path
+                                 d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                         </svg>
+                     </span>
+                     <span class="menu-text">Event</span>
+                 </a>
              </li>
 
              @role('super_user')

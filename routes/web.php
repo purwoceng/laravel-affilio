@@ -19,6 +19,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Order\OrderDashboardController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
+use Barryvdh\Debugbar\DataCollector\EventCollector;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,8 +102,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
         Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
-        Route::post('/update-checkout-order',[OrderCheckoutController::class,'updateOrder'])->name('updateOrder');
-
+        Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder');
     });
 
     //Invoice Menu
@@ -286,7 +287,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('products')->name('products.')->group(function () {
         Route::prefix('wishlist')->name('wishlists.')->group(function () {
-            Route::get('/', [ProductWishlistController::class,'index'])->name('index');
+            Route::get('/', [ProductWishlistController::class, 'index'])->name('index');
             Route::get('/show/{id}', [ProductWishlistController::class, 'show'])->name('show');
         });
 
@@ -296,5 +297,15 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [ProductInactiveController::class, 'store'])->name('store');
             Route::get('/delete/{id}', [ProductInactiveController::class, 'destroy'])->name('delete');
         });
+    });
+
+    Route::prefix('event')->name('event.')->group(function () {
+        Route::get('/', [EventController::class, 'index'])->name('index');
+        Route::get('/create', [EventController::class, 'create'])->name('create');
+        Route::post('/store', [EventController::class, 'store'])->name('store');
+        Route::get('/delete/{id}', [EventController::class, 'destroy'])->name('destroy');
+        Route::get('/show/{id}', [EventController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [EventController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [EventController::class, 'update'])->name('update');
     });
 });
