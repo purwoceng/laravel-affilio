@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -28,11 +29,19 @@ class MemberController extends Controller
 
     public function index(Request $request)
     {
+        //nganggo iki yo iso
+         $getMemberBlockeds = Member::with('member_addresses')->where('id')->where('publish',1)->get();
+
+        // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
+        //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
+        //                     ->get();
+
         $member_type = MemberType::get();
         if ($request->ajax()) {
             return $this->memberRepository->getDataTable($request);
         }
-        return view('members.member.index', compact('member_type'));
+
+        return view('members.member.index', compact('member_type','getMemberBlockeds'));
     }
 
     /**
