@@ -43,8 +43,14 @@
                                             name="name" value="{{ $data->type }}" disabled />
                                     </div>
                                 </div>
-
-
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Logo Member <span
+                                            class="text-danger">*</span></label>
+                                            <div class="col-4">
+                                                <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid"
+                                                    width="150px">
+                                            </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Minimum Omset <span
                                             class="text-danger">*</span></label>

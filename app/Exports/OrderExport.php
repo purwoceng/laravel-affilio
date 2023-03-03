@@ -38,7 +38,7 @@ class OrderExport implements FromView, WithEvents, ShouldAutoSize
         }
 
         if ($this->startDate && $this->endDate) {
-            $query = $query->whereDate('date_created', [$this->startDate, $this->endDate]);
+            $query->whereDate('date_created', '>=',  [$this->startDate])->whereDate('date_created', '<=', [$this->endDate]);
         }
 
         $orders = $query->get();

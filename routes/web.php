@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\VideoTutorial;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MarkupController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Member\MemberResetPin;
@@ -27,6 +25,7 @@ use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
+use App\Http\Controllers\VideoTraining\VideoTrainingController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
@@ -35,7 +34,6 @@ use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
-use Barryvdh\Debugbar\DataCollector\EventCollector;
 
 /*
 |--------------------------------------------------------------------------
@@ -247,6 +245,19 @@ Route::middleware('auth')->group(function () {
             Route::put('/update/{id}', [VideoTutorialController::class, 'update'])->name('update');
             Route::get('/detail/{id}', [VideoTutorialController::class, 'show'])->name('detail');
             Route::get('/delete/{id}', [VideoTutorialController::class, 'delete'])->name('delete');
+        });
+
+    //video training
+    Route::prefix('video_training')
+        ->name('video_training.')
+        ->group(function () {
+            Route::get('/', [VideoTrainingController::class, 'index'])->name('index');
+            Route::get('/create', [VideoTrainingController::class, 'create'])->name('create');
+            Route::post('/store', [VideoTrainingController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [VideoTrainingController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [VideoTrainingController::class, 'update'])->name('update');
+            Route::get('/detail/{id}', [VideoTrainingController::class, 'show'])->name('show');
+            Route::get('/delete/{id}', [VideoTrainingController::class, 'destroy'])->name('destroy');
         });
 
     Route::prefix('configs')

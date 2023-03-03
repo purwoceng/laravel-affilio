@@ -63,7 +63,27 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Foto</label>
-                                    <div class="col-9"><span>{{ $data->image }}</span></div>
+                                    <div class="col-9">
+                                        @if ($data->image)
+                                            <div style="width: 150px;
+                                                height: 150px;
+                                                border-radius: 8px;
+                                                border: 1px solid #ebebeb;
+                                                display: flex;
+                                                align-items: center;
+                                                position: relative;">
+                                                <a href="{{ config('app.s3_url') . $data->image }}"
+                                                    style="position: absolute; z-index: 1; top: 0; bottom: 0; left: 0; right: 0;"
+                                                    target="_blank"></a>
+                                                <img src="{{ config('app.s3_url') . $data->image }}?w=150"
+                                                    alt="{{ $data->name }}"
+                                                    style="display: block; width: 100%; margin: 0 auto;"
+                                                />
+                                            </div>
+                                        @else 
+                                            <span>-</span>
+                                        @endif
+                                    </div>
                                 </div>
 
                                 <div class="d-flex flex-row">
