@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\MemberAddress;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Member extends Model
 {
@@ -34,5 +35,10 @@ class Member extends Model
     public function member_type()
     {
         return $this->belongsTo(MemberType::class, 'member_type_id', 'id')->withTrashed();
+    }
+
+    public function member_addresses()
+    {
+        return $this->belongsTo(MemberAddress::class,'id','member_id');
     }
 }

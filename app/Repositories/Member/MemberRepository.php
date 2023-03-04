@@ -30,7 +30,7 @@ class MemberRepository implements MemberRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Member::with('member_type')->whereNull('deleted_at')->offset($start)->limit($limit);
+        return Member::with('member_type','member_addresses')->whereNull('deleted_at')->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -79,8 +79,6 @@ class MemberRepository implements MemberRepositoryInterface
             }
         }
 
-
-
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
         $dataArray = [];
@@ -91,9 +89,12 @@ class MemberRepository implements MemberRepositoryInterface
                 $email = $getMemberBlocked->email;
                 $phone = $getMemberBlocked->phone;
                 $name = $getMemberBlocked->name;
-                $member_type = $getMemberBlocked->member_type->type;
+                $member_type = $getMemberBlocked->member_type->type ?? '-';
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
+                $address =$getMemberBlocked->member_addresses->address ?? '-';
+                $city_name =$getMemberBlocked->member_addresses->city_name ?? '-';
+                $province_name =$getMemberBlocked->member_addresses->province_name ?? '-';
 
                 $dataArray[] = [
                     'id' => $id,
@@ -102,6 +103,9 @@ class MemberRepository implements MemberRepositoryInterface
                     'phone' => $phone,
                     'name' => $name,
                     'member_type' => $member_type,
+                    'address' => $address,
+                    'city_name' => $city_name,
+                    'province_name' => $province_name,
                     'is_verified' => $isVerified,
                     'is_blocked' => $isBlocked,
                     'actions' => $id,

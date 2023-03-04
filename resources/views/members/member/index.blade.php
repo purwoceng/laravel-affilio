@@ -100,6 +100,9 @@
                                 <th>No Hp</th>
                                 <th>Email</th>
                                 <th>Tipe Member</th>
+                                <th>Alamat Member</th>
+                                <th>Kota</th>
+                                <th>Provinsi</th>
                                 <th>Verifikasi</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -113,7 +116,6 @@
         </div>
     </div>
 @endsection
-
 
 @push('js')
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
@@ -186,6 +188,30 @@
                     {
                         data: 'member_type',
                         name: 'member_type',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'address',
+                        name: 'address',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'city_name',
+                        name: 'city_name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'province_name',
+                        name: 'province_name',
                         sortable: false,
                         orderable: false,
                         searchable: false,
