@@ -59,6 +59,10 @@ class EventController extends Controller
             $request->all(),
             [
                 'name' => 'required|max:64',
+                'speaker' => 'required',
+                'time' => 'required',
+                'date' => 'required',
+                'location' => 'required',
                 'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
                 'type' => 'required',
                 'description' => 'required',
@@ -71,12 +75,20 @@ class EventController extends Controller
         }
 
         $name = $request->name;
+        $speaker = $request->speaker ?? '';
+        $time = $request->time ?? '';
+        $date = $request->date ?? '';
+        $location = $request->location ?? '';
         $type = $request->type;
         // $image = $request->image;
         $description = $request->description ?? '';
 
         $createData = [
             'name' => $name,
+            'speaker' => $speaker,
+            'time' => $time,
+            'date' => $date,
+            'location' => $location,
             'type' => $type,
             // 'image' => $image,
             'description' => $description,
@@ -144,6 +156,10 @@ class EventController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
+            'speaker' => 'required',
+            'time' => 'required',
+            'date' => 'required',
+            'location' => 'required',
             'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
             'type' => 'required',
             'description' => 'max:255',
@@ -153,22 +169,31 @@ class EventController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $type = $request->type;
         $name = $request->name;
+        $speaker = $request->speaker ?? '';
+        $time = $request->time ?? '';
+        $date = $request->date ?? '';
+        $location = $request->location ?? '';
+        $type = $request->type;
         $description = $request->description ?? '';
 
         $updateData = [
-            'type' => $type,
+
             'name' => $name,
+            'speaker' => $speaker,
+            'time' => $time,
+            'date' => $date,
+            'location' => $location,
+            'type' => $type,
             'description' => $description,
         ];
 
         $image = $request->file('image');
 
         if ($image) {
-            $events = $this->eventRepository->getDataById($id);
-            $imagePath = public_path('storage/' . $events->image);
-            if (File::exist($imagePath)) {
+            $event = $this->eventRepository->getDataById($id);
+            $imagePath = public_path('storage/' . $event->image);
+            if (File::exists($imagePath)) {
                 unlink($imagePath);
             }
 

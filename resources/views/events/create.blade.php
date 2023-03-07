@@ -125,6 +125,55 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="input-event-speaker">Speaker</label>
+                                    <input type="text" id="input-event-speaker" class="form-control" name="speaker"
+                                        value="{{ old('speaker') }}" aria-describedby="speaker-helper"
+                                        placeholder="Masukkan Speaker" required />
+
+                                    @error('speaker')
+                                        <small id="speaker-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-time">Waktu</label>
+                                    <input type="time" id="input-event-time" class="form-control" name="time"
+                                        value="{{ old('time') }}" aria-describedby="time-helper"
+                                        placeholder="Masukkan Waktu" required />
+
+                                    @error('name')
+                                        <small id="time-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-date">Tanggal</label>
+                                    <input type="date" id="input-event-date" class="form-control" name="date"
+                                        value="{{ old('date') }}" aria-describedby="date-helper"
+                                        placeholder="Masukkan Tanggal" required />
+
+                                    @error('date')
+                                        <small id="date-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-location">Lokasi</label>
+                                    <input type="text" id="input-event-location" class="form-control" name="location"
+                                        value="{{ old('location') }}" aria-describedby="location-helper"
+                                        placeholder="Masukkan Lokasi" required />
+
+                                    @error('name')
+                                        <small id="location-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label>Poster<span class="text-danger">*</span></label>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="customFile" name="image" />

@@ -17,7 +17,12 @@
                     <div class="card-title">
                         <h3 class="card-label">Event</h3>
                     </div>
-
+                    <div class="d-flex flex-row">
+                        <div class="p-1">
+                            <a href="{{ route('event.create') }}" class="btn btn-sm btn-primary my-2"> <i
+                                    class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     @if (session()->has('success'))
@@ -31,17 +36,16 @@
 
                     <table id="js-table-event" class="table table-separate table-head-custom table-checkable nowrap"
                         style="width:100%">
-                        <div class="d-flex flex-row">
-                            <div class="p-1">
-                                <a href="{{ route('event.create') }}" class="btn btn-sm btn-primary my-2"> <i
-                                        class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
-                            </div>
-                        </div>
+
 
                         <thead>
                             <tr class="text-center small">
                                 <th>#</th>
-                                <th>Event</th>
+                                <th>Judul</th>
+                                <th>Speaker</th>
+                                <th>Waktu</th>
+                                <th>Tanggal</th>
+                                <th>Lokasi</th>
                                 <th>Poster </th>
                                 <th>Tipe</th>
                                 <th>Deskripsi</th>
@@ -101,6 +105,38 @@
                     {
                         data: 'name',
                         name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'speaker',
+                        name: 'speaker',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'time',
+                        name: 'time',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'date',
+                        name: 'date',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'location',
+                        name: 'location',
                         sortable: false,
                         orderable: false,
                         searchable: false,

@@ -59,6 +59,10 @@ class EventRepository implements EventRepositoryInterface
             foreach ($getResults as $key => $event) {
                 $id = $event->id;
                 $name = $event->name;
+                $speaker = $event->speaker;
+                $time = $event->time;
+                $date = $event->date;
+                $location = $event->location;
                 $image = $event->image ? config('app.s3_url') . $event->image : '';
                 $type = $event->type;
                 $description = $event->description;
@@ -67,6 +71,10 @@ class EventRepository implements EventRepositoryInterface
                 $data[] = compact(
                     'id',
                     'name',
+                    'speaker',
+                    'time',
+                    'date',
+                    'location',
                     'image',
                     'type',
                     'description',
