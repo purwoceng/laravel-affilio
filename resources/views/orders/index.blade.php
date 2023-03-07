@@ -525,6 +525,13 @@
                                             class="fas fa-tag fa-sm text-white-50"></i> Checkout Massal Pesanan</button>
                                 </div>
                             </div>
+                            <div class="btn-group">
+                                <div class="m-1">
+                                    <button class="btn btn-sm btn-danger shadow-sm text-white"
+                                        id="js-btn-resi" disabled><i
+                                            class="fas fa-print fa-sm text-white-50"></i> Buat Resi Pesanan</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <table id="js-orders-table"
@@ -1393,12 +1400,14 @@
             const checkboxsingle = $('input:checkbox');
             const sinkronMasalBtn = $('#js-btn-sinkron-order');
             const checkoutVoucherBtn = $('#js-btn-checkout-voucher');
+            const ResiBtn = $('#js-btn-resi');
 
             checkAll.click(function() {
                 if (!$(this).is(':checked')) {
                     $('input:checkbox').not(this).prop('checked', this.checked);
                     // sinkronMasalBtn.prop('disabled', true);
                     checkoutVoucherBtn.prop('disabled', true);
+                    ResiBtn.prop('disabled', true);
                 } else {
                     $('input:checkbox').not(this).prop('checked', this.checked);
                 }
@@ -1410,9 +1419,11 @@
                     $('#checkAll').prop('checked', false);
                     // sinkronMasalBtn.prop('disabled', true);
                     checkoutVoucherBtn.prop('disabled', true);
+                    ResiBtn.prop('disabled', true);
                 } else {
                     // sinkronMasalBtn.prop('disabled', false);
                     checkoutVoucherBtn.prop('disabled', false);
+                    ResiBtn.prop('disabled', false);
                 }
             });
 
