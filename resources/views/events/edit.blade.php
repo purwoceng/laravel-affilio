@@ -160,7 +160,34 @@
                                             required name="name" value="{{ $data->name }}" />
                                     </div>
                                 </div>
-
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Speaker <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Pembicara Event"
+                                            required name="speaker" value="{{ $data->speaker }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Waktu <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="time" class="form-control" placeholder="Masukkan Waktu Event"
+                                            required name="time" value="{{ $data->time }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Tanggal <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="date" class="form-control" placeholder="Masukkan Tanggal Event"
+                                            required name="date" value="{{ $data->date }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Lokasi <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Lokasi Event"
+                                            required name="location" value="{{ $data->location }}" />
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">File Poster<span
                                             class="text-danger">*</span></label>
@@ -184,7 +211,8 @@
                                             <option selected disabled>Pilih tipe event</option>
                                             <option value="online" {{ $data->type == 'online' ? 'selected' : '' }}>Online
                                             </option>
-                                            <option value="offline" {{ $data->type == 'offline' ? 'selected' : '' }}>Offline
+                                            <option value="offline" {{ $data->type == 'offline' ? 'selected' : '' }}>
+                                                Offline
                                             </option>
                                         </select>
                                     </div>
