@@ -127,6 +127,11 @@ return [
     'baleomol_url' => env('BALEOMOL_APP_URL'),
     's3_url' => env('AWS_URL'),
 
+    'ide_url' => env('IDE_URL'),
+    'ide_app_id' => env('IDE_APP_ID'),
+    'ide_security_key' => env('IDE_SECURITY_KEY'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
