@@ -38,6 +38,26 @@
                                     <input type="text" class="form-control" placeholder="Masukkan nama Event"
                                         name="name" value="{{ $data->name }}" disabled />
                                 </div>
+                                <div class="form-group">
+                                    <label>Speaker</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="speaker" value="{{ $data->speaker }}" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Waktu</label>
+                                    <input type="time" class="form-control" placeholder="Masukkan nama Event"
+                                        name="time" value="{{ $data->time }}" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal</label>
+                                    <input type="date" class="form-control" placeholder="Masukkan nama Event"
+                                        name="date" value="{{ $data->date }}" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Lokasi</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="location" value="{{ $data->location }}" disabled />
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">File Poster<span
                                             class="text-danger">*</span></label>
