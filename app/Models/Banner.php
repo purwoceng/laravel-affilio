@@ -17,6 +17,7 @@ class Banner extends Model
         'banner_category_id',
         'type',
         'name',
+        'position',
         'image',
         'target_url',
         'description',

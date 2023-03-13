@@ -153,7 +153,7 @@
                                     <label>Tipe <span class="text-danger">*</span></label>
                                     <select class="custom-select form-control js-type-selector" name="type" required>
                                         <option selected disabled>Pilih tipe banner</option>
-                                        <option value="link" >Link</option>
+                                        <option value="link">Link</option>
                                         <option value="store">Store</option>
                                         <option value="product">Product</option>
                                     </select>
@@ -163,13 +163,16 @@
                                     <label for="target_url">Target</label>
                                     <span class="select-type-info">Mohon pilih tipe terlebih dahulu!</span>
                                     <div class="js-input-url-wrapper d-none">
-                                        <input type="text" class="js-input-url form-control" id="input-url" placeholder="Masukkan target url" />
+                                        <input type="text" class="js-input-url form-control" id="input-url"
+                                            placeholder="Masukkan target url" />
                                     </div>
                                     <div class="js-product-selector-wrapper select2Wrapper d-none">
-                                        <select id="input-product-id" class="js-product-selector not-triggered form-control"></select>
+                                        <select id="input-product-id"
+                                            class="js-product-selector not-triggered form-control"></select>
                                     </div>
                                     <div class="js-supplier-selector-wrapper select2Wrapper d-none">
-                                        <select id="input-supplier-id" class="js-supplier-selector not-triggered form-control"></select>
+                                        <select id="input-supplier-id"
+                                            class="js-supplier-selector not-triggered form-control"></select>
                                     </div>
                                 </div>
 
@@ -185,10 +188,12 @@
 
                                 <div class="form-group">
                                     <label>Posisi <span class="text-danger">*</span></label>
-                                    <select class="custom-select form-control" name="position" required>
+                                    <select class="custom-select form-control " name="position" required>
                                         <option selected disabled>Silakan pilih posisi banner</option>
                                         <option value="home_top_section">Home Top Section</option>
                                         <option value="home_bottom_section">Home Bottom Section</option>
+                                        <option value="ppob">PPOB</option>
+                                        <option value="alfamart">Alfamart</option>
                                     </select>
                                 </div>
 
@@ -223,16 +228,20 @@
 
     <script>
         'use strict';
-        
+
         function productParamsHandler(params) {
-            const query = { limit: 10 };
+            const query = {
+                limit: 10
+            };
             if (params.term) query.keyword = params.term;
 
             return query;
         }
 
         function supplierParamsHandler(params) {
-            const query = { limit: 10 };
+            const query = {
+                limit: 10
+            };
             if (params.term) query.name = params.term;
 
             return query;
@@ -245,8 +254,10 @@
             url: '',
             dataType: 'json',
             delay: 1000,
-            data: function (params) {
-                const query = { limit: 10 };
+            data: function(params) {
+                const query = {
+                    limit: 10
+                };
                 if (params.term) query.keyword = params.term;
 
                 return query;
@@ -256,7 +267,9 @@
         const SELECT2_OPTIONS = {
             placeholder: '',
             minimumInputLength: 3,
-            ajax: { ...SELECT2_AJAX_OPTIONS },
+            ajax: {
+                ...SELECT2_AJAX_OPTIONS
+            },
             templateResult: null,
         }
 
@@ -307,10 +320,14 @@
                         url: productsEndpoint,
                         data: productParamsHandler,
                         processResults: function(data, params) {
-                            var result = { results: [] };
+                            var result = {
+                                results: []
+                            };
 
                             if (data.success) {
-                                const { results: resultData } = data.data;
+                                const {
+                                    results: resultData
+                                } = data.data;
                                 const products = resultData.map(item => {
                                     return {
                                         id: item.productId,
@@ -334,7 +351,7 @@
                     },
                 });
 
-                productSelector.on('select2:select', function (e) {
+                productSelector.on('select2:select', function(e) {
                     var data = e.params.data;
                     targetHiddenInput.val(data.id);
                 });
@@ -372,10 +389,14 @@
                         url: suppliersEndpoint,
                         data: supplierParamsHandler,
                         processResults: function(data, params) {
-                            var result = { results: [] };
+                            var result = {
+                                results: []
+                            };
 
                             if (data.success) {
-                                const { results: resultData } = data.data;
+                                const {
+                                    results: resultData
+                                } = data.data;
 
                                 const suppliers = resultData.map(item => {
                                     return {
@@ -395,7 +416,7 @@
                     },
                 });
 
-                supplierSelector.on('select2:select', function (e) {
+                supplierSelector.on('select2:select', function(e) {
                     var data = e.params.data;
                     targetHiddenInput.val(data.id);
                 });
@@ -408,7 +429,8 @@
                 productSelectorWrapper.addClass('d-none');
                 supplierSelectorWrapper.addClass('d-none');
                 urlText.val('').trigger('change');
-                if (!supplierSelector.hasClass('not-triggered')) supplierSelector.val(null).trigger('change');
+                if (!supplierSelector.hasClass('not-triggered')) supplierSelector.val(null).trigger(
+                    'change');
                 if (!productSelector.hasClass('not-triggered')) productSelector.val(null).trigger('change');
 
                 targetHiddenInput.val('');
