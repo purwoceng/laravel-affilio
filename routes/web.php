@@ -18,6 +18,7 @@ use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\event\TiketController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Order\OrderDashboardController;
@@ -318,5 +319,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [EventController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [EventController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [EventController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('tiket')->name('tiket.')->group(function () {
+        Route::get('/', [TiketController::class, 'index'])->name('index');
+        Route::get('/create', [TiketController::class, 'create'])->name('create');
+        Route::post('/store', [TiketController::class, 'store'])->name('store');
+        Route::get('/delete/{id}', [TiketController::class, 'destroy'])->name('destroy');
+        Route::get('/show/{id}', [TiketController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [TiketController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [TiketController::class, 'update'])->name('update');
     });
 });
