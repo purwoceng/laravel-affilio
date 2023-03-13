@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Home Fitur Panel'))
+@section('title', __('Detail Kategori Video Training'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Home Fitur Panel</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Training</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Home Fitur Panel</h3>
+                        <h3 class="card-label">Detail Video Training</h3>
                     </div>
 
                 </div>
@@ -39,25 +39,32 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_home.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('video_training.update', $data->id) }}"  enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
-                                    <label>Header Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Header Video"
-                                        name="header" value="" required />
+                                    <label>Nama Video <span class="text-danger">*</span></label>
+                                    <input type="textarea" class="form-control" rows="9"
+                                        name="header" value="{{ $data->name }}" disabled />
                                 </div>
                                 <div class="form-group">
-                                    <label>File Foto<span class="text-danger">*</span></label>
-                                    <div></div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile"
-                                            name="file" />
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                    <label>Kategori Video <span class="text-danger">*</span></label>
+                                    <input type="textarea" class="form-control" rows="9"
+                                        name="header" value="{{ $data->categories }}" disabled />
                                 </div>
+                              <div class="form-group">
+                                    <label>Video <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-4">
+                                    <video controls src="{{ config('app.s3_url') . $data->file }}"
+                                        width="300px" height="250px">
+                                </div>
+                                <br>
+
+
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('video_home.index') }}"
+                                        <a href="{{ route('video_training.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 

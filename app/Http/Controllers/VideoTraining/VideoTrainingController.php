@@ -5,6 +5,8 @@ namespace App\Http\Controllers\VideoTraining;
 use Illuminate\Http\Request;
 use App\Models\VideoTraining;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\VideoTraining\VideoTrainingRepository;
 
@@ -54,6 +56,8 @@ class VideoTrainingController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
+            'name' => 'required|max:100',
+            'categories' => 'required|max:255',
 
         ], $messages);
 
@@ -62,12 +66,25 @@ class VideoTrainingController extends Controller
                 ->withInput();
         }
 
+        $name = $request->name;
+        $categories = $request->categories;
+
         $createData = [
-            'name' => $request->name,
-            'url' => $request->url,
-            'categories' => $request->categories,
+            'name' => $name,
+            'categories' => $categories,
 
         ];
+
+        $file = $request->file('file');
+
+        if($file) {
+            $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/videohome/'), $filename);
+            $path_file = 'storage/system_storage/videohome/' . $filename;
+            $createData['file'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
+
+        }
         $result = $this->VideoTrainingRepository->create($createData);
 
         if ($result) {
@@ -86,7 +103,8 @@ class VideoTrainingController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->VideoTrainingRepository->getVideoTrainingById($id);
+        return view('video_training.detail', compact('data'));
     }
 
     /**
@@ -113,24 +131,38 @@ class VideoTrainingController extends Controller
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'categories.required' => 'Kategori Video tidak boleh kosong',
-            'url.required' => 'url video tidak boleh kosong',
+            'file.required' => 'url video tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
 
         ], $messages);
 
+
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
                 ->withInput();
         }
 
+       $name = $request->name;
+        $categories = $request->categories;
+
         $createData = [
-            'name' => $request->name,
-            'url' => $request->url,
-            'categories' => $request->categories,
+            'name' => $name,
+            'categories' => $categories,
 
         ];
+
+        $file = $request->file('file');
+
+        if($file) {
+            $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/videohome/'), $filename);
+            $path_file = 'storage/system_storage/videohome/' . $filename;
+            $createData['file'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
+
+        }
         $result = $this->VideoTrainingRepository->update($id,$createData);
 
         if ($result) {

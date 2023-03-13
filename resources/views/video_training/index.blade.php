@@ -50,7 +50,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Kategori Video</th>
-                                <th>Url Video</th>
+                                <th>Video Training</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -123,12 +123,16 @@
                         className: 'text-left small',
                     },
                     {
-                        data: 'video_url',
-                        name: 'video_url',
+                        data: 'file',
+                        name: 'file',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<video controls src="${data}" width="200" height="140">`;
+                            return '-';
+                        }
                     },
                     {
                         data: 'created_at',
@@ -147,7 +151,7 @@
                         className: 'text-center small',
                         render : function(data, type, row, meta) {
                             let showUrl =
-                                `{{ url('members/member_type/show/${row.id}') }}`;
+                                `{{ url('video_training/show/${row.id}') }}`;
                             let editUrl =
                                 `{{ url('video_training/edit/${row.id}') }}`;
                             let deleteUrl =
@@ -162,6 +166,11 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${showUrl}">
+                                                    <span class="nav-text">Detail</span>
+                                                </a>
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="${editUrl}">
                                                     <span class="nav-text">Edit</span>

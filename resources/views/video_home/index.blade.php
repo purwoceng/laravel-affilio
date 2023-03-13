@@ -50,6 +50,7 @@
                                 <th>#</th>
                                 <th>Header</th>
                                 <th>Video</th>
+                                <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -113,8 +114,8 @@
                         className: 'text-left small',
                     },
                     {
-                        data: 'video',
-                        name: 'video',
+                        data: 'file',
+                        name: 'file',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -123,6 +124,14 @@
                             if (data)  return `<video controls src="${data}" width="320" height="240">`;
                             return '-';
                         }
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
                     },
 
                     {
@@ -134,11 +143,11 @@
                         className: 'text-center small',
                         render : function(data, type, row, meta) {
                             let showUrl =
-                                `{{ url('members/member_type/show/${row.id}') }}`;
+                                `{{ url('video_home/show/${row.id}') }}`;
                             let editUrl =
-                                `{{ url('video_training/edit/${row.id}') }}`;
+                                `{{ url('video_home/edit/${row.id}') }}`;
                             let deleteUrl =
-                                `{{ url('video_training/delete/${row.id}') }}`;
+                                `{{ url('video_home/delete/${row.id}') }}`;
                             let elements = '';
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -150,13 +159,18 @@
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
+                                                <a class="nav-link" href="${showUrl}">
+                                                    <span class="nav-text">Detail</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a class="nav-link" href="${editUrl}">
                                                     <span class="nav-text">Edit</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.header}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

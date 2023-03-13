@@ -57,7 +57,7 @@ class VideoHomeRepository implements VideoHomeRepositoryInterface
             foreach ($videos  as $key => $video) {
                 $id = $video->id;
                 $header = $video->header;
-                $file = $video->video? config('app.s3_url') . $video->file : '';
+                $file = $video->file ?config('app.s3_url') . $video->file : '';
                 $created_at = date('Y-m-d H:i', strtotime($video->created_at));
                 $actions = $id;
 

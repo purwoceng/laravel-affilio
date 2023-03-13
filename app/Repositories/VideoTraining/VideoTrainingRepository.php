@@ -27,7 +27,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
         return VideoTraining::where('id',$id)->delete();
     }
 
-    public function getVideoTraininglById($id)
+    public function getVideoTrainingById($id)
     {
         return VideoTraining::where('id', $id)->whereNull('deleted_at')->first();
     }
@@ -57,7 +57,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
             foreach ($videos  as $key => $video) {
                 $id = $video->id;
                 $name = $video->name;
-                $video_url = $video->url;
+                $file = $video->file ?config('app.s3_url') . $video->file : '';
                 $categories = $video->categories;
                 $created_at = date('d/m/Y H:i', strtotime($video->created_at));
                 $actions = $id;
@@ -65,7 +65,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
                 $data[] = compact(
                     'id',
                     'name',
-                    'video_url',
+                    'file',
                     'categories',
                     'created_at',
                     'actions',

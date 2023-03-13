@@ -17,7 +17,7 @@ class VideoTraining extends Model
     protected $fillable = [
         'id',
         'name',
-        'url',
+        'file',
         'categories',
     ];
 

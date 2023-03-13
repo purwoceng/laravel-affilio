@@ -1,10 +1,11 @@
 @extends('core.app')
-@section('title', __('Video Training'))
+@section('title', __('Buat Kategori Video Training'))
 @section('content')
+
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Video Training</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Training</h5>
             </div>
         </div>
     </div>
@@ -14,75 +15,64 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Tambah Video Training</h3>
+                        <h3 class="card-label">Buat Kategori Video Training</h3>
                     </div>
+
                 </div>
-
                 <div class="card-body">
-                    @if (session('error'))
-                        <span class="alert alert-danger my-3 mx-4" role="alert">
-                            Oops - {{ session('error') }}
-                        </span>
-                    @endif
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (session()->has('info'))
+                                <div class="alert alert-info" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <strong> {{ session()->get('info') }} </strong>
+                                </div>
+                            @endif
 
-                    <form action="{{ route('video_training.store') }}" method="post">
-                        @csrf
-                        <div class="form-group">
-                            <label for="input-video-name">Judul Video</label>
-                            <input type="text"
-                                id="input-video-name"
-                                class="form-control"
-                                name="name"
-                                value="{{ old('name') }}"
-                                aria-describedby="name-helper"
-                                required
-                            />
+                            @if ($errors->any())
+                                <ul class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <li> {{ $error }} </li>
+                                    @endforeach
+                                </ul>
+                            @endif
 
-                            @error('name')
-                                <small id="name-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
+                            <form method="POST" action="{{ route('video_training.store') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Nama Video <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Video"
+                                        name="name" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Kategori Video <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Kategori Video"
+                                        name="categories" value="" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>File Upload Video<span class="text-danger">*</span></label>
+                                    <div></div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="file" />
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <div class="p-1">
+                                        <a href="{{ route('video_training.index') }}"
+                                            class="btn btn-secondary">Kembali</a>
+                                    </div>
+
+                                    <div class="p-1 ml-auto">
+                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <label for="input-video-name">Kategori Video</label>
-                            <input type="text"
-                                id="input-categories-name"
-                                class="form-control"
-                                name="categories"
-                                value="{{ old('categories') }}"
-                                aria-describedby="name-helper"
-                                required
-                            />
-
-                            @error('categories')
-                                <small id="name-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="input-video-url">URL Video</label>
-                            <input type="text"
-                                name="url"
-                                id="input-video-url"
-                                class="form-control"
-                                value="{{ old('url') }}"
-                                aria-describedby="url-helper"
-                                required
-                            />
-
-                            @error('url')
-                                <small id="url-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div>
-
-
-                        <a class="btn btn-outline-danger" href="{{ route('video_training.index') }}">Kembali</a>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

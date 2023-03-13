@@ -259,7 +259,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [VideoTrainingController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [VideoTrainingController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [VideoTrainingController::class, 'update'])->name('update');
-            Route::get('/detail/{id}', [VideoTrainingController::class, 'show'])->name('show');
+            Route::get('/show/{id}', [VideoTrainingController::class, 'show'])->name('show');
             Route::get('/delete/{id}', [VideoTrainingController::class, 'destroy'])->name('destroy');
         });
 
@@ -270,10 +270,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [VideoHomeController::class, 'index'])->name('index');
         Route::get('/create', [VideoHomeController::class, 'create'])->name('create');
         Route::post('/store', [VideoHomeController::class, 'store'])->name('store');
-        // Route::get('/edit/{id}', [VideoTrainingController::class, 'edit'])->name('edit');
-        // Route::put('/update/{id}', [VideoTrainingController::class, 'update'])->name('update');
-        // Route::get('/detail/{id}', [VideoTrainingController::class, 'show'])->name('show');
-        // Route::get('/delete/{id}', [VideoTrainingController::class, 'destroy'])->name('destroy');
+        Route::get('/edit/{id}', [VideoHomeController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [VideoHomeController::class, 'update'])->name('update');
+        Route::get('/show/{id}', [VideoHomeController::class, 'show'])->name('show');
+        Route::get('/delete/{id}', [VideoHomeController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('configs')

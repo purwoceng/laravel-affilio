@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Home Fitur Panel'))
+@section('title', __('Ubah Kategori Video Home Fitur Panel'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Home Fitur Panel</h3>
+                        <h3 class="card-label">Ubah Video Home Fitur Panel</h3>
                     </div>
 
                 </div>
@@ -39,22 +39,26 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_home.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('video_home.update', $data->id) }}"  enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
                                     <label>Header Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Header Video"
-                                        name="header" value="" required />
+                                    <input type="text" class="form-control" placeholder="Masukkan Tipe Member"
+                                        name="header" value="{{ $data->header }}" required />
                                 </div>
-                                <div class="form-group">
-                                    <label>File Foto<span class="text-danger">*</span></label>
-                                    <div></div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile"
-                                            name="file" />
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                              <div class="form-group">
+                                    <label>Video <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" placeholder="Masukkan Video"
+                                        name="file" value=""  />
                                 </div>
+                                <div class="col-4">
+                                    <video controls src="{{ config('app.s3_url') . $data->file }}"
+                                        width="300px" height="250px">
+                                </div>
+                                <br>
+
+
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('video_home.index') }}"
