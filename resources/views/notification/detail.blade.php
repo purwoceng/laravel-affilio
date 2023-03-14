@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Training'))
+@section('title', __('Detail Notifikasi Pesan'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Training</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Detail Notifikasi Pesan</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Training</h3>
+                        <h3 class="card-label">Detail Notifikasi Pesan</h3>
                     </div>
 
                 </div>
@@ -39,35 +39,25 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_training.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('notification.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Nama Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Video"
-                                        name="name" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>Kategori Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Kategori Video"
-                                        name="categories" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>File Upload Video<span class="text-danger">*</span></label>
-                                    <div></div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile"
-                                            name="file" />
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    <label>Kategori Notifikasi <span class="text-danger"></span></label>
+                                    <div class="form-group">
+                                        <input type="textarea" class="form-control" rows="9"
+                                            name="header" value="{{ $data->categories }}" disabled />
                                     </div>
+                                </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Notifikasi</label>
+                                        <textarea class="form-control" rows="7"
+                                        name="" value="{{ $data->notification }}" disabled>{{ $data->notification }}</textarea>
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('video_training.index') }}"
+                                        <a href="{{ route('notification.index') }}"
                                             class="btn btn-secondary">Kembali</a>
-                                    </div>
-
-                                    <div class="p-1 ml-auto">
-                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                     </div>
                                 </div>
                             </form>

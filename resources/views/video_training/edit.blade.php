@@ -27,7 +27,7 @@
                     @endif
 
 
-                    <form action="{{ route('video_training.update', $video->id) }}" method="post">
+                    <form action="{{ route('video_training.update', $video->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -66,22 +66,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="input-video-url">URL Video</label>
-                            <input type="text"
-                                name="url"
-                                id="input-video-url"
-                                class="form-control"
-                                value="{{ $video->url }}"
-                                aria-describedby="url-helper"
-                                required
-                            />
-
-                            @error('url')
-                                <small id="url-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
+                            <label>Video <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" placeholder="Masukkan Video"
+                                name="file" value=""  />
                         </div>
+                        <div class="col-4">
+                            <video controls src="{{ config('app.s3_url') . $video->file }}"
+                                width="300px" height="250px">
+                        </div>
+                        <br>
                         <a class="btn btn-outline-danger" href="{{ route('video_training.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>

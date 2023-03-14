@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Video Training'))
+@section('title', __('Notifikasi Pesan'))
 
 @push('css')
     <link
@@ -13,7 +13,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Video Training</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Notifikasi Pesan</h5>
             </div>
         </div>
     </div>
@@ -35,9 +35,9 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Video Training</h3>
+                        <h3 class="card-label">Notifikasi Pesan</h3>
                     </div>
-                    <a class="btn btn-success float-right" href="{{ route('video_training.create') }}" title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href="{{ route('notification.create') }}" title="Tambah Produk Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
@@ -48,9 +48,8 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Nama</th>
-                                <th>Kategori Video</th>
-                                <th>Video Training</th>
+                                <th>Kategori Notifikasi</th>
+                                <th>Pesan Notifikasi</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -72,7 +71,7 @@
         'use strict';
 
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('video_training.index') }}";
+            const ajaxUrl = "{{ route('notification.index') }}";
 
             $('#js-product-table').DataTable({
                 destroy: true,
@@ -107,14 +106,6 @@
                         }
                     },
                     {
-                        data: 'name',
-                        name: 'name',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
                         data: 'categories',
                         name: 'categories',
                         sortable: false,
@@ -123,25 +114,23 @@
                         className: 'text-left small',
                     },
                     {
-                        data: 'file',
-                        name: 'file',
+                        data: 'notification',
+                        name: 'notification',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
-                        render: function(data, type, row, meta) {
-                            if (data)  return `<video controls src="${data}" width="200" height="140">`;
-                            return '-';
-                        }
+                        className: 'text-left small',
                     },
+
                     {
                         data: 'created_at',
                         name: 'created_at',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-right small',
+                        className: 'text-left small',
                     },
+
                     {
                         data: 'actions',
                         name: 'actions',
@@ -151,11 +140,11 @@
                         className: 'text-center small',
                         render : function(data, type, row, meta) {
                             let showUrl =
-                                `{{ url('video_training/show/${row.id}') }}`;
+                                `{{ url('notification/show/${row.id}') }}`;
                             let editUrl =
-                                `{{ url('video_training/edit/${row.id}') }}`;
+                                `{{ url('notification/edit/${row.id}') }}`;
                             let deleteUrl =
-                                `{{ url('video_training/delete/${row.id}') }}`;
+                                `{{ url('notification/delete/${row.id}') }}`;
                             let elements = '';
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -178,7 +167,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.categories}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

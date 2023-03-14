@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\GlobalSettingController;
@@ -20,21 +21,23 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\event\TiketController;
 use App\Http\Controllers\Order\OrderCheckoutController;
+use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
+use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
+use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
+use App\Http\Controllers\Product\ProductInactiveController;
+use App\Http\Controllers\Product\ProductWishlistController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Http\Controllers\VideoTraining\VideoTrainingController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
-use App\Http\Controllers\Member\MemberAccountController;
-use App\Http\Controllers\Product\MarkupProductController;
-use App\Http\Controllers\Product\ProductInactiveController;
-use App\Http\Controllers\Product\ProductWishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -257,9 +260,35 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [VideoTrainingController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [VideoTrainingController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [VideoTrainingController::class, 'update'])->name('update');
-            Route::get('/detail/{id}', [VideoTrainingController::class, 'show'])->name('show');
+            Route::get('/show/{id}', [VideoTrainingController::class, 'show'])->name('show');
             Route::get('/delete/{id}', [VideoTrainingController::class, 'destroy'])->name('destroy');
         });
+
+    //video home
+    Route::prefix('video_home')
+    ->name('video_home.')
+    ->group(function () {
+        Route::get('/', [VideoHomeController::class, 'index'])->name('index');
+        Route::get('/create', [VideoHomeController::class, 'create'])->name('create');
+        Route::post('/store', [VideoHomeController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [VideoHomeController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [VideoHomeController::class, 'update'])->name('update');
+        Route::get('/show/{id}', [VideoHomeController::class, 'show'])->name('show');
+        Route::get('/delete/{id}', [VideoHomeController::class, 'destroy'])->name('destroy');
+    });
+
+    //notifikasi
+    Route::prefix('notification')
+    ->name('notification.')
+    ->group(function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::get('/create', [NotificationController::class, 'create'])->name('create');
+        Route::post('/store', [NotificationController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [NotificationController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [NotificationController::class, 'update'])->name('update');
+        Route::get('/show/{id}', [NotificationController::class, 'show'])->name('show');
+        Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy');
+    });
 
     Route::prefix('configs')
         ->name('configs.')

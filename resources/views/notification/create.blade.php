@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Training'))
+@section('title', __('Buat Kategori Notifikasi Pesan'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Training</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Notifikasi Pesan</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Training</h3>
+                        <h3 class="card-label">Buat Kategori Notifikasi Pesan</h3>
                     </div>
 
                 </div>
@@ -39,30 +39,32 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_training.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('notification.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Nama Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Video"
-                                        name="name" value="" required />
+                                    <label>Kategori Notifikasi <span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-sm filter" name="categories"
+                                    placeholder="Type Here">
+                                    <option disabled selected>Pilih Kategori Notifikasi</option>
+                                    <option value="Semua">Semua</option>
+                                    <option value="Affiliator">Affiliator</option>
+                                    <option value="Affiliator Inti">Affiliator Inti</option>
+                                    <option value="Bronze">Bronze</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Platinum">Platinum</option>
+                                    <option value="Diamond">Diamond</option>
+                                </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Kategori Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Kategori Video"
-                                        name="categories" value="" required />
+                                    <label>Notifikasi Pesan<span class="text-danger"></span></label>
+                                    <textarea class="form-control" placeholder="Masukkan Header Video" rows='7'
+                                        name="notification" value="" required>
+                                    </textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label>File Upload Video<span class="text-danger">*</span></label>
-                                    <div></div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile"
-                                            name="file" />
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-                                </div>
+
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('video_training.index') }}"
+                                        <a href="{{ route('notification.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 

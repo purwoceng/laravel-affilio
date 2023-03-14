@@ -6,19 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class VideoTraining extends Model
+class Notification extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'video_trainings';
-    protected $dates = ['deleted_at'];
+    protected $table = 'notifications';
 
     protected $fillable = [
         'id',
-        'name',
-        'file',
         'categories',
+        'notification',
     ];
 
     protected $casts = [

@@ -1,34 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\VideoTraining;
+namespace App\Http\Controllers\VideoHome;
 
 use Illuminate\Http\Request;
-use App\Models\VideoTraining;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use App\Repositories\VideoTraining\VideoTrainingRepository;
+use App\Repositories\VideoHome\VideoHomeRepository;
 
-class VideoTrainingController extends Controller
+class VideoHomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    protected $videoTrainingRepository;
+    protected $videoHomeRepository;
 
-     public function __construct(VideoTrainingRepository $videoTrainingRepository)
-     {
-         $this->VideoTrainingRepository = $videoTrainingRepository;
-     }
+    public function __construct(VideoHomeRepository $videoHomeRepository)
+    {
+        $this->VideoHomeRepository = $videoHomeRepository;
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return $this->VideoTrainingRepository->getDataTable($request);
+            return $this->VideoHomeRepository->getDataTable($request);
         }
-        return view('video_training.index');
+        return view('video_home.index');
     }
 
     /**
@@ -38,7 +37,7 @@ class VideoTrainingController extends Controller
      */
     public function create()
     {
-        return view('video_training.create');
+        return view('video_home.create');
     }
 
     /**
@@ -49,15 +48,15 @@ class VideoTrainingController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        // exit;
         $messages = [
-            'name.required' => 'Nama tidak boleh kosong',
-            'categories.required' => 'Kategori Video tidak boleh kosong',
-            'url.required' => 'url video tidak boleh kosong',
+            'header.required' => 'Header tidak boleh kosong',
+            'file.required' => 'File tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:100',
-            'categories' => 'required|max:255',
+            'header' => 'required|max:255',
 
         ], $messages);
 
@@ -66,33 +65,33 @@ class VideoTrainingController extends Controller
                 ->withInput();
         }
 
-        $name = $request->name;
-        $categories = $request->categories;
+        $header = $request->header;
 
         $createData = [
-            'name' => $name,
-            'categories' => $categories,
-
+            'header' => $header,
         ];
 
         $file = $request->file('file');
 
         if($file) {
             $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/videohome/'), $filename);
-            $path_file = 'storage/system_storage/videohome/' . $filename;
+            $file->move(public_path('storage/videotraining/'), $filename);
+            $path_file = 'storage/system_storage/videotraining/' . $filename;
             $createData['file'] = $path_file;
-            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videotraining/') . $filename));
 
         }
-        $result = $this->VideoTrainingRepository->create($createData);
+
+        $result = $this->VideoHomeRepository->create($createData);
+
 
         if ($result) {
-            return redirect()->route('video_training.index')
-                ->with('success', 'Data Video Training telah berhasil dibuat');
+            return redirect()->route('video_home.index')
+                ->with('success', 'Data Tipe Member telah berhasil dibuat');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data video training');
+            return back()->withInput()->with('info', 'Gagal membuat data tipe member');
         }
+
     }
 
     /**
@@ -103,8 +102,8 @@ class VideoTrainingController extends Controller
      */
     public function show($id)
     {
-        $data = $this->VideoTrainingRepository->getVideoTrainingById($id);
-        return view('video_training.detail', compact('data'));
+        $data = $this->VideoHomeRepository->getVideoHomeById($id);
+        return view('video_home.detail', compact('data'));
     }
 
     /**
@@ -115,8 +114,8 @@ class VideoTrainingController extends Controller
      */
     public function edit($id)
     {
-        $video = VideoTraining::findorfail($id);
-        return view('video_training.edit',compact('video'));
+        $data = $this->VideoHomeRepository->getVideoHomeById($id);
+        return view('video_home.edit', compact(['data']));
     }
 
     /**
@@ -129,28 +128,24 @@ class VideoTrainingController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'name.required' => 'Nama tidak boleh kosong',
-            'categories.required' => 'Kategori Video tidak boleh kosong',
-            'file.required' => 'url video tidak boleh kosong',
+            'header.required' => 'Header tidak boleh kosong',
+            'file.required' => 'File tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
+            'header' => 'required|max:255',
 
         ], $messages);
-
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)
                 ->withInput();
         }
 
-       $name = $request->name;
-        $categories = $request->categories;
+        $header = $request->header;
 
-        $createData = [
-            'name' => $name,
-            'categories' => $categories,
-
+        $updateData = [
+            'header' => $header,
         ];
 
         $file = $request->file('file');
@@ -159,18 +154,21 @@ class VideoTrainingController extends Controller
             $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
             $file->move(public_path('storage/videohome/'), $filename);
             $path_file = 'storage/system_storage/videohome/' . $filename;
-            $createData['file'] = $path_file;
+            $updateData['file'] = $path_file;
             Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
 
         }
-        $result = $this->VideoTrainingRepository->update($id,$createData);
+
+        $result = $this->VideoHomeRepository->update($id,$updateData);
+
 
         if ($result) {
-            return redirect()->route('video_training.index')
-                ->with('success', 'Data Video Training telah berhasil dibuat');
+            return redirect()->route('video_home.index')
+                ->with('success', 'Data Video Home Fitur Panel telah berhasil dibuat');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data video training');
+            return back()->withInput()->with('info', 'Gagal membuat data Video Home Fitur Panel');
         }
+
     }
 
     /**
@@ -181,13 +179,13 @@ class VideoTrainingController extends Controller
      */
     public function destroy($id)
     {
-        $delete = $this->VideoTrainingRepository->delete($id);
+        $delete = $this->VideoHomeRepository->delete($id);
 
         if ($delete) {
-            return redirect()->route('video_training.index')
-                ->with('success', 'Data Video Training telah berhasil dihapus.');
+            return redirect()->route('video_home.index')
+                ->with('success', 'Data Video Home Fitur Panel telah berhasil dihapus.');
         } else {
-            return back()->withInput()->with('info', 'Gagal menghapus data video training');
+            return back()->withInput()->with('info', 'Gagal menghapus data kategori Video Home Fitur Panel');
         }
     }
 }

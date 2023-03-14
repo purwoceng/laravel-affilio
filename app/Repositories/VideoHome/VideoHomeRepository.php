@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\VideoTraining;
+namespace App\Repositories\VideoHome;
 
-use App\Models\VideoTraining;
-use App\Repositories\Interfaces\VideoTraining\VideoTrainingRepositoryInterface;
+use App\Models\VideoHome;
+use App\Repositories\Interfaces\VideoHome\VideoHomeRepositoryInterface;
 
-class VideoTrainingRepository implements VideoTrainingRepositoryInterface
+class VideoHomeRepository implements VideoHomeRepositoryInterface
 {
     public function __construct()
     {
@@ -14,32 +14,32 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
 
     public function create(array $data)
     {
-        return VideoTraining::create($data);
+        return VideoHome::create($data);
     }
 
     public function update($id, array $data)
     {
-        return VideoTraining::where('id',$id)->update($data);
+        return VideoHome::where('id',$id)->update($data);
     }
 
     public function delete($id)
     {
-        return VideoTraining::where('id',$id)->delete();
+        return VideoHome::where('id',$id)->delete();
     }
 
-    public function getVideoTrainingById($id)
+    public function getVideoHomeById($id)
     {
-        return VideoTraining::where('id', $id)->whereNull('deleted_at')->first();
+        return VideoHome::where('id', $id)->whereNull('deleted_at')->first();
     }
 
-    public function getCountVideoTraining()
+    public function getCountVideoHome()
     {
-        return VideoTraining::all()->count();
+        return VideoHome::all()->count();
     }
 
-    public function getVideoTraining($limit, $start)
+    public function getVideoHome($limit, $start)
     {
-        return VideoTraining::offset($start)->limit($limit);
+        return VideoHome::offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -47,8 +47,8 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $video_query = $this->getVideoTraining($limit, $start);
-        $total_data = $this->getCountVideoTraining();
+        $video_query = $this->getVideoHome($limit, $start);
+        $total_data = $this->getCountVideoHome();
 
         $videos = $video_query->orderBy('id', 'desc')->get();
         $data =  [];
@@ -56,19 +56,18 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
         if (!empty($videos)) {
             foreach ($videos  as $key => $video) {
                 $id = $video->id;
-                $name = $video->name;
+                $header = $video->header;
                 $file = $video->file ?config('app.s3_url') . $video->file : '';
-                $categories = $video->categories;
-                $created_at = date('d/m/Y H:i', strtotime($video->created_at));
+                $created_at = date('Y-m-d H:i', strtotime($video->created_at));
                 $actions = $id;
 
                 $data[] = compact(
                     'id',
-                    'name',
+                    'header',
                     'file',
-                    'categories',
                     'created_at',
                     'actions',
+
                 );
             }
         }
