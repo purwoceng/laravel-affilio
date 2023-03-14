@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Pengaturan Event'))
+@section('title', __('Pengaturan Tiket'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Event</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Event : Tiket</h5>
             </div>
         </div>
     </div>
@@ -15,11 +15,11 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Event</h3>
+                        <h3 class="card-label">Tiket</h3>
                     </div>
                     <div class="d-flex flex-row">
                         <div class="p-1">
-                            <a href="{{ route('event.create') }}" class="btn btn-sm btn-primary my-2"> <i
+                            <a href="{{ route('tiket.create') }}" class="btn btn-sm btn-primary my-2"> <i
                                     class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')</a>
                         </div>
                     </div>
@@ -34,21 +34,18 @@
                         </div>
                     @endif
 
-                    <table id="js-table-event" class="table table-separate table-head-custom table-checkable nowrap"
+                    <table id="js-table-tiket" class="table table-separate table-head-custom table-checkable nowrap"
                         style="width:100%">
 
 
                         <thead>
                             <tr class="text-center small">
                                 <th>#</th>
-                                <th>Judul</th>
-                                <th>Speaker</th>
-                                <th>Waktu</th>
-                                <th>Tanggal</th>
-                                <th>Lokasi</th>
-                                <th>Poster </th>
-                                <th>Tipe</th>
-                                <th>Deskripsi</th>
+                                <th>Nama Tiket</th>
+                                <th>Kuota</th>
+                                <th>Harga</th>
+                                <th>Mulai</th>
+                                <th>Berakhir</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
                             </tr>
@@ -72,9 +69,9 @@
 
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('event.index') }}";
+            const urlAjax = "{{ route('tiket.index') }}";
 
-            var eventTable = $('#js-table-event').DataTable({
+            var eventTable = $('#js-table-tiket').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -111,61 +108,32 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'speaker',
-                        name: 'speaker',
+                        data: 'kuota',
+                        name: 'kuota',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'time',
-                        name: 'time',
+                        data: 'price',
+                        name: 'price',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'date',
-                        name: 'date',
+                        data: 'start',
+                        name: 'start',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'location',
-                        name: 'location',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'image',
-                        name: 'image',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                        render: function(data, type, row, meta) {
-                            if (data) return `<img src="${data}" class="image-fluid" width="80px">`;
-
-                            return '-';
-                        }
-                    },
-                    {
-                        data: 'type',
-                        name: 'type',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'description',
-                        name: 'description',
+                        data: 'finish',
+                        name: 'finish',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -187,9 +155,9 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            let showUrl = `{{ url('/event/show/${row.id}') }}`;
-                            let editUrl = `{{ url('/event/edit/${row.id}') }}`;
-                            let deleteUrl = `{{ url('/event/delete/${row.id}') }}`;
+                            let showUrl = `{{ url('/tiket/show/${row.id}') }}`;
+                            let editUrl = `{{ url('/tiket/edit/${row.id}') }}`;
+                            let deleteUrl = `{{ url('/tiket/delete/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
@@ -272,7 +240,7 @@
             };
 
             function reDrawTable(data) {
-                eventTable.ajax.url(getFullUrl(data)).load(null, false);
+                tiketTable.ajax.url(getFullUrl(data)).load(null, false);
             };
 
             init();

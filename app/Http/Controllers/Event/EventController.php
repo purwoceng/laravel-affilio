@@ -80,7 +80,6 @@ class EventController extends Controller
         $date = $request->date ?? '';
         $location = $request->location ?? '';
         $type = $request->type;
-        // $image = $request->image;
         $description = $request->description ?? '';
 
         $createData = [

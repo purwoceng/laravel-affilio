@@ -2,25 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Banner extends Model
+class Tiket extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'banners';
+    protected $table = 'tikets';
 
     protected $fillable = [
         'id',
-        'banner_category_id',
-        'type',
         'name',
-        'position',
-        'image',
-        'target_url',
-        'description',
+        'kuota',
+        'price',
+        'start',
+        'finish',
     ];
 
     protected $casts = [
@@ -28,9 +26,4 @@ class Banner extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
-
-    public function category_type()
-    {
-        return $this->belongsTo(BannerCategory::class, 'banner_category_id')->withTrashed();;
-    }
 }
