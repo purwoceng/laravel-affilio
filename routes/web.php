@@ -18,8 +18,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Event\EventController;
-use App\Http\Controllers\event\TiketController;
+use App\Http\Controllers\Event\TiketController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
@@ -266,29 +265,29 @@ Route::middleware('auth')->group(function () {
 
     //video home
     Route::prefix('video_home')
-    ->name('video_home.')
-    ->group(function () {
-        Route::get('/', [VideoHomeController::class, 'index'])->name('index');
-        Route::get('/create', [VideoHomeController::class, 'create'])->name('create');
-        Route::post('/store', [VideoHomeController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [VideoHomeController::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [VideoHomeController::class, 'update'])->name('update');
-        Route::get('/show/{id}', [VideoHomeController::class, 'show'])->name('show');
-        Route::get('/delete/{id}', [VideoHomeController::class, 'destroy'])->name('destroy');
-    });
+        ->name('video_home.')
+        ->group(function () {
+            Route::get('/', [VideoHomeController::class, 'index'])->name('index');
+            Route::get('/create', [VideoHomeController::class, 'create'])->name('create');
+            Route::post('/store', [VideoHomeController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [VideoHomeController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [VideoHomeController::class, 'update'])->name('update');
+            Route::get('/show/{id}', [VideoHomeController::class, 'show'])->name('show');
+            Route::get('/delete/{id}', [VideoHomeController::class, 'destroy'])->name('destroy');
+        });
 
     //notifikasi
     Route::prefix('notification')
-    ->name('notification.')
-    ->group(function () {
-        Route::get('/', [NotificationController::class, 'index'])->name('index');
-        Route::get('/create', [NotificationController::class, 'create'])->name('create');
-        Route::post('/store', [NotificationController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [NotificationController::class, 'edit'])->name('edit');
-        Route::put('/update/{id}', [NotificationController::class, 'update'])->name('update');
-        Route::get('/show/{id}', [NotificationController::class, 'show'])->name('show');
-        Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy');
-    });
+        ->name('notification.')
+        ->group(function () {
+            Route::get('/', [NotificationController::class, 'index'])->name('index');
+            Route::get('/create', [NotificationController::class, 'create'])->name('create');
+            Route::post('/store', [NotificationController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [NotificationController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [NotificationController::class, 'update'])->name('update');
+            Route::get('/show/{id}', [NotificationController::class, 'show'])->name('show');
+            Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy');
+        });
 
     Route::prefix('configs')
         ->name('configs.')

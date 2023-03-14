@@ -34,7 +34,8 @@
                         </div>
                     @endif
 
-                    <table id="js-table-all-member" class="table table-separate table-head-custom table-hover table-striped table-checkable nowrap"
+                    <table id="js-table-all-member"
+                        class="table table-separate table-head-custom table-hover table-striped table-checkable nowrap"
                         style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
@@ -89,6 +90,31 @@
                                                         data-name="phone" placeholder="Type Here">
                                                 </div>
                                             </div>
+                                            {{-- <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Kota</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="city_name" placeholder="Type Here">
+                                                </div>
+                                            </div> --}}
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Kota</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <select type="text" class="form-control form-control-sm filter"
+                                                        data-name="city_name" placeholder="Type Here">
+                                                        <option disabled>Pilih Kota</option>
+                                                        <option value="all" selected default>Semua</option>
+                                                        @foreach ($getMemberBlockeds as $data)
+                                                            <option value="{{ $data->id }}">
+                                                                {{ $data->city_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </form>
