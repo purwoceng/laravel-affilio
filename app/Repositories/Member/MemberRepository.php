@@ -30,7 +30,7 @@ class MemberRepository implements MemberRepositoryInterface
 
     public function getData($limit, $start)
     {
-        return Member::with('member_type','member_addresses')->whereNull('deleted_at')->offset($start)->limit($limit);
+        return Member::with('member_type', 'member_addresses')->whereNull('deleted_at')->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -79,6 +79,15 @@ class MemberRepository implements MemberRepositoryInterface
             }
         }
 
+        if ($request->filled('member_addresses ')) {
+            if ($request->city_name != 'all') {
+                $keyword = $request->get('city_name');
+                $getQuery->where('city_name', $keyword);
+                $totalData = $getQuery->count();
+                $totalFiltered = $totalData;
+            }
+        }
+
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
         $dataArray = [];
@@ -92,9 +101,9 @@ class MemberRepository implements MemberRepositoryInterface
                 $member_type = $getMemberBlocked->member_type->type ?? '-';
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
-                $address =$getMemberBlocked->member_addresses->address ?? '-';
-                $city_name =$getMemberBlocked->member_addresses->city_name ?? '-';
-                $province_name =$getMemberBlocked->member_addresses->province_name ?? '-';
+                $address = $getMemberBlocked->member_addresses->address ?? '-';
+                $city_name = $getMemberBlocked->member_addresses->city_name ?? '-';
+                $province_name = $getMemberBlocked->member_addresses->province_name ?? '-';
 
                 $dataArray[] = [
                     'id' => $id,
