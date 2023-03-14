@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\GlobalSettingController;

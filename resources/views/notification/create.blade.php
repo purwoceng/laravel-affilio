@@ -57,9 +57,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Notifikasi Pesan<span class="text-danger"></span></label>
-                                    <textarea class="form-control" placeholder="Masukkan Header Video" rows='7'
-                                        name="notification" value="" required>
-                                    </textarea>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Notifikasi Pesan .." name="notification" required></textarea>
                                 </div>
 
                                 <div class="d-flex flex-row">

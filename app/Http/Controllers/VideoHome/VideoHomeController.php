@@ -57,6 +57,7 @@ class VideoHomeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'header' => 'required|max:255',
+            'file'=> 'required|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv ',
 
         ], $messages);
 
@@ -87,9 +88,9 @@ class VideoHomeController extends Controller
 
         if ($result) {
             return redirect()->route('video_home.index')
-                ->with('success', 'Data Tipe Member telah berhasil dibuat');
+                ->with('success', 'Video Home Default Panel telah berhasil dibuat');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data tipe member');
+            return back()->withInput()->with('info', 'Gagal membuat video Home Default Home');
         }
 
     }
@@ -134,6 +135,7 @@ class VideoHomeController extends Controller
 
         $validator = Validator::make($request->all(), [
             'header' => 'required|max:255',
+            'file'=> 'required|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv ',
 
         ], $messages);
 
@@ -141,6 +143,7 @@ class VideoHomeController extends Controller
             return Redirect::back()->withErrors($validator)
                 ->withInput();
         }
+
 
         $header = $request->header;
 
@@ -164,9 +167,9 @@ class VideoHomeController extends Controller
 
         if ($result) {
             return redirect()->route('video_home.index')
-                ->with('success', 'Data Video Home Fitur Panel telah berhasil dibuat');
+                ->with('success', 'Data Video Home Default Panel telah berhasil dibuat');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data Video Home Fitur Panel');
+            return back()->withInput()->with('info', 'Gagal membuat data Video Home Default Panel');
         }
 
     }
@@ -183,9 +186,9 @@ class VideoHomeController extends Controller
 
         if ($delete) {
             return redirect()->route('video_home.index')
-                ->with('success', 'Data Video Home Fitur Panel telah berhasil dihapus.');
+                ->with('success', 'Data Video Home Default Panel telah berhasil dihapus.');
         } else {
-            return back()->withInput()->with('info', 'Gagal menghapus data kategori Video Home Fitur Panel');
+            return back()->withInput()->with('info', 'Gagal menghapus data kategori Video Home Default Panel');
         }
     }
 }
