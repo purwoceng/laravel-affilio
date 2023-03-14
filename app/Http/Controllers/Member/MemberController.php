@@ -30,7 +30,7 @@ class MemberController extends Controller
     public function index(Request $request)
     {
         //nganggo iki yo iso
-         $getMemberBlockeds = Member::with('member_addresses')->where('id')->where('publish',1)->get();
+        $getMemberBlockeds = Member::with('member_addresses')->where('id')->where('publish', 1)->get();
 
         // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
         //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
@@ -41,7 +41,7 @@ class MemberController extends Controller
             return $this->memberRepository->getDataTable($request);
         }
 
-        return view('members.member.index', compact('member_type','getMemberBlockeds'));
+        return view('members.member.index', compact('member_type', 'getMemberBlockeds'));
     }
 
     /**
@@ -152,6 +152,11 @@ class MemberController extends Controller
                     'required',
                     Rule::exists('member_types', 'id'),
                 ],
+                'city_name' => [
+                    'required',
+                    Rule::unique('member_addresses', 'city_name')
+                        ->ignore($id),
+                ],
                 'image' => [
                     'nullable',
                     'image',
@@ -176,6 +181,7 @@ class MemberController extends Controller
         $member->username = $request->username;
         $member->phone = $request->phone;
         $member->member_type_id = $request->member_type_id;
+        $member->city_name = $request->city_name;
 
         $image = $request->file('image');
 
@@ -244,7 +250,6 @@ class MemberController extends Controller
                         'member_type' => $gen_three->type ?? '',
                         'image' => $avatars[rand(0, count($avatars) - 1)],
                     ];
-
                 }
 
                 $gen_one_downlines[] = [
