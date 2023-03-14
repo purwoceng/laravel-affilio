@@ -67,10 +67,6 @@
                                         <a href="{{ route('video_training.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
-
-                                    <div class="p-1 ml-auto">
-                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                                    </div>
                                 </div>
                             </form>
                         </div>

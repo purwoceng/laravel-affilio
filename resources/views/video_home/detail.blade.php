@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Detail Kategori Video Home Fitur Panel'))
+@section('title', __('Detail Kategori Video Home Default Panel'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Home Fitur Panel</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Home Default Panel</h5>
             </div>
         </div>
     </div>
@@ -61,10 +61,6 @@
                                     <div class="p-1">
                                         <a href="{{ route('video_home.index') }}"
                                             class="btn btn-secondary">Kembali</a>
-                                    </div>
-
-                                    <div class="p-1 ml-auto">
-                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                     </div>
                                 </div>
                             </form>

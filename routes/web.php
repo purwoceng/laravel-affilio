@@ -23,14 +23,13 @@ use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
-use App\Http\Controllers\Homepage\NotificationController;
 use App\Http\Controllers\Product\MarkupProductController;
-use App\Http\Controllers\Notification\BroadcastController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Http\Controllers\VideoTraining\VideoTrainingController;
 use App\Http\Controllers\VideoTutorial\VideoTutorialController;
@@ -274,6 +273,19 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id}', [VideoHomeController::class, 'update'])->name('update');
         Route::get('/show/{id}', [VideoHomeController::class, 'show'])->name('show');
         Route::get('/delete/{id}', [VideoHomeController::class, 'destroy'])->name('destroy');
+    });
+
+    //notifikasi
+    Route::prefix('notification')
+    ->name('notification.')
+    ->group(function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::get('/create', [NotificationController::class, 'create'])->name('create');
+        Route::post('/store', [NotificationController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [NotificationController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [NotificationController::class, 'update'])->name('update');
+        Route::get('/show/{id}', [NotificationController::class, 'show'])->name('show');
+        Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('configs')
