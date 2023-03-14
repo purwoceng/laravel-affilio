@@ -421,7 +421,36 @@
                          </svg>
                      </span>
                      <span class="menu-text">Event</span>
+                     <i class="menu-arrow"></i>
                  </a>
+                 <div class="menu-submenu">
+                     <i class="menu-arrow"></i>
+                     <ul class="menu-subnav">
+                         <li class="menu-item menu-item-parent" aria-haspopup="true">
+                             <span class="menu-link">
+                                 <span class="menu-text">Event</span>
+                             </span>
+                         </li>
+
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('event.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Event</span>
+                             </a>
+                         </li>
+
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('tiket.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Tiket</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
              </li>
 
              <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"

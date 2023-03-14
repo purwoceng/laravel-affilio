@@ -56,6 +56,8 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        // exit;
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
             'number.required' => 'Nomor Handphone tidak boleh kosong',
@@ -139,13 +141,13 @@ class BannerController extends Controller
 
         if ($data->type == 'store') {
             $url = config('app.baleomol_url') . '/suppliers/' . $data->target_url;
-            $response = Http::withHeaders([ 'Authorization' => "Bearer {$token}" ])->get($url);
+            $response = Http::withHeaders(['Authorization' => "Bearer {$token}"])->get($url);
             $supplierData = $response['data'];
         }
 
         if ($data->type == 'product') {
             $url = config('app.baleomol_url') . '/products/' . $data->target_url;
-            $response = Http::withHeaders([ 'Authorization' => "Bearer {$token}" ])->get($url);
+            $response = Http::withHeaders(['Authorization' => "Bearer {$token}"])->get($url);
             $productData = $response['data'];
         }
 
