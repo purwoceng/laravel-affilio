@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Dana\RewardController;
+use App\Http\Controllers\Event\TiketController;
 use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\GlobalSettingController;
@@ -17,7 +19,6 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Event\TiketController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
@@ -357,4 +358,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [TiketController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [TiketController::class, 'update'])->name('update');
     });
+
+    //dana reward
+    // Video Tutorials
+    Route::prefix('reward')
+        ->name('reward.')
+        ->group(function () {
+            Route::get('/', [RewardController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
+        });
+
 });
