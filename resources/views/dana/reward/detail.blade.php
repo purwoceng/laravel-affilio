@@ -84,7 +84,7 @@
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('notification.index') }}"
+                                        <a href="{{ route('reward.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
                                 </div>

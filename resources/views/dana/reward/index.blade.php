@@ -39,13 +39,13 @@
 
                     <table id="js-reward-table"  class="table table-striped table-bordered table-sm" cellspacing="0"
                     width="100%">
-                        <div class="d-flex flex-row justify-content-between">
+                        {{-- <div class="d-flex flex-row justify-content-between">
                             <div class="p-1">
                                 <a href="}" class="btn btn-sm btn-primary my-2">
                                     <i class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                                 <div class="form-group">
@@ -209,14 +209,6 @@
                                             <a class="nav-link" href="${showUrl}"><span
                                                     class="nav-text">Detail</span></a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${editUrl}"><span
-                                                    class="nav-text">Ubah</span></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${deleteUrl}"><span
-                                                    class="nav-text">Hapus</span></a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -229,86 +221,33 @@
                 ],
             });
 
-            // $("#js-daterange-picker").datepicker( {
-            //     // format: "mm-yyyy",
-            //     // startView: "months",
-            //     // minViewMode: "months",
-            //     timePickerSeconds: true,
-            //         showDropdwons: true,
-            //         autoApply: true,
-            //         ranges: {
-            //             'Semua': [moment(new Date('01-01-2021')), moment()],
-            //             'Hari Ini': [moment(), moment()],
-            //             '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
-            //             '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
-            //             'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-            //         },
-            //         locale: {
-            //             format: 'YYYY-MM-DD',
-            //             separator: " to ",
-            //             applyLabel: "Apply",
-            //             cancelLabel: "Cancel",
-            //             fromLabel: "From",
-            //             toLabel: "To",
-            //             customRangeLabel: "Custom Range",
-            //             weekLabel: "W",
-            //             daysOfWeek: [
-            //                 "Su",
-            //                 "Mo",
-            //                 "Tu",
-            //                 "We",
-            //                 "Th",
-            //                 "Fr",
-            //                 "Sa"
-            //             ],
-            //             monthNames: [
-            //                 "Januari",
-            //                 "Februari",
-            //                 "Maret",
-            //                 "April",
-            //                 "Mei",
-            //                 "Juni",
-            //                 "Juli",
-            //                 "Agustus",
-            //                 "September",
-            //                 "October",
-            //                 "November",
-            //                 "December"
-            //             ],
-            //             firstDay: 1
-            //         },
-            //         autoUpdateInput: false,
-            //         alwaysShowCalendars: false,
-            //         startDate: moment(),
-            //         endDate: moment(),
-            //     }, rangePickerCB);
-            // });
 
             $(function() {
-            var start = moment().subtract(29, 'days');
-            var end = moment();
+                var start = moment().subtract(29, 'days');
+                var end = moment();
 
-            function cb(start, end) {
-                $('#reportrange span').html(start.format('MMMM , YYYY') + ' - ' + end.format('MMMM , YYYY'));
-            }
-
-            $('#reportrange').daterangepicker({
-                format: "mm-yyyy",
-                startView: "months",
-                minViewMode: "months",
-                startDate: start,
-                endDate: end,
-                ranges: {
-                'Semua': [moment(new Date('01-01-2021')), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-
+                function cb(start, end) {
+                    $('#reportrange span').html(start.format('MMMM , YYYY') + ' - ' + end.format('MMMM , YYYY'));
                 }
 
-            }, cb);
+                $('#reportrange').daterangepicker({
+                    format: "mm-yyyy",
+                    startView: "months",
+                    minViewMode: "months",
+                    startDate: start,
+                    endDate: end,
+                    ranges: {
+                    'Semua': [moment(new Date('01-01-2021')), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
 
-            cb(start, end);
+                    }
+
+                }, cb);
+
+                cb(start, end);
 
             });
+
 
             function getDataFiltered() {
                 let filterEl = $('.filter');
