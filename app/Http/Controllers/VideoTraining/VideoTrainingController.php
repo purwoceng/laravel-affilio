@@ -58,6 +58,7 @@ class VideoTrainingController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
             'categories' => 'required|max:255',
+            'file'=> 'required|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv ',
 
         ], $messages);
 
@@ -135,6 +136,8 @@ class VideoTrainingController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
+            'name' => 'required|max:100',
+            'file'=> 'required|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv ',
 
         ], $messages);
 
@@ -167,9 +170,9 @@ class VideoTrainingController extends Controller
 
         if ($result) {
             return redirect()->route('video_training.index')
-                ->with('success', 'Data Video Training telah berhasil dibuat');
+                ->with('success', 'Data Video Training telah berhasil diubah');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data video training');
+            return back()->withInput()->with('info', 'Gagal mengubah data video training');
         }
     }
 

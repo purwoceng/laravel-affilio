@@ -49,6 +49,7 @@ class NotificationController extends Controller
     {
         $messages = [
             'notification.required' => 'Notifikasi tidak boleh kosong',
+            'categories.required' => 'Kategori tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -115,10 +116,12 @@ class NotificationController extends Controller
     {
         $messages = [
             'notification.required' => 'Notifikasi tidak boleh kosong',
+            'categories.required' => 'Kategori tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
             'notification' => 'required|max:255',
+            'categories' => 'required|max:255',
 
         ], $messages);
 
