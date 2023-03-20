@@ -45,23 +45,20 @@
                                 <div class="form-group">
                                     <label>Kategori Notifikasi <span class="text-danger">*</span></label>
                                     <select class="form-control form-control-sm filter" name="categories"
-                                    placeholder="Type Here" value="{{$data->categories}}">
-                                    <option disabled selected>{{$data->categories}}</option>
-                                    <option>Pilih Kategori</option>
-                                    <option value="Semua">Semua</option>
-                                    <option value="Affiliator">Affiliator</option>
-                                    <option value="Affiliator Inti">Affiliator Inti</option>
-                                    <option value="Bronze">Bronze</option>
-                                    <option value="Gold">Gold</option>
-                                    <option value="Platinum">Platinum</option>
-                                    <option value="Diamond">Diamond</option>
+                                    placeholder="Type Here" required>
+                                    <option selected disabled>Pilih Kategori</option>
+                                    <option value="Semua" {{ $data->categories == 'Semua' ? 'selected' : ''}}>Semua</option>
+                                    <option value="Affiliator" {{ $data->categories == 'Affiliator' ? 'selected' : ''}}>Affiliator</option>
+                                    <option value="Affiliator Inti" {{ $data->categories == 'Affiliator Inti' ? 'selected' : ''}}>Affiliator Inti</option>
+                                    <option value="Bronze" {{ $data->categories == 'Bronze' ? 'selected' : ''}}>Bronze</option>
+                                    <option value="Gold" {{ $data->categories == 'Gold' ? 'selected' : ''}}>Gold</option>
+                                    <option value="Platinum" {{ $data->categories == 'Platinum' ? 'selected' : ''}}>Platinum</option>
+                                    <option value="Diamond" {{ $data->categories == 'Diamond' ? 'selected' : ''}}>Diamond</option>
                                 </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Notifikasi Pesan<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" placeholder="Masukkan Header Video" rows='7'
-                                        name="notification" value="{{$data->notification}}" required>{{$data->notification}}
-                                    </textarea>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Notifikasi Pesan .." name="notification" value="" required>{{$data->notification}}</textarea>
                                 </div>
 
                                 <div class="d-flex flex-row">
