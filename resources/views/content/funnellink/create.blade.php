@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Home Default Panel'))
+@section('title', __('Buat Kategori Panel Link Home'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Home Default Panel</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Panel Link Home</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Home Default Panel</h3>
+                        <h3 class="card-label">Buat Kategori Panel Link Home</h3>
                     </div>
 
                 </div>
@@ -39,21 +39,30 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_home.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('funnel.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Deskripsi Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Deskripsi Video"
-                                        name="header" value="" required />
+                                    <label>Tipe Panel Link <span class="text-danger">*</span></label>
+                                    <select class="custom-select form-control js-type-selector" name="type" required>
+                                        <option selected disabled>Pilih tipe panel link Home</option>
+                                        <option value="header">Header</option>
+                                        <option value="link">Link Training</option>
+                                        <option value="video">Video Home</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Link Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Link Video"
-                                        name="file" value="" required />
+                                    <label>Url Panel Link<span class="text-danger"></span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Target Panel Link"
+                                        name="url" value=""/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deskripsi Panel Link<span class="text-danger"></span></label>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Panel Link"
+                                        name="description" value="" ></textarea>
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('video_home.index') }}"
+                                        <a href="{{ route('funnel.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 

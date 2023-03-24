@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Dana\RewardController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\TiketController;
 use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\HomePage\FunnelLinkController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
@@ -366,6 +368,20 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [RewardController::class, 'index'])->name('index');
             Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
+        });
+
+
+    // Funnel Link
+    Route::prefix('funnel')
+        ->name('funnel.')
+        ->group(function () {
+            Route::get('/', [FunnelLinkController::class, 'index'])->name('index');
+            Route::get('/create', [FunnelLinkController::class, 'create'])->name('create');
+            Route::post('/store', [FunnelLinkController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [FunnelLinkController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
         });
 
 });
