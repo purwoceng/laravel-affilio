@@ -1,11 +1,15 @@
 @extends('core.app')
 @section('title', __('Dana Reward'))
-@section('content')
+@push('css')
+    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+@endpush
 
+@section('content')
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Dana Reward</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dana Reward</h5>
             </div>
         </div>
     </div>
@@ -15,71 +19,48 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Kategori Dana Reward</h3>
+                        <h3 class="card-label">List Dana Reward</h3>
                     </div>
-
                 </div>
+
                 <div class="card-body">
-                    @if (session()->has('success'))
-                        <div class="alert alert-success" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong> {{ session()->get('success') }} </strong>
-                        </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <ul class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <li> {{ $error }} </li>
-                            @endforeach
-                        </ul>
-                    @endif
-
-                    <table id="js-reward-table"  class="table table-striped table-bordered table-sm" cellspacing="0"
-                    width="100%">
-                        {{-- <div class="d-flex flex-row justify-content-between">
-                            <div class="p-1">
-                                <a href="}" class="btn btn-sm btn-primary my-2">
-                                    <i class="fas fa-plus fa-sm  mr-1"></i>@lang('Buat')
-                                </a>
-                            </div>
-                        </div> --}}
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
-                                <div class="form-group">
-                                    <label for="js-daterange-picker" class="font-weight-bold">Pilih Bulan & Tahun</label>
-                                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" data-name="date_range">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-                                        <span></span> <b class="caret"></b>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
+                            <div class="form-group">
+                                <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
+                                <div class='input-group' id='js-daterange-picker'>
+                                    <input type='text' class="form-control filter" readonly="readonly"
+                                        data-name="date_range" placeholder="Select date range" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
 
-                        <thead>
-                            <div class="filter-wrapper">
-                                <form action="#" class="form" id="filter">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Username</label>
-                                                <div
-                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input
-                                                        type="text"
-                                                        class="form-control form-control-sm filter"
-                                                        data-name="username" placeholder="Type Here">
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="filter-wrapper">
+                        <form action="#" class="form" id="filter">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="username" placeholder="Username" />
                                     </div>
-                                </form>
+                                </div>
                             </div>
+                        </form>
+                    </div>
+                    <table id="js-reward-table"  class="table table-striped table-bordered table-sm" cellspacing="0"
+                    width="100%">
+                        <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center">#</th>
                                 <th class="text-center">Username</th>
+                                <th class="text-center">Kode</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Status Verifikasi</th>
@@ -96,19 +77,24 @@
     </div>
 @endsection
 
-@push('css')
-    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-@endpush
 
 @push('js')
-    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
-
-
+    {{-- <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script> --}}
+    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            const urlAjax = "{{ route('reward.index') }}";
+        'use strict';
 
-            var categoryCsTable = $('#js-reward-table').DataTable({
+
+        $(document).ready(function() {
+            const ajaxUrl = "{{ route('reward.index') }}";
+
+            var ordersTable = $('#js-reward-table').DataTable({
+                pagingType: 'full_numbers',
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -118,13 +104,12 @@
                 language: {
                     infoFiltered: "",
                 },
-                lengthChange: false,
                 pageLength: 50,
                 order: [
                     [0, 'DESC']
                 ],
                 ajax: {
-                    url: urlAjax,
+                    url: ajaxUrl,
                     type: 'GET',
                 },
                 scrollX: true,
@@ -133,7 +118,8 @@
                         sortable: false,
                         className: 'text-center',
                         render: function(data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            const index = meta.row + meta.settings._iDisplayStart + 1;
+                            return index;
                         }
                     },
                     {
@@ -142,7 +128,15 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'code',
+                        name: 'code',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
                     },
                     {
                         data: 'title',
@@ -150,7 +144,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'description',
@@ -158,7 +152,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'status_verify',
@@ -166,7 +160,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'value',
@@ -174,7 +168,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'created_at',
@@ -182,7 +176,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'actions',
@@ -217,37 +211,92 @@
                             return elements;
                         }
                     }
-
-                ],
+                ]
             });
 
+            init();
 
-            $(function() {
-                var start = moment().subtract(29, 'days');
-                var end = moment();
+            function init() {
+                getDateRangeHandler();
+                $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+            }
 
-                function cb(start, end) {
-                    $('#reportrange span').html(start.format('MMMM , YYYY') + ' - ' + end.format('MMMM , YYYY'));
-                }
-
-                $('#reportrange').daterangepicker({
-                    format: "mm-yyyy",
-                    startView: "months",
-                    minViewMode: "months",
-                    startDate: start,
-                    endDate: end,
+            function getDateRangeHandler() {
+                $('#js-daterange-picker').daterangepicker({
+                    timePickerSeconds: true,
+                    showDropdwons: true,
+                    autoApply: true,
                     ranges: {
-                    'Semua': [moment(new Date('01-01-2021')), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Semua': [moment(new Date('01-01-2021')), moment()],
+                        'Hari Ini': [moment(), moment()],
+                        '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+                        '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+                        'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+                    },
+                    locale: {
+                        format: 'YYYY-MM-DD',
+                        separator: " to ",
+                        applyLabel: "Apply",
+                        cancelLabel: "Cancel",
+                        fromLabel: "From",
+                        toLabel: "To",
+                        customRangeLabel: "Custom Range",
+                        weekLabel: "W",
+                        daysOfWeek: [
+                            "Su",
+                            "Mo",
+                            "Tu",
+                            "We",
+                            "Th",
+                            "Fr",
+                            "Sa"
+                        ],
+                        monthNames: [
+                            "Januari",
+                            "Februari",
+                            "Maret",
+                            "April",
+                            "Mei",
+                            "Juni",
+                            "Juli",
+                            "Agustus",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ],
+                        firstDay: 1
+                    },
+                    autoUpdateInput: false,
+                    alwaysShowCalendars: false,
+                    startDate: moment(),
+                    endDate: moment(),
+                }, rangePickerCB);
+                rangePickerCB(moment(), moment());
+                let data = [];
+                data.push(moment().format('YYYY-MM-DD'));
+                data.push(moment().format('YYYY-MM-DD'));
+            }
 
-                    }
+            function rangePickerCB(start, end, label) {
+                $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
+                    'YYYY-MM-DD'));
+                $('#js-date-range-omzet').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-supplier-price').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+                    'YYYY-MM-DD'));
+                $('#js-date-range-bonus-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+                    'YYYY-MM-DD'));
+                $('#js-date-range-profit-keuntungan').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+                    'YYYY-MM-DD'));
+                $('#js-date-range-ongkir-60').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-ongkir-30').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-ongkir-10').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-unique-code').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-service-fee').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-total-order').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                getDataFiltered();
 
-                }, cb);
-
-                cb(start, end);
-
-            });
-
+            };
 
             function getDataFiltered() {
                 let filterEl = $('.filter');
@@ -275,14 +324,13 @@
                 if (getURLVar('limit')) {
                     data.limit = getURLVar('limit');
                 }
-
+                dashboardHandler(data);
                 reDrawTable(data);
             };
 
             function getFullUrl(data) {
-
                 let
-                    url = urlAjax,
+                    url = ajaxUrl,
                     params = '';
 
                 $.each(data, function(key, value) {
@@ -300,14 +348,41 @@
             };
 
             function reDrawTable(data) {
-                categoryCsTable.ajax.url(getFullUrl(data)).load(null, false);
+                ordersTable.ajax.url(getFullUrl(data)).load(null, false);
             };
 
-            init();
+            function dashboardHandler(data) {
+                let dateRangeVal = data.date_range;
+                let dataSplit = dateRangeVal.split("/");
+                let startDate = dataSplit[0];
+                let endDate = dataSplit[1];
+                let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
 
-            function init() {
-                $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        start_date: startDate,
+                        end_date: endDate,
+
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status) {
+
+                            mappingDashboard(response.data);
+                        } else {
+                            Swal.fire({
+                                title: response.errors.title,
+                                html: response.errors.messages,
+                                icon: response.errors.icon,
+                            })
+                        }
+
+                    },
+                });
             }
+
         });
     </script>
 @endpush
