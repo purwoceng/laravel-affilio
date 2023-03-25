@@ -24,7 +24,7 @@ class RewardController extends Controller
         if ($request->ajax()) {
             return $this->RewardRepository->getDataTable($request);
         }
-        return view ('dana.reward.index');
+        return view('dana.reward.index');
     }
 
     /**

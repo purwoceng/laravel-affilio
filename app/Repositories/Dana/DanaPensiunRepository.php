@@ -11,63 +11,76 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
     {
         //
     }
-    public function create($data)
-    {
-        return DanaPensiun::create($data);
-    }
 
-    public function update($id, array $data)
+    public function getCountDanaPensiun()
     {
-        return DanaPensiun::where('id', $id)->update($data);
+        return DanaPensiun::all()->count();
     }
-
-    public function delete($id)
-    {
-        return DanaPensiun::where('id', $id)->forcedelete();
-    }
-
     public function getDataById($id)
     {
         return DanaPensiun::where('id', $id)->first();
     }
 
-    public function getData($limit, $start)
+    public function getDanaPensiun($limit, $start)
     {
-        return DanaPensiun::whereNull('deleted_at')->offset($start)->limit($limit);
+        return DanaPensiun::offset($start)->limit($limit);
     }
 
-    public function getTotalData()
-    {
-        return DanaPensiun::whereNull('deleted_at')->count();
-    }
 
     public function getDataTable($request)
     {
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $getQuery = $this->getData($limit, $start);
-        $totalData = $this->getTotalData();
+        $pensiun_query = $this->getDanaPensiun($limit, $start);
+        $totalData = $this->getCountDanaPensiun();
         $totalFiltered = $totalData;
 
-        $getResults = $getQuery->orderBy('id', 'desc')->get();
+        if ($request->filled('username')) {
+            $keyword = $request->get('username');
+            $pensiun_query->where('username', 'like', '%' . $keyword . '%');
+            $totalData = $pensiun_query->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('code')) {
+            $keyword = $request->get('code');
+            $pensiun_query->where('code', 'like', '%' . $keyword . '%');
+            $totalData = $pensiun_query->count();
+            $totalFiltered = $totalData;
+        }
+        if ($request->filled('description')) {
+            $keyword = $request->get('description');
+            $pensiun_query->where('description', 'like', '%' . $keyword . '%');
+            $totalData = $pensiun_query->count();
+            $totalFiltered = $totalData;
+        }
+
+        $pensiuns = $pensiun_query->orderBy('id', 'desc')->get();
 
         $data = [];
 
-        if (!empty($getResults)) {
-            foreach ($getResults as $key => $pensiun) {
+        if (!empty($pensiuns)) {
+            foreach ($pensiuns as $key => $pensiun) {
                 $id = $pensiun->id;
                 $username = $pensiun->username;
+                $code = $pensiun->code;
+                $title = $pensiun->title ?? '-';
+                $description = $pensiun->description ?? '-';
                 $value = $pensiun->value;
-                $title = $pensiun->title;
+                $status_verify = $pensiun->status_verify ?? '-';
                 $created_at = date('d/m/Y H:i', strtotime($pensiun->created_at));
+                $actions = $id;
 
                 $data[] = compact(
                     'id',
                     'username',
-                    'value',
+                    'code',
                     'title',
+                    'description',
+                    'value',
+                    'status_verify',
                     'created_at',
+                    'actions',
                 );
             }
         }
@@ -75,10 +88,10 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordFiltered' => intval($totalFiltered),
+            'recordsFiltered' => intval($totalFiltered),
             'data' => $data,
         ];
 
-        return response()->json($result);
+        return $result;
     }
 }

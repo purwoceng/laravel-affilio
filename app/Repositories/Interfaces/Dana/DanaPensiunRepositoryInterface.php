@@ -4,17 +4,13 @@ namespace App\Repositories\Interfaces\Dana;
 
 interface DanaPensiunRepositoryInterface
 {
-    public function getData($limit, $start);
+    public function getCountDanaPensiun();
 
-    public function getTotalData();
+    public function getDanaPensiun($limit, $start);
 
     public function getDataTable($request);
 
-    public function create(array $data);
+    // public function getData($limit, $start, $startDate, $endDate);
 
-    public function update($id, array $data);
-
-    public function delete($id);
-
-    public function getDataById($id);
+    // public function getTotalData($startDate, $endDate);
 }
