@@ -12,18 +12,18 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
         //
     }
 
-    public function getCountDanaPensiun()
+    public function getCountDanaPensiun($startDate, $endDate)
     {
-        return DanaPensiun::all()->count();
+        return DanaPensiun::where('code', 'kt')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
     }
     public function getDataById($id)
     {
-        return DanaPensiun::where('id', $id)->first();
+        return DanaPensiun::where('code', 'kt')->where('id', $id)->first();
     }
 
-    public function getDanaPensiun($limit, $start)
+    public function getDanaPensiun($limit, $start, $startDate, $endDate)
     {
-        return DanaPensiun::offset($start)->limit($limit);
+        return DanaPensiun::where('code', 'kt')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
 
@@ -32,8 +32,19 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $pensiun_query = $this->getDanaPensiun($limit, $start);
-        $totalData = $this->getCountDanaPensiun();
+        if (!empty($request->date_range)) {
+            $dateRange = $request->date_range;
+            $date = explode("/", $dateRange);;
+            $startDate = $date[0];
+            $endDate = $date[1];
+        } else {
+            $now = date('Y-m-d');
+            $startDate = $now;
+            $endDate = $now;
+        }
+
+        $pensiun_query = $this->getDanaPensiun($limit, $start, $startDate, $endDate);
+        $totalData = $this->getCountDanaPensiun($startDate, $endDate);
         $totalFiltered = $totalData;
 
         if ($request->filled('username')) {
@@ -56,7 +67,6 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
         }
 
         $pensiuns = $pensiun_query->orderBy('id', 'desc')->get();
-
         $data = [];
 
         if (!empty($pensiuns)) {
@@ -88,7 +98,7 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordsFiltered' => intval($totalFiltered),
+            'recordsFiltered' => intval($totalData),
             'data' => $data,
         ];
 
