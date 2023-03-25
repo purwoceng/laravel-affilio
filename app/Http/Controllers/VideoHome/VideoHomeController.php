@@ -50,14 +50,21 @@ class VideoHomeController extends Controller
     {
         // dd($request->all());
         // exit;
+        $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
         $messages = [
             'header.required' => 'Header tidak boleh kosong',
-            'file.required' => 'File tidak boleh kosong',
+            'file.required' => 'Url Video tidak boleh kosong',
+            'file.string' => 'Url video harus berupa string!',
+            'file.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
         ];
 
         $validator = Validator::make($request->all(), [
             'header' => 'required|max:255',
-            'file'=> 'required|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv ',
+            'file' => [
+                "regex:{$url_regex}",
+                'required',
+                'string',
+            ],
 
         ], $messages);
 
@@ -67,21 +74,13 @@ class VideoHomeController extends Controller
         }
 
         $header = $request->header;
+        $file = $request->file;
 
         $createData = [
             'header' => $header,
+            'file' => $file,
         ];
 
-        $file = $request->file('file');
-
-        if($file) {
-            $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/videotraining/'), $filename);
-            $path_file = 'storage/system_storage/videotraining/' . $filename;
-            $createData['file'] = $path_file;
-            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videotraining/') . $filename));
-
-        }
 
         $result = $this->VideoHomeRepository->create($createData);
 
@@ -128,14 +127,21 @@ class VideoHomeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
         $messages = [
             'header.required' => 'Header tidak boleh kosong',
-            'file.required' => 'File tidak boleh kosong',
+            'file.required' => 'Url Video tidak boleh kosong',
+            'file.string' => 'Url video harus berupa string!',
+            'file.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
         ];
 
         $validator = Validator::make($request->all(), [
             'header' => 'required|max:255',
-            'file'=> 'required|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv ',
+            'file' => [
+                "regex:{$url_regex}",
+                'required',
+                'string',
+            ],
 
         ], $messages);
 
@@ -146,30 +152,21 @@ class VideoHomeController extends Controller
 
 
         $header = $request->header;
+        $file = $request->file;
 
         $updateData = [
             'header' => $header,
+            'file' => $file,
         ];
-
-        $file = $request->file('file');
-
-        if($file) {
-            $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/videohome/'), $filename);
-            $path_file = 'storage/system_storage/videohome/' . $filename;
-            $updateData['file'] = $path_file;
-            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
-
-        }
 
         $result = $this->VideoHomeRepository->update($id,$updateData);
 
 
         if ($result) {
             return redirect()->route('video_home.index')
-                ->with('success', 'Data Video Home Default Panel telah berhasil dibuat');
+                ->with('success', 'Data Video Home Default Panel telah berhasil diubah');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data Video Home Default Panel');
+            return back()->withInput()->with('info', 'Gagal mengubah data Video Home Default Panel');
         }
 
     }

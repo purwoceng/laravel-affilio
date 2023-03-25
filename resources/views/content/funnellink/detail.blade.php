@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Home Default Panel'))
+@section('title', __('Detail Kategori Panel Link Home'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Home Default Panel</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Detail Kategori Panel Link Home</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Home Default Panel</h3>
+                        <h3 class="card-label">Detail Kategori Panel Link Home</h3>
                     </div>
 
                 </div>
@@ -39,26 +39,31 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_home.store') }}" enctype="multipart/form-data">
-                                @csrf
+                            <form method="POST" action="{{ route('funnel.update', $data->id) }}"  enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
                                 <div class="form-group">
-                                    <label>Deskripsi Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Deskripsi Video"
-                                        name="header" value="" required />
+                                    <label>Tipe Panel Link Home<span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-sm filter" name="type"
+                                    placeholder="Type Here" required disabled>
+                                    <option value="header" {{ $data->type == 'header' ? 'selected' : ''}}>Header</option>
+                                    <option value="link" {{ $data->type == 'link' ? 'selected' : ''}}>Link Training</option>
+                                    <option value="video" {{ $data->type == 'video' ? 'selected' : ''}}>Video Home</option>
+                                </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Link Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Link Video"
-                                        name="file" value="" required />
+                                    <label>Url Panel Link<span class="text-danger"></span></label>
+                                    <input class="form-control"  placeholder="Masukkan Url Funnel Link" name="url" value="{{$data->url}}" required disabled></input>
                                 </div>
-                                <div class="d-flex flex-row">
+                                <div class="form-group">
+                                    <label>Deskripsi Panel Link<span class="text-danger"></span></label>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Funnel Link"
+                                        name="description" value="{{$data->description}}" required disabled>{{$data->description}}</textarea>
+                                </div>
+                               <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('video_home.index') }}"
+                                        <a href="{{ route('funnel.index') }}"
                                             class="btn btn-secondary">Kembali</a>
-                                    </div>
-
-                                    <div class="p-1 ml-auto">
-                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                     </div>
                                 </div>
                             </form>

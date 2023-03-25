@@ -378,4 +378,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [RewardController::class, 'index'])->name('index');
             Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
         });
+
+    // Funnel Link
+    Route::prefix('funnel')
+        ->name('funnel.')
+        ->group(function () {
+            Route::get('/', [FunnelLinkController::class, 'index'])->name('index');
+            Route::get('/create', [FunnelLinkController::class, 'create'])->name('create');
+            Route::post('/store', [FunnelLinkController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [FunnelLinkController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
+        });
 });
