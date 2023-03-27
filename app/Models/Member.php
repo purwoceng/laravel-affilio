@@ -39,6 +39,6 @@ class Member extends Model
 
     public function member_addresses()
     {
-        return $this->belongsTo(MemberAddress::class,'id','member_id');
+        return $this->belongsTo(MemberAddress::class, 'id', 'member_id');
     }
 }
