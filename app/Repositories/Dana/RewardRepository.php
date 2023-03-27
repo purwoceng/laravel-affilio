@@ -18,7 +18,7 @@ class RewardRepository implements RewardRepositoryInterface
     }
     public function getDataById($id)
     {
-        return RewardDana::where('code', 'ka')->where('id',$id)->first();
+        return RewardDana::where('code', 'ka')->where('id', $id)->first();
     }
 
 
@@ -43,7 +43,7 @@ class RewardRepository implements RewardRepositoryInterface
             $endDate = $now;
         }
 
-        $reward_query = $this->getRewardDana($limit, $start,$startDate, $endDate);
+        $reward_query = $this->getRewardDana($limit, $start, $startDate, $endDate);
         $totalData = $this->getCountRewardDana($startDate, $endDate);
         $totalFiltered = $totalData;
 

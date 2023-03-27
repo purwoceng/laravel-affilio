@@ -79,10 +79,16 @@ class MemberRepository implements MemberRepositoryInterface
             }
         }
 
-        if ($request->filled('member_addresses ')) {
+        // if ($request->filled('city_name')) {
+        //     $keyword = $request->get('city_name');
+        //     $getQuery->where('city_name', 'like', '%' . $keyword . '%');
+        //     $totalData = $getQuery->count();
+        //     $totalFiltered = $totalData;
+        // }
+        if ($request->filled('city_name')) {
             if ($request->city_name != 'all') {
                 $keyword = $request->get('city_name');
-                $getQuery->where('city_name', $keyword);
+                $getQuery->where('city_name',  'like', '%' . $keyword);
                 $totalData = $getQuery->count();
                 $totalFiltered = $totalData;
             }

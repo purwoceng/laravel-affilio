@@ -13,6 +13,7 @@ use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\User\PermissionController;
+use App\Http\Controllers\Dana\DanaPensiunController;
 use App\Http\Controllers\HomePage\ProductController;
 use App\Http\Controllers\Member\MemberResetPassword;
 use App\Http\Controllers\Category\CategoryController;
@@ -20,7 +21,6 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\HomePage\FunnelLinkController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
@@ -361,6 +361,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [TiketController::class, 'update'])->name('update');
     });
 
+    Route::prefix('pensiun')->name('pensiun.')->group(function () {
+        Route::get('/', [DanaPensiunController::class, 'index'])->name('index');
+        // // Route::get('/create', [DanaPensiunController::class, 'create'])->name('create');
+        // Route::post('/store', [DanaPensiunController::class, 'store'])->name('store');
+        // // Route::get('/delete/{id}', [DanaPensiunController::class, 'destroy'])->name('destroy');
+        Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show');
+        // // Route::get('/edit/{id}', [DanaPensiunController::class, 'edit'])->name('edit');
+        // // Route::post('/update/{id}', [DanaPensiunController::class, 'update'])->name('update');
+    });
     //dana reward
     // Video Tutorials
     Route::prefix('reward')
@@ -369,7 +378,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [RewardController::class, 'index'])->name('index');
             Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
         });
-
 
     // Funnel Link
     Route::prefix('funnel')
@@ -383,5 +391,4 @@ Route::middleware('auth')->group(function () {
             Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
         });
-
 });

@@ -106,7 +106,7 @@
                                                         data-name="city_name" placeholder="Type Here">
                                                         <option disabled>Pilih Kota</option>
                                                         <option value="all" selected default>Semua</option>
-                                                        @foreach ($getMemberBlockeds as $data)
+                                                        @foreach ($city_name as $data)
                                                             <option value="{{ $data->id }}">
                                                                 {{ $data->city_name }}
                                                             </option>
