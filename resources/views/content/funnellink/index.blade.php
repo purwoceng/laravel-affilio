@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Halaman Panel Link Home'))
+@section('title', __('Halaman Funneling Home'))
 
 @push('css')
     <link
@@ -13,7 +13,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Panel Link Home</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Funneling Home</h5>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Halaman Panel Link Home</h3>
+                        <h3 class="card-label">Halaman Funneling Home</h3>
                     </div>
                     <a class="btn btn-success float-right" href="{{ route('funnel.create') }}" title="Tambah Produk Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
@@ -48,8 +48,8 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Tipe Panel Link Home</th>
-                                <th>Url Link</th>
+                                <th>Tipe Funneling Home</th>
+                                <th>Url Funneling</th>
                                 <th>Deskripsi</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
