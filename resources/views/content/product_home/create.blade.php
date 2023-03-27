@@ -115,8 +115,8 @@
                             <label>Tipe <span class="text-danger">*</span></label>
                             <select class="custom-select form-control" name="type" required>
                                 <option disabled>Pilih tipe</option>
-                                <option value="rekomendasi">Rekomendasi</option>
-                                <option value="affilio">Affilio</option>
+                                <option value="recommendation">Rekomendasi</option>
+                                <option value="affilio_recommendation">Affilio</option>
                             </select>
                         </div>
 
