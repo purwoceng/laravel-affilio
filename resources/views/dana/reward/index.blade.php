@@ -45,10 +45,16 @@
                     <div class="filter-wrapper">
                         <form action="#" class="form" id="filter">
                             <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-sm filter"
-                                            data-name="username" placeholder="Username" />
+                                <div class="col-md-6">
+                                    <div class="form-group form-group-sm row">
+                                        <label class="col-4 col-form-label">Username</label>
+                                        <div
+                                            class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-sm filter"
+                                                data-name="username" placeholder="Type Here">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

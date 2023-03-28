@@ -11,7 +11,7 @@ class FunnelLink extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'panellinks';
+    protected $table = 'funnelings';
 
     protected $fillable = [
         'id',

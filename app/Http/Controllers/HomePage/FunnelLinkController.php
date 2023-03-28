@@ -51,7 +51,7 @@ class FunnelLinkController extends Controller
     {
         $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
         $messages = [
-            'type.required' => 'Tipe Panel Link tidak boleh kosong',
+            'type.required' => 'Tipe Funneling tidak boleh kosong',
             'url.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
         ];
 
@@ -76,9 +76,9 @@ class FunnelLinkController extends Controller
         $result = $this->funnellinkRepository->create($createData);
 
         if ($result){
-            return redirect()->route('funnel.index')->with('success', 'Data Panel Link Berhasil Dibuat');
+            return redirect()->route('funnel.index')->with('success', 'Data Funneling Home Berhasil Dibuat');
         }else{
-            return back()->withInput()->with('Info', 'Gagal membuat data Panel link');
+            return back()->withInput()->with('Info', 'Gagal membuat data Funneling Home');
         }
     }
 
@@ -116,7 +116,7 @@ class FunnelLinkController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'type.required' => 'Tipe Panel Link tidak boleh kosong',
+            'type.required' => 'Tipe Funneling tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(),[
@@ -136,9 +136,9 @@ class FunnelLinkController extends Controller
         $result = $this->funnellinkRepository->update($id,$updateData);
 
         if ($result){
-            return redirect()->route('funnel.index')->with('success', 'Data Panel Link Berhasil Diubah');
+            return redirect()->route('funnel.index')->with('success', 'Data Funneling Home Berhasil Diubah');
         }else{
-            return back()->withInput()->with('Info', 'Gagal mengubah data Panel link');
+            return back()->withInput()->with('Info', 'Gagal mengubah Funneling Home link');
         }
     }
 
@@ -152,9 +152,9 @@ class FunnelLinkController extends Controller
     {
         $delete = $this->funnellinkRepository->delete($id);
         if($delete){
-            return redirect()->route('funnel.index')->with('success', 'Data Panel Link Berhasil Dihapus.');
+            return redirect()->route('funnel.index')->with('success', 'Data Funneling Home Berhasil Dihapus.');
         }else{
-            return back()->withInput()->with('Info', 'Gagal menghapus data Panel link');
+            return back()->withInput()->with('Info', 'Gagal menghapus data Funneling Home');
         }
     }
 }
