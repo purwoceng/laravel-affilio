@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Ubah Kategori Panel Link Home'))
+@section('title', __('Ubah Kategori Funneling Home'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Panel Link Home</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Funneling Home</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Ubah Kategori Panel Link Home</h3>
+                        <h3 class="card-label">Ubah Kategori Funneling Home</h3>
                     </div>
 
                 </div>
@@ -43,7 +43,7 @@
                                 {{csrf_field()}}
                                 {{method_field('put')}}
                                 <div class="form-group">
-                                    <label>Tipe Panel Link<span class="text-danger">*</span></label>
+                                    <label>Tipe Funneling<span class="text-danger">*</span></label>
                                     <select class="form-control form-control-sm filter" name="type"
                                     placeholder="Type Here" required>
                                     <option value="header" {{ $data->type == 'header' ? 'selected' : ''}}>Header</option>
@@ -52,12 +52,12 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Url Panel Link<span class="text-danger">*</span></label>
-                                    <input class="form-control"  placeholder="Masukkan Url Panel Link" name="url" value="{{$data->url}}" ></input>
+                                    <label>Url Funneling<span class="text-danger">*</span></label>
+                                    <input class="form-control"  placeholder="Masukkan Url Funneling" name="url" value="{{$data->url}}" ></input>
                                 </div>
                                 <div class="form-group">
-                                    <label>Deskripsi Panel Link<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Panel Link"
+                                    <label>Deskripsi Funneling<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Funneling"
                                         name="description" value="{{$data->description}}" >{{$data->description}}</textarea>
                                 </div>
                                <div class="d-flex flex-row">

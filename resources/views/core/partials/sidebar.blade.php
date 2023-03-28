@@ -398,7 +398,7 @@
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
-                                 <span class="menu-text">Panel Link</span>
+                                 <span class="menu-text">Funneling Home</span>
                              </a>
                          </li>
                          <li class="menu-item" aria-haspopup="true">
