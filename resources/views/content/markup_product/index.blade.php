@@ -131,7 +131,7 @@
 
         $(document).ready(function() {
             const ajaxUrl = "{{ route('markup_product.index') }}";
-            
+
             $('#js-product-table').DataTable({
                 destroy: true,
                 processing: true,
@@ -184,7 +184,7 @@
                                         </div>
                                         <div class="product-cell__content">
                                             <span class="product-cell__title">${data.productName}</span>
-                                            <div class="product-cell__stats">            
+                                            <div class="product-cell__stats">
                                                 <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
@@ -249,7 +249,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link"
                                                     onclick="return confirm('Anda yakin ingin menghapus data ${row.product_data.productName}')"
-                                                    href="${ajaxUrl}/delete/${row.id}">
+                                                    href="${ajaxUrl}/destroy/${row.id}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>
                                             </li>
