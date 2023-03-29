@@ -52,7 +52,16 @@
                                 <div class="form-group row">
                                     <label class="col-3 col-form-label">Notifikasi</label>
                                         <textarea class="form-control" rows="7"
-                                        name="" value="{{ $data->notification }}" disabled>{{ $data->notification }}</textarea>
+                                        name="" value="{{ $data->notification }}" disabled>{{ $data->description }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kreator Pesan<span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-sm filter" name="creator_id"
+                                    placeholder="Type Here" required disabled>
+                                    <option selected disabled>Pilih Kreator Pesan</option>
+                                    <option value="0" {{ $data->creator_id == '0' ? 'selected' : ''}}>Admin</option>
+                                    <option value="1" {{ $data->categories == '1' ? 'selected' : ''}}>Mentor</option>
+                                </select>
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
