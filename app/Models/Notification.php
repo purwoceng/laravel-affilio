@@ -16,7 +16,8 @@ class Notification extends Model
     protected $fillable = [
         'id',
         'categories',
-        'notification',
+        'description',
+        'creator_id',
     ];
 
     protected $casts = [

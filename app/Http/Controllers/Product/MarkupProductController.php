@@ -165,9 +165,9 @@ class MarkupProductController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
             ])->get($url);
-    
+
             $real_product = $response['data'];
-    
+
             return view(
                 'content.markup_product.edit',
                 compact('markup_product', 'real_product'),
@@ -178,7 +178,7 @@ class MarkupProductController extends Controller
                 ->with([
                     'error' => "Gagal mengedit data - data markup produk dengan id {$id} tidak ditemukan.",
                 ]);
-        }        
+        }
     }
 
     /**
@@ -256,6 +256,13 @@ class MarkupProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = $this->repository->delete($id);
+
+        if ($delete) {
+            return redirect()->route('markup_product.index')
+                ->with('success', 'Data markup produk telah berhasil dihapus.');
+        } else {
+            return back()->withInput()->with('info', 'Gagal menghapus data markup produk ');
+        }
     }
 }

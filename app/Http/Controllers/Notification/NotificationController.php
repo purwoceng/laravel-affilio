@@ -48,12 +48,13 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'notification.required' => 'Notifikasi tidak boleh kosong',
+            'description.required' => 'Notifikasi tidak boleh kosong',
             'categories.required' => 'Kategori tidak boleh kosong',
+            'creator_id.required' => 'Kreator tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
-            'notification' => 'required|max:255',
+            'description' => 'required|max:255',
 
         ], $messages);
 
@@ -63,11 +64,13 @@ class NotificationController extends Controller
         }
 
         $categories = $request->categories;
-        $notification = $request->notification;
+        $description = $request->description;
+        $creator_id = $request->creator_id;
 
         $createData = [
             'categories' => $categories,
-            'notification' => $notification,
+            'description' => $description,
+            'creator_id' => $creator_id,
         ];
 
         $result = $this->NotificationRepository->create($createData);
@@ -115,12 +118,13 @@ class NotificationController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'notification.required' => 'Notifikasi tidak boleh kosong',
+            'description.required' => 'Notifikasi tidak boleh kosong',
             'categories.required' => 'Kategori tidak boleh kosong',
+            'creator_id.required' => 'Kreator Pesan tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
-            'notification' => 'required|max:255',
+            'description' => 'required|max:255',
             'categories' => 'required|max:255',
 
         ], $messages);
@@ -131,11 +135,13 @@ class NotificationController extends Controller
         }
 
         $categories = $request->categories;
-        $notification = $request->notification;
+        $description = $request->description;
+        $creator_id = $request->creator_id;
 
         $updateData = [
             'categories' => $categories,
-            'notification' => $notification,
+            'description' => $description,
+            'creator_id' => $creator_id,
         ];
 
         $result = $this->NotificationRepository->update($id,$updateData);

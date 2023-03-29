@@ -57,7 +57,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Notifikasi Pesan<span class="text-danger"></span></label>
-                                    <textarea class="form-control" rows="7" placeholder="Masukkan Notifikasi Pesan .." name="notification" required></textarea>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Notifikasi Pesan .." name="description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kreator Pesan <span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-sm filter" name="creator_id"
+                                    placeholder="Type Here">
+                                    <option disabled selected>Pilih Kreator Pesan</option>
+                                    <option value="0">Admin</option>
+                                    <option value="1">Mentor</option>
+                                </select>
                                 </div>
 
                                 <div class="d-flex flex-row">

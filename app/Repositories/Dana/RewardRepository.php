@@ -63,7 +63,7 @@ class RewardRepository implements RewardRepositoryInterface
                 $username = $reward->username;
                 $code = $reward->code;
                 $title = $reward->title;
-                $description = $reward->description;
+                $description = $reward->description ?? '-';
                 $status_verify = $reward->status_verify ?? '-';
                 $value = $reward->value;
                 $created_at = date('d/m/Y H:i', strtotime($reward->created_at));
