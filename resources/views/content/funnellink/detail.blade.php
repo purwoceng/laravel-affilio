@@ -60,6 +60,16 @@
                                     <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Funnel Link"
                                         name="description" value="{{$data->description}}" required disabled>{{$data->description}}</textarea>
                                 </div>
+                                @if ($data['type'] === 'video')
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Gambar Thumbnail <span
+                                            class="text-danger">*</span></label>
+                                            <div class="col-4">
+                                                <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid"
+                                                    width="150px">
+                                            </div>
+                                </div>
+                                @endif
                                 <div class="form-group">
                                     <label for="input-is-active">Status</label>
                                     <select name="is_active" id="input-is-active" class="form-control"

@@ -59,6 +59,7 @@ class FunnelLinkRepository implements FunnelLinkRepositoryInterface
                 $type = $link->type;
                 $url = $link->url ?? '-';
                 $description = $link->description ?? '-';
+                $image = $link->image ? config('app.s3_url') . $link->image : '';
                 $is_active = $link->is_active ?? '-';
                 $created_at = date('Y-m-d H:i', strtotime($link->created_at));
                 $actions = $id;
@@ -68,6 +69,7 @@ class FunnelLinkRepository implements FunnelLinkRepositoryInterface
                     'type',
                     'url',
                     'description',
+                    'image',
                     'is_active',
                     'created_at',
                     'actions',

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\HomePage;
 
+use App\Models\FunnelLink;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\FunnelLink;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Funnellink\FunnelLinkRepository;
@@ -74,6 +75,17 @@ class FunnelLinkController extends Controller
             'is_active' => '1',
         ];
 
+        $image = $request->file('image');
+
+        if($image) {
+            $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/funnelhome/'), $filename);
+            $path_file = 'storage/system_storage/funnelhome/' . $filename;
+            $createData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/funnelhome/') . $filename));
+
+        }
+
         $result = $this->funnellinkRepository->create($createData);
 
         if ($result){
@@ -134,6 +146,18 @@ class FunnelLinkController extends Controller
             'description' => $request->description,
             'is_active' => $request->is_active,
         ];
+
+        $image = $request->file('image');
+
+        if($image) {
+
+            $filename = 'Tipe-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/funnelhome/thumbnail/'), $filename);
+            $path_file = 'storage/system_storage/funnelhome/thumbnail/' . $filename;
+            $updateData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/funnelhome/thumbnail/') . $filename));
+
+        }
 
         $result = $this->funnellinkRepository->update($id,$updateData);
 
