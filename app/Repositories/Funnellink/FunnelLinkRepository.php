@@ -59,6 +59,7 @@ class FunnelLinkRepository implements FunnelLinkRepositoryInterface
                 $type = $link->type;
                 $url = $link->url ?? '-';
                 $description = $link->description ?? '-';
+                $is_active = $link->is_active ?? '-';
                 $created_at = date('Y-m-d H:i', strtotime($link->created_at));
                 $actions = $id;
 
@@ -67,6 +68,7 @@ class FunnelLinkRepository implements FunnelLinkRepositoryInterface
                     'type',
                     'url',
                     'description',
+                    'is_active',
                     'created_at',
                     'actions',
 

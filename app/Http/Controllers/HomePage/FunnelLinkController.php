@@ -71,6 +71,7 @@ class FunnelLinkController extends Controller
             'type' => $request->type,
             'url' => $request->url,
             'description' => $request->description,
+            'is_active' => '1',
         ];
 
         $result = $this->funnellinkRepository->create($createData);
@@ -131,6 +132,7 @@ class FunnelLinkController extends Controller
             'type' => $request->type,
             'url' => $request->url,
             'description' => $request->description,
+            'is_active' => $request->is_active,
         ];
 
         $result = $this->funnellinkRepository->update($id,$updateData);
