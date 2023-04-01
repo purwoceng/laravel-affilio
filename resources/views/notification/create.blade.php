@@ -56,8 +56,12 @@
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Notifikasi Pesan<span class="text-danger"></span></label>
-                                    <textarea class="form-control" rows="7" placeholder="Masukkan Notifikasi Pesan .." name="description" required></textarea>
+                                    <label>Judul Notifikasi Pesan<span class="text-danger"></span></label>
+                                    <input class="form-control"  placeholder="Masukkan Judul Notifikasi Pesan .." name="title" required></input>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deskripsi Notifikasi Pesan<span class="text-danger"></span></label>
+                                    <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Notifikasi Pesan .." name="description" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Kreator Pesan <span class="text-danger">*</span></label>

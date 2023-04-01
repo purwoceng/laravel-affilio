@@ -48,6 +48,7 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
         $messages = [
+            'title.required' => 'Title tidak boleh kosong',
             'description.required' => 'Notifikasi tidak boleh kosong',
             'categories.required' => 'Kategori tidak boleh kosong',
             'creator_id.required' => 'Kreator tidak boleh kosong',
@@ -64,11 +65,13 @@ class NotificationController extends Controller
         }
 
         $categories = $request->categories;
+        $title = $request->title;
         $description = $request->description;
         $creator_id = $request->creator_id;
 
         $createData = [
             'categories' => $categories,
+            'title' => $title,
             'description' => $description,
             'creator_id' => $creator_id,
         ];
@@ -118,6 +121,7 @@ class NotificationController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
+            'title.required' => 'Title tidak boleh kosong',
             'description.required' => 'Notifikasi tidak boleh kosong',
             'categories.required' => 'Kategori tidak boleh kosong',
             'creator_id.required' => 'Kreator Pesan tidak boleh kosong',
@@ -135,11 +139,13 @@ class NotificationController extends Controller
         }
 
         $categories = $request->categories;
+        $title = $request->title;
         $description = $request->description;
         $creator_id = $request->creator_id;
 
         $updateData = [
             'categories' => $categories,
+            'title' => $title,
             'description' => $description,
             'creator_id' => $creator_id,
         ];

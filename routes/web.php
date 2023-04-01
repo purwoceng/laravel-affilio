@@ -10,6 +10,7 @@ use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\Dana\EventfundController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\User\PermissionController;
@@ -378,6 +379,13 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [RewardController::class, 'index'])->name('index');
             Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
+        });
+    //dana acara
+    Route::prefix('eventfund')
+        ->name('eventfund.')
+        ->group(function () {
+            Route::get('/', [EventfundController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show');
         });
 
     // Funnel Link
