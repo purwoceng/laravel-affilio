@@ -45,7 +45,7 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
 
                 $memberId = $value->member_id;
                 $member = Member::where('id',$memberId)->first();
-                $member_name = $member->name;
+                $member_name = $member->name ?? '-';
 
                 $token = config('app.baleomol_key');
                 $url = config('app.baleomol_url') . '/products/' . $product_id;
