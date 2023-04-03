@@ -3,7 +3,7 @@
 namespace App\Repositories\Event;
 
 use App\Models\Tiket;
-use App\Repositories\interfaces\event\TiketRepositoryInterface;
+use App\Repositories\Interfaces\Event\TiketRepositoryInterface;
 
 class TiketRepository implements TiketRepositoryInterface
 {

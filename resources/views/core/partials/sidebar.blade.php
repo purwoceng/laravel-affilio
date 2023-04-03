@@ -509,6 +509,16 @@
                                  <span class="menu-text">Pensiun</span>
                              </a>
                          </li>
+
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('fund.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Riwayat</span>
+                             </a>
+                         </li>
+
                      </ul>
                  </div>
              </li>
