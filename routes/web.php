@@ -18,6 +18,7 @@ use App\Http\Controllers\Dana\DanaPensiunController;
 use App\Http\Controllers\HomePage\ProductController;
 use App\Http\Controllers\Member\MemberResetPassword;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Dana\FundController;
 use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
@@ -363,17 +364,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [TiketController::class, 'update'])->name('update');
     });
 
+    //dana pensiun
     Route::prefix('pensiun')->name('pensiun.')->group(function () {
         Route::get('/', [DanaPensiunController::class, 'index'])->name('index');
-        // // Route::get('/create', [DanaPensiunController::class, 'create'])->name('create');
-        // Route::post('/store', [DanaPensiunController::class, 'store'])->name('store');
-        // // Route::get('/delete/{id}', [DanaPensiunController::class, 'destroy'])->name('destroy');
         Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show');
-        // // Route::get('/edit/{id}', [DanaPensiunController::class, 'edit'])->name('edit');
-        // // Route::post('/update/{id}', [DanaPensiunController::class, 'update'])->name('update');
     });
+
     //dana reward
-    // Video Tutorials
     Route::prefix('reward')
         ->name('reward.')
         ->group(function () {
@@ -386,6 +383,14 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [EventfundController::class, 'index'])->name('index');
             Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show');
+        });
+
+    //riwayat dana
+    Route::prefix('fund')
+        ->name('fund.')
+        ->group(function () {
+            Route::get('/', [FundController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [FundController::class, 'show'])->name('show');
         });
 
     // Funnel Link

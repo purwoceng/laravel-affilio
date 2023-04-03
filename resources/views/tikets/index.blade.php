@@ -71,7 +71,7 @@
         $(document).ready(function() {
             const urlAjax = "{{ route('tiket.index') }}";
 
-            var eventTable = $('#js-table-tiket').DataTable({
+            var tiketTable = $('#js-table-tiket').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
