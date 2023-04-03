@@ -51,6 +51,8 @@
                                 <th>Tipe Funneling Home</th>
                                 <th>Url Funneling</th>
                                 <th>Deskripsi</th>
+                                <th>Gambar Thumbnail</th>
+                                <th>Status</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -129,6 +131,39 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'image',
+                        name: 'image',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            return '-';
+                        }
+                    },
+                    {
+                        data: 'is_active',
+                        name: 'is_active',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data) {
+                            let element = '';
+
+                            if (Number(data)) {
+                                element +=
+                                    `<span class="label label-light-success label-inline label-bold">Aktif</span>`;
+                            } else {
+                                element +=
+                                    `<span class="label label-light-danger label-inline label-bold">Non-Aktif</span>`;
+                            }
+
+                            return element;
+                        }
                     },
                     {
                         data: 'created_at',

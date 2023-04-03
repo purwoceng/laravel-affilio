@@ -120,8 +120,8 @@
                             <label>Tipe <span class="text-danger">*</span></label>
                             <select class="custom-select form-control" name="type" required>
                                 <option disabled>Pilih tipe</option>
-                                <option value="recommendation">Rekomendasi</option>
-                                <option value="affilio_recommendation">Affilio</option>
+                                <option value="recommendation" {{ $product->type == 'recommendation' ? 'selected' : '' }}>Rekomendasi</option>
+                                <option value="affilio_recommendation" {{ $product->type == 'affilio_recommendation' ? 'selected' : '' }}>Affilio</option>
                             </select>
                         </div>
                         <div class="form-group">

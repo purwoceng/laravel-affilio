@@ -484,7 +484,7 @@
                          </li>
 
                          <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('banners.index') }}" class="menu-link">
+                             <a href="{{ route('eventfund.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>

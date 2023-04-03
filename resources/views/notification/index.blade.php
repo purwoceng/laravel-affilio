@@ -49,6 +49,7 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Kategori Notifikasi</th>
+                                <th>Judul Notifikasi</th>
                                 <th>Pesan Notifikasi</th>
                                 <th>Kreator</th>
                                 <th>Dibuat</th>
@@ -109,6 +110,14 @@
                     {
                         data: 'categories',
                         name: 'categories',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'title',
+                        name: 'title',
                         sortable: false,
                         orderable: false,
                         searchable: false,

@@ -178,7 +178,7 @@ class MemberController extends Controller
         $member->username = $request->username;
         $member->phone = $request->phone;
         $member->member_type_id = $request->member_type_id;
-        $member->city_name = $request->city_name;
+
 
         $image = $request->file('image');
 
