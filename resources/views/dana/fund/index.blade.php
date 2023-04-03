@@ -168,6 +168,9 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.code);
+                        }
                     },
                     {
                         data: 'title',
@@ -192,6 +195,9 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.status_transfer);
+                        }
                     },
                     {
                         data: 'status_verify',
@@ -200,6 +206,9 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.status_verify);
+                        }
                     },
                     {
                         data: 'created_at',
