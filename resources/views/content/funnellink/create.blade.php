@@ -60,6 +60,15 @@
                                     <textarea class="form-control" rows="7" placeholder="Masukkan Deskripsi Funneling"
                                         name="description" value="" ></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label>File Foto Thumbnail<span class="text-danger"></span></label>
+                                    <div></div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="image" />
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('funnel.index') }}"

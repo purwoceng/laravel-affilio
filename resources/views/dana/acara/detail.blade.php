@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Detail Notifikasi Pesan'))
+@section('title', __('Detail Dana Acara'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Detail Notifikasi Pesan</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Detail Dana Acara</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Detail Notifikasi Pesan</h3>
+                        <h3 class="card-label">Detail Dana Acara</h3>
                     </div>
 
                 </div>
@@ -42,48 +42,49 @@
                             <form method="POST" action="{{ route('notification.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Kategori Notifikasi <span class="text-danger"></span></label>
+                                    <label>Username <span class="text-danger"></span></label>
                                     <div class="form-group">
                                         <input type="textarea" class="form-control" rows="9"
-                                            name="header" value="{{ $data->categories }}" disabled />
+                                            name="header" value="{{ $data->username }}" disabled />
                                     </div>
                                 </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-3 col-form-label">Judul Notifikasi</label>
+                                    <label>Title <span class="text-danger"></span></label>
                                     <div class="form-group">
-                                        <input class="form-control" rows="7"
-                                        name="" value="{{ $data->title }}" disabled></input>
+                                        <input type="textarea" class="form-control" rows="9"
+                                            name="header" value="{{ $data->title }}" disabled />
                                     </div>
+                                </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-3 col-form-label">Deskripsi Notifikasi</label>
+                                    <label>Deskripsi <span class="text-danger"></span></label>
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="7"
-                                        name="" value="{{ $data->description }}" disabled>{{ $data->description }}</textarea>
+                                        <input type="textarea" class="form-control" rows="9"
+                                            name="header" value="{{ $data->description }}" disabled />
                                     </div>
+                                </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="input-is-active">Kreator Pesan Notifikasi</label>
-                                    <select name="creator_id" id="input-is-active" class="form-control"
-                                        aria-describedby="is-active-helper" required disabled>
-                                        <option value="0" {{ $data->creator_id == '0' ? 'selected' : '' }}>
-                                            Admin
-                                        </option>
-                                        <option value="1" {{ $data->creator_id == '1' ? 'selected' : '' }}>
-                                            Mentor
-                                        </option>
-                                    </select>
+                                    <label>Status Verifikasi <span class="text-danger"></span></label>
+                                    <div class="form-group">
+                                        <input type="textarea" class="form-control" rows="9"
+                                            name="header" value="{{ $data->status_verify }}" disabled />
+                                    </div>
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Value <span class="text-danger"></span></label>
+                                    <div class="form-group">
+                                        <input type="textarea" class="form-control" rows="9"
+                                            name="header" value="{{ $data->value }}" disabled />
+                                    </div>
+                                </select>
+                                </div>
 
-                                    @error('is_active')
-                                        <small id="is-active-helper" class="form-text text-danger">
-                                            {{ $message }}
-                                        </small>
-                                    @enderror
-                                </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('notification.index') }}"
+                                        <a href="{{ route('eventfund.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
                                 </div>
