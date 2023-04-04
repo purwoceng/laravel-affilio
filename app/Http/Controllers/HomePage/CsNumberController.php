@@ -38,7 +38,7 @@ class CsNumberController extends Controller
     public function create()
     {
         $csNumberCategories = CsNumberCategory::get();
-        return view('content.cs_numbers.cs_number.create',compact(['csNumberCategories']));
+        return view('content.cs_numbers.cs_number.create', compact(['csNumberCategories']));
     }
 
     /**
@@ -59,7 +59,7 @@ class CsNumberController extends Controller
             'name' => 'required|max:64',
             'number' => 'required|numeric',
             'cs_category_id' => 'required',
-        ],$messages);
+        ], $messages);
 
         if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
@@ -97,7 +97,7 @@ class CsNumberController extends Controller
         $csNumberCategories = CsNumberCategory::get();
         $data = $this->csNumberRepository->getDataById($id);
 
-        return view('content.cs_numbers.cs_number.show',compact(['data','csNumberCategories']));
+        return view('content.cs_numbers.cs_number.show', compact(['data', 'csNumberCategories']));
     }
 
     /**
@@ -110,7 +110,7 @@ class CsNumberController extends Controller
     {
         $csNumberCategories = CsNumberCategory::get();
         $data = $this->csNumberRepository->getDataById($id);
-        return view('content.cs_numbers.cs_number.edit',compact(['data','csNumberCategories']));
+        return view('content.cs_numbers.cs_number.edit', compact(['data', 'csNumberCategories']));
     }
 
     /**
@@ -130,7 +130,7 @@ class CsNumberController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'number' => 'required|numeric',
+            'number' => 'required|max:20',
             'cs_category_id' => 'required',
         ], $messages);
 
@@ -148,7 +148,7 @@ class CsNumberController extends Controller
             'name' => $name,
         ];
 
-        $result = $this->csNumberRepository->update($id,$updateData);
+        $result = $this->csNumberRepository->update($id, $updateData);
 
         if ($result) {
             return redirect()->route('cs-number.index')
