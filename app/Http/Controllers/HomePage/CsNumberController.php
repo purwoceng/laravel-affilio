@@ -130,7 +130,7 @@ class CsNumberController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
-            'number' => 'required|max:20',
+            'number' => 'required|max:15',
             'cs_category_id' => 'required',
         ], $messages);
 
