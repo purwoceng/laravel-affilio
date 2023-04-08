@@ -48,9 +48,9 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Nama</th>
-                                <th>Kategori Video</th>
-                                <th>Video Training</th>
+                                <th>Tipe/Peringkat Member Video</th>
+                                <th>Judul Video</th>
+                                <th>Url Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -107,32 +107,28 @@
                         }
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'member_type_id',
+                        name: 'member_type_id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
                     },
                     {
-                        data: 'categories',
-                        name: 'categories',
+                        data: 'title',
+                        name: 'title',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
                     },
                     {
-                        data: 'file',
-                        name: 'file',
+                        data: 'url',
+                        name: 'url',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-lg-left text-center small',
-                        render: function(data, type, row, meta) {
-                            if (data)  return `<video controls src="${data}" width="200" height="140">`;
-                            return '-';
-                        }
+                        className: 'text-left small',
                     },
                     {
                         data: 'created_at',
@@ -178,7 +174,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.title}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

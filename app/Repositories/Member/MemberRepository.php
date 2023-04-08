@@ -15,12 +15,12 @@ class MemberRepository implements MemberRepositoryInterface
 
     public function getMemberActive($limit, $start)
     {
-        return Member::where('publish', '1')->offset($start)->limit($limit);
+        return Member::with('member_addresses')->where('publish', '1')->offset($start)->limit($limit);
     }
 
     public function getCountMemberActive()
     {
-        return Member::where('publish', '1')->count();
+        return Member::with('member_addresses')->where('publish', '1')->count();
     }
 
     public function getDataById($id)
@@ -85,10 +85,10 @@ class MemberRepository implements MemberRepositoryInterface
         //     $totalData = $getQuery->count();
         //     $totalFiltered = $totalData;
         // }
-        if ($request->filled('city_name')) {
+        if ($request->filled('member_addresses')) {
             if ($request->city_name != 'all') {
-                $keyword = $request->get('city_name');
-                $getQuery->where('city_name',  'like', '%' . $keyword);
+                $keyword = $request->get('member_addresses');
+                $getQuery->where('city_name', $keyword);
                 $totalData = $getQuery->count();
                 $totalFiltered = $totalData;
             }
@@ -105,6 +105,7 @@ class MemberRepository implements MemberRepositoryInterface
                 $phone = $getMemberBlocked->phone;
                 $name = $getMemberBlocked->name;
                 $member_type = $getMemberBlocked->member_type->type ?? '-';
+                $is_founder = $getMemberBlocked->is_founder ?? '-';
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
                 $address = $getMemberBlocked->member_addresses->address ?? '-';
@@ -118,6 +119,7 @@ class MemberRepository implements MemberRepositoryInterface
                     'phone' => $phone,
                     'name' => $name,
                     'member_type' => $member_type,
+                    'is_founder' => $is_founder,
                     'address' => $address,
                     'city_name' => $city_name,
                     'province_name' => $province_name,

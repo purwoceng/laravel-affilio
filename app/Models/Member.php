@@ -15,6 +15,7 @@ class Member extends Model
     protected $fillable = [
         'id',
         'chat_user_id',
+        'is_founder',
         'username',
         'email',
         'member_type_id',

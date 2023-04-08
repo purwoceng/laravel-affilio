@@ -245,6 +245,15 @@
                                  <span class="menu-text">Supplier Non Active </span>
                              </a>
                          </li>
+                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierscover') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('supplierscover.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Background Cover Supplier</span>
+                             </a>
+                         </li>
                          {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
                             aria-haspopup="true" data-menu-toggle="hover">
                             <a href="{{ route('members.blocked.index') }}" class="menu-link menu-toggle">
@@ -366,25 +375,25 @@
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
-                                 <span class="menu-text">Video Tutorial</span>
+                                 <span class="menu-text">Video Training</span>
                              </a>
                          </li>
-                         <li class="menu-item" aria-haspopup="true">
+                         {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('video_training.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Video Training</span>
                              </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
+                         </li> --}}
+                         {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('video_home.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Video Home Default Panel</span>
                              </a>
-                         </li>
+                         </li> --}}
                          <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('notification.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">

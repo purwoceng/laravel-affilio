@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Video Tutorial'))
+@section('title', __('Halaman Cover Supplier'))
 
 @push('css')
     <link
@@ -13,7 +13,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Video Tutorial</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Cover Supplier</h5>
             </div>
         </div>
     </div>
@@ -35,22 +35,21 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Video Tutorial</h3>
+                        <h3 class="card-label">Halaman Cover Supplier</h3>
                     </div>
-                    <a class="btn btn-success float-right" href="{{ route('video_tutorials.create') }}" title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href="{{ route('supplierscover.create') }}" title="Tambah cover Supplier">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
                 </div>
 
                 <div class="card-body">
-                    <table id="js-product-table" class="table table-separate table-head-custom table-checkable nowrap">
+                    <table id="js-cover-table"  class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Tipe/Peringkat Member</th>
-                                <th>Url Video</th>
+                                <th>Gambar Cover Supplier</th>
+                                <th>Status</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -72,9 +71,9 @@
         'use strict';
 
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('video_tutorials.index') }}";
+            const ajaxUrl = "{{ route('supplierscover.index') }}";
 
-            $('#js-product-table').DataTable({
+            $('#js-cover-table').DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
@@ -107,28 +106,37 @@
                         }
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'image',
+                        name: 'image',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            return '-';
+                        }
                     },
                     {
-                        data: 'member_type',
-                        name: 'member_type',
+                        data: 'is_active',
+                        name: 'is_active',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
-                        data: 'video_url',
-                        name: 'video_url',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
+                        className: 'text-lg-left text-center small',
+                        render: function(data) {
+                            let element = '';
+
+                            if (Number(data)) {
+                                element +=
+                                    `<span class="label label-light-success label-inline label-bold">Aktif</span>`;
+                            } else {
+                                element +=
+                                    `<span class="label label-light-danger label-inline label-bold">Non-Aktif</span>`;
+                            }
+
+                            return element;
+                        }
                     },
                     {
                         data: 'created_at',
@@ -136,8 +144,9 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-right small',
+                        className: 'text-left small',
                     },
+
                     {
                         data: 'actions',
                         name: 'actions',
@@ -146,6 +155,12 @@
                         searchable: false,
                         className: 'text-center small',
                         render : function(data, type, row, meta) {
+                            let showUrl =
+                                `{{ url('supplierscover/show/${row.id}') }}`;
+                            let editUrl =
+                                `{{ url('supplierscover/edit/${row.id}') }}`;
+                            let deleteUrl =
+                                `{{ url('supplierscover/delete/${row.id}') }}`;
                             let elements = '';
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -157,14 +172,19 @@
                                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                         <ul class="nav nav-hoverable flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="${ajaxUrl}/edit/${row.id}">
+                                                <a class="nav-link" href="${showUrl}">
+                                                    <span class="nav-text">Detail</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="${editUrl}">
                                                     <span class="nav-text">Edit</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
-                                                    href="${ajaxUrl}/delete/${row.id}">
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.image}')"
+                                                    href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>
                                             </li>
