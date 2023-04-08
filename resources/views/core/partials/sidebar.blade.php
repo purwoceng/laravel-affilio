@@ -448,7 +448,14 @@
                                  <span class="menu-text">Event</span>
                              </a>
                          </li>
-
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('greeting.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Greeting</span>
+                             </a>
+                         </li>
                          <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('tiket.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
@@ -457,6 +464,7 @@
                                  <span class="menu-text">Tiket</span>
                              </a>
                          </li>
+
                      </ul>
                  </div>
              </li>
