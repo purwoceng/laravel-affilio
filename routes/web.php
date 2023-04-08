@@ -23,6 +23,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Event\EventGreetingController;
 use App\Http\Controllers\HomePage\FunnelLinkController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
@@ -404,5 +405,18 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
+        });
+
+    // Greeting Event
+    Route::prefix('greeting')
+        ->name('greeting.')
+        ->group(function () {
+            Route::get('/', [EventGreetingController::class, 'index'])->name('index');
+            Route::get('/create', [EventGreetingController::class, 'create'])->name('create');
+            Route::post('/store', [EventGreetingController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [EventGreetingController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [EventGreetingController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [EventGreetingController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [EventGreetingController::class, 'destroy'])->name('destroy');
         });
 });
