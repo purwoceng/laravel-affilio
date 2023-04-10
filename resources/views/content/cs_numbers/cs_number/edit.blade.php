@@ -68,8 +68,8 @@
                                         <select class="custom-select form-control" name="cs_category_id" required>
                                             <option disabled>Pilih kategori banner</option>
                                             @foreach ($csNumberCategories as $category)
-                                                <option
-                                                    value="{{ $category->id }}" {{ $category->id == $data->cs_category_id ? 'selected' : '' }}>
+                                                <option value="{{ $category->id }}"
+                                                    {{ $category->id == $data->cs_category_id ? 'selected' : '' }}>
                                                     {{ $category->name }}</option>
                                             @endforeach
                                         </select>
