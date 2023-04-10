@@ -72,6 +72,7 @@ class FunnelLinkController extends Controller
             'type' => $request->type,
             'url' => $request->url,
             'description' => $request->description,
+            'timer' => $request->timer,
             'is_active' => '1',
         ];
 
@@ -145,6 +146,7 @@ class FunnelLinkController extends Controller
             'url' => $request->url,
             'description' => $request->description,
             'is_active' => $request->is_active,
+            'timer' => $request->timer,
         ];
 
         $image = $request->file('image');

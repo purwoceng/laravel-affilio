@@ -53,6 +53,7 @@
                                 <th>Deskripsi</th>
                                 <th>Gambar Thumbnail</th>
                                 <th>Status</th>
+                                <th>Timer Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -164,6 +165,14 @@
 
                             return element;
                         }
+                    },
+                    {
+                        data: 'timer',
+                        name: 'timer',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
                     },
                     {
                         data: 'created_at',

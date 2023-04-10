@@ -20,6 +20,7 @@ class FunnelLink extends Model
         'description',
         'image',
         'is_active',
+        'timer',
     ];
 
     protected $casts = [
