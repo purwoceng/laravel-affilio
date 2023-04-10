@@ -72,6 +72,7 @@ class FunnelLinkController extends Controller
             'type' => $request->type,
             'url' => $request->url,
             'description' => $request->description,
+            'timer' => $request->timer,
             'is_active' => '1',
         ];
 
@@ -79,10 +80,10 @@ class FunnelLinkController extends Controller
 
         if($image) {
             $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('storage/funnelhome/'), $filename);
-            $path_file = 'storage/system_storage/funnelhome/' . $filename;
+            $image->move(public_path('storage/funnelhome/thumbnail/'), $filename);
+            $path_file = 'storage/system_storage/funnelhome/thumbnail/' . $filename;
             $createData['image'] = $path_file;
-            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/funnelhome/') . $filename));
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/funnelhome/thumbnail/') . $filename));
 
         }
 
@@ -145,13 +146,14 @@ class FunnelLinkController extends Controller
             'url' => $request->url,
             'description' => $request->description,
             'is_active' => $request->is_active,
+            'timer' => $request->timer,
         ];
 
         $image = $request->file('image');
 
         if($image) {
 
-            $filename = 'Tipe-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
             $image->move(public_path('storage/funnelhome/thumbnail/'), $filename);
             $path_file = 'storage/system_storage/funnelhome/thumbnail/' . $filename;
             $updateData['image'] = $path_file;

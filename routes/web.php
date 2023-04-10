@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dana\FundController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Dana\RewardController;
@@ -18,7 +19,6 @@ use App\Http\Controllers\Dana\DanaPensiunController;
 use App\Http\Controllers\HomePage\ProductController;
 use App\Http\Controllers\Member\MemberResetPassword;
 use App\Http\Controllers\Category\CategoryController;
-use App\Http\Controllers\Dana\FundController;
 use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
@@ -31,6 +31,7 @@ use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
 use App\Http\Controllers\Product\MarkupProductController;
+use App\Http\Controllers\Supplier\SupplierCoverController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
@@ -220,6 +221,19 @@ Route::middleware('auth')->group(function () {
                 Route::get('/delete/{id}', [SupplierNonactiveController::class, 'destroy'])->name('destroy');
             });
         });
+
+    //supplier-cover
+    Route::prefix('supplierscover')->name('supplierscover.')->group(function () {
+        Route::get('/', [SupplierCoverController::class, 'index'])->name('index');
+        Route::get('/create', [SupplierCoverController::class, 'create'])->name('create');
+        Route::post('/store', [SupplierCoverController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [SupplierCoverController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy');
+
+    });
+
 
 
     //MCS NUMBER MENU

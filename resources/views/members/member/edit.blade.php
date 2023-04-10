@@ -115,13 +115,32 @@
                                     </option>
                                 @endforeach
                             </select>
-                            
+
                             @error('member_type_id')
                                 <small id="member-type-helper" class="form-text text-danger">
                                     {{ $message }}
                                 </small>
                             @enderror
-                        </div>                        
+                        </div>
+                        <div class="form-group">
+                            <label for="input-is-active">Status Founder</label>
+                            <select name="is_founder" id="input-is-active" class="form-control"
+                                aria-describedby="is-active-helper" required>
+                                <option selected disabled value="3">Pilih Status Founder</option>
+                                <option value="1" {{ $data->is_founder == '1' ? 'selected' : '' }}>
+                                    Founder
+                                </option>
+                                <option value="0" {{ $data->is_founder == '0' ? 'selected' : '' }}>
+                                    Bukan-Founder
+                                </option>
+                            </select>
+
+                            @error('is_active')
+                                <small id="is-active-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
                         <div class="form-group">
                             <label for="input-image">Gambar</label>
                             <input type="file"
@@ -130,7 +149,7 @@
                                 aria-describedby="image-helper"
                                 name="image"
                             />
-                            
+
                             @error('image')
                                 <small id="image-helper" class="form-text text-danger">
                                     {{ $message }}

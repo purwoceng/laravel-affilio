@@ -49,7 +49,7 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Tipe Member</th>
+                                <th>Tipe/Peringkat Member</th>
                                 <th>Url Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
@@ -73,7 +73,7 @@
 
         $(document).ready(function() {
             const ajaxUrl = "{{ route('video_tutorials.index') }}";
-            
+
             $('#js-product-table').DataTable({
                 destroy: true,
                 processing: true,

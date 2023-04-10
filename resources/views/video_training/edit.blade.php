@@ -27,54 +27,68 @@
                     @endif
 
 
-                    <form action="{{ route('video_training.update', $video->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('video_training.update', $video->id) }}" method="post">
                         @csrf
                         @method('PUT')
+                        <div class="form-group">
+                            <label for="input-member-type-id">Tipe Member</label>
+                            <select name="member_type_id"
+                                id="input-member-type-id"
+                                class="form-control"
+                                aria-describedby="member-type-helper"
+                                required>
+                                <option selected disabled value="0">Pilih Tipe Member</option>
+
+                                @foreach ($member_types as $key => $member_type)
+                                    <option
+                                        value="{{ $member_type->id }}"
+                                        {{ $video->member_type_id == $member_type->id ? 'selected' : '' }}>
+                                        {{ $member_type->type }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @error('member_type_id')
+                                <small id="member-type-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
 
                         <div class="form-group">
                             <label for="input-video-name">Judul Video</label>
                             <input type="text"
                                 id="input-video-name"
                                 class="form-control"
-                                name="name"
-                                value="{{ $video->name }}"
+                                name="title"
+                                value="{{ $video->title }}"
                                 aria-describedby="name-helper"
                                 required
                             />
 
-                            @error('name')
+                            @error('title')
                                 <small id="name-helper" class="form-text text-danger">
                                     {{ $message }}
                                 </small>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="input-video-name">Kategori Video</label>
+                            <label for="input-video-name">Url Video</label>
                             <input type="text"
                                 id="input-video-name"
                                 class="form-control"
-                                name="categories"
-                                value="{{ $video->categories }}"
+                                name="url"
+                                value="{{ $video->url }}"
                                 aria-describedby="name-helper"
                                 required
                             />
 
-                            @error('name')
+                            @error('url')
                                 <small id="name-helper" class="form-text text-danger">
                                     {{ $message }}
                                 </small>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label>Video <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" placeholder="Masukkan Video"
-                                name="file" value=""  />
-                        </div>
-                        <div class="col-4">
-                            <video controls src="{{ config('app.s3_url') . $video->file }}"
-                                width="300px" height="250px">
-                        </div>
-                        <br>
                         <a class="btn btn-outline-danger" href="{{ route('video_training.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>

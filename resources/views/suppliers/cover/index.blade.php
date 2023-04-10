@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Halaman Funneling Home'))
+@section('title', __('Halaman Cover Supplier'))
 
 @push('css')
     <link
@@ -13,7 +13,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Funneling Home</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Cover Supplier</h5>
             </div>
         </div>
     </div>
@@ -35,25 +35,21 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Halaman Funneling Home</h3>
+                        <h3 class="card-label">Halaman Cover Supplier</h3>
                     </div>
-                    <a class="btn btn-success float-right" href="{{ route('funnel.create') }}" title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href="{{ route('supplierscover.create') }}" title="Tambah cover Supplier">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
                 </div>
 
                 <div class="card-body">
-                    <table id="js-link-table"  class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                    <table id="js-cover-table"  class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Tipe Funneling Home</th>
-                                <th>Url Funneling</th>
-                                <th>Deskripsi</th>
-                                <th>Gambar Thumbnail</th>
+                                <th>Gambar Cover Supplier</th>
                                 <th>Status</th>
-                                <th>Timer Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -75,9 +71,9 @@
         'use strict';
 
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('funnel.index') }}";
+            const ajaxUrl = "{{ route('supplierscover.index') }}";
 
-            $('#js-link-table').DataTable({
+            $('#js-cover-table').DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
@@ -108,30 +104,6 @@
 
                             return index;
                         }
-                    },
-                    {
-                        data: 'type',
-                        name: 'type',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
-                        data: 'url',
-                        name: 'url',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'description',
-                        name: 'description',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
                     },
                     {
                         data: 'image',
@@ -167,14 +139,6 @@
                         }
                     },
                     {
-                        data: 'timer',
-                        name: 'timer',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
                         data: 'created_at',
                         name: 'created_at',
                         sortable: false,
@@ -192,11 +156,11 @@
                         className: 'text-center small',
                         render : function(data, type, row, meta) {
                             let showUrl =
-                                `{{ url('funnel/show/${row.id}') }}`;
+                                `{{ url('supplierscover/show/${row.id}') }}`;
                             let editUrl =
-                                `{{ url('funnel/edit/${row.id}') }}`;
+                                `{{ url('supplierscover/edit/${row.id}') }}`;
                             let deleteUrl =
-                                `{{ url('funnel/delete/${row.id}') }}`;
+                                `{{ url('supplierscover/delete/${row.id}') }}`;
                             let elements = '';
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -219,7 +183,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.type}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.image}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

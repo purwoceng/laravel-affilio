@@ -9,4 +9,8 @@ interface VideoTrainingRepositoryInterface
     public function getCountVideoTraining();
 
     public function getDataTable($request);
+
+    public function create(array $data);
+
+    public function update($id, array $data);
 }

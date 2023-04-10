@@ -90,6 +90,15 @@
                                         </small>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label>Countdown Timer Video<span class="text-danger"></span></label>
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" placeholder="Masukkan Countdown Timer Video"
+                                        name="timer" value="{{$data->timer}}" required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">detik</span>
+                                    </div>
+                                </div>
 
                                <div class="d-flex flex-row">
                                     <div class="p-1">

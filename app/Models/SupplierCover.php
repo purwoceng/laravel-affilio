@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class VideoTraining extends Model
+class SupplierCover extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'video_trainings';
+    protected $table = 'supplier_cover';
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'id',
-        'member_type_id',
-        'title',
-        'url',
+        'image',
+        'is_active',
     ];
 
     protected $casts = [
