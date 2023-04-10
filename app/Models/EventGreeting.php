@@ -16,6 +16,7 @@ class EventGreeting extends Model
         'id',
         'title',
         'thumbnail',
+        'timer',
         'url',
         'is_active',
     ];

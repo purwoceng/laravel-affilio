@@ -57,8 +57,8 @@ class EventGreetingRepository implements EventGreetingRepositoryInterface
             foreach ($greetings  as $key => $greeting) {
                 $id = $greeting->id;
                 $title = $greeting->title;
-                // $thumbnail = $greeting->thumbnail;
                 $thumbnail = $greeting->thumbnail ? config('app.s3_url') . $greeting->thumbnail : '';
+                $timer = $greeting->timer;
                 $url = $greeting->url;
                 $is_active = $greeting->is_active;
                 $created_at = date('Y-m-d H:i', strtotime($greeting->created_at));
@@ -68,6 +68,7 @@ class EventGreetingRepository implements EventGreetingRepositoryInterface
                     'id',
                     'title',
                     'thumbnail',
+                    'timer',
                     'url',
                     'is_active',
                     'created_at',
