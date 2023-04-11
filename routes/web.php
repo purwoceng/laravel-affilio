@@ -37,6 +37,7 @@ use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Http\Controllers\VideoTraining\VideoTrainingController;
@@ -231,7 +232,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy');
-
     });
 
 
@@ -419,6 +419,19 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
+        });
+
+    //Header Funnelink
+    Route::prefix('headerfunnel')
+        ->name('headerfunnel.')
+        ->group(function () {
+            Route::get('/', [HeaderFunnelController::class, 'index'])->name('index');
+            Route::get('/create', [HeaderFunnelController::class, 'create'])->name('create');
+            Route::post('/store', [HeaderFunnelController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [HeaderFunnelController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [HeaderFunnelController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [HeaderFunnelController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [HeaderFunnelController::class, 'destroy'])->name('destroy');
         });
 
     // Greeting Event
