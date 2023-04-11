@@ -63,38 +63,48 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>URL Greeting Event<span class="text-danger">*</span></label>
-                                    <input class="form-control" placeholder="Masukkan Sub-Judul Greeting Event .."
-                                        name="url" value="{{ $data->url }}" required></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="input-is-active">Status Greeting Event</label>
-                                    <select name="is_active" id="input-is-active" class="form-control"
-                                        aria-describedby="is-active-helper" required>
-                                        <option value="0" {{ $data->is_active == '0' ? 'selected' : '' }}>
-                                            Non-Active
-                                        </option>
-                                        <option value="1" {{ $data->is_active == '1' ? 'selected' : '' }}>
-                                            Active
-                                        </option>
-                                    </select>
+                                    <label>Countdown Timer Video<span class="text-danger"></span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control"
+                                            placeholder="Masukkan Countdown Timer Video" name="timer"
+                                            value="{{ $data->timer }}" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">detik</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>URL Greeting Event<span class="text-danger">*</span></label>
+                                        <input class="form-control" placeholder="Masukkan URL Greeting Event .."
+                                            name="url" value="{{ $data->url }}" required></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-is-active">Status Greeting Event</label>
+                                        <select name="is_active" id="input-is-active" class="form-control"
+                                            aria-describedby="is-active-helper" required>
+                                            <option value="0" {{ $data->is_active == '0' ? 'selected' : '' }}>
+                                                Non-Active
+                                            </option>
+                                            <option value="1" {{ $data->is_active == '1' ? 'selected' : '' }}>
+                                                Active
+                                            </option>
+                                        </select>
 
-                                    @error('is_active')
-                                        <small id="is-active-helper" class="form-text text-danger">
-                                            {{ $message }}
-                                        </small>
-                                    @enderror
-                                </div>
-
-                                <div class="d-flex flex-row">
-                                    <div class="p-1">
-                                        <a href="{{ route('greeting.index') }}" class="btn btn-secondary">Kembali</a>
+                                        @error('is_active')
+                                            <small id="is-active-helper" class="form-text text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
                                     </div>
 
-                                    <div class="p-1 ml-auto">
-                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                                    <div class="d-flex flex-row">
+                                        <div class="p-1">
+                                            <a href="{{ route('greeting.index') }}" class="btn btn-secondary">Kembali</a>
+                                        </div>
+
+                                        <div class="p-1 ml-auto">
+                                            <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                                        </div>
                                     </div>
-                                </div>
                             </form>
                         </div>
                     </div>

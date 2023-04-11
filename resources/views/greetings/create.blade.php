@@ -54,31 +54,41 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>URL Greeting Event<span class="text-danger"></span></label>
-                                    <input class="form-control" placeholder="Masukkan URL Greeting Event .." name="url"
-                                        required></input>
-                                </div>
-                                <div class="form-group">
-                                    <label>Status <span class="text-danger">*</span></label>
-                                    <select class="form-control form-control-sm filter" name="is_active"
-                                        placeholder="Type Here">
-                                        <option disabled selected>Pilih Status</option>
-                                        <option value="0">Non-Active</option>
-                                        <option value="1">Active</option>
-                                    </select>
-                                </div>
-
-
-
-                                <div class="d-flex flex-row">
-                                    <div class="p-1">
-                                        <a href="{{ route('greeting.index') }}" class="btn btn-secondary">Kembali</a>
+                                    <label>Countdown Timer<span class="text-danger"></span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control"
+                                            placeholder="Masukkan Countdown Timer Video" name="timer" value=""
+                                            required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">detik</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>URL Greeting Event<span class="text-danger"></span></label>
+                                        <input class="form-control" placeholder="Masukkan URL Greeting Event .."
+                                            name="url" required></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Status <span class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm filter" name="is_active"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Pilih Status</option>
+                                            <option value="0">Non-Active</option>
+                                            <option value="1">Active</option>
+                                        </select>
                                     </div>
 
-                                    <div class="p-1 ml-auto">
-                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+
+
+                                    <div class="d-flex flex-row">
+                                        <div class="p-1">
+                                            <a href="{{ route('greeting.index') }}" class="btn btn-secondary">Kembali</a>
+                                        </div>
+
+                                        <div class="p-1 ml-auto">
+                                            <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                                        </div>
                                     </div>
-                                </div>
                             </form>
                         </div>
                     </div>

@@ -57,6 +57,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Countdown Timer Video<span class="text-danger"></span></label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control"
+                                            placeholder="Masukkan Countdown Timer Video" name="timer"
+                                            value="{{ $data->timer }}" required disabled />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">detik</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-3 col-form-label">URL</label>
                                     <div class="form-group">
                                         <input class="form-control" rows="7" name=""

@@ -1474,7 +1474,6 @@
             checkAll.click(function() {
                 if (!$(this).is(':checked')) {
                     $('input:checkbox').not(this).prop('checked', this.checked);
-                    // sinkronMasalBtn.prop('disabled', true);
                     checkoutVoucherBtn.prop('disabled', true);
                     ResiBtn.prop('disabled', true);
                 } else {

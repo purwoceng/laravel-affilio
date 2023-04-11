@@ -55,6 +55,7 @@ class EventGreetingController extends Controller
         $messages = [
             'title.required' => 'Judul tidak boleh kosong',
             'thumbnail.required' => 'Thumbnail tidak boleh kosong',
+            'timer.required' => 'Timer tidak boleh kosong',
             'url.regex' => 'Url tidak boleh kosong',
             'is_active.required' => 'Status tidak boleh kosong',
         ];
@@ -62,6 +63,7 @@ class EventGreetingController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'thumbnail' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
+            'timer' => 'required',
             'url' => 'required',
             'is_active' => 'required',
             'file' => [
@@ -77,11 +79,13 @@ class EventGreetingController extends Controller
         }
 
         $title = $request->title;
+        $timer = $request->timer;
         $url = $request->url;
         $is_active = $request->is_active;
 
         $createData = [
             'title' => $title,
+            'timer' => $timer,
             'url' => $url,
             'is_active' => $is_active,
         ];
@@ -142,6 +146,7 @@ class EventGreetingController extends Controller
         $messages = [
             'title.required' => 'Title tidak boleh kosong',
             'thumbnail.required' => 'Thumbnail tidak boleh kosong',
+            'timer.required' => 'Timer tidak boleh kosong',
             'url.required' => 'Url tidak boleh kosong',
             'is_active.required' => 'Status Pesan tidak boleh kosong',
         ];
@@ -149,6 +154,7 @@ class EventGreetingController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'thumbnail' => 'required',
+            'timer' => 'required',
             'url' => 'required',
             'is_active' => 'required',
 
@@ -161,12 +167,14 @@ class EventGreetingController extends Controller
 
         $title = $request->title;
         $thumbnail = $request->thumbnail;
+        $timer = $request->timer;
         $url = $request->url;
         $is_active = $request->is_active;
 
         $updateData = [
             'title' => $title,
             'thumbnail' => $thumbnail,
+            'timer' => $timer,
             'url' => $url,
             'is_active' => $is_active,
         ];
