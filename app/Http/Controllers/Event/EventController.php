@@ -60,12 +60,16 @@ class EventController extends Controller
             [
                 'name' => 'required|max:64',
                 'speaker' => 'required',
+                'price' => 'required',
+                'tiket' => 'required',
                 'time' => 'required',
                 'date' => 'required',
                 'location' => 'required',
                 'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
+                'video' => 'required',
                 'type' => 'required',
                 'description' => 'required',
+                'status' => 'required',
             ],
             $validation_massages
         );
@@ -76,21 +80,28 @@ class EventController extends Controller
 
         $name = $request->name;
         $speaker = $request->speaker ?? '';
+        $price = $request->price ?? '';
+        $tiket = $request->tiket ?? '';
         $time = $request->time ?? '';
         $date = $request->date ?? '';
         $location = $request->location ?? '';
+        $video = $request->video ?? '';
         $type = $request->type;
         $description = $request->description ?? '';
+        $status = $request->status ?? '';
 
         $createData = [
             'name' => $name,
             'speaker' => $speaker,
+            'price' => $price,
+            'tiket' => $tiket,
             'time' => $time,
             'date' => $date,
             'location' => $location,
+            'video' => $video,
             'type' => $type,
-            // 'image' => $image,
             'description' => $description,
+            'status' => $status,
         ];
 
         $image = $request->file('image');
@@ -102,6 +113,7 @@ class EventController extends Controller
             $createData['image'] = $path_file;
             Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/event/thumbnail/') . $fileName));
         }
+
 
 
         $result = $this->eventRepository->create($createData);
@@ -156,12 +168,16 @@ class EventController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:64',
             'speaker' => 'required',
+            'price' => 'required',
+            'tiket' => 'required',
             'time' => 'required',
             'date' => 'required',
             'location' => 'required',
             'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
+            'video' => 'required',
             'type' => 'required',
             'description' => 'max:255',
+            'status' => 'required',
         ], $messages);
 
         if ($validator->fails()) {
@@ -170,21 +186,29 @@ class EventController extends Controller
 
         $name = $request->name;
         $speaker = $request->speaker ?? '';
+        $price = $request->price ?? '';
+        $tiket = $request->tiket ?? '';
         $time = $request->time ?? '';
         $date = $request->date ?? '';
         $location = $request->location ?? '';
+        $video = $request->video ?? '';
         $type = $request->type;
         $description = $request->description ?? '';
+        $status = $request->status ?? '';
 
         $updateData = [
 
             'name' => $name,
             'speaker' => $speaker,
+            'price' => $price,
+            'tiket' => $tiket,
             'time' => $time,
             'date' => $date,
             'location' => $location,
+            'video' => $video,
             'type' => $type,
             'description' => $description,
+            'status' => $status,
         ];
 
         $image = $request->file('image');
@@ -202,6 +226,7 @@ class EventController extends Controller
             $updateData['image'] = $path_file;
             Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/event/thumbnail/') . $fileName));
         }
+
 
         $result = $this->eventRepository->update($id, $updateData);
 
