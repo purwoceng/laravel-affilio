@@ -44,6 +44,16 @@
                                         name="speaker" value="{{ $data->speaker }}" disabled />
                                 </div>
                                 <div class="form-group">
+                                    <label>Harga</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="price" value="{{ $data->price }}" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tiket</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="tiket" value="{{ $data->tiket }}" disabled />
+                                </div>
+                                <div class="form-group">
                                     <label>Waktu</label>
                                     <input type="time" class="form-control" placeholder="Masukkan nama Event"
                                         name="time" value="{{ $data->time }}" disabled />
@@ -67,6 +77,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Video</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="video" value="{{ $data->video }}" disabled />
+                                </div>
+                                <div class="form-group">
                                     <label>Tipe<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="code" value="{{ $data->type }}"
                                         placeholder="Masukkan tipe kategori" disabled />
@@ -76,7 +91,11 @@
                                     <input type="text" class="form-control" name="description"
                                         value="{{ $data->description }}" disabled />
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Status<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="status" value="{{ $data->status }}"
+                                        placeholder="Masukkan tipe kategori" disabled />
+                                </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('event.index') }}" class="btn btn-secondary">Kembali</a>

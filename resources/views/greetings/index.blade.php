@@ -48,6 +48,7 @@
                                 <th>#</th>
                                 <th>Judul</th>
                                 <th>Thumbnail</th>
+                                <th>Timer</th>
                                 <th>URL</th>
                                 <th>Status</th>
                                 <th>Dibuat</th>
@@ -124,6 +125,14 @@
 
                             return '-';
                         }
+                    },
+                    {
+                        data: 'timer',
+                        name: 'timer',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
                     },
                     {
                         data: 'url',
