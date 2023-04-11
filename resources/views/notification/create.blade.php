@@ -42,18 +42,27 @@
                             <form method="POST" action="{{ route('notification.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Kategori Notifikasi <span class="text-danger">*</span></label>
-                                    <select class="form-control form-control-sm filter" name="categories"
-                                    placeholder="Type Here">
-                                    <option disabled selected>Pilih Kategori Notifikasi</option>
-                                    <option value="Semua">Semua</option>
-                                    <option value="Affiliator">Affiliator</option>
-                                    <option value="Affiliator Inti">Affiliator Inti</option>
-                                    <option value="Bronze">Bronze</option>
-                                    <option value="Gold">Gold</option>
-                                    <option value="Platinum">Platinum</option>
-                                    <option value="Diamond">Diamond</option>
-                                </select>
+                                    <label for="input-member-type-id">Tipe Member</label>
+                                    <select name="member_type_id"
+                                        id="input-member-type-id"
+                                        class="form-control"
+                                        aria-describedby="member-type-helper"
+                                        required>
+                                        <option selected disabled value="0">Pilih Tipe Member</option>
+                                        @foreach ($member_types as $key => $member_type)
+                                            <option
+                                                value="{{ $member_type->id }}"
+                                                {{ old('member_type_id') == $member_type->id ? 'selected' : '' }}>
+                                                {{ $member_type->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('member_type_id')
+                                        <small id="member-type-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Judul Notifikasi Pesan<span class="text-danger"></span></label>
@@ -69,7 +78,6 @@
                                     placeholder="Type Here">
                                     <option disabled selected>Pilih Kreator Pesan</option>
                                     <option value="0">Admin</option>
-                                    <option value="1">Mentor</option>
                                 </select>
                                 </div>
 

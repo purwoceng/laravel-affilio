@@ -48,7 +48,7 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Kategori Notifikasi</th>
+                                <th>TIpe Member Notifikasi</th>
                                 <th>Judul Notifikasi</th>
                                 <th>Pesan Notifikasi</th>
                                 <th>Kreator</th>
@@ -108,8 +108,8 @@
                         }
                     },
                     {
-                        data: 'categories',
-                        name: 'categories',
+                        data: 'member_type_id',
+                        name: 'member_type_id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -192,7 +192,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.categories}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.title}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

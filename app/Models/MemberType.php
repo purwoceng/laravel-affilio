@@ -16,6 +16,7 @@ class MemberType extends Model
         'id',
         'type',
         'image',
+        'background',
         'min_omset',
     ];
 

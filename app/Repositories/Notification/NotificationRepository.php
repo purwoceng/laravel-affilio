@@ -56,7 +56,7 @@ class NotificationRepository implements NotificationRepositoryInterface
         if (!empty($notifications)) {
             foreach ($notifications  as $key => $notif) {
                 $id = $notif->id;
-                $categories = $notif->categories;
+                $member_type_id = $notif->member_type_id;
                 $title = $notif->title;
                 $description = $notif->description;
                 $creator_id = $notif->creator_id;
@@ -65,7 +65,7 @@ class NotificationRepository implements NotificationRepositoryInterface
 
                 $data[] = compact(
                     'id',
-                    'categories',
+                    'member_type_id',
                     'title',
                     'description',
                     'creator_id',

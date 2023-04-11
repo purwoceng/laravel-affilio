@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Notification;
 
+use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -24,7 +25,17 @@ class NotificationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return $this->NotificationRepository->getDataTable($request);
+            $result = $this->NotificationRepository->getDataTable($request);
+            $data = array_map(function($item) {
+                $member_type = MemberType::where('id', $item['member_type_id'])->first();
+                $new_item = array_merge($item, [
+                    'member_type_id' => $member_type->type ?? '-',
+                ]);
+                return $new_item;
+            }, $result['data']);
+            $result['data'] = $data;
+
+            return response()->json($result);
         }
         return view ('notification.index');
     }
@@ -36,7 +47,8 @@ class NotificationController extends Controller
      */
     public function create()
     {
-        return view ('notification.create');
+        $member_types = MemberType::whereNull('deleted_at')->get();
+        return view ('notification.create',compact('member_types'));
     }
 
     /**
@@ -50,7 +62,7 @@ class NotificationController extends Controller
         $messages = [
             'title.required' => 'Title tidak boleh kosong',
             'description.required' => 'Notifikasi tidak boleh kosong',
-            'categories.required' => 'Kategori tidak boleh kosong',
+            'member_type_id.required' => 'Kategori tidak boleh kosong',
             'creator_id.required' => 'Kreator tidak boleh kosong',
         ];
 
@@ -64,13 +76,13 @@ class NotificationController extends Controller
                 ->withInput();
         }
 
-        $categories = $request->categories;
+        $member_type_id = $request->member_type_id;
         $title = $request->title;
         $description = $request->description;
         $creator_id = $request->creator_id;
 
         $createData = [
-            'categories' => $categories,
+            'member_type_id' => $member_type_id,
             'title' => $title,
             'description' => $description,
             'creator_id' => $creator_id,
@@ -96,8 +108,22 @@ class NotificationController extends Controller
     public function show($id)
     {
         $data = $this->NotificationRepository->getNotificationById($id);
-        return view('notification.detail',compact('data'));
+        if ($data) {
+            $member_types = MemberType::whereNull('deleted_at')->get();
+
+            return view(
+                'notification.detail',
+                compact('data', 'member_types'),
+            );
+        } else {
+            return redirect()
+                ->route('notification.index')
+                ->with([
+                    'error' => "Gagal mengedit data - notifikasi pesan dengan id {$id} tidak ditemukan.",
+                ]);
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -108,7 +134,20 @@ class NotificationController extends Controller
     public function edit($id)
     {
         $data = $this->NotificationRepository->getNotificationById($id);
-        return view ('notification.edit',compact('data'));
+        if ($data) {
+            $member_types = MemberType::whereNull('deleted_at')->get();
+
+            return view(
+                'notification.edit',
+                compact('data', 'member_types'),
+            );
+        } else {
+            return redirect()
+                ->route('notification.index')
+                ->with([
+                    'error' => "Gagal mengedit data - Notifikasi Pesan dengan id {$id} tidak ditemukan.",
+                ]);
+        }
     }
 
     /**
@@ -123,14 +162,12 @@ class NotificationController extends Controller
         $messages = [
             'title.required' => 'Title tidak boleh kosong',
             'description.required' => 'Notifikasi tidak boleh kosong',
-            'categories.required' => 'Kategori tidak boleh kosong',
+            'member_type_id.required' => 'Tipe Member tidak boleh kosong',
             'creator_id.required' => 'Kreator Pesan tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
             'description' => 'required|max:255',
-            'categories' => 'required|max:255',
-
         ], $messages);
 
         if ($validator->fails()) {
@@ -138,13 +175,13 @@ class NotificationController extends Controller
                 ->withInput();
         }
 
-        $categories = $request->categories;
+        $member_type_id = $request->member_type_id;
         $title = $request->title;
         $description = $request->description;
         $creator_id = $request->creator_id;
 
         $updateData = [
-            'categories' => $categories,
+            'member_type_id' => $member_type_id,
             'title' => $title,
             'description' => $description,
             'creator_id' => $creator_id,
@@ -172,9 +209,9 @@ class NotificationController extends Controller
 
         if ($delete) {
             return redirect()->route('notification.index')
-                ->with('success', 'Data Video Home Fitur Panel telah berhasil dihapus.');
+                ->with('success', 'Data Notifikasi pesan telah berhasil dihapus.');
         } else {
-            return back()->withInput()->with('info', 'Gagal menghapus data kategori Video Home Fitur Panel');
+            return back()->withInput()->with('info', 'Gagal menghapus data notifikasi pesan Fitur Panel');
         }
     }
 }

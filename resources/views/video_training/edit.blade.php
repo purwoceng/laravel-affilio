@@ -60,8 +60,8 @@
                             <input type="text"
                                 id="input-video-name"
                                 class="form-control"
-                                name="title"
-                                value="{{ $video->title }}"
+                                name="name"
+                                value="{{ $video->name }}"
                                 aria-describedby="name-helper"
                                 required
                             />

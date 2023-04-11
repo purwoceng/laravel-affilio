@@ -79,10 +79,21 @@ class MemberTypeController extends Controller
         $image = $request->file('image');
 
         if($image) {
-            $filename = 'Tipe-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $filename = 'Logo-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
             $image->move(public_path('storage/membertype/'), $filename);
             $path_file = 'storage/system_storage/membertype/' . $filename;
             $createData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/membertype/') . $filename));
+
+        }
+
+        $image2 = $request->file('background');
+
+        if($image2) {
+            $filename = 'Cover-' . time() . '_' . uniqid() . '_' . $image2->getClientOriginalName();
+            $image2->move(public_path('storage/membertype/'), $filename);
+            $path_file = 'storage/system_storage/membertype/' . $filename;
+            $createData['background'] = $path_file;
             Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/membertype/') . $filename));
 
         }
@@ -162,10 +173,22 @@ class MemberTypeController extends Controller
 
         if($image) {
 
-            $filename = 'Tipe-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $filename = 'Logo-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
             $image->move(public_path('storage/membertype/'), $filename);
             $path_file = 'storage/system_storage/membertype/' . $filename;
             $updateData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/membertype/') . $filename));
+
+        }
+
+
+        $image2 = $request->file('background');
+
+        if($image2) {
+            $filename = 'Cover-' . time() . '_' . uniqid() . '_' . $image2->getClientOriginalName();
+            $image2->move(public_path('storage/membertype/'), $filename);
+            $path_file = 'storage/system_storage/membertype/' . $filename;
+            $updateData['background'] = $path_file;
             Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/membertype/') . $filename));
 
         }

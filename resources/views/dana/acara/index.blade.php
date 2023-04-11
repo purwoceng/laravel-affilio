@@ -200,6 +200,9 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.code);
+                        }
                     },
                     {
                         data: 'title',

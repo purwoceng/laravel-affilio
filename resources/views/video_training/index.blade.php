@@ -115,8 +115,8 @@
                         className: 'text-left small',
                     },
                     {
-                        data: 'title',
-                        name: 'title',
+                        data: 'name',
+                        name: 'name',
                         sortable: false,
                         orderable: false,
                         searchable: false,

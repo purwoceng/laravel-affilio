@@ -43,18 +43,28 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label>Kategori Notifikasi <span class="text-danger">*</span></label>
-                                    <select class="form-control form-control-sm filter" name="categories"
-                                    placeholder="Type Here" required>
-                                    <option selected disabled>Pilih Kategori</option>
-                                    <option value="Semua" {{ $data->categories == 'Semua' ? 'selected' : ''}}>Semua</option>
-                                    <option value="Affiliator" {{ $data->categories == 'Affiliator' ? 'selected' : ''}}>Affiliator</option>
-                                    <option value="Affiliator Inti" {{ $data->categories == 'Affiliator Inti' ? 'selected' : ''}}>Affiliator Inti</option>
-                                    <option value="Bronze" {{ $data->categories == 'Bronze' ? 'selected' : ''}}>Bronze</option>
-                                    <option value="Gold" {{ $data->categories == 'Gold' ? 'selected' : ''}}>Gold</option>
-                                    <option value="Platinum" {{ $data->categories == 'Platinum' ? 'selected' : ''}}>Platinum</option>
-                                    <option value="Diamond" {{ $data->categories == 'Diamond' ? 'selected' : ''}}>Diamond</option>
-                                </select>
+                                    <label for="input-member-type-id">Tipe Member</label>
+                                    <select name="member_type_id"
+                                        id="input-member-type-id"
+                                        class="form-control"
+                                        aria-describedby="member-type-helper"
+                                        required>
+                                        <option selected disabled value="0">Pilih Tipe Member</option>
+
+                                        @foreach ($member_types as $key => $member_type)
+                                            <option
+                                                value="{{ $member_type->id }}"
+                                                {{ $data->member_type_id == $member_type->id ? 'selected' : '' }}>
+                                                {{ $member_type->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('member_type_id')
+                                        <small id="member-type-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Judul Notifikasi Pesan<span class="text-danger">*</span></label>
@@ -70,9 +80,6 @@
                                         aria-describedby="is-active-helper" required>
                                         <option value="0" {{ $data->creator_id == '0' ? 'selected' : '' }}>
                                             Admin
-                                        </option>
-                                        <option value="1" {{ $data->creator_id == '1' ? 'selected' : '' }}>
-                                            Mentor
                                         </option>
                                     </select>
 

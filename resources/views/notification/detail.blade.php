@@ -42,12 +42,28 @@
                             <form method="POST" action="{{ route('notification.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Kategori Notifikasi <span class="text-danger"></span></label>
-                                    <div class="form-group">
-                                        <input type="textarea" class="form-control" rows="9"
-                                            name="header" value="{{ $data->categories }}" disabled />
-                                    </div>
-                                </select>
+                                    <label for="input-member-type-id">Tipe Member</label>
+                                    <select name="member_type_id"
+                                        id="input-member-type-id"
+                                        class="form-control"
+                                        aria-describedby="member-type-helper"
+                                        required disabled>
+                                        <option selected disabled value="0">Pilih Tipe Member</option>
+
+                                        @foreach ($member_types as $key => $member_type)
+                                            <option
+                                                value="{{ $member_type->id }}"
+                                                {{ $data->member_type_id == $member_type->id ? 'selected' : '' }}>
+                                                {{ $member_type->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('member_type_id')
+                                        <small id="member-type-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="col-3 col-form-label">Judul Notifikasi</label>

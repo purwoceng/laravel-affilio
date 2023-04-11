@@ -104,7 +104,7 @@
                                                             </div>
                                                         @endforeach
                                                     </div>
-                                                @else 
+                                                @else
                                                     <div class="tree__children">
                                                         <div class="tree">
                                                             <div class="node">
@@ -125,7 +125,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                @else 
+                                @else
                                     <div class="tree__children">
                                         <div class="tree">
                                             <div class="node">
