@@ -37,8 +37,7 @@
                         </ul>
                     @endif
 
-                    <table id="js-table-member-type" class="table table-separate table-head-custom table-checkable nowrap"
-                        style="width:100%">
+                    <table id="js-table-member-type" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                         <div class="d-flex flex-row justify-content-between">
                             <div class="p-1">
                                 <a href="{{ route('members.member_type.create') }}" class="btn btn-sm btn-primary my-2">
@@ -84,6 +83,7 @@
                                 <th>#</th>
                                 <th>Tipe Member </th>
                                 <th>Logo  Member </th>
+                                <th>Background Profil Member </th>
                                 <th>Minimum Omset</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Tanggal Diubah</th>
@@ -149,6 +149,18 @@
                     {
                         data: 'image_url',
                         name: 'image_url',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            return '-';
+                        }
+                    },
+                    {
+                        data: 'background',
+                        name: 'background',
                         sortable: false,
                         orderable: false,
                         searchable: false,

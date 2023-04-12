@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <label>Judul Video <span class="text-danger">*</span></label>
                                     <input type="textarea" class="form-control" rows="9"
-                                        name="title" value="{{ $data->title }}" disabled />
+                                        name="name" value="{{ $data->name }}" disabled />
                                 </div>
                                 <div class="form-group">
                                     <label>Url Video <span class="text-danger">*</span></label>

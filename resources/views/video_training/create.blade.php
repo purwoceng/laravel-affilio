@@ -67,7 +67,7 @@
                                 <div class="form-group">
                                     <label>Judul Video <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" placeholder="Masukkan Judul Video"
-                                        name="title" value="" required />
+                                        name="name" value="" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Url Video <span class="text-danger">*</span></label>

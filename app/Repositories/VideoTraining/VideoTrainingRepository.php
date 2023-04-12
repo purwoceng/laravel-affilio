@@ -57,7 +57,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
             foreach ($videos  as $key => $video) {
                 $id = $video->id;
                 $member_type_id = $video->member_type_id;
-                $title = $video->title;
+                $name = $video->name;
                 $url = $video->url;
                 $created_at = date('d/m/Y H:i', strtotime($video->created_at));
                 $actions = $id;
@@ -65,7 +65,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
                 $data[] = compact(
                     'id',
                     'member_type_id',
-                    'title',
+                    'name',
                     'url',
                     'created_at',
                     'actions',

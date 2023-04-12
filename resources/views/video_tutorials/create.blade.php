@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Video Training'))
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -147,6 +147,9 @@
                                         {{ old('member_type_id') == $member_type->id ? 'selected' : '' }}>
                                         {{ $member_type->type }}
                                     </option>
+
+
+
                                 @endforeach
                             </select>
 

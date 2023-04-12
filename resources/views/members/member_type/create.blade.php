@@ -47,11 +47,20 @@
                                         name="type" value="" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>File Foto<span class="text-danger">*</span></label>
+                                    <label>File Logo Member<span class="text-danger">*</span></label>
                                     <div></div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="customFile"
                                             name="image" />
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>File Background Profil<span class="text-danger">*</span></label>
+                                    <div></div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="background" />
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                 </div>

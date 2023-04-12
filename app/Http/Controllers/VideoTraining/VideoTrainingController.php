@@ -65,7 +65,7 @@ class VideoTrainingController extends Controller
     {
         $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
         $messages = [
-            'title.required' => 'Judul Video tidak boleh kosong',
+            'name.required' => 'Judul Video tidak boleh kosong',
             'url.required' => 'url video tidak boleh kosong',
             'url.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
             'member_type_id.required' => 'Tipe member wajib diisi!',
@@ -73,7 +73,7 @@ class VideoTrainingController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:100',
+            'name' => 'required|max:100',
             'url' => [
                 "regex:{$url_regex}",
                 'required',
@@ -91,27 +91,17 @@ class VideoTrainingController extends Controller
                 ->withInput();
         }
 
-        $title = $request->title;
+        $name = $request->name;
         $url = $request->url;
         $member_type_id = $request->member_type_id;
 
         $createData = [
-            'title' => $title,
+            'name' => $name,
             'url' => $url,
             'member_type_id' => $member_type_id,
 
         ];
 
-        // $file = $request->file('file');
-
-        // if($file) {
-        //     $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('storage/videohome/'), $filename);
-        //     $path_file = 'storage/system_storage/videohome/' . $filename;
-        //     $createData['file'] = $path_file;
-        //     Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
-
-        // }
         $result = $this->VideoTrainingRepository->create($createData);
 
         if ($result) {
@@ -169,7 +159,7 @@ class VideoTrainingController extends Controller
     {
         $url_regex = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
         $messages = [
-            'title.required' => 'Judul Video tidak boleh kosong',
+            'name.required' => 'Judul Video tidak boleh kosong',
             'url.required' => 'Url Video tidak boleh kosong',
             'url.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
             'member_type_id.required' => 'Tipe member wajib diisi!',
@@ -178,7 +168,7 @@ class VideoTrainingController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:100',
+            'name' => 'required|max:100',
             'url' => [
                 "regex:{$url_regex}",
                 'required',
@@ -197,27 +187,17 @@ class VideoTrainingController extends Controller
                 ->withInput();
         }
 
-        $title = $request->title;
+        $name = $request->name;
         $url = $request->url;
         $member_type_id = $request->member_type_id;
 
         $updateData = [
-            'title' => $title,
+            'name' => $name,
             'url' => $url,
             'member_type_id' => $member_type_id,
 
         ];
 
-        // $file = $request->file('file');
-
-        // if($file) {
-        //     $filename = 'Video-' . time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('storage/videohome/'), $filename);
-        //     $path_file = 'storage/system_storage/videohome/' . $filename;
-        //     $updateData['file'] = $path_file;
-        //     Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/videohome/') . $filename));
-
-        // }
         $result = $this->VideoTrainingRepository->update($id,$updateData);
 
         if ($result) {

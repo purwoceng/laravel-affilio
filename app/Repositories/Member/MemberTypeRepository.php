@@ -69,6 +69,7 @@ class MemberTypeRepository implements MemberTypeRepositoryInterface
                 $type = $getMemberType->type;
                 $image = $getMemberType->image;
                 $image_url = $getMemberType->image ? config('app.s3_url') . $getMemberType->image : '';
+                $background = $getMemberType->background ? config('app.s3_url') . $getMemberType->background : '';
                 $min_omset = $getMemberType->min_omset??'-';
                 $created_at = date('Y-m-d H:i', strtotime($getMemberType->created_at));
                 $updated_at = date('Y-m-d H:i', strtotime($getMemberType->updated_at));
@@ -77,6 +78,7 @@ class MemberTypeRepository implements MemberTypeRepositoryInterface
                     'type' => $type,
                     'image' => $image,
                     'image_url' => $image_url,
+                    'background' => $background,
                     'min_omset' => $min_omset,
                     'created_at'=> $created_at,
                     'updated_at'=> $updated_at,

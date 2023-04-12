@@ -357,18 +357,16 @@
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
-                                 <span class="menu-text">Video Training</span>
+                                 <span class="menu-text">Video Tutorials</span>
                              </a>
                          </li>
-                         {{-- <li class="menu-item" aria-haspopup="true">
+                         <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('video_training.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Video Training</span>
                              </a>
-                         </li> --}}
-
                          <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('categories.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
