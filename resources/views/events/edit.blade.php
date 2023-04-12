@@ -182,6 +182,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-2 col-form-label">Kuota <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Kuota" required
+                                            name="kuota" value="{{ $data->kuota }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-2 col-form-label">Waktu <span class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <input type="time" class="form-control" placeholder="Masukkan Waktu Event"
@@ -200,6 +207,13 @@
                                     <div class="col-10">
                                         <input type="text" class="form-control" placeholder="Masukkan Lokasi Event"
                                             required name="location" value="{{ $data->location }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Prefix <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Prefix" required
+                                            name="prefix" value="{{ $data->prefix }}" />
                                     </div>
                                 </div>
                                 <div class="form-group row">

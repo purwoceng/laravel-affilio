@@ -161,6 +161,18 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="input-event-kuota">Kuota</label>
+                                    <input type="text" id="input-event-kuota" class="form-control" name="kuota"
+                                        value="{{ old('kuota') }}" aria-describedby="kuota-helper"
+                                        placeholder="Masukkan Kuota Tiket" required />
+
+                                    @error('kuota')
+                                        <small id="kuota-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="input-event-time">Waktu</label>
                                     <input type="time" id="input-event-time" class="form-control" name="time"
                                         value="{{ old('time') }}" aria-describedby="time-helper"
@@ -192,6 +204,18 @@
 
                                     @error('name')
                                         <small id="location-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-prefix">Prefix</label>
+                                    <input type="text" id="input-event-prefix" class="form-control" name="prefix"
+                                        value="{{ old('prefix') }}" aria-describedby="prefix-helper"
+                                        placeholder="Masukkan Prefix" required />
+
+                                    @error('name')
+                                        <small id="prefix-helper" class="form-text text-danger">
                                             {{ $validator_message }}
                                         </small>
                                     @enderror

@@ -62,9 +62,11 @@ class EventRepository implements EventRepositoryInterface
                 $speaker = $event->speaker;
                 $price = $event->price;
                 $tiket = $event->tiket;
+                $kuota = $event->kuota;
                 $time = $event->time;
                 $date = $event->date;
                 $location = $event->location;
+                $prefix = $event->prefix;
                 $image = $event->image ? config('app.s3_url') . $event->image : '';
                 $video = $event->video;
                 $type = $event->type;
@@ -78,9 +80,11 @@ class EventRepository implements EventRepositoryInterface
                     'speaker',
                     'price',
                     'tiket',
+                    'kuota',
                     'time',
                     'date',
                     'location',
+                    'prefix',
                     'image',
                     'video',
                     'type',

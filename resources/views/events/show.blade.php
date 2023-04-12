@@ -54,6 +54,11 @@
                                         name="tiket" value="{{ $data->tiket }}" disabled />
                                 </div>
                                 <div class="form-group">
+                                    <label>Kuota</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="kuota" value="{{ $data->kuota }}" disabled />
+                                </div>
+                                <div class="form-group">
                                     <label>Waktu</label>
                                     <input type="time" class="form-control" placeholder="Masukkan nama Event"
                                         name="time" value="{{ $data->time }}" disabled />
@@ -67,6 +72,11 @@
                                     <label>Lokasi</label>
                                     <input type="text" class="form-control" placeholder="Masukkan nama Event"
                                         name="location" value="{{ $data->location }}" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Prefix</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan nama Event"
+                                        name="prefix" value="{{ $data->prefix }}" disabled />
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">File Poster<span
@@ -93,8 +103,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Status<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="status" value="{{ $data->status }}"
-                                        placeholder="Masukkan tipe kategori" disabled />
+                                    <input type="text" class="form-control" name="status"
+                                        value="{{ $data->status }}" placeholder="Masukkan tipe kategori" disabled />
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">

@@ -45,9 +45,11 @@
                                 <th>Speaker</th>
                                 <th>Harga</th>
                                 <th>Tiket</th>
+                                <th>Kuota</th>
                                 <th>Waktu</th>
                                 <th>Tanggal</th>
                                 <th>Lokasi</th>
+                                <th>Prefix</th>
                                 <th>Poster </th>
                                 <th>Video</th>
                                 <th>Tipe</th>
@@ -139,6 +141,14 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
+                        data: 'kuota',
+                        name: 'kuota',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
                         data: 'time',
                         name: 'time',
                         sortable: false,
@@ -157,6 +167,14 @@
                     {
                         data: 'location',
                         name: 'location',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'prefix',
+                        name: 'prefix',
                         sortable: false,
                         orderable: false,
                         searchable: false,
