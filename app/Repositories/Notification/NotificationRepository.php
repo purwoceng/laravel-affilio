@@ -34,12 +34,12 @@ class NotificationRepository implements NotificationRepositoryInterface
 
     public function getCountNotification()
     {
-        return Notification::all()->count();
+        return Notification::where('creator_id','0')->count();
     }
 
     public function getNotification($limit, $start)
     {
-        return Notification::offset($start)->limit($limit);
+        return Notification::where('creator_id', '0')->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
