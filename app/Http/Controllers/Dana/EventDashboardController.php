@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Order;
+namespace App\Http\Controllers\Dana;
 
+use App\Models\Fund;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class OrderDashboardController extends Controller
+class EventDashboardController extends Controller
 {
     public function getDashboard(Request $request)
     {
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $totalOmzet = DB::table('orders');
+        $totalOmzet = Fund::where('code','BRA');
         $dataSupplierPrice = DB::table('orders');
         $dataOrder =  DB::table('orders');
         $dataUnpaid = Order::where('status', 'unpaid');
         $dataPaid = Order::where('status', 'paid');
         $dataAwaitingSupplier = Order::where('status', 'awaiting_supplier');
         $dataProcess = Order::where('status', 'on_process');
-        $dataShipping = Order::where('status', 'on_return_shipping');
+        $dataShipping = Order::where('status', 'on_shipping');
         $dataReceived = Order::where('status', 'received');
         $dataSuccess = Order::where('status', 'success');
         $dataCancel = Order::where('status', 'cancel');
@@ -29,20 +30,20 @@ class OrderDashboardController extends Controller
         $dataComplain =  Order::where('status', 'complain');
 
         if (!empty($startDate) && !empty($endDate)) {
-            $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $totalOmzet->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
 
-            $dataOrder->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataPaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataAwaitingSupplier->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataProcess->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataShipping->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataReceived->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataSuccess->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataCancel->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataCancelButUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataComplain->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
-            $dataSupplierPrice->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataOrder->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataUnpaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataPaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataAwaitingSupplier->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataProcess->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataShipping->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataReceived->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataSuccess->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataCancel->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataCancelButUnpaid->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataComplain->whereDate('date_created', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+            $dataSupplierPrice->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
         } else {
             return response()->json([
                 'status' => false,
@@ -54,19 +55,19 @@ class OrderDashboardController extends Controller
             ]);
         }
         // Total Omzet : Harga produk + harga markup + kode unik + ongkir + biaya layanan
-        $countTotalOmzet = $totalOmzet->sum('total');
+        $countTotalOmzet = $totalOmzet->sum('value');
         // Harga Supplier : Harga produk asli dari baleomol
-        $countTotalSupplierPrice = $dataSupplierPrice->sum('affilio_value');
+        $countTotalSupplierPrice = 67;
         // Bonus Profit : Bonus profit diambil dari 75% dari markup
-        $countTotalBonusProfit = ($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.75;
+        $countTotalBonusProfit = 67;
         // Profit Keuntungan : diambil dari 25% harga markup
-        $countTotalProfitKeuntungan =($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.25;
+        $countTotalProfitKeuntungan =7;
         // Ongkos kirim 60% : ongkos 60% dari 100% ongkir masuk ke IdExpress
-        $countTotalOngkir60 = 60 * $totalOmzet->sum('shipping_cost') / 100;
+        $countTotalOngkir60 = 6;
         // Ongkos kirim 30% : ongkor 30% dari 100% ongkir masuk ke perusahaan
-        $countTotalOngkir30 = 30 * $totalOmzet->sum('shipping_cost') / 100;
+        $countTotalOngkir30 = 60;
         // Ongkos kirim 10% : ongkos 10% dari 100% ongkir masuk ke bonus member/cashback
-        $countTotalOngkir10 = 10 * $totalOmzet->sum('shipping_cost') / 100;
+        $countTotalOngkir10 = 6;
         // Kode unik : kode unik dikembalikan ke member
         $countTotalUniqueCode = 1144646345;
         // Biaya lanyanan : biaya dari midtrans

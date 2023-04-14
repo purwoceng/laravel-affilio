@@ -42,11 +42,12 @@
                             <form method="POST" action="{{ route('funnel.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Tipe Panel Link <span class="text-danger">*</span></label>
+                                    <label>Tipe Funnel Home<span class="text-danger">*</span></label>
                                     <select class="custom-select form-control js-type-selector" name="type" required>
-                                        <option selected disabled>Pilih tipe funneling Home</option>
+                                        {{-- <option selected disabled>Pilih tipe funneling Home</option>
                                         <option value="header">Header</option>
-                                        <option value="link">Link Training</option>
+                                        <option value="link">Link Training</option> --}}
+                                        <option value="0" disabled>Pilih Tipe</option>
                                         <option value="video">Video Home</option>
                                     </select>
                                 </div>

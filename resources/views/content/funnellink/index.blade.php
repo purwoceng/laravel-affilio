@@ -2,11 +2,8 @@
 @section('title', __('Halaman Funneling Home'))
 
 @push('css')
-    <link
-        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
-        rel="stylesheet"
-        type="text/css"
-    />
+    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -44,18 +41,19 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="js-link-table"  class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-                        <thead>
+                    <table id="js-link-table"  class="table table-striped table-bordered table-sm" cellspacing="0"
+                    width="100%">
+                        <thead class="thead-secondary">
                             <tr class="small">
-                                <th>#</th>
-                                <th>Tipe Funneling Home</th>
-                                <th>Url Funneling</th>
-                                <th>Deskripsi</th>
-                                <th>Gambar Thumbnail</th>
-                                <th>Status</th>
-                                <th>Timer Video</th>
-                                <th>Dibuat</th>
-                                <th>Aksi</th>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Tipe Funneling Home</th>
+                                <th class="text-center">Url Funneling</th>
+                                <th class="text-center">Deskripsi</th>
+                                <th class="text-center">Gambar Thumbnail</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Timer Video</th>
+                                <th class="text-center">Dibuat</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -69,7 +67,9 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         'use strict';

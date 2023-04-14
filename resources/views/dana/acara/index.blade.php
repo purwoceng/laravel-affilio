@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Dana Acara'))
+@section('title', __('Dana Bonus Acara'))
 @push('css')
     {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
     <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -9,7 +9,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dana Acara</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dana Bonus Acara</h5>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                                 <path
                                     d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
                             </svg>
-                            Total Dana Acara
+                            Total Dana Bonus Acara
                         </p>
                         <small class="card-text text-muted">( <span id="js-date-range-omzet"></span> )</small>
                     </div>
@@ -34,49 +34,14 @@
             </div>
         </div>
     </div>
-    <div class="container text-center my-2">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 id="js-dashboard-total-event" class="card-title mb-5">0</h5>
-                        <p class="card-subtitle mb-1 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-credit-card-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            Total Bonus 5%
-                        </p>
-                        <small class="card-text text-muted">( <span id="js-date-range-event"></span> )</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 id="js-dashboard-supplier-price" class="card-title mb-5">0</h2>
-                            <p class="card-subtitle mb-1 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-box2-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6l.5.667Z" />
-                                </svg>
-                                Total Bonus Ongkir
-                            </p>
-                            <small class="card-text text-muted">( <span id="js-date-range-supplier-price"></span> )</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">List Dana Acara</h3>
+                        <h3 class="card-label">List Dana Bonus Acara</h3>
                     </div>
                 </div>
 
@@ -419,7 +384,7 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
-                let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
+                let url = "{{ URL::to('/') }}" + `/eventfund/get-dashboard`;
 
                 $.ajax({
                     type: "GET",
@@ -445,6 +410,90 @@
                     },
                 });
             }
+
+            let totalOmzetAll = $('#js-dashboard-total-omzet');
+            let totalSupplierPrice = $('#js-dashboard-supplier-price');
+            let bonusProfit = $('#js-dashboard-bonus-profit');
+            let profitKeuntungan = $('#js-dashboard-profit-keuntungan');
+            let ongkir60 = $('#js-dashboard-ongkir-60');
+            let ongkir30 = $('#js-dashboard-ongkir-30');
+            let ongkir10 = $('#js-dashboard-ongkir-10');
+            let uniqueCode = $('#js-dashboard-unique-code');
+            let serviceFee = $('#js-dashboard-service-fee');
+            let totalOrder = $('#js-dashboard-total-order');
+
+            let totalPaid = $('#js-dashboard-total-paid');
+            let totalPersenPaid = $('#js-dashboard-total-persen-paid');
+
+            let totalCancelButUnpaid = $('#js-dashboard-total-cancel-but-unpaid');
+            let totalPersenCancelButUnpaid = $('#js-dashboard-total-persen-cancel-but-unpaid');
+
+            let totalUnpaid = $('#js-dashboard-total-unpaid');
+            let totalPersenUnpaid = $('#js-dashboard-total-persen-unpaid');
+
+            let totalAwaitingSupplier = $('#js-dashboard-total-awaiting-supplier');
+            let totalPersenAwaitingSupplier = $('#js-dashboard-total-persen-awaiting-supplier');
+
+            let totalProcess = $('#js-dashboard-total-process');
+            let totalPersenProcess = $('#js-dashboard-total-persen-process');
+
+            let totalCancel = $('#js-dashboard-total-cancel');
+            let totalPersenCancel = $('#js-dashboard-total-persen-cancel');
+
+            let totalShipping = $('#js-dashboard-total-shipping');
+            let totalPersenShipping = $('#js-dashboard-total-persen-shipping');
+
+            let totalReceived = $('#js-dashboard-total-received');
+            let totalPersenReceived = $('#js-dashboard-total-persen-received');
+
+            let totalSuccess = $('#js-dashboard-total-success');
+            let totalPersenSuccess = $('#js-dashboard-total-persen-success');
+
+            let totalComplain = $('#js-dashboard-total-complain');
+            let totalPersenComplain = $('#js-dashboard-total-persen-complain');
+
+            function mappingDashboard(data) {
+                totalOmzetAll.html(data.total_omzet);
+                totalSupplierPrice.html(data.supplier_price);
+                bonusProfit.html(data.bonus_profit);
+                profitKeuntungan.html(data.profit_keuntungan);
+                ongkir60.html(data.total_ongkir_60);
+                ongkir30.html(data.total_ongkir_30);
+                ongkir10.html(data.total_ongkir_10);
+                uniqueCode.html(data.unique_code);
+                serviceFee.html(data.service_fee);
+                totalOrder.html(data.total_order);
+
+                totalPaid.html(data.total_paid);
+                totalPersenPaid.html(data.total_persen_paid);
+
+                totalCancelButUnpaid.html(data.total_cancel_but_unpaid);
+                totalPersenCancelButUnpaid.html(data.total_persen_cancel_but_unpaid);
+
+                totalUnpaid.html(data.total_unpaid);
+                totalPersenUnpaid.html(data.total_persen_unpaid);
+
+                totalAwaitingSupplier.html(data.total_awaiting_supplier);
+                totalPersenAwaitingSupplier.html(data.total_persen_awaiting_supplier);
+
+                totalProcess.html(data.total_process);
+                totalPersenProcess.html(data.total_persen_process);
+
+                totalCancel.html(data.total_cancel);
+                totalPersenCancel.html(data.total_persen_cancel);
+
+                totalShipping.html(data.total_shipping);
+                totalPersenShipping.html(data.total_persen_shipping);
+
+                totalReceived.html(data.total_received);
+                totalPersenReceived.html(data.total_persen_received);
+
+                totalSuccess.html(data.total_success);
+                totalPersenSuccess.html(data.total_persen_success);
+
+                totalComplain.html(data.total_complain);
+                totalPersenComplain.html(data.total_persen_complain);
+            };
 
         });
     </script>
