@@ -41,13 +41,12 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="js-link-table"  class="table table-striped table-bordered table-sm" cellspacing="0"
-                    width="100%">
+                    <table id="js-link-table"  class="table table-bordered table-hover table-head-custom table-checkable nowrap">
                         <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center">#</th>
-                                <th class="text-center">Tipe Funneling Home</th>
-                                <th class="text-center">Url Funneling</th>
+                                <th class="text-center" width="10%">Tipe Funnel</th>
+                                <th class="text-center">Url Funnel Video</th>
                                 <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Gambar Thumbnail</th>
                                 <th class="text-center">Status</th>
