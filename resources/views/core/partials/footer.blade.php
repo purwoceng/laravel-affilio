@@ -6,9 +6,9 @@
             <span class="text-muted font-weight-bold mr-2">©
                 <script>
                     document.write(new Date().getFullYear());
-                  </script>
+                </script>
             </span>
-            <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Aplikasi X</a>
+            <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Affilio</a>
         </div>
         <!--end::Copyright-->
         <!--begin::Nav-->

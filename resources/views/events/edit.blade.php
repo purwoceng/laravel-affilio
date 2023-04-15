@@ -168,6 +168,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-2 col-form-label">Harga <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Harga Tiket"
+                                            required name="price" value="{{ $data->price }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Tiket <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Link Tiket"
+                                            required name="tiket" value="{{ $data->tiket }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Kuota <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Kuota" required
+                                            name="kuota" value="{{ $data->kuota }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-2 col-form-label">Waktu <span class="text-danger">*</span></label>
                                     <div class="col-10">
                                         <input type="time" class="form-control" placeholder="Masukkan Waktu Event"
@@ -189,6 +210,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-2 col-form-label">Prefix <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Prefix" required
+                                            name="prefix" value="{{ $data->prefix }}" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-2 col-form-label">File Poster<span
                                             class="text-danger">*</span></label>
                                     <div class="col-6">
@@ -203,11 +231,19 @@
                                             width="150px">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Video <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Link Event"
+                                            required name="video" value="{{ $data->video }}" />
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Tipe <span class="text-danger">*</span></label>
                                     <div class="col-10">
-                                        <select class="custom-select form-control js-type-selector" name="type" required>
+                                        <select class="custom-select form-control js-type-selector" name="type"
+                                            required>
                                             <option selected disabled>Pilih tipe event</option>
                                             <option value="online" {{ $data->type == 'online' ? 'selected' : '' }}>Online
                                             </option>
@@ -223,6 +259,23 @@
                                     <div class="col-10">
                                         <input type="text" class="form-control" id="description" name="description"
                                             value="{{ $data->description }}" placeholder="Deskripsi event" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Status <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <select class="custom-select form-control js-type-selector" name="status"
+                                            required>
+                                            <option selected disabled>Status Event</option>
+                                            <option value="active" {{ $data->status == 'active' ? 'selected' : '' }}>
+                                                Aktif
+                                            </option>
+                                            <option value="non-active"
+                                                {{ $data->status == 'non-active' ? 'selected' : '' }}>
+                                                Non-Aktif
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
 

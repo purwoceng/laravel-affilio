@@ -42,17 +42,60 @@
                             <form method="POST" action="{{ route('notification.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Kategori Notifikasi <span class="text-danger"></span></label>
-                                    <div class="form-group">
-                                        <input type="textarea" class="form-control" rows="9"
-                                            name="header" value="{{ $data->categories }}" disabled />
-                                    </div>
-                                </select>
+                                    <label for="input-member-type-id">Tipe Member</label>
+                                    <select name="member_type_id"
+                                        id="input-member-type-id"
+                                        class="form-control"
+                                        aria-describedby="member-type-helper"
+                                        required disabled>
+                                        <option selected disabled value="0">Pilih Tipe Member</option>
+
+                                        @foreach ($member_types as $key => $member_type)
+                                            <option
+                                                value="{{ $member_type->id }}"
+                                                {{ $data->member_type_id == $member_type->id ? 'selected' : '' }}>
+                                                {{ $member_type->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('member_type_id')
+                                        <small id="member-type-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-3 col-form-label">Notifikasi</label>
+                                <div class="form-group">
+                                    <label class="col-3 col-form-label">Judul Notifikasi</label>
+                                    <div class="form-group">
+                                        <input class="form-control" rows="7"
+                                        name="" value="{{ $data->title }}" disabled></input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-3 col-form-label">Deskripsi Notifikasi</label>
+                                    <div class="form-group">
                                         <textarea class="form-control" rows="7"
-                                        name="" value="{{ $data->notification }}" disabled>{{ $data->notification }}</textarea>
+                                        name="" value="{{ $data->description }}" disabled>{{ $data->description }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-is-active">Kreator Pesan Notifikasi</label>
+                                    <select name="creator_id" id="input-is-active" class="form-control"
+                                        aria-describedby="is-active-helper" required disabled>
+                                        <option value="0" {{ $data->creator_id == '0' ? 'selected' : '' }}>
+                                            Admin
+                                        </option>
+                                        <option value="1" {{ $data->creator_id == '1' ? 'selected' : '' }}>
+                                            Mentor
+                                        </option>
+                                    </select>
+
+                                    @error('is_active')
+                                        <small id="is-active-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">

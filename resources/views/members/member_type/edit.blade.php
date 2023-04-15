@@ -57,6 +57,16 @@
                                         width="150px">
                                 </div>
                                 <br>
+                              <div class="form-group">
+                                    <label>Background Profil Member <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" placeholder="Masukkan Logo Member"
+                                        name="background" value=""  />
+                                </div>
+                                <div class="col-4">
+                                    <img src="{{ config('app.s3_url') . $data->background }}" class="img-fluid"
+                                        width="150px">
+                                </div>
+                                <br>
                                 <div class="form-group">
                                     <label>Minimum Omset<span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="min_omset"

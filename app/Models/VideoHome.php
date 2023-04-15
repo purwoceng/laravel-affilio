@@ -15,6 +15,7 @@ class VideoHome extends Model
 
     protected $fillable = [
         'id',
+        'member_type_id',
         'header',
         'file',
     ];

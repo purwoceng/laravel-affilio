@@ -5,7 +5,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Home Default Panel</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Detail Video Home Default Panel</h5>
             </div>
         </div>
     </div>
@@ -43,16 +43,14 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label>Header Video <span class="text-danger">*</span></label>
-                                    <input type="textarea" class="form-control" rows="9"
+                                    <label>Deskripsi Video <span class="text-danger">*</span></label>
+                                    <input type="textarea" class="form-control"
                                         name="header" value="{{ $data->header }}" disabled />
                                 </div>
-                              <div class="form-group">
-                                    <label>Video <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-4">
-                                    <video controls src="{{ config('app.s3_url') . $data->file }}"
-                                        width="300px" height="250px">
+                                <div class="form-group">
+                                    <label>Link Video <span class="text-danger">*</span></label>
+                                    <input type="textarea" class="form-control"
+                                        name="file" value="{{ $data->file }}" disabled />
                                 </div>
                                 <br>
 

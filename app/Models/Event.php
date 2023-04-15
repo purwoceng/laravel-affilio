@@ -16,12 +16,18 @@ class Event extends Model
         'id',
         'name',
         'speaker',
+        'price',
+        'tiket',
+        'kuota',
         'time',
         'date',
         'location',
+        'prefix',
         'image',
+        'video',
         'type',
         'description',
+        'status',
     ];
 
     protected $casts = [

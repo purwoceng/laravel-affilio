@@ -22,20 +22,20 @@ class VideoTutorialController extends Controller
         $this->member_types = [
             [
                 'id' => 1,
-                'name' => 'Member',
+                'name' => 'Affiliator',
             ],
             [
                 'id' => 2,
-                'name' => 'Core member',
+                'name' => 'Affiliator Inti',
             ],
             [
                 'id' => 3,
-                'name' => 'Leader',
+                'name' => 'Bronze',
             ],
 
             [
                 'id' => 4,
-                'name' => 'Super Leader',
+                'name' => 'Gold',
             ],
 
             [
@@ -45,48 +45,19 @@ class VideoTutorialController extends Controller
 
             [
                 'id' => 6,
-                'name' => 'Super Bronze',
+                'name' => 'Platinum',
             ],
 
             [
                 'id' => 7,
-                'name' => 'Silver',
+                'name' => 'Diamond',
             ],
 
             [
                 'id' => 8,
-                'name' => 'Super Silver',
-            ],
-
-            [
-                'id' => 9,
-                'name' => 'Gold',
-            ],
-
-            [
-                'id' => 10,
-                'name' => 'Super Gold',
-            ],
-            [
-                'id' => 11,
-                'name' => 'Platinum',
-            ],
-            [
-                'id' => 12,
-                'name' => 'Super Platinum',
-            ],
-            [
-                'id' => 13,
-                'name' => 'Diamond',
-            ],
-            [
-                'id' => 14,
-                'name' => 'Super Diamond',
-            ],
-            [
-                'id' => 15,
                 'name' => 'Semua',
             ],
+
         ];
     }
 

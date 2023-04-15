@@ -12,19 +12,19 @@ class RewardRepository implements RewardRepositoryInterface
         //
     }
 
-    public function getCountRewardDana()
+    public function getCountRewardDana($startDate, $endDate)
     {
-        return RewardDana::all()->count();
+        return RewardDana::where('code', 'ka')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
     }
     public function getDataById($id)
     {
-        return RewardDana::where('id',$id)->first();
+        return RewardDana::where('code', 'ka')->where('id', $id)->first();
     }
 
 
-    public function getRewardDana($limit, $start)
+    public function getRewardDana($limit, $start, $startDate, $endDate)
     {
-        return RewardDana::offset($start)->limit($limit);
+        return RewardDana::where('code', 'ka')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -32,8 +32,19 @@ class RewardRepository implements RewardRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $reward_query = $this->getRewardDana($limit, $start);
-        $totalData = $this->getCountRewardDana();
+        if (!empty($request->date_range)) {
+            $dateRange = $request->date_range;
+            $date = explode("/", $dateRange);;
+            $startDate = $date[0];
+            $endDate = $date[1];
+        } else {
+            $now = date('Y-m-d');
+            $startDate = $now;
+            $endDate = $now;
+        }
+
+        $reward_query = $this->getRewardDana($limit, $start, $startDate, $endDate);
+        $totalData = $this->getCountRewardDana($startDate, $endDate);
         $totalFiltered = $totalData;
 
         if ($request->filled('username')) {
@@ -50,8 +61,9 @@ class RewardRepository implements RewardRepositoryInterface
             foreach ($rewards  as $key => $reward) {
                 $id = $reward->id;
                 $username = $reward->username;
+                $code = $reward->code;
                 $title = $reward->title;
-                $description = $reward->description;
+                $description = $reward->description ?? '-';
                 $status_verify = $reward->status_verify ?? '-';
                 $value = $reward->value;
                 $created_at = date('d/m/Y H:i', strtotime($reward->created_at));
@@ -60,6 +72,7 @@ class RewardRepository implements RewardRepositoryInterface
                 $data[] = compact(
                     'id',
                     'username',
+                    'code',
                     'title',
                     'description',
                     'status_verify',

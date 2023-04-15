@@ -43,12 +43,18 @@
                                 <th>#</th>
                                 <th>Judul</th>
                                 <th>Speaker</th>
+                                <th>Harga</th>
+                                <th>Tiket</th>
+                                <th>Kuota</th>
                                 <th>Waktu</th>
                                 <th>Tanggal</th>
                                 <th>Lokasi</th>
+                                <th>Prefix</th>
                                 <th>Poster </th>
+                                <th>Video</th>
                                 <th>Tipe</th>
                                 <th>Deskripsi</th>
+                                <th>Status</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Actions</th>
                             </tr>
@@ -119,6 +125,30 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
+                        data: 'price',
+                        name: 'price',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'tiket',
+                        name: 'tiket',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'kuota',
+                        name: 'kuota',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
                         data: 'time',
                         name: 'time',
                         sortable: false,
@@ -143,6 +173,14 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
+                        data: 'prefix',
+                        name: 'prefix',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
                         data: 'image',
                         name: 'image',
                         sortable: false,
@@ -156,6 +194,14 @@
                         }
                     },
                     {
+                        data: 'video',
+                        name: 'video',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
                         data: 'type',
                         name: 'type',
                         sortable: false,
@@ -166,6 +212,14 @@
                     {
                         data: 'description',
                         name: 'description',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
                         sortable: false,
                         orderable: false,
                         searchable: false,

@@ -43,25 +43,40 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label>Nama Video <span class="text-danger">*</span></label>
+                                    <label for="input-member-type-id">Tipe Member</label>
+                                    <select name="member_type_id"
+                                        id="input-member-type-id"
+                                        class="form-control"
+                                        aria-describedby="member-type-helper"
+                                        required disabled>
+                                        <option selected disabled value="0">Pilih Tipe Member</option>
+
+                                        @foreach ($member_types as $key => $member_type)
+                                            <option
+                                                value="{{ $member_type->id }}"
+                                                {{ $data->member_type_id == $member_type->id ? 'selected' : '' }}>
+                                                {{ $member_type->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('member_type_id')
+                                        <small id="member-type-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Judul Video <span class="text-danger">*</span></label>
                                     <input type="textarea" class="form-control" rows="9"
-                                        name="header" value="{{ $data->name }}" disabled />
+                                        name="name" value="{{ $data->name }}" disabled />
                                 </div>
                                 <div class="form-group">
-                                    <label>Kategori Video <span class="text-danger">*</span></label>
+                                    <label>Url Video <span class="text-danger">*</span></label>
                                     <input type="textarea" class="form-control" rows="9"
-                                        name="header" value="{{ $data->categories }}" disabled />
+                                        name="header" value="{{ $data->url }}" disabled />
                                 </div>
-                              <div class="form-group">
-                                    <label>Video <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-4">
-                                    <video controls src="{{ config('app.s3_url') . $data->file }}"
-                                        width="300px" height="250px">
-                                </div>
-                                <br>
-
-
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('video_training.index') }}"

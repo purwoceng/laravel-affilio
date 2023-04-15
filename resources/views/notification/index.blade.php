@@ -48,8 +48,10 @@
                         <thead>
                             <tr class="small">
                                 <th>#</th>
-                                <th>Kategori Notifikasi</th>
+                                <th>TIpe Member Notifikasi</th>
+                                <th>Judul Notifikasi</th>
                                 <th>Pesan Notifikasi</th>
+                                <th>Kreator</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -106,20 +108,43 @@
                         }
                     },
                     {
-                        data: 'categories',
-                        name: 'categories',
+                        data: 'member_type_id',
+                        name: 'member_type_id',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
                     },
                     {
-                        data: 'notification',
-                        name: 'notification',
+                        data: 'title',
+                        name: 'title',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'creator_id',
+                        name: 'creator_id',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                        render: function(data, type, row, meta) {
+                            if (row.creator_id) {
+                                return '<span class="label  label-light-success label-inline label-bold">Mentor</span>';
+                            } else {
+                                return '<span class="label  label-light-danger label-inline label-bold">Admin</span>';
+                            }
+                        }
                     },
 
                     {
@@ -167,7 +192,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.categories}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.title}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

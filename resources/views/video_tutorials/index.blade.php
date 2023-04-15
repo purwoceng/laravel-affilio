@@ -44,12 +44,12 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="js-product-table" class="table table-separate table-head-custom table-checkable nowrap">
+                    <table id="js-product-table" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                         <thead>
                             <tr class="small">
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Tipe Member</th>
+                                <th>Tipe/Peringkat Member</th>
                                 <th>Url Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
@@ -73,7 +73,7 @@
 
         $(document).ready(function() {
             const ajaxUrl = "{{ route('video_tutorials.index') }}";
-            
+
             $('#js-product-table').DataTable({
                 destroy: true,
                 processing: true,

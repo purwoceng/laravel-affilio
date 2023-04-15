@@ -16,9 +16,9 @@ class VideoTraining extends Model
 
     protected $fillable = [
         'id',
+        'member_type_id',
         'name',
-        'file',
-        'categories',
+        'url',
     ];
 
     protected $casts = [

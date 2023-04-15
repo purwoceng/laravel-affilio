@@ -106,7 +106,7 @@
                                                         data-name="city_name" placeholder="Type Here">
                                                         <option disabled>Pilih Kota</option>
                                                         <option value="all" selected default>Semua</option>
-                                                        @foreach ($getMemberBlockeds as $data)
+                                                        @foreach ($city_name as $data)
                                                             <option value="{{ $data->id }}">
                                                                 {{ $data->city_name }}
                                                             </option>
@@ -126,6 +126,7 @@
                                 <th>No Hp</th>
                                 <th>Email</th>
                                 <th>Tipe Member</th>
+                                <th>Status Founder</th>
                                 <th>Alamat Member</th>
                                 <th>Kota</th>
                                 <th>Provinsi</th>
@@ -218,6 +219,22 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'is_founder',
+                        name: 'is_founder',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (row.is_founder === '1') {
+                                return '<span class="label  label-light-success label-inline label-bold">Founder</span>';
+                            }
+                             else {
+                                return '<span>-</span>';
+                            }
+                        }
                     },
                     {
                         data: 'address',

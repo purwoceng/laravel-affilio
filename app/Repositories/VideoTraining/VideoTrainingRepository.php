@@ -56,17 +56,17 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
         if (!empty($videos)) {
             foreach ($videos  as $key => $video) {
                 $id = $video->id;
+                $member_type_id = $video->member_type_id;
                 $name = $video->name;
-                $file = $video->file ?config('app.s3_url') . $video->file : '';
-                $categories = $video->categories;
+                $url = $video->url;
                 $created_at = date('d/m/Y H:i', strtotime($video->created_at));
                 $actions = $id;
 
                 $data[] = compact(
                     'id',
+                    'member_type_id',
                     'name',
-                    'file',
-                    'categories',
+                    'url',
                     'created_at',
                     'actions',
                 );

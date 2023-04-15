@@ -6,6 +6,7 @@ use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\MemberAddress;
 use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -37,11 +38,12 @@ class MemberController extends Controller
         //                     ->get();
 
         $member_type = MemberType::get();
+        $city_name = MemberAddress::get();
         if ($request->ajax()) {
             return $this->memberRepository->getDataTable($request);
         }
 
-        return view('members.member.index', compact('member_type', 'getMemberBlockeds'));
+        return view('members.member.index', compact('member_type', 'city_name', 'getMemberBlockeds'));
     }
 
     /**
@@ -152,11 +154,6 @@ class MemberController extends Controller
                     'required',
                     Rule::exists('member_types', 'id'),
                 ],
-                'city_name' => [
-                    'required',
-                    Rule::unique('member_addresses', 'city_name')
-                        ->ignore($id),
-                ],
                 'image' => [
                     'nullable',
                     'image',
@@ -181,7 +178,8 @@ class MemberController extends Controller
         $member->username = $request->username;
         $member->phone = $request->phone;
         $member->member_type_id = $request->member_type_id;
-        $member->city_name = $request->city_name;
+        $member->is_founder = $request->is_founder;
+
 
         $image = $request->file('image');
 

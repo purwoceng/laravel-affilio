@@ -60,24 +60,36 @@ class EventRepository implements EventRepositoryInterface
                 $id = $event->id;
                 $name = $event->name;
                 $speaker = $event->speaker;
+                $price = $event->price;
+                $tiket = $event->tiket;
+                $kuota = $event->kuota;
                 $time = $event->time;
                 $date = $event->date;
                 $location = $event->location;
+                $prefix = $event->prefix;
                 $image = $event->image ? config('app.s3_url') . $event->image : '';
+                $video = $event->video;
                 $type = $event->type;
                 $description = $event->description;
+                $status = $event->status;
                 $created_at = date('d/m/Y H:i', strtotime($event->created_at));
 
                 $data[] = compact(
                     'id',
                     'name',
                     'speaker',
+                    'price',
+                    'tiket',
+                    'kuota',
                     'time',
                     'date',
                     'location',
+                    'prefix',
                     'image',
+                    'video',
                     'type',
                     'description',
+                    'status',
                     'created_at',
                 );
             }
@@ -86,7 +98,7 @@ class EventRepository implements EventRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordFiltered' => intval($totalFiltered),
+            'recordFiltered' => intval($totalData),
             'data' => $data,
         ];
 

@@ -1,17 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dana\FundController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Dana\RewardController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\TiketController;
 use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\Dana\EventfundController;
 use App\Http\Controllers\HomePage\BannerController;
 use App\Http\Controllers\HomePage\ConfigController;
 use App\Http\Controllers\User\PermissionController;
+use App\Http\Controllers\Dana\DanaPensiunController;
 use App\Http\Controllers\HomePage\ProductController;
 use App\Http\Controllers\Member\MemberResetPassword;
 use App\Http\Controllers\Category\CategoryController;
@@ -19,17 +23,21 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Event\EventGreetingController;
+use App\Http\Controllers\HomePage\FunnelLinkController;
 use App\Http\Controllers\Order\OrderCheckoutController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
 use App\Http\Controllers\Product\MarkupProductController;
+use App\Http\Controllers\Supplier\SupplierCoverController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
+use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Http\Controllers\VideoTraining\VideoTrainingController;
@@ -215,6 +223,18 @@ Route::middleware('auth')->group(function () {
             });
         });
 
+    //supplier-cover
+    Route::prefix('supplierscover')->name('supplierscover.')->group(function () {
+        Route::get('/', [SupplierCoverController::class, 'index'])->name('index');
+        Route::get('/create', [SupplierCoverController::class, 'create'])->name('create');
+        Route::post('/store', [SupplierCoverController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [SupplierCoverController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy');
+    });
+
+
 
     //MCS NUMBER MENU
     Route::prefix('cs-number')->name('cs-number.')->group(function () {
@@ -359,13 +379,71 @@ Route::middleware('auth')->group(function () {
         Route::post('/update/{id}', [TiketController::class, 'update'])->name('update');
     });
 
+    //dana pensiun
+    Route::prefix('pensiun')->name('pensiun.')->group(function () {
+        Route::get('/', [DanaPensiunController::class, 'index'])->name('index');
+        Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show');
+    });
+
     //dana reward
-    // Video Tutorials
     Route::prefix('reward')
         ->name('reward.')
         ->group(function () {
             Route::get('/', [RewardController::class, 'index'])->name('index');
             Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
         });
+    //dana acara
+    Route::prefix('eventfund')
+        ->name('eventfund.')
+        ->group(function () {
+            Route::get('/', [EventfundController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show');
+        });
 
+    //riwayat dana
+    Route::prefix('fund')
+        ->name('fund.')
+        ->group(function () {
+            Route::get('/', [FundController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [FundController::class, 'show'])->name('show');
+        });
+
+    // Funnel Link
+    Route::prefix('funnel')
+        ->name('funnel.')
+        ->group(function () {
+            Route::get('/', [FunnelLinkController::class, 'index'])->name('index');
+            Route::get('/create', [FunnelLinkController::class, 'create'])->name('create');
+            Route::post('/store', [FunnelLinkController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [FunnelLinkController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
+        });
+
+    //Header Funnelink
+    Route::prefix('headerfunnel')
+        ->name('headerfunnel.')
+        ->group(function () {
+            Route::get('/', [HeaderFunnelController::class, 'index'])->name('index');
+            Route::get('/create', [HeaderFunnelController::class, 'create'])->name('create');
+            Route::post('/store', [HeaderFunnelController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [HeaderFunnelController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [HeaderFunnelController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [HeaderFunnelController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [HeaderFunnelController::class, 'destroy'])->name('destroy');
+        });
+
+    // Greeting Event
+    Route::prefix('greeting')
+        ->name('greeting.')
+        ->group(function () {
+            Route::get('/', [EventGreetingController::class, 'index'])->name('index');
+            Route::get('/create', [EventGreetingController::class, 'create'])->name('create');
+            Route::post('/store', [EventGreetingController::class, 'store'])->name('store');
+            Route::get('/show/{id}', [EventGreetingController::class, 'show'])->name('show');
+            Route::get('/edit/{id}', [EventGreetingController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [EventGreetingController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [EventGreetingController::class, 'destroy'])->name('destroy');
+        });
 });

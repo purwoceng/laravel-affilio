@@ -137,6 +137,42 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="input-event-price">Harga</label>
+                                    <input type="text" id="input-event-price" class="form-control" name="price"
+                                        value="{{ old('price') }}" aria-describedby="price-helper"
+                                        placeholder="Masukkan Harga Tiket" required />
+
+                                    @error('price')
+                                        <small id="price-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-tiket">Tiket</label>
+                                    <input type="text" id="input-event-tiket" class="form-control" name="tiket"
+                                        value="{{ old('tiket') }}" aria-describedby="tiket-helper"
+                                        placeholder="Masukkan Link TIket" required />
+
+                                    @error('tiket')
+                                        <small id="tiket-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-kuota">Kuota</label>
+                                    <input type="text" id="input-event-kuota" class="form-control" name="kuota"
+                                        value="{{ old('kuota') }}" aria-describedby="kuota-helper"
+                                        placeholder="Masukkan Kuota Tiket" required />
+
+                                    @error('kuota')
+                                        <small id="kuota-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="input-event-time">Waktu</label>
                                     <input type="time" id="input-event-time" class="form-control" name="time"
                                         value="{{ old('time') }}" aria-describedby="time-helper"
@@ -172,13 +208,38 @@
                                         </small>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="input-event-prefix">Prefix</label>
+                                    <input type="text" id="input-event-prefix" class="form-control" name="prefix"
+                                        value="{{ old('prefix') }}" aria-describedby="prefix-helper"
+                                        placeholder="Masukkan Prefix" required />
+
+                                    @error('name')
+                                        <small id="prefix-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
 
                                 <div class="form-group">
                                     <label>Poster<span class="text-danger">*</span></label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="image" />
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="image" />
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-event-video">Video</label>
+                                    <input type="text" id="input-event-video" class="form-control" name="video"
+                                        value="{{ old('video') }}" aria-describedby="video-helper"
+                                        placeholder="Masukkan URL Video Event" required />
+
+                                    @error('video')
+                                        <small id="video-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Tipe <span class="text-danger">*</span></label>
@@ -193,7 +254,14 @@
                                     <input type="text" class="form-control" id="description" name="description"
                                         value="" placeholder="Masukkan deskripsi" />
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Status <span class="text-danger">*</span></label>
+                                    <select class="custom-select form-control js-type-selector" name="status" required>
+                                        <option selected disabled>Status Event</option>
+                                        <option value="active">Active</option>
+                                        <option value="non-active">Non-Active</option>
+                                    </select>
+                                </div>
 
                                 <a class="btn btn-outline-danger" href="{{ route('event.index') }}">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan</button>

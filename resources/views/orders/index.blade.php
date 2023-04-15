@@ -527,9 +527,9 @@
                             </div>
                             <div class="btn-group">
                                 <div class="m-1">
-                                    <button class="btn btn-sm btn-danger shadow-sm text-white"
-                                        id="js-btn-resi" disabled><i
-                                            class="fas fa-print fa-sm text-white-50"></i> Buat Resi Pesanan</button>
+                                    <button class="btn btn-sm btn-danger shadow-sm text-white" id="js-btn-resi"
+                                        disabled><i class="fas fa-print fa-sm text-white-50"></i> Buat Resi
+                                        Pesanan</button>
                                 </div>
                             </div>
                         </div>
@@ -598,8 +598,8 @@
                     infoFiltered: "",
                 },
                 lengthMenu: [
-                    [50,100, 200, 300, 400, 500],
-                    [50,100, 200, 300, 400, 500,]
+                    [50, 100, 200, 300, 400, 500],
+                    [50, 100, 200, 300, 400, 500, ]
                 ],
                 pageLength: 50,
                 order: [
@@ -740,7 +740,8 @@
                             let elements =
                                 `<div class="d-block small"><span class="small">${row.last_synced_elapsed}</span></div>`;
 
-                            if (row.last_synced_stamp >= 900 && !['unpaid'].includes(row.baleomol_status)) {
+                            if (row.last_synced_stamp >= 900 && !['unpaid'].includes(row
+                                    .baleomol_status)) {
                                 elements += `<div class="d-block mt-2">
                                     <button class="btn btn-sm btn-primary px-3 js-sync-order-btn"
                                         data-id="${row.id}"><small>Sinkronkan</small></button>
@@ -757,11 +758,15 @@
                         orderable: false,
                         render: function(data, type, row) {
                             let elements = ``;
-                            if (row.last_synced_stamp >= 900 && !['unpaid'].includes(row.baleomol_status)) {
+                            if (row.last_synced_stamp >= 900 && !['unpaid'].includes(row
+                                    .baleomol_status)) {
                                 elements =
                                     `<input type="checkbox" name="orders[]" class="js-syncron-order"  value="${row.id}" data-id="${row.id}" data-customer="${row.name}" data-date_created="${row.date_created}" data-whatsapp="${row.phone}">`;
-                            } if (row.status == 'paid' && row.payment_status == 'paid' && row.baleomol_status == 'unpaid') {
-                                elements =`<input type="checkbox" name="orders[]" class="js-checkout-order"  value="${row.id}" data-id="${row.id}" data-customer="${row.name}" data-date_created="${row.date_created}" data-whatsapp="${row.phone}">`;
+                            }
+                            if (row.status == 'paid' && row.payment_status == 'paid' && row
+                                .baleomol_status == 'unpaid') {
+                                elements =
+                                    `<input type="checkbox" name="orders[]" class="js-checkout-order"  value="${row.id}" data-id="${row.id}" data-customer="${row.name}" data-date_created="${row.date_created}" data-whatsapp="${row.phone}">`;
                             }
                             return elements;
                         }
@@ -777,8 +782,10 @@
                             let elements = '';
                             let checkoutButton = '';
 
-                            if (row.baleomol_status ==='unpaid' && row.status === 'paid' && row.payment_status === 'paid') {
-                                checkoutButton += `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                            if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
+                                .payment_status === 'paid') {
+                                checkoutButton +=
+                                    `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
                             }
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -791,6 +798,8 @@
                                     <ul class="nav nav-hoverable flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
+                                            </a>
+                                            <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Sukseskan
                                             </a>
                                             ${checkoutButton}
                                         </li>
@@ -1269,18 +1278,22 @@
                                     type: "GET",
                                     url: urlGetOrder,
                                     data: {
-                                        order_data: [{ 'order_id' : orderId}],
+                                        order_data: [{
+                                            'order_id': orderId
+                                        }],
                                     },
                                     success: function(response) {
                                         if (response.status === 'success') {
                                             const postOptions = {
                                                 method: 'POST',
                                                 headers: {
-                                                    Authorization: 'Bearer ' + `{{ config('app.baleomol_key') }}`,
+                                                    Authorization: 'Bearer ' +
+                                                        `{{ config('app.baleomol_key') }}`,
                                                     'Content-Type': 'application/json',
                                                 },
                                                 body: JSON.stringify({
-                                                    'orderData': response.data,
+                                                    'orderData': response
+                                                        .data,
                                                 }),
                                             };
                                             fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
@@ -1290,66 +1303,119 @@
                                                 })
                                                 .then(function(data) {
                                                     if (data.success) {
-                                                        let invoiceId = data.data.invoiceId;
-                                                        let invoiceCode = data.data.invoiceCode;
-                                                        let invoiceTotal = data.data.invoiceTotal;
+                                                        let invoiceId = data
+                                                            .data.invoiceId;
+                                                        let invoiceCode = data
+                                                            .data.invoiceCode;
+                                                        let invoiceTotal = data
+                                                            .data.invoiceTotal;
                                                         let orderDatas = [];
-                                                        let results= [];
+                                                        let results = [];
 
-                                                        for (let i = 0; i < data.data.orderData.length; i++) {
-                                                            let orderId = data.data.orderData[i].partnershipOrderId;
-                                                            results += JSON.stringify([{
-                                                                'order_id' :data.data.orderData[i].orderId,
-                                                                'order_code' :data.data.orderData[i].orderCode,
-                                                                'partnership_order_id' : data.data.orderData[i].partnershipOrderId,
-                                                                'products' :data.data.orderData[i].products,
-                                                            }]);
+                                                        for (let i = 0; i < data
+                                                            .data.orderData
+                                                            .length; i++) {
+                                                            let orderId = data
+                                                                .data.orderData[
+                                                                    i]
+                                                                .partnershipOrderId;
+                                                            results += JSON
+                                                                .stringify([{
+                                                                    'order_id': data
+                                                                        .data
+                                                                        .orderData[
+                                                                            i
+                                                                        ]
+                                                                        .orderId,
+                                                                    'order_code': data
+                                                                        .data
+                                                                        .orderData[
+                                                                            i
+                                                                        ]
+                                                                        .orderCode,
+                                                                    'partnership_order_id': data
+                                                                        .data
+                                                                        .orderData[
+                                                                            i
+                                                                        ]
+                                                                        .partnershipOrderId,
+                                                                    'products': data
+                                                                        .data
+                                                                        .orderData[
+                                                                            i
+                                                                        ]
+                                                                        .products,
+                                                                }]);
                                                         }
 
                                                         $.ajax({
-                                                            type: "POST",
-                                                            url: `{{ route('orders.updateOrder') }}`,
-                                                            data: {
-                                                                _token: "{{ csrf_token() }}",
-                                                                invoice_id : invoiceId,
-                                                                invoice_code: invoiceCode,
-                                                                invoice_total : invoiceTotal,
-                                                                order_data:results,
-                                                            },
-                                                            success: function(response) {
-                                                                Swal.fire({
-                                                                    title: response.title,
-                                                                    html: response.message,
-                                                                    icon: response.icon,
-                                                                });
-                                                            }
-                                                        })
-                                                        .then(function() {
-                                                            $(this).addClass('btn-disabled');
-                                                            getDataFiltered();
-                                                        });
+                                                                type: "POST",
+                                                                url: `{{ route('orders.updateOrder') }}`,
+                                                                data: {
+                                                                    _token: "{{ csrf_token() }}",
+                                                                    invoice_id: invoiceId,
+                                                                    invoice_code: invoiceCode,
+                                                                    invoice_total: invoiceTotal,
+                                                                    order_data: results,
+                                                                },
+                                                                success: function(
+                                                                    response
+                                                                ) {
+                                                                    Swal.fire({
+                                                                        title: response
+                                                                            .title,
+                                                                        html: response
+                                                                            .message,
+                                                                        icon: response
+                                                                            .icon,
+                                                                    });
+                                                                }
+                                                            })
+                                                            .then(function() {
+                                                                $(this)
+                                                                    .addClass(
+                                                                        'btn-disabled'
+                                                                    );
+                                                                getDataFiltered
+                                                                    ();
+                                                            });
 
                                                     } else {
                                                         let messages = '';
-                                                            messages += '<ul>';
-                                                            for (let i = 0; i < data.data.length; i++) {
-                                                                for (let j = 0; j < data.data[i].products[0].errors.length; j++) {
-                                                                    messages+= '<li style="text-align: left;">' + data.data[i].products[0].errors[j] + '</li>';
-                                                                }
+                                                        messages += '<ul>';
+                                                        for (let i = 0; i < data
+                                                            .data.length; i++) {
+                                                            for (let j = 0; j <
+                                                                data.data[i]
+                                                                .products[0]
+                                                                .errors
+                                                                .length; j++) {
+                                                                messages +=
+                                                                    '<li style="text-align: left;">' +
+                                                                    data.data[i]
+                                                                    .products[0]
+                                                                    .errors[j] +
+                                                                    '</li>';
                                                             }
-                                                            messages += '</ul>';
-                                                            Swal.fire({
-                                                                title: data.message,
-                                                                html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' + messages,
-                                                                icon: 'error',
-                                                            });
+                                                        }
+                                                        messages += '</ul>';
+                                                        Swal.fire({
+                                                            title: data
+                                                                .message,
+                                                            html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' +
+                                                                messages,
+                                                            icon: 'error',
+                                                        });
 
                                                     }
-                                                },function(err) {
-                                                    const error = err.errors || {};
-                                                    const errorTitle = error.title ||
+                                                }, function(err) {
+                                                    const error = err.errors ||
+                                                    {};
+                                                    const errorTitle = error
+                                                        .title ||
                                                         'Gagal Checkout Pesanan';
-                                                    const errorMessage = error.title ||
+                                                    const errorMessage = error
+                                                        .title ||
                                                         'Maaf terjadi kesalahan saat checkout data pesanan Anda!';
 
                                                     Swal.fire(
@@ -1357,10 +1423,13 @@
                                                         errorMessage,
                                                         'warning'
                                                     );
-                                                    $(this).removeClass('btn-disabled');
+                                                    $(this).removeClass(
+                                                        'btn-disabled');
                                                 })
                                                 .catch((error) => {
-                                                    console.log({error})
+                                                    console.log({
+                                                        error
+                                                    })
                                                 });
 
 
@@ -1405,7 +1474,6 @@
             checkAll.click(function() {
                 if (!$(this).is(':checked')) {
                     $('input:checkbox').not(this).prop('checked', this.checked);
-                    // sinkronMasalBtn.prop('disabled', true);
                     checkoutVoucherBtn.prop('disabled', true);
                     ResiBtn.prop('disabled', true);
                 } else {
@@ -1434,10 +1502,12 @@
                 const syncronChecked = $('.js-syncron-order:checked');
                 const checked = $('.orders:checked');
                 const finalChecked = [...checkOut];
-                const totalChecked = [...checked,...checkOut];
+                const totalChecked = [...checked, ...checkOut];
                 if (finalChecked.length >= 1) {
                     $.each(finalChecked, function(i, item) {
-                        ordersId.push({'order_id' : $(item).val()});
+                        ordersId.push({
+                            'order_id': $(item).val()
+                        });
                     });
 
                     Swal.fire({
@@ -1445,7 +1515,8 @@
                         showConfirmButton: false,
                         icon: 'info',
                         title: 'Harap Tunggu',
-                        html: 'Total ada <b>' + finalChecked.length +  '</b> pesanan, Sedang meneruskan pesanan massal anda ke baleomol.com',
+                        html: 'Total ada <b>' + finalChecked.length +
+                            '</b> pesanan, Sedang meneruskan pesanan massal anda ke baleomol.com',
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         allowEnterKey: false,
@@ -1455,140 +1526,179 @@
                     });
 
                     setTimeout(function() {
-                                let urlGetOrder = "{{ route('orders.getOrder') }}";
-                                $.ajax({
-                                    type: "GET",
-                                    url: urlGetOrder,
-                                    data: {
-                                        order_data: ordersId,
-                                    },
-                                    success: function(response) {
+                        let urlGetOrder = "{{ route('orders.getOrder') }}";
+                        $.ajax({
+                            type: "GET",
+                            url: urlGetOrder,
+                            data: {
+                                order_data: ordersId,
+                            },
+                            success: function(response) {
 
-                                        if (response.status === 'success') {
-                                            const postOptions = {
-                                                method: 'POST',
-                                                headers: {
-                                                    Authorization: 'Bearer ' + `{{ config('app.baleomol_key') }}`,
-                                                    'Content-Type': 'application/json',
-                                                },
-                                                body: JSON.stringify({
-                                                    'orderData': response.data,
-                                                }),
-                                            };
-                                            fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
-                                                    postOptions)
-                                                .then(function(res) {
-                                                    return res.json();
-                                                })
-                                                .then(function(data) {
-                                                    if (data.success) {
-                                                        let invoiceId = data.data.invoiceId;
-                                                        let invoiceCode = data.data.invoiceCode;
-                                                        let invoiceTotal = data.data.invoiceTotal;
-                                                        let orderDatas = [];
-                                                        let results= [];
+                                if (response.status === 'success') {
+                                    const postOptions = {
+                                        method: 'POST',
+                                        headers: {
+                                            Authorization: 'Bearer ' +
+                                                `{{ config('app.baleomol_key') }}`,
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            'orderData': response.data,
+                                        }),
+                                    };
+                                    fetch(`{{ config('app.baleomol_url') . '/checkout-partnership' }}`,
+                                            postOptions)
+                                        .then(function(res) {
+                                            return res.json();
+                                        })
+                                        .then(function(data) {
+                                            if (data.success) {
+                                                let invoiceId = data.data.invoiceId;
+                                                let invoiceCode = data.data
+                                                    .invoiceCode;
+                                                let invoiceTotal = data.data
+                                                    .invoiceTotal;
+                                                let orderDatas = [];
+                                                let results = [];
 
-                                                        for (let i = 0; i < data.data.orderData.length; i++) {
-                                                            let orderId = data.data.orderData[i].partnershipOrderId;
-                                                            results += JSON.stringify([{
-                                                                'order_id' :data.data.orderData[i].orderId,
-                                                                'order_code' :data.data.orderData[i].orderCode,
-                                                                'partnership_order_id' : data.data.orderData[i].partnershipOrderId,
-                                                                'products' :data.data.orderData[i].products,
-                                                            }]);
-                                                        }
+                                                for (let i = 0; i < data.data
+                                                    .orderData.length; i++) {
+                                                    let orderId = data.data
+                                                        .orderData[i]
+                                                        .partnershipOrderId;
+                                                    results += JSON.stringify([{
+                                                        'order_id': data
+                                                            .data
+                                                            .orderData[
+                                                                i]
+                                                            .orderId,
+                                                        'order_code': data
+                                                            .data
+                                                            .orderData[
+                                                                i]
+                                                            .orderCode,
+                                                        'partnership_order_id': data
+                                                            .data
+                                                            .orderData[
+                                                                i]
+                                                            .partnershipOrderId,
+                                                        'products': data
+                                                            .data
+                                                            .orderData[
+                                                                i]
+                                                            .products,
+                                                    }]);
+                                                }
 
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: `{{ route('orders.updateOrder') }}`,
-                                                            data: {
-                                                                _token: "{{ csrf_token() }}",
-                                                                invoice_id : invoiceId,
-                                                                invoice_code: invoiceCode,
-                                                                invoice_total : invoiceTotal,
-                                                                order_data:results,
-                                                            },
-                                                            success: function(response) {
-                                                                Swal.fire({
-                                                                    title: response.title,
-                                                                    html: response.message,
-                                                                    icon: response.icon,
-                                                                });
-                                                            }
-                                                        })
-                                                        .then(function() {
-                                                            $(this).addClass('btn-disabled');
-                                                            getDataFiltered();
-                                                        });
-
-                                                    } else {
-                                                        let messages = '';
-                                                        if (data.data === undefined || data.data == null || data.data.length <= 0) {
-                                                                  Swal.fire({
-                                                                    title: data.message,
-                                                                    html: 'Mohon maaf anda tidak dapat melakukan checkout pesanan dikarenakan </br> Vocuher anda <b>"Tidak Cukup"</b>',
-                                                                    icon: 'error',
-                                                                });
-                                                        } else {
-                                                            messages += '<ul>';
-                                                            for (let i = 0; i < data.data.length; i++) {
-                                                                for (let j = 0; j < data.data[i].products[0].errors.length; j++) {
-                                                                    messages+= '<li style="text-align: left;">' + data.data[i].products[0].errors[j] + '</li>';
-                                                                }
-
-                                                            }
-                                                            messages += '</ul>';
+                                                $.ajax({
+                                                        type: "POST",
+                                                        url: `{{ route('orders.updateOrder') }}`,
+                                                        data: {
+                                                            _token: "{{ csrf_token() }}",
+                                                            invoice_id: invoiceId,
+                                                            invoice_code: invoiceCode,
+                                                            invoice_total: invoiceTotal,
+                                                            order_data: results,
+                                                        },
+                                                        success: function(
+                                                            response) {
                                                             Swal.fire({
-                                                                title: data.message,
-                                                                html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' + messages,
-                                                                icon: 'error',
+                                                                title: response
+                                                                    .title,
+                                                                html: response
+                                                                    .message,
+                                                                icon: response
+                                                                    .icon,
                                                             });
                                                         }
+                                                    })
+                                                    .then(function() {
+                                                        $(this).addClass(
+                                                            'btn-disabled');
+                                                        getDataFiltered();
+                                                    });
+
+                                            } else {
+                                                let messages = '';
+                                                if (data.data === undefined || data
+                                                    .data == null || data.data
+                                                    .length <= 0) {
+                                                    Swal.fire({
+                                                        title: data.message,
+                                                        html: 'Mohon maaf anda tidak dapat melakukan checkout pesanan dikarenakan </br> Vocuher anda <b>"Tidak Cukup"</b>',
+                                                        icon: 'error',
+                                                    });
+                                                } else {
+                                                    messages += '<ul>';
+                                                    for (let i = 0; i < data.data
+                                                        .length; i++) {
+                                                        for (let j = 0; j < data
+                                                            .data[i].products[0]
+                                                            .errors.length; j++) {
+                                                            messages +=
+                                                                '<li style="text-align: left;">' +
+                                                                data.data[i]
+                                                                .products[0].errors[
+                                                                    j] + '</li>';
+                                                        }
+
                                                     }
-                                                },function(err) {
-                                                    const error = err.errors || {};
-                                                    const errorTitle = error.title ||
-                                                        'Gagal Checkout Pesanan';
-                                                    const errorMessage = error.title ||
-                                                        'Maaf terjadi kesalahan saat checkout data pesanan Anda!';
+                                                    messages += '</ul>';
+                                                    Swal.fire({
+                                                        title: data.message,
+                                                        html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' +
+                                                            messages,
+                                                        icon: 'error',
+                                                    });
+                                                }
+                                            }
+                                        }, function(err) {
+                                            const error = err.errors || {};
+                                            const errorTitle = error.title ||
+                                                'Gagal Checkout Pesanan';
+                                            const errorMessage = error.title ||
+                                                'Maaf terjadi kesalahan saat checkout data pesanan Anda!';
 
-                                                    Swal.fire(
-                                                        errorTitle,
-                                                        errorMessage,
-                                                        'warning'
-                                                    );
-                                                    $(this).removeClass('btn-disabled');
-                                                })
-                                                .catch((error) => {
-                                                    console.log({error})
-                                                });
-
-
-
-                                        } else {
                                             Swal.fire(
-                                                response.errors.title || '',
-                                                response.errors.message || '',
-                                                'warning',
+                                                errorTitle,
+                                                errorMessage,
+                                                'warning'
                                             );
-
                                             $(this).removeClass('btn-disabled');
-                                        }
-                                    },
-                                    error: (function(err) {
-                                        Swal.fire(
-                                            'Terjadi Kesalahan',
-                                            'Kami tidak bisa menemukan data pesanan Anda, mohon coba kembali beberapa saat lagi!',
-                                            'warning',
-                                        );
-                                        $(this).removeClass('btn-disabled');
-                                    })
-                                });
-
-                            }, 500);
+                                        })
+                                        .catch((error) => {
+                                            console.log({
+                                                error
+                                            })
+                                        });
 
 
-                }else {
+
+                                } else {
+                                    Swal.fire(
+                                        response.errors.title || '',
+                                        response.errors.message || '',
+                                        'warning',
+                                    );
+
+                                    $(this).removeClass('btn-disabled');
+                                }
+                            },
+                            error: (function(err) {
+                                Swal.fire(
+                                    'Terjadi Kesalahan',
+                                    'Kami tidak bisa menemukan data pesanan Anda, mohon coba kembali beberapa saat lagi!',
+                                    'warning',
+                                );
+                                $(this).removeClass('btn-disabled');
+                            })
+                        });
+
+                    }, 500);
+
+
+                } else {
                     Swal.fire({
                         icon: 'warning',
                         title: `Orderan Belum Dipilih`,
@@ -1780,7 +1890,8 @@
                         const url = window.URL || window.webkitURL;
                         const downloadURL = url.createObjectURL(data);
                         var a = $("<a />");
-                        a.attr("download", 'Daftar Pesanan-'+status1+'-Tanggal-'+ date_range1+'.xlsx');
+                        a.attr("download", 'Daftar Pesanan-' + status1 + '-Tanggal-' +
+                            date_range1 + '.xlsx');
                         a.attr("href", downloadURL);
                         $("body").append(a);
                         a[0].click();
