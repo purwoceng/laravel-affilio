@@ -22,6 +22,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
+use App\Http\Controllers\Dana\EventDashboardController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventGreetingController;
 use App\Http\Controllers\HomePage\FunnelLinkController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
+use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\Supplier\SupplierCoverController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
@@ -37,7 +39,6 @@ use App\Http\Controllers\Product\ProductInactiveController;
 use App\Http\Controllers\Product\ProductWishlistController;
 use App\Http\Controllers\Invoice\Paid\InvoicePaidController;
 use App\Http\Controllers\HomePage\CsNumberCategoryController;
-use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Supplier\SupplierNonactiveController;
 use App\Http\Controllers\VideoTraining\VideoTrainingController;
@@ -398,6 +399,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [EventfundController::class, 'index'])->name('index');
             Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show');
+            Route::get('/get-dashboard', [EventDashboardController::class, 'getDashboard'])->name('dashboard');
         });
 
     //riwayat dana

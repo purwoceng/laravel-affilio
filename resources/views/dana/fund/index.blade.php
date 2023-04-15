@@ -398,7 +398,7 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
-                let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
+                let url = "{{ URL::to('/') }}" + `/eventfund/get-dashboard`;
 
                 $.ajax({
                     type: "GET",

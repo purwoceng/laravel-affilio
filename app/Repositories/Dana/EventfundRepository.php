@@ -69,16 +69,16 @@ class EventfundRepository implements EventfundRepositoryInterface
                 $created_at = date('d/m/Y H:i', strtotime($event->created_at));
                 $actions = $id;
 
-                $data[] = compact(
-                    'id',
-                    'username',
-                    'code',
-                    'title',
-                    'description',
-                    'status_verify',
-                    'value',
-                    'created_at',
-                    'actions',
+                $data[] = array(
+                    'id' => $id,
+                    'username'=> $username,
+                    'code'=>$code,
+                    'title' => $title,
+                    'description' => $description,
+                    'status_verify' => $status_verify,
+                    'value'=>formatRupiah($value),
+                    'created_at' => $created_at,
+                    'actions' => $actions,
                 );
             }
         }

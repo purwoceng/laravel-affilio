@@ -46,8 +46,8 @@
                                     <label>Tipe Funneling<span class="text-danger">*</span></label>
                                     <select class="form-control form-control-sm filter" name="type"
                                     placeholder="Type Here" required>
-                                    <option value="header" {{ $data->type == 'header' ? 'selected' : ''}}>Header</option>
-                                    <option value="link" {{ $data->type == 'link' ? 'selected' : ''}}>Link Training</option>
+                                    {{-- <option value="header" {{ $data->type == 'header' ? 'selected' : ''}}>Header</option>
+                                    <option value="link" {{ $data->type == 'link' ? 'selected' : ''}}>Link Training</option> --}}
                                     <option value="video" {{ $data->type == 'video' ? 'selected' : ''}}>Video Home</option>
                                 </select>
                                 </div>
