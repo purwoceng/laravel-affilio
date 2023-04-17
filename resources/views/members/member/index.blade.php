@@ -83,7 +83,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Refferal</label>
+                                                <label class="col-4 col-form-label">Referral</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <input type="text" class="form-control form-control-sm filter"
