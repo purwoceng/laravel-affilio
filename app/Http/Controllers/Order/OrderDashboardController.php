@@ -78,7 +78,7 @@ class OrderDashboardController extends Controller
         // Biaya lanyanan : biaya dari midtrans
         $countTotalServiceFee = $totalOmzet->sum('fee');
         // Keuntungan Affiliasi Produk Member
-        $countTotalAffiliasiProfit = $dataAffiliasi->sum('markup_price');
+        $countTotalAffiliasiProfit = $dataAffiliasi->sum('markup_price') * $dataAffiliasi->sum('sold');
 
 
         $countOrder = $dataOrder->count();
