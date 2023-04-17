@@ -53,7 +53,7 @@
 
     <div class="container text-center my-2">
         <div class="row ">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 id="js-dashboard-bonus-profit" class="card-title mb-5">0</h5>
@@ -63,17 +63,36 @@
                                 <path
                                     d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z" />
                             </svg>
-                            Total Keuntungan (Profit)
+                            Total Keuntungan (Margin 100%)
                         </p>
                         <small class="card-text text-muted"> ( <span id="js-date-range-bonus-profit"></span> )</small>
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-6">
+        </div>
+    </div>
+    <div class="container text-center my-2">
+        <div class="row ">
+            <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 id="js-dashboard-profit-keuntungan" class="card-title mb-5">0</h2>
+                            <p class="card-subtitle mb-1 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                                  </svg>
+                                Bonus Member (75%)
+                            </p>
+                            <br>
+                            <small class="card-text text-muted">( <span id="js-date-range-profit-keuntungan"></span>
+                                )</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-profit-keuntungan-affilio" class="card-title mb-5">0</h2>
                             <p class="card-subtitle mb-1 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-award" viewBox="0 0 16 16">
@@ -81,9 +100,27 @@
                                         d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
                                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
                                 </svg>
-                                Bonus Profit
+                                Keuntungan Affilio (24%)
                             </p>
-                            <small class="card-text text-muted">( <span id="js-date-range-profit-keuntungan"></span>
+                            <br>
+                            <small class="card-text text-muted">( <span id="js-date-range-profit-keuntungan-affilio"></span>
+                                )</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-cadangan-kerugian-affilio" class="card-title mb-5">0</h2>
+                            <p class="card-subtitle mb-1 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
+                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1Z"/>
+                                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
+                                    <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                                  </svg>
+                                Cadangan Rugi Payment Gateway (1%)
+                            </p>
+                            <small class="card-text text-muted">( <span id="js-date-range-cadangan-kerugian-affilio"></span>
                                 )</small>
                     </div>
                 </div>
@@ -199,6 +236,24 @@
                             Total Orders
                         </p>
                         <small class="card-text text-muted">( <span id="js-date-range-total-order"></span> )</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center my-2">
+        <div class="row ">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-affiliasi-profit" class="card-title mb-5">0</h5>
+                        <p class="card-subtitle mb-1 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                              </svg>
+                            Keuntungan Affiliasi Produk Member
+                        </p>
+                        <small class="card-text text-muted"> ( <span id="js-date-range-affiliasi-profit"></span> )</small>
                     </div>
                 </div>
             </div>
@@ -885,8 +940,12 @@
                     'YYYY-MM-DD'));
                 $('#js-date-range-bonus-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
                     'YYYY-MM-DD'));
+                $('#js-date-range-affiliasi-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+                    'YYYY-MM-DD'));
                 $('#js-date-range-profit-keuntungan').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
                     'YYYY-MM-DD'));
+                $('#js-date-range-profit-keuntungan-affilio').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-cadangan-kerugian-affilio').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
                 $('#js-date-range-ongkir-60').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
                 $('#js-date-range-ongkir-30').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
                 $('#js-date-range-ongkir-10').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
@@ -985,7 +1044,10 @@
             let totalOmzetAll = $('#js-dashboard-total-omzet');
             let totalSupplierPrice = $('#js-dashboard-supplier-price');
             let bonusProfit = $('#js-dashboard-bonus-profit');
+            let AffiliasiProfit = $('#js-dashboard-affiliasi-profit');
             let profitKeuntungan = $('#js-dashboard-profit-keuntungan');
+            let profitKeuntunganAffilio = $('#js-dashboard-profit-keuntungan-affilio');
+            let cadanganKerugianAffilio = $('#js-dashboard-cadangan-kerugian-affilio');
             let ongkir60 = $('#js-dashboard-ongkir-60');
             let ongkir30 = $('#js-dashboard-ongkir-30');
             let ongkir10 = $('#js-dashboard-ongkir-10');
@@ -1027,7 +1089,10 @@
                 totalOmzetAll.html(data.total_omzet);
                 totalSupplierPrice.html(data.supplier_price);
                 bonusProfit.html(data.bonus_profit);
+                AffiliasiProfit.html(data.Affiliasi_profit);
                 profitKeuntungan.html(data.profit_keuntungan);
+                profitKeuntunganAffilio.html(data.profit_keuntungan_affilio);
+                cadanganKerugianAffilio.html(data.cadangan_kerugian_affilio);
                 ongkir60.html(data.total_ongkir_60);
                 ongkir30.html(data.total_ongkir_30);
                 ongkir10.html(data.total_ongkir_10);

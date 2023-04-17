@@ -14,6 +14,7 @@ class OrderDashboardController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
+        $dataAffiliasi = DB::table('product_shared');
         $totalOmzet = DB::table('orders');
         $dataSupplierPrice = DB::table('orders');
         $dataOrder =  DB::table('orders');
@@ -25,11 +26,12 @@ class OrderDashboardController extends Controller
         $dataReceived = Order::where('status', 'received');
         $dataSuccess = Order::where('status', 'success');
         $dataCancel = Order::where('status', 'cancel');
-        $dataCancelButUnpaid =  Order::where('status', 'cancel_but_unpaid');
+        $dataCancelButUnpaid =  Order::where('status', 'cancel_unpaid');
         $dataComplain =  Order::where('status', 'complain');
 
         if (!empty($startDate) && !empty($endDate)) {
             $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataAffiliasi->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
 
             $dataOrder->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
@@ -53,14 +55,18 @@ class OrderDashboardController extends Controller
                 ],
             ]);
         }
-        // Total Omzet : Harga produk + harga markup + kode unik + ongkir + biaya layanan
-        $countTotalOmzet = $totalOmzet->sum('total');
+        // Total Omzet : Harga produk + harga markup
+        $countTotalOmzet = $dataSupplierPrice->sum('subtotal');
         // Harga Supplier : Harga produk asli dari baleomol
         $countTotalSupplierPrice = $dataSupplierPrice->sum('affilio_value');
-        // Bonus Profit : Bonus profit diambil dari 75% dari markup
-        $countTotalBonusProfit = ($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.75;
-        // Profit Keuntungan : diambil dari 25% harga markup
-        $countTotalProfitKeuntungan =($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.25;
+        // Bonus Profit : Harga Markup - Harga Asli
+        $countTotalBonusProfit = ($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) ;
+        // Profit Member : diambil dari 75% harga markup
+        $countTotalProfitKeuntungan =($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.75;
+        // Profit Keuntungan : diambil dari 24% harga markup
+        $countTotalProfitKeuntunganAffilio =($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.24;
+        // Cadangan Kerugian : 1 % dari Total Margin
+        $countTotalCadanganKerugian =($dataSupplierPrice->sum('value') - $dataSupplierPrice->sum('affilio_value')) * 0.01;
         // Ongkos kirim 60% : ongkos 60% dari 100% ongkir masuk ke IdExpress
         $countTotalOngkir60 = 60 * $totalOmzet->sum('shipping_cost') / 100;
         // Ongkos kirim 30% : ongkor 30% dari 100% ongkir masuk ke perusahaan
@@ -68,9 +74,11 @@ class OrderDashboardController extends Controller
         // Ongkos kirim 10% : ongkos 10% dari 100% ongkir masuk ke bonus member/cashback
         $countTotalOngkir10 = 10 * $totalOmzet->sum('shipping_cost') / 100;
         // Kode unik : kode unik dikembalikan ke member
-        $countTotalUniqueCode = 1144646345;
+        $countTotalUniqueCode = 0;
         // Biaya lanyanan : biaya dari midtrans
-        $countTotalServiceFee = 12412412124;
+        $countTotalServiceFee = $totalOmzet->sum('fee');
+        // Keuntungan Affiliasi Produk Member
+        $countTotalAffiliasiProfit = $dataAffiliasi->sum('markup_price');
 
 
         $countOrder = $dataOrder->count();
@@ -101,7 +109,10 @@ class OrderDashboardController extends Controller
             'total_omzet' => formatRupiah($countTotalOmzet),
             'supplier_price' => formatRupiah($countTotalSupplierPrice),
             'bonus_profit' => formatRupiah($countTotalBonusProfit),
+            'Affiliasi_profit' => formatRupiah($countTotalAffiliasiProfit),
             'profit_keuntungan' => formatRupiah($countTotalProfitKeuntungan),
+            'profit_keuntungan_affilio' => formatRupiah($countTotalProfitKeuntunganAffilio),
+            'cadangan_kerugian_affilio' => formatRupiah($countTotalCadanganKerugian),
             'total_ongkir_60' => formatRupiah($countTotalOngkir60),
             'total_ongkir_30' => formatRupiah($countTotalOngkir30),
             'total_ongkir_10' => formatRupiah($countTotalOngkir10),

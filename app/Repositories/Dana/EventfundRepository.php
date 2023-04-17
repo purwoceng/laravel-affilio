@@ -14,17 +14,17 @@ class EventfundRepository implements EventfundRepositoryInterface
 
     public function getCountEventFund($startDate, $endDate)
     {
-        return RewardDana::where('code', 'BRA')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return RewardDana::where('code','=', 'BRA')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
     }
     public function getDataById($id)
     {
-        return RewardDana::where('code', 'BRA')->where('id', $id)->first();
+        return RewardDana::where('code','=', 'BRA')->where('id', $id)->first();
     }
 
 
     public function getEventFund($limit, $start, $startDate, $endDate)
     {
-        return RewardDana::where('code', 'BRA')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return RewardDana::where('code','=', 'BRA')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
