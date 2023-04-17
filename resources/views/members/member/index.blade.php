@@ -83,11 +83,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">No Handphone</label>
+                                                <label class="col-4 col-form-label">Refferal</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="phone" placeholder="Type Here">
+                                                        data-name="referral" placeholder="Type Here">
                                                 </div>
                                             </div>
                                             {{-- <div class="form-group form-group-sm row">
@@ -126,6 +126,7 @@
                                 <th>No Hp</th>
                                 <th>Email</th>
                                 <th>Tipe Member</th>
+                                <th>Referral</th>
                                 <th>Status Founder</th>
                                 <th>Alamat Member</th>
                                 <th>Kota</th>
@@ -221,6 +222,14 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
+                        data: 'referral',
+                        name: 'referral',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
                         data: 'is_founder',
                         name: 'is_founder',
                         sortable: false,
@@ -230,8 +239,7 @@
                         render: function(data, type, row, meta) {
                             if (row.is_founder === '1') {
                                 return '<span class="label  label-light-success label-inline label-bold">Founder</span>';
-                            }
-                             else {
+                            } else {
                                 return '<span>-</span>';
                             }
                         }

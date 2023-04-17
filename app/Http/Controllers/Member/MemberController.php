@@ -178,6 +178,7 @@ class MemberController extends Controller
         $member->username = $request->username;
         $member->phone = $request->phone;
         $member->member_type_id = $request->member_type_id;
+        $member->referral = $request->referral;
         $member->is_founder = $request->is_founder;
 
 
@@ -233,10 +234,10 @@ class MemberController extends Controller
         $downlines = [];
 
         foreach ($first_gen_members as $gen_one) {
-            $second_gen_members = $this->memberRepository->getDownline($gen_one->member_id,$member->id);
+            $second_gen_members = $this->memberRepository->getDownline($gen_one->member_id, $member->id);
             $gen_one_downlines = [];
 
-            foreach ($second_gen_members as $gen_two ) {
+            foreach ($second_gen_members as $gen_two) {
                 $third_gen_members = $this->memberRepository->getDownline($gen_two->member_id, $member->id);
                 $gen_two_downlines = [];
 
