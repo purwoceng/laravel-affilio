@@ -13,7 +13,26 @@
             </div>
         </div>
     </div>
-
+    <div class="container text-center my-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-total-omzet" class="card-title mb-5">0</h5>
+                        <p class="card-subtitle mb-1 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            Total Dana Bonus Acara
+                        </p>
+                        <small class="card-text text-muted">( <span id="js-date-range-omzet"></span> )</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
@@ -21,7 +40,13 @@
                     <div class="card-title">
                         <h3 class="card-label">List Dana Reward</h3>
                     </div>
+                    <a class="btn btn-success float-right" href="{{ route('reward.index') }}" title="Tambah Produk Rekomendasi">
+                        <i class="fas fa-shopping-cart"></i>
+                        Bonus Reward Acara Transaksi
+                    </a>
                 </div>
+                    <div class="container text-center my-2">
+                    </div>
 
                 <div class="card-body">
                     <div class="row">
@@ -362,7 +387,7 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
-                let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
+                let url = "{{ URL::to('/') }}" + `/eventfund/get-dashboard`;
 
                 $.ajax({
                     type: "GET",
