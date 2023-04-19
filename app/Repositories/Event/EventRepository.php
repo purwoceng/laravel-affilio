@@ -70,6 +70,7 @@ class EventRepository implements EventRepositoryInterface
                 $image = $event->image ? config('app.s3_url') . $event->image : '';
                 $video = $event->video;
                 $type = $event->type;
+                $sorting = $event->sorting;
                 $description = $event->description;
                 $status = $event->status;
                 $created_at = date('d/m/Y H:i', strtotime($event->created_at));
@@ -88,6 +89,7 @@ class EventRepository implements EventRepositoryInterface
                     'image',
                     'video',
                     'type',
+                    'sorting',
                     'description',
                     'status',
                     'created_at',

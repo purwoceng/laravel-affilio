@@ -78,13 +78,14 @@ class MemberRepository implements MemberRepositoryInterface
                 $totalFiltered = $totalData;
             }
         }
-
-        // if ($request->filled('city_name')) {
-        //     $keyword = $request->get('city_name');
-        //     $getQuery->where('city_name', 'like', '%' . $keyword . '%');
-        //     $totalData = $getQuery->count();
-        //     $totalFiltered = $totalData;
-        // }
+        if ($request->filled('referral')) {
+            if ($request->referral != 'all') {
+                $keyword = $request->get('referral');
+                $getQuery->where('referral', $keyword);
+                $totalData = $getQuery->count();
+                $totalFiltered = $totalData;
+            }
+        }
         if ($request->filled('member_addresses')) {
             if ($request->city_name != 'all') {
                 $keyword = $request->get('member_addresses');
@@ -105,6 +106,7 @@ class MemberRepository implements MemberRepositoryInterface
                 $phone = $getMemberBlocked->phone;
                 $name = $getMemberBlocked->name;
                 $member_type = $getMemberBlocked->member_type->type ?? '-';
+                $referral = $getMemberBlocked->referral;
                 $is_founder = $getMemberBlocked->is_founder ?? '-';
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
@@ -119,6 +121,7 @@ class MemberRepository implements MemberRepositoryInterface
                     'phone' => $phone,
                     'name' => $name,
                     'member_type' => $member_type,
+                    'referral' => $referral,
                     'is_founder' => $is_founder,
                     'address' => $address,
                     'city_name' => $city_name,

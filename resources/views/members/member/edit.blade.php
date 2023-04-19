@@ -32,14 +32,8 @@
 
                         <div class="form-group">
                             <label for="input-member-name">Nama*</label>
-                            <input type="text"
-                                id="input-member-name"
-                                class="form-control"
-                                name="name"
-                                value="{{ $data->name }}"
-                                aria-describedby="name-helper"
-                                required
-                            />
+                            <input type="text" id="input-member-name" class="form-control" name="name"
+                                value="{{ $data->name }}" aria-describedby="name-helper" required />
 
                             @error('name')
                                 <small id="name-helper" class="form-text text-danger">
@@ -49,14 +43,8 @@
                         </div>
                         <div class="form-group">
                             <label for="input-member-username">Username*</label>
-                            <input type="text"
-                                id="input-member-username"
-                                class="form-control"
-                                name="username"
-                                value="{{ $data->username }}"
-                                aria-describedby="username-helper"
-                                required
-                            />
+                            <input type="text" id="input-member-username" class="form-control" name="username"
+                                value="{{ $data->username }}" aria-describedby="username-helper" required />
 
                             @error('username')
                                 <small id="username-helper" class="form-text text-danger">
@@ -66,14 +54,8 @@
                         </div>
                         <div class="form-group">
                             <label for="input-member-email">Email*</label>
-                            <input type="text"
-                                id="input-member-email"
-                                class="form-control"
-                                name="email"
-                                value="{{ $data->email }}"
-                                aria-describedby="email-helper"
-                                required
-                            />
+                            <input type="text" id="input-member-email" class="form-control" name="email"
+                                value="{{ $data->email }}" aria-describedby="email-helper" required />
 
                             @error('email')
                                 <small id="email-helper" class="form-text text-danger">
@@ -83,14 +65,8 @@
                         </div>
                         <div class="form-group">
                             <label for="input-member-phone">Nomor Telepon / HP*</label>
-                            <input type="text"
-                                id="input-member-phone"
-                                class="form-control"
-                                name="phone"
-                                value="{{ $data->phone }}"
-                                aria-describedby="phone-helper"
-                                required
-                            />
+                            <input type="text" id="input-member-phone" class="form-control" name="phone"
+                                value="{{ $data->phone }}" aria-describedby="phone-helper" required />
 
                             @error('phone')
                                 <small id="phone-helper" class="form-text text-danger">
@@ -100,16 +76,12 @@
                         </div>
                         <div class="form-group">
                             <label for="input-member-type-id">Tipe Member*</label>
-                            <select name="member_type_id"
-                                id="input-member-type-id"
-                                class="form-control"
-                                aria-describedby="member-type-helper"
-                                required>
+                            <select name="member_type_id" id="input-member-type-id" class="form-control"
+                                aria-describedby="member-type-helper" required>
                                 <option selected disabled value="0">Pilih Tipe Member</option>
 
                                 @foreach ($member_types as $key => $member_type)
-                                    <option
-                                        value="{{ $member_type->id }}"
+                                    <option value="{{ $member_type->id }}"
                                         {{ $data->member_type_id == $member_type->id ? 'selected' : '' }}>
                                         {{ $member_type->type }}
                                     </option>
@@ -118,6 +90,17 @@
 
                             @error('member_type_id')
                                 <small id="member-type-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="input-member-referral">Referral*</label>
+                            <input type="text" id="input-member-referral" class="form-control" name="referral"
+                                value="{{ $data->referral }}" aria-describedby="referral-helper" required />
+
+                            @error('referral')
+                                <small id="referral-helper" class="form-text text-danger">
                                     {{ $message }}
                                 </small>
                             @enderror
@@ -143,12 +126,8 @@
                         </div>
                         <div class="form-group">
                             <label for="input-image">Gambar</label>
-                            <input type="file"
-                                accept=".jpg, .jpeg, .png"
-                                class="form-control"
-                                aria-describedby="image-helper"
-                                name="image"
-                            />
+                            <input type="file" accept=".jpg, .jpeg, .png" class="form-control"
+                                aria-describedby="image-helper" name="image" />
 
                             @error('image')
                                 <small id="image-helper" class="form-text text-danger">

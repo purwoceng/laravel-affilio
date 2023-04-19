@@ -26,6 +26,7 @@ class Event extends Model
         'image',
         'video',
         'type',
+        'sorting',
         'description',
         'status',
     ];

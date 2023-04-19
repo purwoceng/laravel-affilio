@@ -53,6 +53,7 @@
                                 <th>Poster </th>
                                 <th>Video</th>
                                 <th>Tipe</th>
+                                <th>Urutan</th>
                                 <th>Deskripsi</th>
                                 <th>Status</th>
                                 <th>Tanggal Dibuat</th>
@@ -204,6 +205,14 @@
                     {
                         data: 'type',
                         name: 'type',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'sorting',
+                        name: 'sorting',
                         sortable: false,
                         orderable: false,
                         searchable: false,

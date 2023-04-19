@@ -70,6 +70,7 @@ class EventController extends Controller
                 'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
                 'video' => 'required',
                 'type' => 'required',
+                'sorting' => 'required',
                 'description' => 'required',
                 'status' => 'required',
             ],
@@ -91,6 +92,7 @@ class EventController extends Controller
         $prefix = $request->prefix ?? '';
         $video = $request->video ?? '';
         $type = $request->type;
+        $sorting = $request->sorting ?? '';
         $description = $request->description ?? '';
         $status = $request->status ?? '';
 
@@ -106,6 +108,7 @@ class EventController extends Controller
             'prefix' => $prefix,
             'video' => $video,
             'type' => $type,
+            'sorting' => $sorting,
             'description' => $description,
             'status' => $status,
         ];
@@ -169,6 +172,7 @@ class EventController extends Controller
     {
         $messages = [
             'name.required' => 'Nama tidak boleh kosong',
+            'sorting' => 'urutan harus berbeda',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -184,6 +188,7 @@ class EventController extends Controller
             'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
             'video' => 'required',
             'type' => 'required',
+            'sorting' => 'required',
             'description' => 'max:255',
             'status' => 'required',
         ], $messages);
@@ -203,6 +208,7 @@ class EventController extends Controller
         $prefix = $request->prefix ?? '';
         $video = $request->video ?? '';
         $type = $request->type;
+        $sorting = $request->sorting ?? '';
         $description = $request->description ?? '';
         $status = $request->status ?? '';
 
@@ -219,6 +225,7 @@ class EventController extends Controller
             'prefix' => $prefix,
             'video' => $video,
             'type' => $type,
+            'sorting' => $sorting,
             'description' => $description,
             'status' => $status,
         ];
