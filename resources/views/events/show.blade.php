@@ -97,6 +97,11 @@
                                         placeholder="Masukkan tipe kategori" disabled />
                                 </div>
                                 <div class="form-group">
+                                    <label>Tipe<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="sorting"
+                                        value="{{ $data->sorting }}" placeholder="Masukkan tipe kategori" disabled />
+                                </div>
+                                <div class="form-group">
                                     <label>Deskripsi</label>
                                     <input type="text" class="form-control" name="description"
                                         value="{{ $data->description }}" disabled />

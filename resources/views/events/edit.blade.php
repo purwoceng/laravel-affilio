@@ -253,6 +253,13 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label">Urutan <span class="text-danger">*</span></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Masukkan Link Event"
+                                            required name="sorting" value="{{ $data->sorting }}" />
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label">Deskripsi</label>

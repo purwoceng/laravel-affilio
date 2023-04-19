@@ -250,6 +250,18 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="input-event-sorting">Urutan</label>
+                                    <input type="text" id="input-event-sorting" class="form-control" name="sorting"
+                                        value="{{ old('sorting') }}" aria-describedby="sorting-helper"
+                                        placeholder="Masukkan sorting Tiket" required />
+
+                                    @error('sorting')
+                                        <small id="sorting-helper" class="form-text text-danger">
+                                            {{ $validator_message }}
+                                        </small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="description">Deskripsi</label>
                                     <input type="text" class="form-control" id="description" name="description"
                                         value="" placeholder="Masukkan deskripsi" />
