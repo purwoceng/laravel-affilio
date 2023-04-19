@@ -14,16 +14,16 @@ class DanaPensiunRepository implements DanaPensiunRepositoryInterface
 
     public function getCountDanaPensiun($startDate, $endDate)
     {
-        return DanaPensiun::where('code', 'kt')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return DanaPensiun::whereBetween('code', ['bpsb', 'bpsp'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
     }
     public function getDataById($id)
     {
-        return DanaPensiun::where('code', 'kt')->where('id', $id)->first();
+        return DanaPensiun::whereBetween('code', ['bpsb', 'bpsp'])->where('id', $id)->first();
     }
 
     public function getDanaPensiun($limit, $start, $startDate, $endDate)
     {
-        return DanaPensiun::where('code', 'kt')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return DanaPensiun::whereBetween('code', ['bpsb', 'bpsp'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
 

@@ -185,7 +185,7 @@
                              </a>
                          </li>
 
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
+                         {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('members.accounts.index') }}" class="menu-link menu-toggle">
                                  <i class="menu-bullet menu-bullet-line">
@@ -193,7 +193,7 @@
                                  </i>
                                  <span class="menu-text">Verifikasi Rekening</span>
                              </a>
-                         </li>
+                         </li> --}}
 
 
                          <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
@@ -296,14 +296,14 @@
                              </a>
                          </li>
 
-                         <li class="menu-item" aria-haspopup="true">
+                         {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('supplier_home.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Supplier Rekomendasi</span>
                              </a>
-                         </li>
+                         </li> --}}
 
 
                          <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
