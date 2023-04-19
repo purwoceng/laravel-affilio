@@ -14,8 +14,8 @@ class EventDashboardController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $RewardTransaksi = Fund::where('code','BRAT');
-        $RewardOngkir = Fund::where('code','BRAO');
+        $RewardTransaksi = Fund::where('code', 'BRAT');
+        $RewardOngkir = Fund::where('code', 'BRAO');
 
         if (!empty($startDate) && !empty($endDate)) {
             $RewardTransaksi->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
@@ -46,7 +46,7 @@ class EventDashboardController extends Controller
         ];
 
         return response()->json([
-            'status' =>true,
+            'status' => true,
             'data' => $results,
             200
         ]);

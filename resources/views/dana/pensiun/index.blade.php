@@ -14,6 +14,79 @@
         </div>
     </div>
 
+    <div class="container text-center my-2">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-pensiun-bronze" class="card-title mb-5">0</h5>
+                        <p class="card-subtitle mb-1 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            Bonus Pensiun Bronze
+                        </p>
+                        <small class="card-text text-muted">( <span id="js-date-range-bronze"></span> )</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-pensiun-gold" class="card-title mb-5">0</h2>
+                            <p class="card-subtitle mb-1 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-box2-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6l.5.667Z" />
+                                </svg>
+                                Bonus Pensiun Gold
+                            </p>
+                            <small class="card-text text-muted">( <span id="js-date-range-gold"></span> )</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center my-2 mb-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-pensiun-platinum" class="card-title mb-5">0</h5>
+                        <p class="card-subtitle mb-1 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            Bonus Pensiun Platinum
+                        </p>
+                        <small class="card-text text-muted">( <span id="js-date-range-diamond"></span> )</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-pensiun-diamond" class="card-title mb-5">0</h2>
+                            <p class="card-subtitle mb-1 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-box2-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6l.5.667Z" />
+                                </svg>
+                                Bonus Pensiun Diamond
+                            </p>
+                            <small class="card-text text-muted">( <span id="js-date-range-diamond"></span> )</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="d-flex flex-column-fluid">
         <div class="container">
             <div class="card card-custom">
@@ -24,22 +97,7 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
-                            <div class="form-group">
-                                <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
-                                <div class='input-group' id='js-daterange-picker'>
-                                    <input type='text' class="form-control filter" readonly="readonly"
-                                        data-name="date_range" placeholder="Select date range" />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar-check-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
+
 
 
                     <div class="filter-wrapper">
@@ -202,10 +260,10 @@
                         render: function(data, type, row, meta) {
                             let showUrl =
                                 `{{ url('pensiun/show/${row.id}') }}`;
-                            let editUrl =
-                                `{{ url('pensiun/edit/${row.id}') }}`;
-                            let deleteUrl =
-                                `{{ url('pensiun/delete/${row.id}') }}`;
+                            // let editUrl =
+                            //     `{{ url('pensiun/edit/${row.id}') }}`;
+                            // let deleteUrl =
+                            //     `{{ url('pensiun/delete/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
@@ -295,19 +353,10 @@
             function rangePickerCB(start, end, label) {
                 $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
                     'YYYY-MM-DD'));
-                $('#js-date-range-omzet').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-supplier-price').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
-                    'YYYY-MM-DD'));
-                $('#js-date-range-bonus-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
-                    'YYYY-MM-DD'));
-                $('#js-date-range-profit-keuntungan').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
-                    'YYYY-MM-DD'));
-                $('#js-date-range-ongkir-60').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-ongkir-30').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-ongkir-10').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-unique-code').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-service-fee').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-total-order').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-bronze').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-gold').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-platinum').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-diamond').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
                 getDataFiltered();
 
             };
@@ -370,7 +419,7 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
-                let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
+                let url = "{{ URL::to('/') }}" + `/pensiun/get-dashboard`;
 
                 $.ajax({
                     type: "GET",
@@ -396,6 +445,18 @@
                     },
                 });
             }
+            let totalPensiunBronze = $('#js-dashboard-pensiun-bronze');
+            let totalPensiunGold = $('#js-dashboard-pensiun-gold');
+            let totalPensiunPlatinum = $('#js-dashboard-pensiun-platinum');
+            let totalPensiunDiamond = $('#js-dashboard-pensiun-diamond');
+
+
+            function mappingDashboard(data) {
+                totalPensiunBronze.html(data.total_pensiun_bronze);
+                totalPensiunGold.html(data.total_pensiun_gold);
+                totalPensiunPlatinum.html(data.total_pensiun_platinum);
+                totalPensiunDiamond.html(data.total_pensiun_diamond);
+            };
 
         });
     </script>
