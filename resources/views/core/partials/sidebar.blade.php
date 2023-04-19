@@ -236,6 +236,15 @@
                                  <span class="menu-text">Supplier</span>
                              </span>
                          </li>
+                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierslist') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('supplierslist.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Daftar Supplier </span>
+                             </a>
+                         </li>
                          <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('suppliers.nonactive.index') }}" class="menu-link menu-toggle">
