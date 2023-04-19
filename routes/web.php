@@ -33,6 +33,7 @@ use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
 use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Product\MarkupProductController;
+use App\Http\Controllers\Supplier\SupplierListController;
 use App\Http\Controllers\Supplier\SupplierCoverController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Product\ProductInactiveController;
@@ -233,6 +234,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy');
+    });
+    //supplier-list
+    Route::prefix('supplierslist')->name('supplierslist.')->group(function () {
+        Route::get('/', [SupplierListController::class, 'index'])->name('index');
+        Route::get('/create', [SupplierListController::class, 'create'])->name('create');
+        Route::post('/store', [SupplierListController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [SupplierListController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [SupplierListController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [SupplierListController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [SupplierListController::class, 'destroy'])->name('destroy');
     });
 
 
