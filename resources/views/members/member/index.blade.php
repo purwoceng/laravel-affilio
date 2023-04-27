@@ -133,6 +133,7 @@
                                 <th>Provinsi</th>
                                 <th>Verifikasi</th>
                                 <th>Status</th>
+                                <th>Role Transaction</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -295,6 +296,21 @@
                                 return ' <span class="label  label-light-danger label-inline label-bold">Blocked</span>';
                             } else {
                                 return '<span class="label  label-light-success label-inline label-bold">Active</span>';
+                            }
+                        }
+                    },
+                    {
+                        data: 'is_transaction',
+                        name: 'is_transaction',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (row.is_transaction === '1') {
+                                return '<span class="label  label-light-success label-inline label-bold">Aktif</span>';
+                            } else {
+                                return '<span class="label label-light-danger label-inline label-bold">Non-Active</span>';
                             }
                         }
                     },

@@ -94,6 +94,12 @@ class MemberRepository implements MemberRepositoryInterface
                 $totalFiltered = $totalData;
             }
         }
+        if ($request->filled('is_transaction')) {
+            $keyword = $request->get('is_transaction');
+            $getQuery->where('is_transaction', 'like', '%' . $keyword . '%');
+            $totalData = $getQuery->count();
+            $totalFiltered = $totalData;
+        }
 
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
@@ -110,6 +116,7 @@ class MemberRepository implements MemberRepositoryInterface
                 $is_founder = $getMemberBlocked->is_founder ?? '-';
                 $isVerified = $getMemberBlocked->is_verified;
                 $isBlocked = $getMemberBlocked->is_blocked;
+                $is_transaction = $getMemberBlocked->is_transaction ?? '-';
                 $address = $getMemberBlocked->member_addresses->address ?? '-';
                 $city_name = $getMemberBlocked->member_addresses->city_name ?? '-';
                 $province_name = $getMemberBlocked->member_addresses->province_name ?? '-';
@@ -128,6 +135,7 @@ class MemberRepository implements MemberRepositoryInterface
                     'province_name' => $province_name,
                     'is_verified' => $isVerified,
                     'is_blocked' => $isBlocked,
+                    'is_transaction' => $is_transaction,
                     'actions' => $id,
                 ];
             }

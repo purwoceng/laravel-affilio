@@ -26,6 +26,7 @@ class Member extends Model
         'referral',
         'is_verified',
         'publish',
+        'is_transaction'
     ];
 
     protected $casts = [

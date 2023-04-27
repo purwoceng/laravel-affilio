@@ -180,6 +180,7 @@ class MemberController extends Controller
         $member->member_type_id = $request->member_type_id;
         $member->referral = $request->referral;
         $member->is_founder = $request->is_founder;
+        $member->is_transaction = $request->is_transaction;
 
 
         $image = $request->file('image');
