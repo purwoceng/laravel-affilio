@@ -68,6 +68,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-3 col-form-label">Role Transaction</label>
+                                    <div class="col-9">
+                                        @if ($data->is_transaction == 1)
+                                            <span class="label label-light-success label-inline label-bold">Aktif</span>
+                                        @else
+                                            <span class="label label-light-danger label-inline label-bold">Non-Active</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-3 col-form-label">Foto</label>
                                     <div class="col-9">
                                         @if ($data->image)

@@ -23,6 +23,7 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dana\EventDashboardController;
+use App\Http\Controllers\Dana\PensiunDashboardController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventGreetingController;
 use App\Http\Controllers\HomePage\FunnelLinkController;
@@ -395,7 +396,10 @@ Route::middleware('auth')->group(function () {
     Route::prefix('pensiun')->name('pensiun.')->group(function () {
         Route::get('/', [DanaPensiunController::class, 'index'])->name('index');
         Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show');
+        Route::get('/get-dashboard', [PensiunDashboardController::class, 'getDashboard'])->name('dashboard');
     });
+
+
 
     //dana reward
     Route::prefix('reward')

@@ -125,6 +125,25 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="input-is-transaction">Role Transaction</label>
+                            <select name="is_transaction" id="input-is-transaction" class="form-control"
+                                aria-describedby="is-transaction-helper" required>
+                                <option selected disabled value="3">Pilih Role Transaksi</option>
+                                <option value="1" {{ $data->is_transaction == '1' ? 'selected' : '' }}>
+                                    Active
+                                </option>
+                                <option value="0" {{ $data->is_transaction == '0' ? 'selected' : '' }}>
+                                    Non-Active
+                                </option>
+                            </select>
+
+                            @error('is_transaction')
+                                <small id="is-transaction-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="input-image">Gambar</label>
                             <input type="file" accept=".jpg, .jpeg, .png" class="form-control"
                                 aria-describedby="image-helper" name="image" />
