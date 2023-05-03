@@ -10,7 +10,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Funneling Home</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Funneling Home</h5>
             </div>
         </div>
     </div>
@@ -34,14 +34,16 @@
                     <div class="card-title">
                         <h3 class="card-label">Halaman Funneling Home</h3>
                     </div>
-                    <a class="btn btn-success float-right" href="{{ route('funnel.create') }}" title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href="{{ route('funnel.create') }}"
+                        title="Tambah Produk Rekomendasi">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
                 </div>
 
                 <div class="card-body">
-                    <table id="js-link-table"  class="table table-bordered table-hover table-head-custom table-checkable nowrap">
+                    <table id="js-link-table"
+                        class="table table-bordered table-hover table-head-custom table-checkable nowrap">
                         <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center">#</th>
@@ -66,7 +68,6 @@
 @endsection
 
 @push('js')
-
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 
@@ -97,8 +98,7 @@
                     type: 'GET',
                 },
                 scrollX: true,
-                columns: [
-                    {
+                columns: [{
                         data: null,
                         sortable: false,
                         className: 'text-center',
@@ -140,7 +140,7 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            if (data) return `<img src="${data}" class="image-fluid" width="80px">`;
                             return '-';
                         }
                     },
@@ -189,7 +189,7 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-                        render : function(data, type, row, meta) {
+                        render: function(data, type, row, meta) {
                             let showUrl =
                                 `{{ url('funnel/show/${row.id}') }}`;
                             let editUrl =

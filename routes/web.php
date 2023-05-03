@@ -24,6 +24,7 @@ use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dana\EventDashboardController;
 use App\Http\Controllers\Dana\PensiunDashboardController;
+use App\Http\Controllers\Dana\WithdrawController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventGreetingController;
 use App\Http\Controllers\HomePage\FunnelLinkController;
@@ -423,6 +424,14 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [FundController::class, 'index'])->name('index');
             Route::get('/show/{id}', [FundController::class, 'show'])->name('show');
+        });
+
+    //riwayat dana
+    Route::prefix('withdraw')
+        ->name('withdraw.')
+        ->group(function () {
+            Route::get('/', [WithdrawController::class, 'index'])->name('index');
+            Route::get('/show/{id}', [WithdrawController::class, 'show'])->name('show');
         });
 
     // Funnel Link

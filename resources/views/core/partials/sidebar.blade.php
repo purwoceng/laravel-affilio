@@ -533,7 +533,7 @@
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
-                                 <span class="menu-text">Dana Bonus Acara</span>
+                                 <span class="menu-text">Acara</span>
                              </a>
                          </li>
 
@@ -561,6 +561,15 @@
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Riwayat</span>
+                             </a>
+                         </li>
+
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('withdraw.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Penarikan</span>
                              </a>
                          </li>
 
