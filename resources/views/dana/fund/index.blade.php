@@ -402,6 +402,8 @@
 
                 $.ajax({
                     type: "GET",
+
+                    
                     url: url,
                     data: {
                         start_date: startDate,

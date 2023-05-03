@@ -64,6 +64,9 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('/');
+    Route::get('/get-dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard');
+
+
 
     // Member Menu
     Route::prefix('members')->name('members.')->group(function () {
@@ -141,6 +144,10 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::get('/detail/{id}', [UserController::class, 'show'])->name('detail');
+        });
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+            Route::get('/get-dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
         });
 
     // Roles Menu
