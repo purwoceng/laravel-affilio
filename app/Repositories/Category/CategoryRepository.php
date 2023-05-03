@@ -9,9 +9,9 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function __construct()
     {
-        // 
+        //
     }
-    
+
     public function getCategories($limit, $start)
     {
         return Category::whereNull('deleted_at')->offset($start)->limit($limit);
@@ -36,7 +36,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         if (!empty($categories)) {
             foreach ($categories  as $key => $category) {
                 $name = $category['name'];
-                $link = $category['link'];          
+                $link = $category['link'];
                 $id = $category['id'];
                 $origin_category_id = $category['origin_category_id'];
                 $description = $category['description'];

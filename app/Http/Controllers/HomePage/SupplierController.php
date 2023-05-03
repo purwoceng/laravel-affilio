@@ -113,11 +113,11 @@ class SupplierController extends Controller
         if ($supplier) {
             $arr_range = range(1, 50);
             $data = SupplierHome::where('id', '!=' , $id)->whereNull('deleted_at')->get();
-    
+
             $exists_numbers = array_map(function($supplier) {
                 return $supplier->queue_number;
             }, json_decode(json_encode($data, true)));
-    
+
             $available_numbers = array_filter(
                 $arr_range,
                 function($number) use ($exists_numbers) {
@@ -125,15 +125,15 @@ class SupplierController extends Controller
                     return true;
                 }
             );
-    
+
             $token = config('app.baleomol_key');
             $url = config('app.baleomol_url') . '/suppliers/' . $supplier['supplier_id'];
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
             ])->get($url);
-    
+
             $real_supplier = $response['data'];
-    
+
             return view(
                 'content.supplier_home.edit',
                 compact('supplier', 'available_numbers', 'real_supplier'),
@@ -210,13 +210,13 @@ class SupplierController extends Controller
     public function delete($id)
     {
         $supplier = SupplierHome::find($id);
-        
+
         if ($supplier) {
             $supplier->is_active = '0';
             $supplier->save();
-    
+
             $supplier->delete();
-     
+
             return redirect()
                 ->route('supplier_home.index')
                 ->with([
