@@ -22,18 +22,15 @@ class SupplierListController extends Controller
     }
     public function index(Request $request)
     {
-                $token = config('app.baleomol_key');
-                $url = config('app.baleomol_url') . '/suppliers/' ;
+        if ($request->ajax()) {
+            $suppliers = $this->SupplierListRepository
+                ->getDataTable($request);
 
-                $response = Http::withHeaders([
-                    'Authorization' => "Bearer {$token}",
-                ])->get($url);
 
-                $supplier = $response['data'];
-                dd($supplier);
-        exit;
+            return response()->json($suppliers);
+        }
 
-        return view('suppliers.list.index',compact('supplier'));
+        return view('suppliers.list.index');
     }
 
     /**
