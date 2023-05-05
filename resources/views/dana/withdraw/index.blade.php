@@ -108,6 +108,30 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Pilih Status Publish</label>
+                                        <select class="form-control form-control-sm filter" data-name="publish"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Status Publish</option>
+                                            <option value="all">Semua</option>
+                                            <option value="1">Sukses</option>
+                                            <option value="0">Menunggu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Pilih Kode Penarikan Dana</label>
+                                        <select class="form-control form-control-sm filter" data-name="code"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Kode Penarikan</option>
+                                            <option value="">Semua</option>
+                                            <option value="WDK">WDK(Penarikan Dana Komisi)</option>
+                                            <option value="WDB">WDB(Penarikan Dana Bonus)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
                                     <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
                                     <div class='input-group' id='js-daterange-picker'>
                                         <input type='text' class="form-control filter" readonly="readonly"
@@ -119,6 +143,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                             </div>
                         </form>
@@ -133,7 +158,7 @@
                                 <th class="text-center">Value</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Deskripsi</th>
-                                <th class="text-center">Verifikasi</th>
+                                <th class="text-center">Status Transfer</th>
                                 <th class="text-center">Aktifasi</th>
                                 <th class="text-center">Publish</th>
                                 <th class="text-center">Dibuat</th>
@@ -235,12 +260,19 @@
                         className: 'text-center small',
                     },
                     {
-                        data: 'status_verify',
-                        name: 'status_verify',
+                        data: 'status_transfer',
+                        name: 'status_transfer',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                        render: function(data, type, row, meta) {
+                            if (row.status_transfer) {
+                                return '<span class="label  label-light-success label-inline label-bold">Sukses</span>';
+                            } else {
+                                return '<span class="label  label-light-danger label-inline label-bold">Menunggu</span>';
+                            }
+                        }
                     },
                     {
                         data: 'is_active',
@@ -266,9 +298,9 @@
                         className: 'text-center small',
                         render: function(data, type, row, meta) {
                             if (row.publish) {
-                                return '<span class="label  label-light-warning label-inline label-bold">Publish</span>';
+                                return '<span class="label  label-light-success label-inline label-bold">Sukses</span>';
                             } else {
-                                return '<span class="label  label-light-danger label-inline label-bold">Non-Publish</span>';
+                                return '<span class="label  label-light-warning label-inline label-bold">Menunggu</span>';
                             }
                         }
                     },
@@ -287,28 +319,47 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
+                        // render: function(data, type, row, meta) {
+                        //     let showUrl =
+                        //         `{{ url('withdraw/show/${row.id}') }}`;
+                        //     let elements = '';
+                        //     elements += `
+                    //     <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                    //             class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
+                    //                 class="la la-cog"></i></a>
+                    //         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                    //             <ul class="nav nav-hoverable flex-column">
+                    //                 <li class="nav-item">
+                    //                     <a class="nav-link" href="${showUrl}"><span
+                    //                             class="nav-text">Detail</span></a>
+                    //                 </li>
+                    //             </ul>
+                    //         </div>
+                    //     </div>
+                    //     `;
                         render: function(data, type, row, meta) {
-                            let showUrl =
-                                `{{ url('withdraw/show/${row.id}') }}`;
-                            // let editUrl =
-                            //     `{{ url('pensiun/edit/${row.id}') }}`;
-                            // let deleteUrl =
-                            //     `{{ url('pensiun/delete/${row.id}') }}`;
                             let elements = '';
-                            elements += `
-                            <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                                    class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                                        class="la la-cog"></i></a>
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                    <ul class="nav nav-hoverable flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${showUrl}"><span
-                                                    class="nav-text">Detail</span></a>
-                                        </li>
-                                    </ul>
+
+                            if (row.publish) {
+                                elements += '<span class="text-center">-</span>';
+                            } else {
+                                elements += `
+                                <div class="dropdown dropdown-inline">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown">
+                                        <i class="la la-cog"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                        <ul class="nav nav-hoverable flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link js-activation-withdraw" href="javascript:void(0)" data-id="${row.id}">
+                                                    <span class="nav-text" data-id="${row.id}">Sukseskan</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            `;
+                                `;
+                            }
 
                             return elements;
                         }
@@ -322,6 +373,61 @@
                 getDateRangeHandler();
                 $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
             }
+            $(document).on('click', '.js-activation-withdraw', function(e) {
+
+                swal.fire({
+                    title: "Apakah anda yakin ?",
+                    text: "Anda akan menyukseskan dana ini!",
+                    showCancelButton: true,
+                    showConfirmButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Batal",
+                }).then(function(result) {
+                    if (result.value) {
+                        Swal.fire({
+                            showCloseButton: false,
+                            showConfirmButton: false,
+                            icon: 'info',
+                            title: 'Harap Tunggu',
+                            text: 'Sedang meneruskan pesanan Anda...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: function() {
+                                Swal.showLoading();
+                            },
+                        });
+                        setTimeout(function() {
+                            let urlActivation =
+                                "{{ route('withdraw.verification') }}";
+                            let Id = $(e.target).data('id');
+                            $.ajax({
+                                type: "POST",
+                                url: urlActivation,
+                                data: {
+                                    id: Id,
+                                    "_token": "{{ csrf_token() }}",
+                                },
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: response.icon,
+                                        title: response.title,
+                                        text: response.message,
+                                    });
+
+                                    getDataFiltered();
+                                }
+                            });
+
+                        }, 500);
+                    } else if (result.dismiss === 'Batal') {
+                        console.log('Batal')
+                    }
+
+                });
+            });
 
             function getDateRangeHandler() {
                 $('#js-daterange-picker').daterangepicker({

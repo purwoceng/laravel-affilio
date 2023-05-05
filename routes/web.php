@@ -148,8 +148,8 @@ Route::middleware('auth')->group(function () {
         });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
-            Route::get('/get-dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
-        });
+        Route::get('/get-dashboard', [DashboardController::class, 'getDashboard'])->name('getDashboard');
+    });
 
     // Roles Menu
     Route::prefix('roles')
@@ -439,6 +439,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [WithdrawController::class, 'index'])->name('index');
             Route::get('/show/{id}', [WithdrawController::class, 'show'])->name('show');
+            Route::post('/verification', [WithdrawController::class, 'verification'])->name('verification');
         });
 
     // Funnel Link
