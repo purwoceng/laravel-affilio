@@ -58,6 +58,24 @@ class WithdrawRepository implements WithdrawRepositoryInterface
             $totalFiltered = $totalData;
         }
 
+        if ($request->filled('code')) {
+            if ($request->code != 'all') {
+                $keyword = $request->get('code');
+                $wd_query->where('code', $keyword);
+                $totalData = $wd_query->count();
+                $totalFiltered = $totalData;
+            }
+        }
+        if ($request->filled('publish')) {
+            if ($request->publish != 'all') {
+                $keyword = $request->get('publish');
+                $wd_query->where('publish', $keyword);
+                $totalData = $wd_query->count();
+                $totalFiltered = $totalData;
+            }
+        }
+
+
         $withdraws = $wd_query->orderBy('id', 'desc')->get();
         $data =  [];
 
@@ -68,7 +86,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
                 $code = $withdraw->code;
                 $title = $withdraw->title;
                 $description = $withdraw->description ?? '-';
-                $status_verify = $withdraw->status_verify ?? '-';
+                $status_transfer = $withdraw->status_transfer ?? '-';
                 $value = $withdraw->value;
                 $is_active = $withdraw->is_active ?? '-';
                 $publish = $withdraw->publish ?? '-';
@@ -81,7 +99,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
                     'code',
                     'title',
                     'description',
-                    'status_verify',
+                    'status_transfer',
                     'value',
                     'is_active',
                     'publish',

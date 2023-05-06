@@ -49,9 +49,9 @@
                                 <th>Judul</th>
                                 <th>Thumbnail</th>
                                 <th>Timer</th>
-                                <th>URL</th>
                                 <th>Status</th>
                                 <th>Dibuat</th>
+                                <th>URL</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -135,14 +135,6 @@
                         className: 'text-left small',
                     },
                     {
-                        data: 'url',
-                        name: 'url',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-left small',
-                    },
-                    {
                         data: 'is_active',
                         name: 'is_active',
                         sortable: false,
@@ -166,7 +158,14 @@
                         searchable: false,
                         className: 'text-left small',
                     },
-
+                    {
+                        data: 'url',
+                        name: 'url',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
                     {
                         data: 'actions',
                         name: 'actions',

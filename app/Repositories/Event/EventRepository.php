@@ -100,7 +100,7 @@ class EventRepository implements EventRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordFiltered' => intval($totalData),
+            'recordsFiltered' => intval($totalData),
             'data' => $data,
         ];
 
