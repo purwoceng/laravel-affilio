@@ -18,7 +18,7 @@ class Withdraw extends Model
         'title',
         'description',
         'value',
-        'status_verify',
+        'status_transfer',
         'is_active',
         'publish',
     ];

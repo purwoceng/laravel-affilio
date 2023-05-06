@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dana;
 
 use App\Http\Controllers\Controller;
+use App\Models\Withdraw;
 use App\Repositories\Dana\WithdrawRepository;
 use Illuminate\Http\Request;
 
@@ -60,6 +61,29 @@ class WithdrawController extends Controller
         return view('dana.withdraw.show', compact('data'));
     }
 
+    public function verification(Request $request)
+    {
+        if (!empty($request->id)) {
+
+            $data = [
+                'publish' => 1,
+            ];
+            Withdraw::where('id', $request->id)->update($data);
+            return response()->json([
+                'status' => 'true',
+                'title' => 'Berhasil Suksesi!',
+                'message' => 'Berhasil melakukan suksesi penarikan dana',
+                'icon' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'false',
+                'title' => 'Gagal Suksesi !!',
+                'message' => 'Gagal melakukan suksesi penarikan dana',
+                'icon' => 'warning',
+            ]);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
