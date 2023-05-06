@@ -80,7 +80,7 @@ class TiketRepository implements TiketRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordFiltered' => intval($totalFiltered),
+            'recordsFiltered' => intval($totalFiltered),
             'data' => $data,
         ];
 
