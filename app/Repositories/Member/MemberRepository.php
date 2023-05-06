@@ -86,20 +86,20 @@ class MemberRepository implements MemberRepositoryInterface
                 $totalFiltered = $totalData;
             }
         }
-        if ($request->filled('member_addresses')) {
-            if ($request->city_name != 'all') {
-                $keyword = $request->get('member_addresses');
-                $getQuery->where('city_name', $keyword);
-                $totalData = $getQuery->count();
-                $totalFiltered = $totalData;
-            }
-        }
-        if ($request->filled('is_transaction')) {
-            $keyword = $request->get('is_transaction');
-            $getQuery->where('is_transaction', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
-        }
+        // if ($request->filled('city_name')) {
+        //     if ($request->referral != 'all') {
+        //         $keyword = $request->get('city_name');
+        //         $getQuery->where('city_name', $keyword);
+        //         $totalData = $getQuery->count();
+        //         $totalFiltered = $totalData;
+        //     }
+        //  }
+        // if ($request->filled('is_transaction')) {
+        //     $keyword = $request->get('is_transaction');
+        //     $getQuery->where('is_transaction', 'like', '%' . $keyword . '%');
+        //     $totalData = $getQuery->count();
+        //     $totalFiltered = $totalData;
+        // }
 
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 
