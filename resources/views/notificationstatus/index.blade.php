@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Notifikasi Pesan'))
+@section('title', __('Notifikasi Pesan Status'))
 
 @push('css')
     <link
@@ -166,8 +166,6 @@
                         render : function(data, type, row, meta) {
                             let showUrl =
                                 `{{ url('notification/show/${row.id}') }}`;
-                            let statusUrl =
-                                `{{ url('notificationstatus/create/${row.id}') }}`;
                             let editUrl =
                                 `{{ url('notification/edit/${row.id}') }}`;
                             let deleteUrl =

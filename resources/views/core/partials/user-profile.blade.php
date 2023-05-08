@@ -2,11 +2,12 @@
     <!--begin::Header-->
     <div class="d-flex align-items-center mt-5">
         <div class="symbol symbol-100 mr-5">
-            <div class="symbol-label" style="background-image:url('assets/media/users/300_21.jpg')"></div>
+            <a href="/profile/show/{{ auth()->user()->id }}" ><div class="symbol-label" style="background-image:url('https://affilioassetsdev.s3-ap-southeast-1.amazonaws.com/storage/system_storage/membertype/Logo-1683519066_6458765a8ecf3_affilio.png')"></div>
             <i class="symbol-badge bg-success"></i>
+            </a>
         </div>
         <div class="d-flex flex-column">
-            <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->name }}</a>
+            <a href="/profile/show/{{ auth()->user()->id }}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->name }}</a>
             <div class="text-muted mt-1">{{ auth()->user()->roles->pluck('label')[0] ?? '' }}</div>
             <div class="navi mt-2">
                 <a href="#" class="navi-item">

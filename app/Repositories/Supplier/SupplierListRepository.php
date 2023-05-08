@@ -81,7 +81,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
                     'name' => $name,
                     'storeName' => $store,
                     'id' => $id,
-                    'created_at' => date('d-m-Y H:i', strtotime($created_at)),
+                    'created_at' => date(' d F Y H:i', strtotime($created_at)),
                 ];
             }
         }

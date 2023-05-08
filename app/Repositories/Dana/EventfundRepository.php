@@ -68,7 +68,7 @@ class EventfundRepository implements EventfundRepositoryInterface
                 $description = $event->description ?? '-';
                 $status_verify = $event->status_verify ?? '-';
                 $value = $event->value;
-                $created_at = date('d/m/Y H:i', strtotime($event->created_at));
+                $created_at = date(' d F Y H:i', strtotime($event->created_at));
                 $actions = $id;
 
                 $data[] = array(

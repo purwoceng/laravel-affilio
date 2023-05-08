@@ -98,7 +98,7 @@
                     infoFiltered: "",
                 },
                 lengthChange: false,
-                pageLength: 5,
+                pageLength: 50,
                 order: [
                     [0, 'DESC']
                 ],

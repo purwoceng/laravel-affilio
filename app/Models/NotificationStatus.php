@@ -2,24 +2,22 @@
 
 namespace App\Models;
 
-use App\Models\NotificationStatus;
+use App\Models\Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Notification extends Model
+class NotificationStatus extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'notifications';
+    protected $table = 'notifications_status';
 
     protected $fillable = [
         'id',
-        'member_type_id',
-        'title',
-        'description',
-        'creator_id',
+        'member_id',
+        'notification_id',
     ];
 
     protected $casts = [
@@ -28,8 +26,8 @@ class Notification extends Model
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function notifications_status()
+    public function notification()
     {
-        return $this->belongsTo(NotificationStatus::class, 'notification_id', 'id')->withTrashed();
+        return $this->belongsTo(Notification::class,'id','notification_id');
     }
 }

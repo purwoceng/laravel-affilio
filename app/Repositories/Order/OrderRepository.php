@@ -114,7 +114,7 @@ class OrderRepository implements OrderRepositoryInterface
                 $shippingCourier = strtoupper($order->shipping_courier);
                 $shippingService = $order->shipping_service ?? '-';
                 $courier = $shippingCourier . ' - ' . $shippingService;
-                $dateCreated = date('Y-m-d H:i', strtotime($order->date_created));
+                $dateCreated = date(' d F Y H:i', strtotime($order->date_created));
 
                 $lastSyncedDate = $order->date_last_synced;
                 $lastSyncedStamp = 900;
