@@ -51,6 +51,7 @@
                                 <th>Name</th>
                                 <th>Tipe/Peringkat Member</th>
                                 <th>Url Video</th>
+                                <th>Thumbnail Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -129,6 +130,18 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-left small',
+                    },
+                    {
+                        data: 'image',
+                        name: 'image',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            return '-';
+                        }
                     },
                     {
                         data: 'created_at',

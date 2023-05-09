@@ -59,6 +59,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
                 $member_type_id = $video->member_type_id;
                 $name = $video->name;
                 $url = $video->url;
+                $image = $video->image ? config('app.s3_url') . $video->image : '';
                 $created_at = date(' d F Y H:i', strtotime($video->created_at));
                 $actions = $id;
 
@@ -67,6 +68,7 @@ class VideoTrainingRepository implements VideoTrainingRepositoryInterface
                     'member_type_id',
                     'name',
                     'url',
+                    'image',
                     'created_at',
                     'actions',
                 );

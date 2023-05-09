@@ -12,6 +12,15 @@ class VideoTutorialRepository implements VideoTutorialRepositoryInterface
         //
     }
 
+    public function create(array $data)
+    {
+        return VideoTutorial::create($data);
+    }
+
+    public function update($id, array $data)
+    {
+        return VideoTutorial::where('id',$id)->update($data);
+    }
     public function getVideoTutorialById($id)
     {
         return VideoTutorial::where('id', $id)->whereNull('deleted_at')->first();
@@ -44,6 +53,7 @@ class VideoTutorialRepository implements VideoTutorialRepositoryInterface
                 $name = $video->name;
                 $video_url = $video->url;
                 $member_type_id = $video->member_type_id;
+                $image = $video->image ? config('app.s3_url') . $video->image : '';
                 $created_at = date('d/m/Y H:i', strtotime($video->created_at));
                 $actions = $id;
 
@@ -52,6 +62,7 @@ class VideoTutorialRepository implements VideoTutorialRepositoryInterface
                     'name',
                     'video_url',
                     'member_type_id',
+                    'image',
                     'created_at',
                     'actions',
                 );

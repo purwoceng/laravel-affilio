@@ -77,6 +77,14 @@
                                     <input type="textarea" class="form-control" rows="9"
                                         name="header" value="{{ $data->url }}" disabled />
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Gambar Thumbnail<span
+                                            class="text-danger">*</span></label>
+                                            <div class="col-4">
+                                                <img src="{{ config('app.s3_url') . $data->image }}" class="img-fluid"
+                                                    width="150px">
+                                            </div>
+                                </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('video_training.index') }}"

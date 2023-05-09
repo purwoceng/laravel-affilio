@@ -67,6 +67,7 @@ class VideoTrainingController extends Controller
         $messages = [
             'name.required' => 'Judul Video tidak boleh kosong',
             'url.required' => 'url video tidak boleh kosong',
+            'image.required' => 'Thumbnail video tidak boleh kosong',
             'url.regex' => 'Kolom URL video harus diisi dengan link (http / https)',
             'member_type_id.required' => 'Tipe member wajib diisi!',
             'member_type_id.exists' => 'Tipe member tidak valid. Muat ulang halaman!',
@@ -86,21 +87,26 @@ class VideoTrainingController extends Controller
 
         ], $messages);
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)
-                ->withInput();
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $name = $request->name;
-        $url = $request->url;
-        $member_type_id = $request->member_type_id;
-
         $createData = [
-            'name' => $name,
-            'url' => $url,
-            'member_type_id' => $member_type_id,
-
+            'name' => $request->name,
+            'url' => $request->url,
+            'member_type_id' => $request->member_type_id,
         ];
+
+        $image = $request->file('image');
+
+        if($image) {
+            $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/video_trainings/thumbnail/'), $filename);
+            $path_file = 'storage/system_storage/video_trainings/thumbnail/' . $filename;
+            $createData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/video_trainings/thumbnail/') . $filename));
+
+        }
 
         $result = $this->VideoTrainingRepository->create($createData);
 
@@ -187,16 +193,23 @@ class VideoTrainingController extends Controller
                 ->withInput();
         }
 
-        $name = $request->name;
-        $url = $request->url;
-        $member_type_id = $request->member_type_id;
-
         $updateData = [
-            'name' => $name,
-            'url' => $url,
-            'member_type_id' => $member_type_id,
+            'name' => $request->name,
+            'url' => $request->url,
+            'member_type_id' => $request->member_type_id,
 
         ];
+
+        $image = $request->file('image');
+
+        if($image) {
+            $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/video_trainings/thumbnail/'), $filename);
+            $path_file = 'storage/system_storage/video_trainings/thumbnail/' . $filename;
+            $updateData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/video_trainings/thumbnail/') . $filename));
+
+        }
 
         $result = $this->VideoTrainingRepository->update($id,$updateData);
 

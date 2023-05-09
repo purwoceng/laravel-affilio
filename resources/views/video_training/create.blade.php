@@ -74,6 +74,15 @@
                                     <input type="text" class="form-control" placeholder="Masukkan Url Video"
                                         name="url" value="" required />
                                 </div>
+                                <div class="form-group">
+                                    <label>File Gambar Thumbnail<span class="text-danger"></span></label>
+                                    <div></div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile"
+                                            name="image" />
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
                                         <a href="{{ route('video_training.index') }}"

@@ -18,6 +18,7 @@ class VideoTutorial extends Model
         'member_type_id',
         'name',
         'url',
+        'image',
     ];
 
     protected $casts = [

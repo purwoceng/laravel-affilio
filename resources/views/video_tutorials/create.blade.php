@@ -97,7 +97,7 @@
                         </span>
                     @endif
 
-                    <form action="{{ route('video_tutorials.store') }}" method="post">
+                    <form action="{{ route('video_tutorials.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="input-video-name">Judul Video</label>
@@ -158,6 +158,15 @@
                                     {{ $message }}
                                 </small>
                             @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>File Gambar Thumbnail<span class="text-danger"></span></label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile"
+                                    name="image" />
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
                         </div>
 
                         <a class="btn btn-outline-danger" href="{{ route('video_tutorials.index') }}">Kembali</a>
