@@ -152,7 +152,14 @@
                                  <span class="menu-text">Produk Wishlist</span>
                              </a>
                          </li>
-
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('product_home.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Produk Rekomendasi</span>
+                             </a>
+                         </li>
 
                      </ul>
                  </div>
@@ -263,7 +270,22 @@
                                  <span class="menu-text">Background Cover Supplier</span>
                              </a>
                          </li>
-
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('markup.edit') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Markup Global</span>
+                             </a>
+                         </li>
+                         <li class="menu-item" aria-haspopup="true">
+                             <a href="{{ route('markup_product.index') }}" class="menu-link">
+                                 <i class="menu-bullet menu-bullet-dot">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Markup Produk Satuan</span>
+                             </a>
+                         </li>
                      </ul>
                  </div>
              </li>
@@ -296,14 +318,7 @@
                              </a>
                          </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('product_home.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Produk Rekomendasi</span>
-                             </a>
-                         </li>
+
 
                          {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('supplier_home.index') }}" class="menu-link">
@@ -345,30 +360,14 @@
                                  </ul>
                              </div>
                          </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('markup.edit') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Markup Global</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('markup_product.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Markup Produk Satuan</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
+                         {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('video_tutorials.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
                                  </i>
                                  <span class="menu-text">Video Tutorials</span>
                              </a>
-                         </li>
+                         </li> --}}
                          <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('video_training.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
