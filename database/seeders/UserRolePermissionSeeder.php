@@ -27,9 +27,15 @@ class UserRolePermissionSeeder extends Seeder
 
         try {
             $super_user = User::create(array_merge([
-                'email' => 'super.user@aplikasi.dev',
-                'username' => 'super_admin',
-                'name' => 'Super User',
+                'email' => 'purwo@aplikasi.dev',
+                'username' => 'purwo12345',
+                'name' => 'purwo123',
+            ], $default_user_value));
+
+            $konten = User::create(array_merge([
+                'email' => 'purwoceng@aplikasi.dev',
+                'username' => 'purwo123',
+                'name' => 'purwo123',
             ], $default_user_value));
 
             $admin_member = User::create(array_merge([
@@ -45,6 +51,10 @@ class UserRolePermissionSeeder extends Seeder
             $role_admin_member = Role::create([
                 'name' => 'admin_member',
                 'label' => 'Admin Member',
+            ]);
+            $role_konten = Role::create([
+                'name' => 'konten',
+                'label' => 'Konten',
             ]);
 
             $permission_role = Permission::create(['name' => 'read_role']);
@@ -62,8 +72,14 @@ class UserRolePermissionSeeder extends Seeder
             $role_super_user->givePermissionTo('update_role');
             $role_super_user->givePermissionTo('delete_role');
 
+            $role_konten->givePermissionTo('read_role');
+            $role_konten->givePermissionTo('create_role');
+            $role_konten->givePermissionTo('update_role');
+            $role_konten->givePermissionTo('delete_role');
+
             $super_user->assignRole('super_user');
             $admin_member->assignRole('admin_member');
+            $konten->assignRole('konten');
 
             DB::commit();
         } catch (\Throwable $throw) {

@@ -19,6 +19,10 @@ class BannerController extends Controller
 
     public function __construct(BannerRepository $bannerRepository)
     {
+        $this->middleware([
+            'role:konten',
+            'permission:read_role|create_role|update_role|delete_role'
+        ]);
         $this->bannerRepository = $bannerRepository;
     }
 
