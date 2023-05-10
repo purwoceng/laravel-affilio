@@ -45,7 +45,7 @@
                                     <label class="col-3 col-form-label">Email User</label>
                                     <div class="form-group">
                                         <input class="form-control"
-                                        name="" value="{{ $data->email }}" disabled></input>
+                                        name="" value="{{ $data->email }}" ></input>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -59,7 +59,7 @@
                                     <label class="col-3 col-form-label">Password Baru</label>
                                     <div>
                                         <input type="password" id="input-member-password" class="form-control" name="password"
-                                            placeholder="Masukkan password baru jika anda ingin merubahnya" aria-describedby="password-helper"  />
+                                            placeholder="Masukkan password baru" aria-describedby="password-helper"  />
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row">
