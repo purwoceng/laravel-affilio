@@ -28,11 +28,6 @@
                                       </svg>
                                     Total Member
                                 </p>
-                                <br>
-                                <a class="btn btn-outline-primary col-sm-12" href="{{ route('members.index') }}" title="Detail Member">
-                                    <i class="fas fa-plus mr-1 fa-sm"></i>
-                                    Details
-                                </a>
                         </div>
                     </div>
                 </div>
@@ -49,11 +44,6 @@
                                     </svg>
                                     Total Margin Affilio
                                 </p>
-                                <br>
-                                <a class="btn btn-outline-primary col-sm-12" href="{{ route('orders.index') }}" title="Detail Margin Affilio">
-                                    <i class="fas fa-plus mr-1 fa-sm"></i>
-                                    Details
-                                </a>
                         </div>
                     </div>
                 </div>
@@ -69,11 +59,6 @@
                                       </svg>
                                     Total Omset Affilio
                                 </p>
-                                <br>
-                                <a class="btn btn-outline-primary col-sm-12" href="{{ route('orders.index') }}" title="Detail Omset Affilio">
-                                    <i class="fas fa-plus mr-1 fa-sm"></i>
-                                    Details
-                                </a>
                         </div>
                     </div>
                 </div>
@@ -93,11 +78,6 @@
                                 </svg>
                                 Total Dana Bonus Acara
                             </p>
-                            <br>
-                            <a class="btn btn-outline-primary col-sm-12" href="{{ route('eventfund.index') }}" title="Detail Dana Acara">
-                                <i class="fas fa-plus mr-1 fa-sm"></i>
-                                Details
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -113,11 +93,6 @@
                                     </svg>
                                     Total Dana Bonus Pensiun
                                 </p>
-                                <br>
-                                <a class="btn btn-outline-primary col-sm-12" href="{{ route('pensiun.index') }}" title="Detail Dana Pensiun">
-                                    <i class="fas fa-plus mr-1 fa-sm"></i>
-                                    Details
-                                </a>
                         </div>
                     </div>
                 </div>
