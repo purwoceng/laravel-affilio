@@ -23,6 +23,11 @@ class VideoTrainingController extends Controller
 
      public function __construct(VideoTrainingRepository $videoTrainingRepository)
      {
+        $this->middleware([
+            'role:konten',
+            'permission:read_role|create_role|update_role|delete_role'
+        ]);
+
          $this->VideoTrainingRepository = $videoTrainingRepository;
      }
     public function index(Request $request)
