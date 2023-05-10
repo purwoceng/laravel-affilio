@@ -27,7 +27,7 @@
                     @endif
 
 
-                    <form action="{{ route('video_tutorials.update', $video_tutorial->id) }}" method="post">
+                    <form action="{{ route('video_tutorials.update', $video_tutorial->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -89,6 +89,16 @@
                                 </small>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label>File Gambar Thumbnail<span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" placeholder="Masukkan Gambar"
+                                name="image" value=""  />
+                        </div>
+                        <div class="col-4">
+                            <img src="{{ config('app.s3_url') . $video_tutorial->image }}" class="img-fluid"
+                                width="150px">
+                        </div>
+                        <br>
 
                         <a class="btn btn-outline-danger" href="{{ route('video_tutorials.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>

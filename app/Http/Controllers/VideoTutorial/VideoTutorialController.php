@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\VideoTutorial;
 
-use App\Http\Controllers\Controller;
-use App\Models\MemberType;
-use App\Models\VideoTutorial;
-use App\Repositories\VideoTutorial\VideoTutorialRepository;
 use Exception;
+use App\Models\MemberType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\VideoTutorial;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use App\Repositories\VideoTutorial\VideoTutorialRepository;
 
 class VideoTutorialController extends Controller
 {
@@ -148,13 +149,26 @@ class VideoTutorialController extends Controller
                 ->withInput();
         }
 
-        $video_tutorial = VideoTutorial::create([
+        $createData = [
             'name' => $request->name,
             'url' => $request->url,
             'member_type_id' => $request->member_type_id,
-        ]);
+        ];
 
-        if ($video_tutorial) {
+        $image = $request->file('image');
+
+        if($image) {
+            $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/video_tutorials/thumbnail/'), $filename);
+            $path_file = 'storage/system_storage/video_tutorials/thumbnail/' . $filename;
+            $createData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/video_tutorials/thumbnail/') . $filename));
+
+        }
+
+        $result = $this->repository->create($createData);
+
+        if ($result) {
             return redirect()
                 ->route('video_tutorials.index')
                 ->with([
@@ -222,13 +236,27 @@ class VideoTutorialController extends Controller
                 ->withInput();
         }
 
-        $video_tutorial = VideoTutorial::findOrFail($id);
-        $video_tutorial->name = $request->name;
-        $video_tutorial->url = $request->url;
-        $video_tutorial->member_type_id = $request->member_type_id;
-        $video_tutorial->save();
+        $updateData = [
+            'name' => $request->name,
+            'url' => $request->url,
+            'member_type_id' => $request->member_type_id,
+        ];
 
-        if ($video_tutorial) {
+        $image = $request->file('image');
+
+        if($image) {
+            $filename = 'Image-' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/video_tutorials/thumbnail/'), $filename);
+            $path_file = 'storage/system_storage/video_tutorials/thumbnail/' . $filename;
+            $updateData['image'] = $path_file;
+            Storage::disk('s3')->put($path_file, file_get_contents(public_path('storage/video_tutorials/thumbnail/') . $filename));
+
+        }
+
+        $result = $this->repository->create($updateData);
+
+
+        if ($result) {
             return redirect()
                 ->route('video_tutorials.index')
                 ->with([

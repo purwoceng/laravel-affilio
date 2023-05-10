@@ -76,7 +76,7 @@
                                     <label>Kreator Pesan <span class="text-danger">*</span></label>
                                     <select class="form-control form-control-sm filter" name="creator_id"
                                     placeholder="Type Here">
-                                    <option disabled selected>Pilih Kreator Pesan</option>
+                                    {{-- <option disabled selected>Pilih Kreator Pesan</option> --}}
                                     <option value="0">Admin</option>
                                 </select>
                                 </div>

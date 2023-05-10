@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Kategori Video Training'))
+@section('title', __('Buat Kategori Status Notifikasi Pesan'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Video Training</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Status Notifikasi Pesan</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Video Training</h3>
+                        <h3 class="card-label">Buat Kategori Status Notifikasi Pesan</h3>
                     </div>
 
                 </div>
@@ -39,7 +39,7 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('video_training.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('notificationstatus.store', $data->id) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="input-member-type-id">Tipe Member</label>
@@ -47,12 +47,13 @@
                                         id="input-member-type-id"
                                         class="form-control"
                                         aria-describedby="member-type-helper"
-                                        required>
+                                        required disabled>
                                         <option selected disabled value="0">Pilih Tipe Member</option>
+
                                         @foreach ($member_types as $key => $member_type)
                                             <option
                                                 value="{{ $member_type->id }}"
-                                                {{ old('member_type_id') == $member_type->id ? 'selected' : '' }}>
+                                                {{ $data->member_type_id == $member_type->id ? 'selected' : '' }}>
                                                 {{ $member_type->type }}
                                             </option>
                                         @endforeach
@@ -65,27 +66,12 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Judul Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Judul Video"
-                                        name="name" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>Url Video <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Url Video"
-                                        name="url" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>File Gambar Thumbnail<span class="text-danger"></span></label>
-                                    <div></div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile"
-                                            name="image" />
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                    <label>Notification Id<span class="text-danger">*</span></label>
+                                    <input class="form-control" placeholder="Masukkan Judul Notifikasi Pesan .." name="id" value="{{$data->id}}" required disabled></input>
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('video_training.index') }}"
+                                        <a href="{{ route('notification.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 

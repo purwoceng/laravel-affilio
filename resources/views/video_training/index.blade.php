@@ -51,6 +51,7 @@
                                 <th>Tipe/Peringkat Member Video</th>
                                 <th>Judul Video</th>
                                 <th>Url Video</th>
+                                <th>Thumbnail Video</th>
                                 <th>Dibuat</th>
                                 <th>Aksi</th>
                             </tr>
@@ -131,6 +132,18 @@
                         className: 'text-left small',
                     },
                     {
+                        data: 'image',
+                        name: 'image',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            if (data)  return `<img src="${data}" class="image-fluid" width="80px">`;
+                            return '-';
+                        }
+                    },
+                    {
                         data: 'created_at',
                         name: 'created_at',
                         sortable: false,
@@ -174,7 +187,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.title}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
                                                     href="${deleteUrl}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

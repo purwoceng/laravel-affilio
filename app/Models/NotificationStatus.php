@@ -2,23 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class VideoTutorial extends Model
+class NotificationStatus extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'video_tutorials';
-    protected $dates = ['deleted_at'];
+    protected $table = 'notifications_status';
 
     protected $fillable = [
-        'member_type_id',
-        'name',
-        'url',
-        'image',
+        'id',
+        'member_id',
+        'notification_id',
     ];
 
     protected $casts = [
@@ -26,4 +25,9 @@ class VideoTutorial extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function notification()
+    {
+        return $this->belongsTo(Notification::class,'id','notification_id');
+    }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\TiketController;
 use App\Http\Controllers\Member\MemberResetPin;
 use App\Http\Controllers\Order\OrderController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\Dana\WithdrawController;
 use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Dana\EventfundController;
@@ -23,8 +25,6 @@ use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
 use App\Http\Controllers\Member\MemberTypeController;
 use App\Http\Controllers\Dana\EventDashboardController;
-use App\Http\Controllers\Dana\PensiunDashboardController;
-use App\Http\Controllers\Dana\WithdrawController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventGreetingController;
 use App\Http\Controllers\HomePage\FunnelLinkController;
@@ -33,6 +33,7 @@ use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Member\MemberAccountController;
 use App\Http\Controllers\Order\OrderDashboardController;
+use App\Http\Controllers\Dana\PensiunDashboardController;
 use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\Supplier\SupplierListController;
@@ -49,6 +50,7 @@ use App\Http\Controllers\VideoTutorial\VideoTutorialController;
 use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
+use App\Http\Controllers\Notification\NotificationStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -329,6 +331,18 @@ Route::middleware('auth')->group(function () {
             Route::get('/show/{id}', [NotificationController::class, 'show'])->name('show');
             Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy');
         });
+    //notifikasi pesan
+    Route::prefix('notificationstatus')
+        ->name('notificationstatus.')
+        ->group(function () {
+            Route::get('/', [NotificationStatusController::class, 'index'])->name('index');
+            Route::get('/create/{id}', [NotificationStatusController::class, 'create'])->name('create');
+            Route::post('/store', [NotificationStatusController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [NotificationStatusController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [NotificationStatusController::class, 'update'])->name('update');
+            Route::get('/show/{id}', [NotificationStatusController::class, 'show'])->name('show');
+            Route::get('/delete/{id}', [NotificationStatusController::class, 'destroy'])->name('destroy');
+        });
 
     Route::prefix('configs')
         ->name('configs.')
@@ -479,5 +493,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [EventGreetingController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [EventGreetingController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [EventGreetingController::class, 'destroy'])->name('destroy');
+        });
+
+
+    // profile user
+    Route::prefix('profile')
+        ->name('profile.')
+        ->group(function () {
+            Route::get('/{id}', [ProfileController::class, 'index'])->name('index');
+            Route::get('/create', [ProfileController::class, 'create'])->name('create');
+            Route::get('/store', [ProfileController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [ProfileController::class, 'update'])->name('update');
+            Route::get('/show/{id}', [ProfileController::class, 'show'])->name('show');
         });
 });
