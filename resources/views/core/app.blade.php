@@ -5,6 +5,7 @@
     <base href="">
     <meta charset="utf-8" />
     <title>@yield('title', 'Dashboard Admin Aplikasi X')</title>
+    <link rel="shortcut icon" href="https://affilioassetsdev.s3-ap-southeast-1.amazonaws.com/storage/system_storage/video_trainings/thumbnail/Image-1683717095_645b7be7b045b_LOGO%20AFFILIO%202.png">
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!--begin::Fonts-->

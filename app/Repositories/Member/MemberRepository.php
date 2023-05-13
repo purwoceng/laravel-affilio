@@ -81,7 +81,7 @@ class MemberRepository implements MemberRepositoryInterface
         if ($request->filled('referral')) {
             if ($request->referral != 'all') {
                 $keyword = $request->get('referral');
-                $getQuery->where('referral', $keyword);
+                $getQuery->where('referral', 'like', '%' . $keyword . '%');
                 $totalData = $getQuery->count();
                 $totalFiltered = $totalData;
             }
