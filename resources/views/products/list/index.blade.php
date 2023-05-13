@@ -139,6 +139,8 @@
                             <tr class="text-center small">
                                 <th>#</th>
                                 <th>Nama Produk</th>
+                                <th>Harga Produk</th>
+                                <th>Harga Jual Produk</th>
                                 <th>Nama Toko</th>
                             </tr>
                         </thead>
@@ -222,6 +224,22 @@
 
                             return element;
                         }
+                    },
+                    {
+                        data: 'priceFormat',
+                        name: 'priceFormat',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'sellPriceFormat',
+                        name: 'sellPriceFormat',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
                     },
                     {
                         data: 'sellerName',

@@ -72,6 +72,8 @@ class ProductListRepository implements ProductListRepositoryInterface
                 $sellerName = $product['sellerName'];
                 $priceFormat = $product['priceFormat'];
                 $picture = $product['picture'];
+                $priceFormat = $product['price'];
+                $sellPriceFormat = $product['sellPrice'];
 
 
                 $data[] = [
@@ -79,6 +81,8 @@ class ProductListRepository implements ProductListRepositoryInterface
                     'sellerName' => $sellerName,
                     'priceFormat' => $priceFormat,
                     'picture' => $picture,
+                    'priceFormat' => formatRupiah($priceFormat),
+                    'sellPriceFormat' => formatRupiah($sellPriceFormat),
                 ];
             }
         }
