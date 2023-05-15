@@ -33,7 +33,7 @@ class ProductListRepository implements ProductListRepositoryInterface
         }
 
         if($sellerName){
-            $url.='&seller='.$sellerName;
+            $url.='&sellerName='.$sellerName;
         }
 
         $response = Http::withHeaders([
