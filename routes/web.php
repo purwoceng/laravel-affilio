@@ -261,7 +261,7 @@ Route::middleware('auth')->group(function () {
     //supplier-list
     Route::prefix('supplierslist')->name('supplierslist.')->group(function () {
         Route::get('/', [SupplierListController::class, 'index'])->name('index');
-        Route::get('/create', [SupplierListController::class, 'create'])->name('create');
+        Route::get('/create/{id}', [SupplierListController::class, 'create'])->name('create');
         Route::post('/store', [SupplierListController::class, 'store'])->name('store');
         Route::get('/show/{id}', [SupplierListController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [SupplierListController::class, 'edit'])->name('edit');
