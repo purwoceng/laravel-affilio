@@ -33,8 +33,12 @@ class MemberController extends Controller
         //nganggo iki yo iso
         // $getMemberBlockeds = Member::with('member_addresses')->where('id')->where('publish', 1)->get();
 
-        $getMemberBlockeds = DB::table('members')->where('members.publish','1')
-                            ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
+        // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
+        //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
+        //                     ->get();
+         $getMemberBlockeds = DB::table('members')
+                            ->leftjoin('member_addresses','members.id','=','member_addresses.member_id')
+                            ->where('members.publish','1')
                             ->get();
 
         $member_type = MemberType::get();
