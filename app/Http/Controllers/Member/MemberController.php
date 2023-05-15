@@ -178,7 +178,7 @@ class MemberController extends Controller
         $member->username = $request->username;
         $member->phone = $request->phone;
         $member->member_type_id = $request->member_type_id;
-        $member->referral = $request->referral;
+        // $member->referral = $request->referral;
         $member->is_founder = $request->is_founder;
         $member->is_transaction = $request->is_transaction;
 
