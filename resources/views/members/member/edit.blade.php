@@ -97,7 +97,7 @@
                         <div class="form-group">
                             <label for="input-member-referral">Referral*</label>
                             <input type="text" id="input-member-referral" class="form-control" name="referral"
-                                value="{{ $data->referral }}" aria-describedby="referral-helper" required />
+                                value="{{ $data->referral }}" aria-describedby="referral-helper" disabled />
 
                             @error('referral')
                                 <small id="referral-helper" class="form-text text-danger">

@@ -148,13 +148,13 @@
 
 @push('js')
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
     <script>
         $(document).ready(function() {
             const urlAjax = "{{ route('members.index') }}";
 
             var tableAllMember = $('#js-table-all-member').DataTable({
-                destroy: true,
-                responsive: false,
+                pagingType: 'full_numbers',
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -164,7 +164,10 @@
                 language: {
                     infoFiltered: "",
                 },
-                lengthChange: false,
+                 lengthMenu: [
+                    [50, 100, 200, 300, 400, 500, 1000],
+                    [50, 100, 200, 300, 400, 500, 1000]
+                ],
                 pageLength: 50,
                 order: [
                     [0, 'DESC']

@@ -26,6 +26,10 @@
                     <div class="card-title">
                         <h3 class="card-label">Data Peran</h3>
                     </div>
+                    <a class="btn btn-success float-right" href="{{ route('roles.create') }}" title="Tambah Role">
+                        <i class="fas fa-plus mr-1 fa-sm"></i>
+                        Tambah
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -55,7 +59,7 @@
 
     $(document).ready(function() {
         const ajaxUrl = "{{ route('roles.index') }}";
-        
+
         $('#js-user-table').DataTable({
             processing: true,
             serverSide: true,

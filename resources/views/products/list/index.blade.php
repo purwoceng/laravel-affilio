@@ -1,11 +1,79 @@
 @extends('core.app')
-@section('title', __('Daftar Supplier'))
+@section('title', __('Daftar Produk Affilio'))
+@push('css')
+    <link
+        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
+        rel="stylesheet"
+        type="text/css"
+    />
+
+    <style>
+        .product-cell {
+            display: flex;
+            padding: .25rem .5rem;
+            gap: 1rem;
+            flex-wrap: nowrap;
+        }
+
+        .product-cell .product-cell__image {
+            height: 60px;
+            width: 60px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border-radius: .25rem;
+            border: 1px solid rgba(40, 40, 40, .36);
+            overflow: hidden;
+        }
+
+        .product-cell .product-cell__image img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .product-cell .product-cell__content {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+        }
+
+        .product-cell .product-cell__title {
+            font-weight: 500;
+            font-size: 1.04rem;
+            line-height: 1.5;
+            color: #212121;
+        }
+
+        .product-cell .product-cell__stats {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: .75rem;
+        }
+
+        .product-cell .product-cell__stats .product-cell__stat {
+            font-size: .75rem;
+            line-height: 1.5;
+            display: flex;
+            gap: .35rem;
+        }
+
+        .product-cell .product-cell__stats .product-cell__stat i {
+            font-size: .875rem;
+            color: rgba(40, 40, 40, .56);
+        }
+    </style>
+@endpush
+
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Daftar Supplier Affilio</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Daftar Produk Affilio</h5>
             </div>
         </div>
     </div>
@@ -15,7 +83,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Daftar Supplier Affilio</h3>
+                        <h3 class="card-label">Daftar Produk Affilio</h3>
                     </div>
 
                 </div>
@@ -44,13 +112,23 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Nama Produk</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input
+                                                        type="text"
+                                                        class="form-control form-control-sm filter"
+                                                        data-name="productName" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row">
                                                 <label class="col-4 col-form-label">Nama Toko</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
                                                     <input
                                                         type="text"
                                                         class="form-control form-control-sm filter"
-                                                        data-name="storeName" placeholder="Type Here">
+                                                        data-name="sellerName" placeholder="Type Here">
                                                 </div>
                                             </div>
                                         </div>
@@ -60,10 +138,10 @@
 
                             <tr class="text-center small">
                                 <th>#</th>
-                                <th>Username</th>
-                                <th>Nama</th>
+                                <th>Nama Produk</th>
+                                <th>Harga Produk</th>
+                                <th>Harga Jual Produk</th>
                                 <th>Nama Toko</th>
-                                {{-- <th>Actions</th> --}}
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -84,9 +162,9 @@
 
     <script>
         $(document).ready(function() {
-            const urlAjax = "{{ route('supplierslist.index') }}";
+            const urlAjax = "{{ route('product_list.index') }}";
 
-            var supplierTable = $('#js-table-supplier').DataTable({
+            var productTable = $('#js-table-supplier').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -114,71 +192,63 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    {
-                        data: 'username',
-                        name: 'username',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'name',
-                        name: 'name',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
-                    {
-                        data: 'storeName',
-                        name: 'storeName',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-lg-left text-center small',
-                    },
                     // {
-                    //     data: 'id',
-                    //     type: 'id',
+                    //     data: 'productName',
+                    //     name: 'productName',
                     //     sortable: false,
                     //     orderable: false,
                     //     searchable: false,
                     //     className: 'text-lg-left text-center small',
-                    //     render: function(data, type, row, meta) {
-                    //         let showUrl =
-                    //             `{{ url('members/member_type/show/${row.id}') }}`;
-                    //         let editUrl =
-                    //             `{{ url('members/member_type/edit/${row.id}') }}`;
-                    //         let deleteUrl =
-                    //             `{{ url('members/member_type/delete/${row.id}') }}`;
-                    //         let elements = '';
-                    //         elements += `
-                    //         <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                    //                 class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                    //                     class="la la-cog"></i></a>
-                    //             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                    //                 <ul class="nav nav-hoverable flex-column">
-                    //                     <li class="nav-item">
-                    //                         <a class="nav-link" href="${showUrl}"><span
-                    //                                 class="nav-text">Detail</span></a>
-                    //                     </li>
-                    //                     <li class="nav-item">
-                    //                         <a class="nav-link" href="${editUrl}"><span
-                    //                                 class="nav-text">Ubah</span></a>
-                    //                     </li>
-                    //                     <li class="nav-item">
-                    //                         <a class="nav-link" href="${deleteUrl}"><span
-                    //                                 class="nav-text">Hapus</span></a>
-                    //                     </li>
-                    //                 </ul>
-                    //             </div>
-                    //         </div>
-                    //         `;
+                    // },
+                    {
+                        data: 'productName',
+                        name: 'productName',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                        render: function(data, type, row) {
+                            let element = '';
 
-                    //         return elements;
-                    //     }
-                    // }
+                            element += `
+                                <div class="product-cell">
+                                    <div class="product-cell__image">
+                                        <img src="${row.picture}" />
+                                    </div>
+                                    <div class="product-cell__content">
+                                        <span class="product-cell__title">${row.productName}</span>
+                                        <div class="product-cell__stats"></div>
+                                    </div>
+                                </div>
+                            `;
+
+                            return element;
+                        }
+                    },
+                    {
+                        data: 'priceFormat',
+                        name: 'priceFormat',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'sellPriceFormat',
+                        name: 'sellPriceFormat',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
+                    {
+                        data: 'sellerName',
+                        name: 'sellerName',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                    },
 
                 ],
             });
@@ -236,7 +306,7 @@
             };
 
             function reDrawTable(data) {
-                supplierTable.ajax.url(getFullUrl(data)).load(null, true);
+                productTable.ajax.url(getFullUrl(data)).load(null, true);
             };
 
             init();

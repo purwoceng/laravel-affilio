@@ -135,7 +135,14 @@
                  <div class="menu-submenu">
                      <i class="menu-arrow"></i>
                      <ul class="menu-subnav">
-
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{ route('product_list.index') }}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Daftar Produk</span>
+                            </a>
+                        </li>
                          <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/inactive*') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('products.inactive.index') }}" class="menu-link menu-toggle">
@@ -168,7 +175,7 @@
                  </div>
              </li>
              @endhasanyrole
-             @hasanyrole('akutansi|super_user|event')
+             @hasanyrole('akutansi|super_user|event|admin_member')
              <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:void(0)" class="menu-link menu-toggle">
