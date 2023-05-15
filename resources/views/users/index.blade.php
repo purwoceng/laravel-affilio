@@ -22,6 +22,10 @@
                     <div class="card-title">
                         <h3 class="card-label">Data Pengguna</h3>
                     </div>
+                    <a class="btn btn-success float-right" href="{{ route('users.create') }}" title="Tambah User">
+                        <i class="fas fa-plus mr-1 fa-sm"></i>
+                        Tambah
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -162,6 +166,11 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="${ajaxUrl}/detail/${data}">
                                                 <span class="nav-text">Detail</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${ajaxUrl}/edit/${data}">
+                                                <span class="nav-text">Edit User</span>
                                             </a>
                                         </li>
                                     </ul>

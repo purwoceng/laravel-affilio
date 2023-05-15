@@ -29,6 +29,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventGreetingController;
 use App\Http\Controllers\HomePage\FunnelLinkController;
 use App\Http\Controllers\Order\OrderCheckoutController;
+use App\Http\Controllers\Product\ProductListController;
 use App\Http\Controllers\VideoHome\VideoHomeController;
 use App\Http\Controllers\HomePage\ProductTypeController;
 use App\Http\Controllers\Member\MemberAccountController;
@@ -146,6 +147,10 @@ Route::middleware('auth')->group(function () {
         ->name('users.')
         ->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('/create', [UserController::class, 'create'])->name('create');
+            Route::post('/store', [UserController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
             Route::get('/detail/{id}', [UserController::class, 'show'])->name('detail');
         });
 
@@ -179,6 +184,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [SupplierController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [SupplierController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [SupplierController::class, 'delete'])->name('delete');
+        });
+
+    //list produk
+    Route::prefix('product_list')
+        ->name('product_list.')
+        ->group(function () {
+            Route::get('/', [ProductListController::class, 'index'])->name('index');
         });
 
     Route::prefix('product-home')
