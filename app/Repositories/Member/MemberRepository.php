@@ -39,6 +39,7 @@ class MemberRepository implements MemberRepositoryInterface
         $start = $request->input('start');
 
         $getQuery = $this->getMemberActive($limit, $start);
+
         $totalData = $this->getCountMemberActive();
         $totalFiltered = $totalData;
 
@@ -86,14 +87,18 @@ class MemberRepository implements MemberRepositoryInterface
                 $totalFiltered = $totalData;
             }
         }
-        // if ($request->filled('city_name')) {
-        //     if ($request->referral != 'all') {
-        //         $keyword = $request->get('city_name');
-        //         $getQuery->where('city_name', $keyword);
-        //         $totalData = $getQuery->count();
-        //         $totalFiltered = $totalData;
-        //     }
-        //  }
+         if ($request->filled('city_name')) {
+             if ($request->referral != 'all') {
+                 $keyword = $request->get('city_name');
+                 $getQuery->whereHas('member_addresses', function ($query) use ($keyword) {
+                     return $query->where('city_name', 'LIKE', '%' . $keyword. '%');
+                 });
+
+                 $totalData = $getQuery->count();
+                 $totalFiltered = $totalData;
+             }
+          }
+
         // if ($request->filled('is_transaction')) {
         //     $keyword = $request->get('is_transaction');
         //     $getQuery->where('is_transaction', 'like', '%' . $keyword . '%');

@@ -52,6 +52,7 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\Notification\NotificationStatusController;
+use App\Http\Controllers\City\CityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -517,5 +518,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/store', [ProfileController::class, 'store'])->name('store');
             Route::put('/update/{id}', [ProfileController::class, 'update'])->name('update');
             Route::get('/show/{id}', [ProfileController::class, 'show'])->name('show');
+        });
+
+    // profile City
+    Route::prefix('city')
+        ->name('city.')
+        ->group(function () {
+            Route::get('/', [CityController::class, 'index'])->name('index');
+
         });
 });

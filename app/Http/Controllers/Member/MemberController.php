@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\MemberAddress;
-use App\Repositories\Interfaces\Member\MemberRepositoryInterface;
+use App\Repositories\Member\MemberRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +16,7 @@ class MemberController extends Controller
 {
     private $memberRepository;
 
-    public function __construct(MemberRepositoryInterface $memberRepository)
+    public function __construct(MemberRepository $memberRepository)
     {
         $this->memberRepository = $memberRepository;
     }
@@ -42,12 +42,11 @@ class MemberController extends Controller
 //                            ->get();
 
         $member_type = MemberType::get();
-        $city_name = MemberAddress::get();
         if ($request->ajax()) {
             return $this->memberRepository->getDataTable($request);
         }
 
-        return view('members.member.index', compact('member_type', 'city_name'));
+        return view('members.member.index', compact('member_type'));
     }
 
     /**
