@@ -15,6 +15,7 @@ class MemberAddress extends Model
         'address',
         'province_name',
         'city_name',
+        'main_address',
     ];
 
     protected $casts = [

@@ -20,7 +20,7 @@ class MemberRepository implements MemberRepositoryInterface
 
     public function getCountMemberActive()
     {
-        return Member::with('member_addresses')->where('publish', '1')->count();
+        return Member::with('member_addresses')->where('publish', '1');
     }
 
     public function getDataById($id)
@@ -39,67 +39,71 @@ class MemberRepository implements MemberRepositoryInterface
         $start = $request->input('start');
 
         $getQuery = $this->getMemberActive($limit, $start);
-        $totalData = $this->getCountMemberActive();
-        $totalFiltered = $totalData;
+        $getQueryTotal = $this->getCountMemberActive();
 
         if ($request->filled('name')) {
             $keyword = $request->get('name');
             $getQuery->where('name', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('name', 'like', '%' . $keyword . '%');
+
         }
 
         if ($request->filled('username')) {
             $keyword = $request->get('username');
             $getQuery->where('username', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('username', 'like', '%' . $keyword . '%');
+
         }
 
         if ($request->filled('email')) {
             $keyword = $request->get('email');
             $getQuery->where('email', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('email', 'like', '%' . $keyword . '%');
         }
 
         if ($request->filled('phone')) {
             $keyword = $request->get('phone');
             $getQuery->where('phone', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('phone', 'like', '%' . $keyword . '%');
         }
 
         if ($request->filled('member_type')) {
             if ($request->member_type != 'all') {
                 $keyword = $request->get('member_type');
                 $getQuery->where('member_type_id', $keyword);
-                $totalData = $getQuery->count();
-                $totalFiltered = $totalData;
+                $getQueryTotal->where('member_type_id', $keyword);
+
             }
         }
         if ($request->filled('referral')) {
             if ($request->referral != 'all') {
                 $keyword = $request->get('referral');
                 $getQuery->where('referral', 'like', '%' . $keyword . '%');
-                $totalData = $getQuery->count();
-                $totalFiltered = $totalData;
+                $getQueryTotal->where('referral', 'like', '%' . $keyword . '%');
             }
         }
-        // if ($request->filled('city_name')) {
-        //     if ($request->referral != 'all') {
-        //         $keyword = $request->get('city_name');
-        //         $getQuery->where('city_name', $keyword);
-        //         $totalData = $getQuery->count();
-        //         $totalFiltered = $totalData;
-        //     }
-        //  }
+         if ($request->filled('city_name')) {
+             if ($request->city_name != 'all') {
+                 $keyword = $request->get('city_name');
+                 $getQuery->whereHas('member_addresses', function ($query) use ($keyword) {
+                     return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . $keyword. '%');
+                 });
+
+                 $getQueryTotal->whereHas('member_addresses', function ($query) use ($keyword) {
+                     return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . $keyword. '%');
+                 });
+             }
+          }
+
         // if ($request->filled('is_transaction')) {
         //     $keyword = $request->get('is_transaction');
         //     $getQuery->where('is_transaction', 'like', '%' . $keyword . '%');
         //     $totalData = $getQuery->count();
         //     $totalFiltered = $totalData;
         // }
+
+        $totalData = $getQueryTotal->count();
+        $totalFiltered = $totalData;
 
         $getMemberBlockeds = $getQuery->orderBy('id', 'desc')->get();
 

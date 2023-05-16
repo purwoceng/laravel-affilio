@@ -1240,6 +1240,7 @@
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{ asset('js/pages/widgets.js') }}"></script>
     <script src="{{ asset('js/pages/bootstrap-daterangepicker.js') }}"></script>
+    <script src="{{ asset('js/autocomplete.js') }}"></script>
     <!--end::Page Scripts-->
 
     <script>

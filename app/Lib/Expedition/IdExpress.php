@@ -217,7 +217,7 @@ class IdExpress
             ],
             "100020" => [
                 "code" => "100020",
-                "desc" => "Destination Province, City and District are not match",
+                "desc" => "Destination Province, ApiCity and District are not match",
                 "desc_id" => "Provinsi Tujuan, Kota dan Kabupaten tidak cocok",
             ],
             "-100000" => [

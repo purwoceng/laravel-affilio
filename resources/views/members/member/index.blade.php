@@ -102,16 +102,8 @@
                                                 <label class="col-4 col-form-label">Kota</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <select type="text" class="form-control form-control-sm filter"
-                                                        data-name="city_name" placeholder="Type Here">
-                                                        <option disabled>Pilih Kota</option>
-                                                        <option value="all" selected default>Semua</option>
-                                                        @foreach ($city_name as $data)
-                                                            <option value="{{ $data->id }}">
-                                                                {{ $data->city_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input id="select_city" type="text" class="form-control form-control-sm filter"
+                                                           data-name="city_name" placeholder="Type Here">
                                                 </div>
                                             </div>
 
@@ -152,6 +144,7 @@
     <script>
         $(document).ready(function() {
             const urlAjax = "{{ route('members.index') }}";
+            const urlAjaxCity = "{{ route('city.index') }}";
 
             var tableAllMember = $('#js-table-all-member').DataTable({
                 pagingType: 'full_numbers',
@@ -429,6 +422,28 @@
             function init() {
                 $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
             }
+
+            $('#select_city').autocomplete({
+                'source': function(request, response) {
+                    $.ajax({
+                        url: urlAjaxCity + '?name=' +  encodeURIComponent(request),
+                        dataType: 'json',
+                        success: function(json) {
+                            response($.map(json, function(item) {
+                                console.log(item)
+                                return {
+                                    label: item['text'] + ' ' + item['name'],
+                                    value: item['id']
+                                }
+                            }));
+                        }
+                    });
+                },
+                'select': function(item) {
+                    var cityName = item['label'].split(' ')
+                    $('#select_city').val(cityName[1])
+                }
+            });
         });
     </script>
 @endpush
