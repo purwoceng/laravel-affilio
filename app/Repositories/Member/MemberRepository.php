@@ -52,6 +52,7 @@ class MemberRepository implements MemberRepositoryInterface
             $keyword = $request->get('username');
             $getQuery->where('username', 'like', '%' . $keyword . '%');
             $getQueryTotal->where('username', 'like', '%' . $keyword . '%');
+
         }
 
         if ($request->filled('email')) {
@@ -79,7 +80,7 @@ class MemberRepository implements MemberRepositoryInterface
                 $keyword = $request->get('referral');
                 $getQuery->where('referral', 'like', '%' . $keyword . '%');
                 $getQueryTotal->where('referral', 'like', '%' . $keyword . '%');
-
+            }
         }
          if ($request->filled('city_name')) {
              if ($request->city_name != 'all') {
