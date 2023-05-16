@@ -83,10 +83,14 @@ class SupplierListController extends Controller
             'Authorization' => "Bearer {$token}",
         ])->get($url);
 
-        $product_data = $response['data'];
+        $data = $response['data'] ?? [];
+        $results = $data['results'] ?? [];
+        return  $results ?? [];
+
+        // $product_data = $response['results'];
         // dd($product_data);
         // exit;
-        return view('suppliers.list.createnonactive',compact('product_data'));
+        return view('suppliers.list.createnonactive',compact('results'));
     }
 
     /**

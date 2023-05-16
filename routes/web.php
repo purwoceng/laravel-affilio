@@ -69,6 +69,7 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('/');
     Route::get('/get-dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard');
+    Route::get('/grafik', [DashboardController::class, 'grafik'])->name('grafik');
 
 
 

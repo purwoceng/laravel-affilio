@@ -100,16 +100,8 @@
                     <form action="{{ route('suppliers.nonactive.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="input-supplier-id">Nama Supplier</label>
-                            <select name="supplier_id"
-                                id="input-supplier-id"
-                                class="js-supplier-selector form-control" required></select>
-
-                            @error('supplier_id')
-                                <small id="name-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
+                            <label>Nama Suppliers<span class="text-danger">*</span></label>
+                            <input class="form-control" placeholder="Masukkan Nama Suppliers .." name="title" value="{{$results['username']}}" required></input>
                         </div>
 
                         <input type="hidden" name="origin_supplier_store_name" value="" />

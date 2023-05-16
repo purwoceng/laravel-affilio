@@ -17,7 +17,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $total_memberr = Member::select(DB::raw("CAST(sum(email) as int) as total_member"))
+        ->GroupBy(DB::raw("Month(created_at)"))
+        ->pluck('total_member');
+
+        $bulan = Member::select(DB::raw("MONTHNAME(created_at) as bulan"))
+        ->GroupBy(DB::raw("MONTHNAME(created_at)"))
+        ->pluck('bulan');
+
+        return view('dashboard.index', compact('total_memberr','bulan'));
     }
 
     /**
@@ -125,4 +133,17 @@ class DashboardController extends Controller
             200
         ]);
     }
+
+    // public function grafik()
+    // {
+    //     $total_member = Member::select(DB::raw("CAST(sum(total_member) as int) as total_member"))
+    //     ->GroupBy(DB::raw("Month(created_at)"))
+    //     ->pluck('total_member');
+
+    //     $bulan = Member::slect(DB::raw("MONTHNAME(created_at) as bulan"))
+    //     ->GroupBy(DB::raw("MONTHNAME(created_at)"))
+    //     ->pluck('bulan');
+
+    //     return view('dashboard.index', compact('total_member','bulan'));
+    // }
 }
