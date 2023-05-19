@@ -173,7 +173,7 @@
                         return query;
                     },
                     headers: {
-                        Authorization: `Bearer {{ config('app.baleomol_key') }}`,
+                        Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
                     },
                     processResults: function(data, params) {
                         var result = { results: [] };
