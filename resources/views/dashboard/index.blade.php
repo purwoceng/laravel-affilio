@@ -13,9 +13,6 @@
             <!--end::Info-->
         </div>
     </div>
-
-<div class="container">
-    <div class="row">
         <div class="container text-center my-2">
             <div class="row ">
                 <div class="col-sm-4">
@@ -97,27 +94,37 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="d-flex flex-column-fluid">
-    <div class="container">
-        <div class="card card-custom">
-            <div class="card-header flex-wrap py-5">
-                <div class="card-title">
-                    <h3 class="card-label">Grafik Member Affilio</h3>
+        </div><br>
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-header flex-wrap py-5">
+                    <div class="card-title">
+                        <h3 class="card-label"></h3>
+                    </div>
                 </div>
-
-            </div>
-            <div class="card-body">
-                <div id="grafik">
-
+                <div class="card-body">
+                    <div id="grafik">
+                    </div>
                 </div>
-
             </div>
         </div>
+    </div><br>
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-header flex-wrap py-5">
+                    <div class="card-title">
+                        <h3 class="card-label">Grafik Total Margin Affilio</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="grafik_order">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 @endsection
 
@@ -436,32 +443,78 @@
 
         });
 
-    var members = <?php echo json_encode($total_memberr, JSON_NUMERIC_CHECK) ?>;
-    var bulan = <?php echo json_encode($bulan, JSON_NUMERIC_CHECK) ?>;
-    Highcharts.chart('grafik',{
-        title : {
-            text : 'Grafik Member Bulanan'
-        },
-        xAxis : {
-            categories : bulan
-        },
-        yAxis : {
+        var members = <?php echo json_encode($total_memberr, JSON_NUMERIC_CHECK) ?>;
+        var bulan = <?php echo json_encode($bulan, JSON_NUMERIC_CHECK) ?>;
+        Highcharts.chart('grafik',{
             title : {
-                text : 'Jumlah'
+                text : 'Grafik Member Affilio'
+            },
+            xAxis : {
+                categories : bulan
+            },
+            yAxis : {
+                title : {
+                    text : 'Jumlah'
+                }
+            },
+            plotOptions : {
+                series : {
+                    allowPointSelect : true
+                }
+            },
+            series :[
+                {
+                    name: 'Jumlah Member',
+                    data: members
+                }
+            ],
+        });
+
+        var orders = <?php echo json_encode($total_margin, JSON_NUMERIC_CHECK) ?>;
+        var bulan_order = <?php echo json_encode($bulan_order, JSON_NUMERIC_CHECK) ?>;
+        Highcharts.chart('grafik_order',{
+            title : {
+                text : 'Grafik Margin Affilio'
+            },
+            xAxis : {
+                categories : bulan_order,
+            },
+            yAxis : {
+                labels: {
+                    text : 'Jumlah',
+                    formatter: function() {
+                    if (this.value >= 0) {
+                        return 'Rp.' + this.value
+                    } else {
+                        return 'Rp.' + (-this.value)
+                    }
+                }
             }
-        },
-        plotOptions : {
-            series : {
-                allowPointSelect : true
-            }
-        },
-        series :[
-            {
-                name: 'Jumlah Member',
-                data: members
-            }
-        ],
-    });
+            },
+            tooltip: {
+                pointFormatter: function() {
+                    var value;
+                    if (this.y >= 0) {
+                    value = 'Rp. ' + this.y
+                    } else {
+                    value = 'Rp. ' + (-this.y)
+                    }
+                    return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + value + '</b><br />'
+                },
+                shared: true
+                },
+            plotOptions : {
+                series : {
+                    allowPointSelect : true
+                }
+            },
+            series :[
+                {
+                    name: 'Jumlah Margin',
+                    data: orders
+                }
+            ],
+        });
     </script>
 @endpush
 
