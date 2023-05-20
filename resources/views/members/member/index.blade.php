@@ -102,14 +102,27 @@
                                                 <label class="col-4 col-form-label">Kota</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input id="select_city" type="text" class="form-control form-control-sm filter"
-                                                           data-name="city_name" placeholder="Type Here">
+                                                    <input id="select_city" type="text"
+                                                        class="form-control form-control-sm filter" data-name="city_name"
+                                                        placeholder="Type Here">
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                 </form>
+                                <div class="js-action mt-2 mb-4">
+                                    <div class="d-flex flex-row">
+                                        <div class="btn-group">
+                                            <div class="m-1">
+                                                <a href="javascript:void(0)" class="btn btn-sm btn-success  excel"
+                                                    data-toggle="modal">
+                                                    <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <tr class="text-center small">
                                 <th>#</th>
@@ -157,7 +170,7 @@
                 language: {
                     infoFiltered: "",
                 },
-                 lengthMenu: [
+                lengthMenu: [
                     [50, 100, 200, 300, 400, 500, 1000],
                     [50, 100, 200, 300, 400, 500, 1000]
                 ],
@@ -363,6 +376,107 @@
                 ],
             });
 
+            //exportexcel
+            let excelModal = $('#js-detail-modal');
+            $(document).on("click", ".excel", function(e) {
+                let elementHTML = `
+                    <div class="form-group row">
+                        <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tipe Member</label>
+                            <div class="col-sm-10">
+                                <div class='input-group' id='js-daterange-picker'>
+                                    <input type='text' class="form-control filter"
+                                            id="date_range1" name="date_range1" placeholder="Select date range" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Tipe Member</label>
+                        <div class="col-sm-10">
+                            <select class="form-control form-control-sm filter" data-name="type_member" id="type_member"
+                                                placeholder="Type Here">
+                                                <option disabled >Pilih Status Order</option>
+                                                <option value="all" selected>Semua</option>
+                                                <option value="1">Affliator</option>
+                                                <option value="2">Affliator Inti</option>
+                                                <option value="3">Bronze</option>
+                                                <option value="4">Gold</option>
+                                                <option value="5">Platinum</option>
+                                                <option value="6">Diamond</option>
+                                                </select>
+                        </div>
+                    </div>
+
+
+                `;
+
+
+                let elementFooter = `
+                            <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
+                            `;
+
+                excelModal.find(".modal-title").html('Input Export Excel');
+                excelModal.find(".modal-body").html(elementHTML);
+                excelModal.find(".modal-footer").html(elementFooter);
+                excelModal.modal('show');
+
+            });
+
+            //js datepicker excel
+            $('#js-detail-modal').on('shown.bs.modal', function(e) {
+                $('input[name="date_range1"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+                        ' to ' + end.format('YYYY-MM-DD'));
+                });
+            });
+
+            //button export
+            $(document).on('click', '#submitexcel', function() {
+                var date_range1 = $("#date_range1").val();
+                var type_member = $("#type_member").val();
+                var x = document.getElementById("submitexcel");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'GET',
+                    url: "{{ route('members.exportexcel') }}",
+                    data: {
+                        "daterange1": date_range1,
+                        "type_member": type_member
+                    },
+                    cache: false,
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(data) {
+                        const url = window.URL || window.webkitURL;
+                        const downloadURL = url.createObjectURL(data);
+                        var a = $("<a />");
+                        a.attr("download", 'Daftar Pesanan-' + type_member + '-Tanggal-' +
+                            date_range1 + '.xlsx');
+                        a.attr("href", downloadURL);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                });
+            });
 
             function getDataFiltered() {
                 let filterEl = $('.filter');
@@ -426,7 +540,7 @@
             $('#select_city').autocomplete({
                 'source': function(request, response) {
                     $.ajax({
-                        url: urlAjaxCity + '?name=' +  encodeURIComponent(request),
+                        url: urlAjaxCity + '?name=' + encodeURIComponent(request),
                         dataType: 'json',
                         success: function(json) {
                             response($.map(json, function(item) {

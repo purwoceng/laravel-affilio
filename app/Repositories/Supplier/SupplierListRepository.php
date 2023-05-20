@@ -17,24 +17,24 @@ class SupplierListRepository implements SupplierListRepositoryInterface
     {
         //
     }
-    public function getSupplier($limit, $page, $username, $storeName )
+    public function getSupplier($limit, $page, $username, $storeName)
     {
         $token = config('app.baleomol_token_auth');
         $url = config('app.baleomol_url') . '/suppliers?req=affilio';
-        if($limit){
-            $url.='&limit='.(int)$limit;
+        if ($limit) {
+            $url .= '&limit=' . (int)$limit;
         }
 
-        if($page){
-            $url.='&page='.$page;
+        if ($page) {
+            $url .= '&page=' . $page;
         }
 
-        if($username){
-            $url.='&username='.$username;
+        if ($username) {
+            $url .= '&username=' . $username;
         }
 
-        if($storeName){
-            $url.='&name='.$storeName;
+        if ($storeName) {
+            $url .= '&name=' . $storeName;
         }
 
         $response = Http::withHeaders([
@@ -57,7 +57,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
     }
     public function getDataTable($request)
     {
-        $limit = $request->input('length') ?? 20 ;
+        $limit = $request->input('length') ?? 20;
         $start = $request->input('start') ?? 1;
         $username = $request->input('username') ?? '';
         $page = (floor($start / $limit)) + 1;
@@ -87,7 +87,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
         }
 
         $result = [
-            'draw' =>$page,
+            'draw' => $page,
             'recordsTotal' => intval($total_data),
             'recordsFiltered' => intval($total_data),
             'data' => $data,

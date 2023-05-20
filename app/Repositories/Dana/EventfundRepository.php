@@ -14,17 +14,17 @@ class EventfundRepository implements EventfundRepositoryInterface
 
     public function getCountEventFund($startDate, $endDate)
     {
-        return RewardDana::whereBetween('code', ['BRAO','BRAT'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
     }
     public function getDataById($id)
     {
-        return RewardDana::whereBetween('code', ['BRAO','BRAT'])->where('id', $id)->first();
+        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->where('id', $id)->first();
     }
 
 
     public function getEventFund($limit, $start, $startDate, $endDate)
     {
-        return RewardDana::whereBetween('code', ['BRAO','BRAT'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -73,12 +73,12 @@ class EventfundRepository implements EventfundRepositoryInterface
 
                 $data[] = array(
                     'id' => $id,
-                    'username'=> $username,
-                    'code'=>$code,
+                    'username' => $username,
+                    'code' => $code,
                     'title' => $title,
                     'description' => $description,
                     'status_verify' => $status_verify,
-                    'value'=>formatRupiah($value),
+                    'value' => $value,
                     'created_at' => $created_at,
                     'actions' => $actions,
                 );
