@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Exports\MemberExport;
 use App\Models\MemberType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use App\Repositories\Member\MemberRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
@@ -36,10 +38,10 @@ class MemberController extends Controller
         // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
         //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
         //                     ->get();
-         $getMemberBlockeds = DB::table('members')
-                            ->leftjoin('member_addresses','members.id','=','member_addresses.member_id')
-                            ->where('members.publish','1')
-                            ->get();
+        $getMemberBlockeds = DB::table('members')
+            ->leftjoin('member_addresses', 'members.id', '=', 'member_addresses.member_id')
+            ->where('members.publish', '1')
+            ->get();
 
         $member_type = MemberType::get();
         if ($request->ajax()) {
@@ -220,6 +222,29 @@ class MemberController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportexcel(Request $request)
+    {
+        $dateRange = [];
+        $status = '';
+
+        if (isset($request->daterange1)) {
+            $dateRange = explode('-', $request->daterange1);
+            $dateRange = array_map(function ($item) {
+                $date = trim($item);
+                $date = strtotime($date);
+                $date = date('Y-m-d H:i:s', $date);
+
+                return $date;
+            }, $dateRange);
+        }
+
+        if (isset($request->status1)) {
+            $status = $request->status1;
+        }
+
+        return Excel::download(new MemberExport($status, $dateRange), 'member.xlsx');
     }
 
     public function network($id)

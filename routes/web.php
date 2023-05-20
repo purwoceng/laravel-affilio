@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [MemberController::class, 'update'])->name('update');
         Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
+        Route::get('/exportexcel', [MemberController::class, 'exportexcel'])->name('exportexcel');
 
         Route::prefix('accounts')->name('accounts.')->group(function () {
             Route::get('/', [MemberAccountController::class, 'index'])->name('index');
@@ -527,6 +528,5 @@ Route::middleware('auth')->group(function () {
         ->name('city.')
         ->group(function () {
             Route::get('/', [CityController::class, 'index'])->name('index');
-
         });
 });
