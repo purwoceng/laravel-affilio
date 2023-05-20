@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dana;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Dana\FundsRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FundTransactionExport;
+use App\Repositories\Dana\FundsRepository;
 
 class FundController extends Controller
 {
@@ -95,4 +97,28 @@ class FundController extends Controller
     {
         //
     }
+
+    public function exportexcel(Request $request)
+    {
+        $dateRange = [];
+        $status = '';
+
+        if (isset($request->daterange1)) {
+            $dateRange = explode('-', $request->daterange1);
+            $dateRange = array_map(function ($item) {
+                $date = trim($item);
+                $date = strtotime($date);
+                $date = date('Y-m-d H:i:s', $date);
+
+                return $date;
+            }, $dateRange);
+        }
+
+        if (isset($request->status1)) {
+            $status = $request->status1;
+        }
+
+        return Excel::download(new FundTransactionExport($status, $dateRange), 'fund.xlsx');
+    }
+
 }

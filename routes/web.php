@@ -459,6 +459,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [FundController::class, 'index'])->name('index');
             Route::get('/show/{id}', [FundController::class, 'show'])->name('show');
+            Route::get('/exportexcel', [FundController::class, 'exportexcel'])->name('exportexcel');
         });
 
     //riwayat dana

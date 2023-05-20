@@ -18,7 +18,7 @@ class ProductListRepository implements ProductListRepositoryInterface
 
     public function getProduct($limit, $page, $productName, $sellerName )
     {
-        $token = config('app.baleomol_key');
+        $token = config('app.baleomol_token_auth');
         $url = config('app.baleomol_url') . '/products?req=affilio';
         if($limit){
             $url.='&limit='.(int)$limit;
