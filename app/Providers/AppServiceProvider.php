@@ -35,6 +35,7 @@ use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -136,5 +137,10 @@ class AppServiceProvider extends ServiceProvider
         config(['app.locale' => 'id']);
 	    Carbon::setLocale('id');
         Schema::defaultStringLength(191);
+        Blade::directive('currency',function ($expression)
+        {
+            return "<?php echo number_format($expression,0,',','.'); ? >";
+        });
+
     }
 }
