@@ -1,11 +1,7 @@
 @extends('core.app')
 
 @push('css')
-    <link
-        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
-        rel="stylesheet"
-        type="text/css"
-    />
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('title', __('Akses: Peran'))
@@ -26,10 +22,10 @@
                     <div class="card-title">
                         <h3 class="card-label">Data Peran</h3>
                     </div>
-                    <a class="btn btn-success float-right" href="{{ route('roles.create') }}" title="Tambah Role">
+                    {{-- <a class="btn btn-success float-right" href="{{ route('roles.create') }}" title="Tambah Role">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
-                    </a>
+                    </a> --}}
                 </div>
 
                 <div class="card-body">
@@ -52,72 +48,71 @@
 
 
 @push('js')
-<script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
-<script>
-    'use strict';
+    <script>
+        'use strict';
 
-    $(document).ready(function() {
-        const ajaxUrl = "{{ route('roles.index') }}";
+        $(document).ready(function() {
+            const ajaxUrl = "{{ route('roles.index') }}";
 
-        $('#js-user-table').DataTable({
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            searching: false,
-            autoWidth: true,
-            select: true,
-            language: {
-                infoFiltered: "",
-            },
-            lengthChange: false,
-            pageLength: 20,
-            order: [
-                [0, 'DESC']
-            ],
-            ajax: {
-                url: ajaxUrl,
-                type: 'GET',
-            },
-            scrollX: true,
-            columns: [
-                {
-                    data: null,
-                    sortable: false,
-                    className: 'text-center',
-                    render: function(data, type, row, meta) {
-                        const index = meta.row + meta.settings._iDisplayStart + 1;
-
-                        return index;
-                    }
+            $('#js-user-table').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                searching: false,
+                autoWidth: true,
+                select: true,
+                language: {
+                    infoFiltered: "",
                 },
-                {
-                    data: 'label',
-                    name: 'label',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-left small',
+                lengthChange: false,
+                pageLength: 20,
+                order: [
+                    [0, 'DESC']
+                ],
+                ajax: {
+                    url: ajaxUrl,
+                    type: 'GET',
                 },
-                {
-                    data: 'name',
-                    name: 'name',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-left small',
-                },
-                {
-                    data: 'actions',
-                    name: 'actions',
-                    sortable: false,
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-center small',
-                    render : function(data, type, row, meta) {
-                        let elements = '';
+                scrollX: true,
+                columns: [{
+                        data: null,
+                        sortable: false,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            const index = meta.row + meta.settings._iDisplayStart + 1;
 
-                        elements += `<div class="dropdown dropdown-inline">
+                            return index;
+                        }
+                    },
+                    {
+                        data: 'label',
+                        name: 'label',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                        render: function(data, type, row, meta) {
+                            let elements = '';
+
+                            elements += `<div class="dropdown dropdown-inline">
                                 <a href="javascript:void(0)"
                                     class="btn btn-sm btn-primary btn-icon"
                                     data-toggle="dropdown">
@@ -134,11 +129,11 @@
                                 </div>
                             </div>`;
 
-                        return elements;
-                    },
-                }
-            ]
+                            return elements;
+                        },
+                    }
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endpush
