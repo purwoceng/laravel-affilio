@@ -78,7 +78,7 @@ class EventfundRepository implements EventfundRepositoryInterface
                     'title' => $title,
                     'description' => $description,
                     'status_verify' => $status_verify,
-                    'value'=>formatRupiah($value),
+                    'value'=>number_format($value),
                     'created_at' => $created_at,
                     'actions' => $actions,
                 );

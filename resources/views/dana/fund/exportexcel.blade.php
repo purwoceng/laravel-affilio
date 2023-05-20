@@ -19,6 +19,7 @@
             <td>{{ $fund->username}}</td>
             <td>{{ $fund->status}}</td>
             <td>{{ $fund->code}}</td>
+            <td>{{ $fund->is_active}}</td>
             <td>{{ $fund->title}}</td>
             <td>Rp. {{ $fund->value}}</td>
             <td>{{ $fund->created_at}}</td>

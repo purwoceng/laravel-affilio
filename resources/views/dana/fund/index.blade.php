@@ -522,7 +522,7 @@
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
                             `;
 
-                excelModal.find(".modal-title").html('Input Export Excel');
+                excelModal.find(".modal-title").html('Input Export Excel Riwayat Dana');
                 excelModal.find(".modal-body").html(elementHTML);
                 excelModal.find(".modal-footer").html(elementFooter);
                 excelModal.modal('show');
@@ -540,45 +540,45 @@
             });
 
             //button export
-            $(document).on('click', '#submitexcel', function() {
-                var date_range1 = $("#date_range1").val();
-                var status1 = $("#status1").val();
-                var x = document.getElementById("submitexcel");
-                x.disabled = true;
-                var xhr = $.ajax({
-                    type: 'GET',
-                    url: "{{ route('fund.exportexcel') }}",
-                    data: {
-                        "daterange1": date_range1,
-                        "status1": status1
-                    },
-                    cache: false,
-                    xhr: function() {
-                        var xhr = new XMLHttpRequest();
-                        xhr.onreadystatechange = function() {
-                            if (xhr.readyState == 2) {
-                                if (xhr.status == 200) {
-                                    xhr.responseType = "blob";
-                                } else {
-                                    xhr.responseType = "text";
-                                }
-                            }
-                        };
-                        return xhr;
-                    },
-                    success: function(data) {
-                        const url = window.URL || window.webkitURL;
-                        const downloadURL = url.createObjectURL(data);
-                        var a = $("<a />");
-                        a.attr("download", 'Daftar Riwayat Dana-' + status1 + '-Tanggal-' +
-                            date_range1 + '.xlsx');
-                        a.attr("href", downloadURL);
-                        $("body").append(a);
-                        a[0].click();
-                        $("body").remove(a);
-                    }
-                });
-            });
+            // $(document).on('click', '#submitexcel', function() {
+            //     var date_range1 = $("#date_range1").val();
+            //     var status1 = $("#status1").val();
+            //     var x = document.getElementById("submitexcel");
+            //     x.disabled = true;
+            //     var xhr = $.ajax({
+            //         type: 'GET',
+            //         url: "{{ route('fund.exportexcel') }}",
+            //         data: {
+            //             "daterange1": date_range1,
+            //             "status1": status1
+            //         },
+            //         cache: false,
+            //         xhr: function() {
+            //             var xhr = new XMLHttpRequest();
+            //             xhr.onreadystatechange = function() {
+            //                 if (xhr.readyState == 2) {
+            //                     if (xhr.status == 200) {
+            //                         xhr.responseType = "blob";
+            //                     } else {
+            //                         xhr.responseType = "text";
+            //                     }
+            //                 }
+            //             };
+            //             return xhr;
+            //         },
+            //         success: function(data) {
+            //             const url = window.URL || window.webkitURL;
+            //             const downloadURL = url.createObjectURL(data);
+            //             var a = $("<a />");
+            //             a.attr("download", 'Daftar Riwayat Dana-' + status1 + '-Tanggal-' +
+            //                 date_range1 + '.xlsx');
+            //             a.attr("href", downloadURL);
+            //             $("body").append(a);
+            //             a[0].click();
+            //             $("body").remove(a);
+            //         }
+            //     });
+            // });
             }
 
         });
