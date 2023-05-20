@@ -63,7 +63,7 @@
                                 <th>Username</th>
                                 <th>Nama</th>
                                 <th>Nama Toko</th>
-                                {{-- <th>Actions</th> --}}
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -138,47 +138,39 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                     },
-                    // {
-                    //     data: 'id',
-                    //     type: 'id',
-                    //     sortable: false,
-                    //     orderable: false,
-                    //     searchable: false,
-                    //     className: 'text-lg-left text-center small',
-                    //     render: function(data, type, row, meta) {
-                    //         let showUrl =
-                    //             `{{ url('members/member_type/show/${row.id}') }}`;
-                    //         let editUrl =
-                    //             `{{ url('members/member_type/edit/${row.id}') }}`;
-                    //         let deleteUrl =
-                    //             `{{ url('members/member_type/delete/${row.id}') }}`;
-                    //         let elements = '';
-                    //         elements += `
-                    //         <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
-                    //                 class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
-                    //                     class="la la-cog"></i></a>
-                    //             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                    //                 <ul class="nav nav-hoverable flex-column">
-                    //                     <li class="nav-item">
-                    //                         <a class="nav-link" href="${showUrl}"><span
-                    //                                 class="nav-text">Detail</span></a>
-                    //                     </li>
-                    //                     <li class="nav-item">
-                    //                         <a class="nav-link" href="${editUrl}"><span
-                    //                                 class="nav-text">Ubah</span></a>
-                    //                     </li>
-                    //                     <li class="nav-item">
-                    //                         <a class="nav-link" href="${deleteUrl}"><span
-                    //                                 class="nav-text">Hapus</span></a>
-                    //                     </li>
-                    //                 </ul>
-                    //             </div>
-                    //         </div>
-                    //         `;
+                    {
+                        data: 'id',
+                        type: 'id',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-lg-left text-center small',
+                        render: function(data, type, row, meta) {
+                            let showUrl =
+                                `{{ url('supplierslist/edit/${row.id}') }}`;
+                            let editUrl =
+                                `{{ url('members/member_type/edit/${row.id}') }}`;
+                            let deleteUrl =
+                                `{{ url('members/member_type/delete/${row.id}') }}`;
+                            let elements = '';
+                            elements += `
+                            <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
+                                    class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown"><i
+                                        class="la la-cog"></i></a>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                    <ul class="nav nav-hoverable flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${showUrl}"><span
+                                                    class="nav-text">Add Supplier Non Aktif</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            `;
 
-                    //         return elements;
-                    //     }
-                    // }
+                            return elements;
+                        }
+                    }
 
                 ],
             });

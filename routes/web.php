@@ -70,6 +70,7 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('/');
     Route::get('/get-dashboard', [DashboardController::class, 'getDashboard'])->name('dashboard');
+    Route::get('/grafik', [DashboardController::class, 'grafik'])->name('grafik');
 
 
 
@@ -262,7 +263,7 @@ Route::middleware('auth')->group(function () {
     //supplier-list
     Route::prefix('supplierslist')->name('supplierslist.')->group(function () {
         Route::get('/', [SupplierListController::class, 'index'])->name('index');
-        Route::get('/create', [SupplierListController::class, 'create'])->name('create');
+        Route::get('/create/{id}', [SupplierListController::class, 'create'])->name('create');
         Route::post('/store', [SupplierListController::class, 'store'])->name('store');
         Route::get('/show/{id}', [SupplierListController::class, 'show'])->name('show');
         Route::get('/edit/{id}', [SupplierListController::class, 'edit'])->name('edit');
@@ -458,6 +459,7 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/', [FundController::class, 'index'])->name('index');
             Route::get('/show/{id}', [FundController::class, 'show'])->name('show');
+            Route::get('/exportexcel', [FundController::class, 'exportexcel'])->name('exportexcel');
         });
 
     //riwayat dana

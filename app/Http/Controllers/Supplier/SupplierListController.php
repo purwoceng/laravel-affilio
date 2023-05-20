@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Supplier;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SupplierNonActive;
 use Illuminate\Support\Facades\Http;
 use App\Repositories\Supplier\SupplierListRepository;
 
@@ -73,7 +74,23 @@ class SupplierListController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $supplierslist= [$id];
+        // $suppliers_id = $supplierslist;
+        // $token = config('app.baleomol_key');
+        // $url = config('app.baleomol_url') . '/suppliers/' ;
+
+        // $response = Http::withHeaders([
+        //     'Authorization' => "Bearer {$token}",
+        // ])->get($url);
+
+        // $data = $response['data'] ?? [];
+        // $results = $data['results'] ?? [];
+        // return  $results ?? [];
+
+        // $product_data = $response['results'];
+        // dd($product_data);
+        // exit;
+        // return view('suppliers.list.createnonactive',compact('results'));
     }
 
     /**

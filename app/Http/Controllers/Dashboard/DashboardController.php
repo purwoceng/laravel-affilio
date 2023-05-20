@@ -6,6 +6,7 @@ use App\Models\Fund;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\Order;
 use Illuminate\Support\Facades\Request;
 
 class DashboardController extends Controller
@@ -17,7 +18,25 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $total_memberr = Member::select(DB::raw("CAST(sum(publish) as int) as total_member"))
+                        ->GroupBy(DB::raw("Month(created_at)"))
+                        ->pluck('total_member');
+
+        $bulan = Member::select(DB::raw("MONTHNAME(created_at) as bulan"))
+                ->GroupBy(DB::raw("MONTHNAME(created_at)"))
+                ->pluck('bulan');
+
+        $total_margin = Order::select(DB::raw("CAST(sum(value - affilio_value) as int) as total_margin"))
+                        ->where('status','success')
+                        ->GroupBy(DB::raw("Month(created_at)"))
+                        ->pluck('total_margin');
+
+        $bulan_order = Order::select(DB::raw("MONTHNAME(created_at) as bulan_order"))
+                       ->GroupBy(DB::raw("MONTHNAME(created_at)"))
+                       ->pluck('bulan_order');
+
+
+        return view('dashboard.index', compact('total_memberr','bulan', 'total_margin', 'bulan_order'));
     }
 
     /**
@@ -125,4 +144,17 @@ class DashboardController extends Controller
             200
         ]);
     }
+
+    // public function grafik()
+    // {
+    //     $total_member = Member::select(DB::raw("CAST(sum(total_member) as int) as total_member"))
+    //     ->GroupBy(DB::raw("Month(created_at)"))
+    //     ->pluck('total_member');
+
+    //     $bulan = Member::slect(DB::raw("MONTHNAME(created_at) as bulan"))
+    //     ->GroupBy(DB::raw("MONTHNAME(created_at)"))
+    //     ->pluck('bulan');
+
+    //     return view('dashboard.index', compact('total_member','bulan'));
+    // }
 }

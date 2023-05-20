@@ -101,4 +101,9 @@ class MemberTypeRepository implements MemberTypeRepositoryInterface
     {
         return MemberType::where('id',$id)->first();
     }
+
+    public function getDownline($member_id, $generation = 1, $limit = 10, $offset = 0, $founder_id = 0)
+    {
+        //
+    }
 }
