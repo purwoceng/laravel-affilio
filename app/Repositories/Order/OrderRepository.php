@@ -19,7 +19,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getTotalData($startDate, $endDate)
     {
-        return Order::whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate)->get()->count();
+        return Order::whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate)->get();
     }
 
     public function getDataTable($request)
@@ -39,59 +39,69 @@ class OrderRepository implements OrderRepositoryInterface
         }
 
         $getQuery = $this->getData($limit, $start, $startDate, $endDate);
-        $totalData = $this->getTotalData($startDate, $endDate);
-        $totalFiltered = $totalData;
+        // $totalData = $this->getTotalData($startDate, $endDate);
+        $getQueryTotal = $this->getTotalData($startDate, $endDate);
+        // $totalFiltered = $totalData;
 
         if ($request->filled('customer_name')) {
             $keyword = $request->get('customer_name');
             $getQuery->where('customer_name', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('customer_name', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
         }
 
         if ($request->filled('code')) {
             $keyword = $request->get('code');
             $getQuery->where('code', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('code', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
         }
 
         if ($request->filled('invoice_code')) {
             $keyword = $request->get('invoice_code');
             $getQuery->where('invoice_code', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('invoice_code', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
         }
 
         if ($request->filled('phone')) {
             $keyword = $request->get('phone');
             $getQuery->where('phone', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('phone', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
         }
         if ($request->filled('resi')) {
             $keyword = $request->get('resi');
             $getQuery->where('resi', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('resi', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
         }
 
         if ($request->filled('invoice_id')) {
             $keyword = $request->get('invoice_id');
             $getQuery->where('invoice_id', 'like', '%' . $keyword . '%');
-            $totalData = $getQuery->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('invoice_id', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
         }
 
         if ($request->filled('status')) {
             $keyword = $request->get('status');
             if ($keyword != 'all') {
                 $getQuery->where('status',$keyword);
-                $totalData = $getQuery->count();
-                $totalFiltered = $totalData;
+                $getQueryTotal->where('status',$keyword);
+                // $totalData = $getQuery->count();
+                // $totalFiltered = $totalData;
             }
         }
 
+        $totalData = $getQueryTotal->count();
+        $totalFiltered = $totalData;
         $getResults = $getQuery->orderBy('id', 'desc')->get();
 
         $data = [];

@@ -1345,7 +1345,7 @@
                                                 method: 'POST',
                                                 headers: {
                                                     Authorization: 'Bearer ' +
-                                                        `{{ config('app.baleomol_key') }}`,
+                                                        `{{ config('app.baleomol_token_auth') }}`,
                                                     'Content-Type': 'application/json',
                                                 },
                                                 body: JSON.stringify({
@@ -1597,7 +1597,7 @@
                                         method: 'POST',
                                         headers: {
                                             Authorization: 'Bearer ' +
-                                                `{{ config('app.baleomol_key') }}`,
+                                                `{{ config('app.baleomol_token_auth') }}`,
                                             'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify({
