@@ -19,7 +19,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getTotalData($startDate, $endDate)
     {
-        return Order::whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate)->get();
+        return Order::whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
     }
 
     public function getDataTable($request)

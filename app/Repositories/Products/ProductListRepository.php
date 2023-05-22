@@ -16,24 +16,24 @@ class ProductListRepository implements ProductListRepositoryInterface
         //
     }
 
-    public function getProduct($limit, $page, $productName, $sellerName)
+    public function getProduct($limit, $page, $productName, $sellerName )
     {
         $token = config('app.baleomol_token_auth');
-        $url = config('app.baleomol_url') . '/suppliers?req=affilio';
-        if ($limit) {
-            $url .= '&limit=' . (int)$limit;
+        $url = config('app.baleomol_url') . '/products?req=affilio';
+        if($limit){
+            $url.='&limit='.(int)$limit;
         }
 
-        if ($page) {
-            $url .= '&page=' . $page;
+        if($page){
+            $url.='&page='.$page;
         }
 
-        if ($productName) {
-            $url .= '&productName=' . $productName;
+        if($productName){
+            $url.='&productName='.$productName;
         }
 
-        if ($sellerName) {
-            $url .= '&sellerName=' . $sellerName;
+        if($sellerName){
+            $url.='&sellerName='.$sellerName;
         }
 
         $response = Http::withHeaders([
@@ -55,7 +55,7 @@ class ProductListRepository implements ProductListRepositoryInterface
     }
     public function getDataTable($request)
     {
-        $limit = $request->input('length') ?? 20;
+        $limit = $request->input('length') ?? 20 ;
         $start = $request->input('start') ?? 1;
         $productName = $request->input('productName') ?? '';
         $page = (floor($start / $limit)) + 1;
@@ -79,7 +79,6 @@ class ProductListRepository implements ProductListRepositoryInterface
                 $data[] = [
                     'productName' => $productName,
                     'sellerName' => $sellerName,
-                    'priceFormat' => $priceFormat,
                     'picture' => $picture,
                     'priceFormat' => formatRupiah($priceFormat),
                     'sellPriceFormat' => formatRupiah($sellPriceFormat),
@@ -88,7 +87,7 @@ class ProductListRepository implements ProductListRepositoryInterface
         }
 
         $result = [
-            'draw' => $page,
+            'draw' =>$page,
             'recordsTotal' => intval($total_data),
             'recordsFiltered' => intval($total_data),
             'data' => $data,

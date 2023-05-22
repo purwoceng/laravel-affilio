@@ -7,10 +7,10 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-
-class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
+class BonusAcaraExport implements FromView, WithEvents, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -46,7 +46,7 @@ class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
 
         $funds = $query->get();
 
-        return view('dana.fund.exportexcel', [
+        return view('dana.acara.exportexcel', [
             'funds' => $funds,
         ]);
     }
