@@ -471,6 +471,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [WithdrawController::class, 'index'])->name('index');
             Route::get('/show/{id}', [WithdrawController::class, 'show'])->name('show');
             Route::post('/verification', [WithdrawController::class, 'verification'])->name('verification');
+            Route::get('/exportexcel', [WithdrawController::class, 'exportexcel'])->name('exportexcel');
         });
 
     // Funnel Link
