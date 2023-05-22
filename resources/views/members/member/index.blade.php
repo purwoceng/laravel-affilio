@@ -19,7 +19,17 @@
                     <div class="card-title">
                         <h3 class="card-label">Data Member</h3>
                     </div>
-
+                    <div class="js-action mt-2 mb-4">
+                        <div class="d-flex flex-row">
+                            <div class="btn-group">
+                                <div class="m-1">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel" data-toggle="modal">
+                                        <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -111,18 +121,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                {{-- <div class="js-action mt-2 mb-4">
-                                    <div class="d-flex flex-row">
-                                        <div class="btn-group">
-                                            <div class="m-1">
-                                                <a href="javascript:void(0)" class="btn btn-sm btn-success  excel"
-                                                    data-toggle="modal">
-                                                    <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+
                             </div>
                             <tr class="text-center small">
                                 <th>#</th>
