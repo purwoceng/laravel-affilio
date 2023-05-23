@@ -38,10 +38,10 @@ class MemberController extends Controller
         // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
         //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
         //                     ->get();
-        $getMemberBlockeds = DB::table('members')
-            ->leftjoin('member_addresses', 'members.id', '=', 'member_addresses.member_id')
-            ->where('members.publish', '1')
-            ->get();
+        // $getMemberBlockeds = DB::table('members')
+        //     ->leftjoin('member_addresses', 'members.id', '=', 'member_addresses.member_id')
+        //     ->where('members.publish', '1')
+        //     ->get();
 
         $member_type = MemberType::get();
         if ($request->ajax()) {

@@ -12,7 +12,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
 
     public function __construct()
     {
-        // 
+        //
     }
 
     public function getCountWithdraw($startDate, $endDate)
