@@ -25,6 +25,6 @@ class MemberAddress extends Model
 
     public function members()
     {
-        return $this->belongsTo(Member::class,'id','member_id');
+        return $this->belongsTo(Member::class, 'id', 'member_id');
     }
 }

@@ -17,7 +17,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
 
     public function getCountWithdraw($startDate, $endDate)
     {
-        return Withdraw::whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return Withdraw::with('members')->whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
     }
 
     public function getDataById($id)
@@ -28,7 +28,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
 
     public function getWithdraw($limit, $start, $startDate, $endDate)
     {
-        return Withdraw::whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return Withdraw::with('members')->whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -83,6 +83,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
             foreach ($withdraws  as $key => $withdraw) {
                 $id = $withdraw->id;
                 $username = $withdraw->username;
+                $email = $withdraw->members->email ?? '-';
                 $code = $withdraw->code;
                 $title = $withdraw->title;
                 $description = $withdraw->description ?? '-';
@@ -96,6 +97,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
                 $data[] = compact(
                     'id',
                     'username',
+                    'email',
                     'code',
                     'title',
                     'description',

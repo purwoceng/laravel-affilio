@@ -14,6 +14,7 @@ class Withdraw extends Model
     protected $fillable = [
         'id',
         'username',
+        'email',
         'code',
         'title',
         'description',
@@ -28,4 +29,9 @@ class Withdraw extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function members()
+    {
+        return $this->belongsTo(Member::class, 'member_id', 'id');
+    }
 }

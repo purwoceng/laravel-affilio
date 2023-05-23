@@ -48,6 +48,14 @@
                                             value="{{ $data->username }}" disabled />
                                     </div>
                                     </select>
+                                    {{-- <div class="form-group">
+                                        <label>Email<span class="text-danger"></span></label>
+                                        <div class="form-group">
+                                            <input type="textarea" class="form-control" rows="9" name="header"
+                                                value="{{ $data->email }}" disabled />
+                                        </div>
+                                        </select>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label>Status <span class="text-danger"></span></label>
                                         <div class="form-group">

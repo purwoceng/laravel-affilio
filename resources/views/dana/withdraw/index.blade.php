@@ -157,6 +157,7 @@
                             <tr class="small">
                                 <th class="text-center">#</th>
                                 <th class="text-center">Username</th>
+                                <th class="text-center">Email</th>
                                 <th class="text-center">Kode</th>
                                 <th class="text-center">Value</th>
                                 <th class="text-center">Title</th>
@@ -220,6 +221,14 @@
                     {
                         data: 'username',
                         name: 'username',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
                         sortable: false,
                         orderable: false,
                         searchable: false,

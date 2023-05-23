@@ -50,6 +50,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Email<span class="text-danger"></span></label>
+                                    <div class="form-group">
+                                        <input type="textarea" class="form-control" rows="9" name="header"
+                                            value="{{ $data->email }}" disabled />
+                                    </div>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>Kode <span class="text-danger"></span></label>
                                     <div class="form-group">
                                         <input type="textarea" class="form-control" rows="9" name="header"
