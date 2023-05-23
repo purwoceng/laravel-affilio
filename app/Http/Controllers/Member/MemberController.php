@@ -185,7 +185,7 @@ class MemberController extends Controller
         // $member->referral = $request->referral;
         $member->is_founder = $request->is_founder;
         $member->is_transaction = $request->is_transaction;
-
+        $member->is_blocked = $request->is_blocked;
 
         $image = $request->file('image');
 
