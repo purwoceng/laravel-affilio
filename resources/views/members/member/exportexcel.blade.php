@@ -1,4 +1,4 @@
-<table class="table-all" border="1">
+{{-- <table class="table-all" border="1">
     <thead>
         <tr>
             <th>No</th>
@@ -19,4 +19,4 @@
         @endforeach
     </tbody>
 
-</table>
+</table> --}}
