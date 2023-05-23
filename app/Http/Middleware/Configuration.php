@@ -35,7 +35,7 @@ class Configuration
             $data = $loginBaleomol['data'] ?? [];
             if(!empty($data['token'])){
                 $baleomolTokenAuth = $data['token'];
-                Cache::put('baleomol_token_auth', $baleomolTokenAuth);
+                Cache::put('baleomol_token_auth', $baleomolTokenAuth, 60 * 60 * 24);
             }
         }
 

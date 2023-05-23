@@ -15,6 +15,6 @@ deploy_staging:
     name: staging
     url: baleomol.info
   script:
-    - ssh centos@108.137.185.185  "whoami && cd /usr/local/lsws/AFFILIODEV/html && sudo git checkout develop && sudo git pull origin develop && sudo composer install && exit"
+    - ssh centos@108.137.185.185  "whoami && cd /usr/local/lsws/AFFILIODEV/html && sudo git checkout develop && sudo git pull origin develop && sudo composer install && sudo php artisan optimize:clear && exit"
   only:
     - develop
