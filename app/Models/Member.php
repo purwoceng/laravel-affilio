@@ -43,4 +43,13 @@ class Member extends Model
     {
         return $this->belongsTo(MemberAddress::class, 'id', 'member_id');
     }
+
+    public function funds()
+    {
+        return $this->belongsTo(Fund::class, 'member_id', 'id');
+    }
+    public function withdraw()
+    {
+        return $this->belongsTo(Withdraw::class, 'member_id', 'id');
+    }
 }

@@ -21,10 +21,9 @@
                     <div class="card-title">
                         <h3 class="card-label">List Riwayat Dana</h3>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel"
-                                        data-toggle="modal">
-                                        <i class="fas fa-file-excel fa-sm mr-1 excel"></i>@lang('Export Excel')
-                                    </a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel" data-toggle="modal">
+                        <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -126,6 +125,7 @@
                             <tr class="small">
                                 <th class="text-center">#</th>
                                 <th class="text-center">Username</th>
+                                <th class="text-center">Email</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Kode</th>
                                 <th class="text-center">Status Dana</th>
@@ -189,6 +189,14 @@
                     {
                         data: 'username',
                         name: 'username',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -481,10 +489,10 @@
                 // });
             }
 
-                  //exportexcel
-            let excelModal = $('#js-detail-modal');
-            $(document).on("click", ".excel", function(e) {
-                let elementHTML = `
+                //exportexcel
+                let excelModal = $('#js-detail-modal');
+                $(document).on("click", ".excel", function(e) {
+                    let elementHTML = `
                     <div class="form-group row">
                         <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
                             <div class="col-sm-10">
@@ -534,27 +542,17 @@
                 `;
 
 
-                let elementFooter = `
+                    let elementFooter = `
                             <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
                             `;
 
-                excelModal.find(".modal-title").html('Input Export Excel Riwayat Dana');
-                excelModal.find(".modal-body").html(elementHTML);
-                excelModal.find(".modal-footer").html(elementFooter);
-                excelModal.modal('show');
+                    excelModal.find(".modal-title").html('Input Export Excel Riwayat Dana');
+                    excelModal.find(".modal-body").html(elementHTML);
+                    excelModal.find(".modal-footer").html(elementFooter);
+                    excelModal.modal('show');
 
-            });
-
-             //js datepicker excel
-             $('#js-detail-modal').on('shown.bs.modal', function(e) {
-                $('input[name="date_range1"]').daterangepicker({
-                    opens: 'left'
-                }, function(start, end, label) {
-                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
-                        ' to ' + end.format('YYYY-MM-DD'));
                 });
-            });
 
             //button export
             $(document).on('click', '#submitexcel', function() {
@@ -596,6 +594,16 @@
                     }
                 });
             });
+
+                //js datepicker excel
+                $('#js-detail-modal').on('shown.bs.modal', function(e) {
+                    $('input[name="date_range1"]').daterangepicker({
+                        opens: 'left'
+                    }, function(start, end, label) {
+                        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+                            ' to ' + end.format('YYYY-MM-DD'));
+                    });
+                });
 
         });
     </script>

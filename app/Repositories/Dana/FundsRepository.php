@@ -15,17 +15,17 @@ class FundsRepository implements FundsRepositoryInterface
 
     public function getCountFund($startDate, $endDate)
     {
-        return Fund::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+        return Fund::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
 
     public function getDataById($id)
     {
-        return Fund::where('id', $id)->first();
+        return Fund::with('members')->where('id', $id)->first();
     }
 
     public function getFund($limit, $start, $startDate, $endDate)
     {
-        return Fund::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return Fund::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -84,6 +84,7 @@ class FundsRepository implements FundsRepositoryInterface
             foreach ($funds  as $key => $fund) {
                 $id = $fund->id;
                 $username = $fund->username;
+                $email = $fund->members->email ?? '-';
                 $status = $fund->status;
                 $code = $fund->code;
                 $is_active = $fund->is_active;
@@ -97,6 +98,7 @@ class FundsRepository implements FundsRepositoryInterface
                 $data[] = compact(
                     'id',
                     'username',
+                    'email',
                     'status',
                     'code',
                     'is_active',

@@ -434,6 +434,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [DanaPensiunController::class, 'index'])->name('index');
         Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show');
         Route::get('/get-dashboard', [PensiunDashboardController::class, 'getDashboard'])->name('dashboard');
+        Route::get('/exportexcel', [DanaPensiunController::class, 'exportexcel'])->name('exportexcel');
     });
 
 
@@ -471,6 +472,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [WithdrawController::class, 'index'])->name('index');
             Route::get('/show/{id}', [WithdrawController::class, 'show'])->name('show');
             Route::post('/verification', [WithdrawController::class, 'verification'])->name('verification');
+            Route::get('/exportexcel', [WithdrawController::class, 'exportexcel'])->name('exportexcel');
         });
 
     // Funnel Link

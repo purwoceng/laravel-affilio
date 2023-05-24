@@ -22,8 +22,8 @@
 
                 </div>
                 <div class="card-body">
-                    <table id="js-table-member-blocked" class="table table-separate table-head-custom table-checkable nowrap"
-                        style="width:100%">
+                    <table id="js-table-member-blocked"
+                        class="table table-separate table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
@@ -203,9 +203,9 @@
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
                             if (row.is_blocked) {
-                                return ' <span class="small">Blocked</span>';
+                                return ' <span class="label  label-light-danger label-inline label-bold">Blocked</span>';
                             } else {
-                                return '<span class="small">Active</span>';
+                                return '<span class="label  label-light-success label-inline label-bold">Active</span>';
                             }
                         }
                     },

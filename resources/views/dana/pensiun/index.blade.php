@@ -94,6 +94,9 @@
                     <div class="card-title">
                         <h3 class="card-label">List Dana Pensiun</h3>
                     </div>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success  excel" data-toggle="modal">
+                        <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                    </a>
                 </div>
 
                 <div class="card-body">
@@ -122,7 +125,20 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Pilih Kode Bpnus Pensiun</label>
+                                        <select class="form-control form-control-sm filter" data-name="code"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Kode Penarikan</option>
+                                            <option value="">Semua</option>
+                                            <option value="BPSB">BPSB(Bonus Pensiun Bronze)</option>
+                                            <option value="BPSG">BPSG(Bonus Pensiun Gold)</option>
+                                            <option value="BPSP">BPSP(Bonus Pensiun Platinum)</option>
+                                            <option value="BPSD">BPSD(Bonus Pensiun Diamond)</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -147,6 +163,7 @@
             </div>
         </div>
     </div>
+    @include('orders.partials.modal')
 @endsection
 
 
@@ -209,6 +226,9 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
+                        render: function(data, type, row) {
+                            return statusDescription(row.code);
+                        }
                     },
                     {
                         data: 'value',
@@ -457,6 +477,105 @@
                 totalPensiunPlatinum.html(data.total_pensiun_platinum);
                 totalPensiunDiamond.html(data.total_pensiun_diamond);
             };
+
+
+            //exportexcel
+            let excelModal = $('#js-detail-modal');
+            $(document).on("click", ".excel", function(e) {
+                let elementHTML = `
+                <div class="form-group row">
+                    <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tanggal</label>
+                        <div class="col-sm-10">
+                            <div class='input-group' id='js-daterange-picker'>
+                                <input type='text' class="form-control filter"
+                                        id="date_range1" name="date_range1" placeholder="Select date range" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Kode Bonus Dana</label>
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm filter" data-name="status1" id="status1"
+                                            placeholder="Type Here">
+                                            <option disabled >Pilih Kode Penarikan Dana</option>
+                                            <option value="all" selected>Semua</option>
+                                            <option value="BPSD">BPSD (Bonus Pensiun Diamond)</option>
+                                            <option value="BPSP">BPSP (Bonus Pensiun Platinum)</option>
+                                            <option value="BPSG">BPSG (Bonus Pensiun Gold)</option>
+                                            <option value="BPSB">BPSB (Bonus Pensiun Bronze)</option>
+                                        </select>
+                    </div>
+                </div>
+            `;
+
+
+                let elementFooter = `
+                        <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
+                        `;
+
+                excelModal.find(".modal-title").html('Input Export Excel Dana Pensiun');
+                excelModal.find(".modal-body").html(elementHTML);
+                excelModal.find(".modal-footer").html(elementFooter);
+                excelModal.modal('show');
+
+            });
+
+            // //js datepicker excel
+            $('#js-detail-modal').on('shown.bs.modal', function(e) {
+                $('input[name="date_range1"]').daterangepicker({
+                    opens: 'left'
+                }, function(start, end, label) {
+                    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+                        ' to ' + end.format('YYYY-MM-DD'));
+                });
+            });
+
+            //button export
+            $(document).on('click', '#submitexcel', function() {
+                var date_range1 = $("#date_range1").val();
+                var status1 = $("#status1").val();
+                var x = document.getElementById("submitexcel");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'GET',
+                    url: "{{ route('pensiun.exportexcel') }}",
+                    data: {
+                        "daterange1": date_range1,
+                        "status1": status1
+                    },
+                    cache: false,
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(data) {
+                        const url = window.URL || window.webkitURL;
+                        const downloadURL = url.createObjectURL(data);
+                        var a = $("<a />");
+                        a.attr("download", 'Daftar Dana Pensiun-' + status1 + '-Tanggal-' +
+                            date_range1 + '.xlsx');
+                        a.attr("href", downloadURL);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                });
+            });
 
         });
     </script>
