@@ -53,7 +53,7 @@ class OrderCheckoutController extends Controller
                                 'receipt' => $order->resi ?? '',
                                 'shippingCourier' => strtolower($order->shipping_courier),
                                 'shippingService' => $order->shipping_service,
-                                'receiptLink' => 'https://baleoassetsdev.s3.ap-southeast-1.amazonaws.com/uploads/ozil/2023/resi-dropshipper/file1672889279425Registration+Form+for+Google+Cloud+Fundamental+Trainings+1+Day++Trainocate+Indonesia.pdf',
+                                'receiptLink' => config('app.s3_url'). $order->pdf,
                                 'marketplaceSource' => 'LAINNYA',
                                 'products' => $resultOrderProducts,
                             ];
