@@ -14,8 +14,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->token = config('app.baleomol_key');
-        $this->endpoint = config('app.baleomol_url');
+        $this->token = config('app.baleomol_token_auth');
+        $this->endpoint = config('app.baleomol_url') . '/affiliator/products?appx=true';
         $this->headers = [
             'Authorization' => "Bearer {$this->token}",
         ];
@@ -41,7 +41,7 @@ class ProductController extends Controller
 
     public function getProductById($id)
     {
-        $url = $this->endpoint . "/products/{$id}";
+        $url = $this->endpoint . "/affiliator/products?appx=true/{$id}";
         $response = Http::withHeaders($this->headers)->get($url);
 
         return response()

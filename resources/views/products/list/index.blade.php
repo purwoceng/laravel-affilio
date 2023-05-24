@@ -1,11 +1,7 @@
 @extends('core.app')
 @section('title', __('Daftar Produk Affilio'))
 @push('css')
-    <link
-        href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}"
-        rel="stylesheet"
-        type="text/css"
-    />
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
         .product-cell {
@@ -105,7 +101,8 @@
                         </ul>
                     @endif
 
-                    <table id="js-table-supplier" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                    <table id="js-table-product" class="table table-striped table-bordered table-sm" cellspacing="0"
+                        width="100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
@@ -115,9 +112,7 @@
                                                 <label class="col-4 col-form-label">Nama Produk</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input
-                                                        type="text"
-                                                        class="form-control form-control-sm filter"
+                                                    <input type="text" class="form-control form-control-sm filter"
                                                         data-name="productName" placeholder="Type Here">
                                                 </div>
                                             </div>
@@ -125,9 +120,7 @@
                                                 <label class="col-4 col-form-label">Nama Toko</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input
-                                                        type="text"
-                                                        class="form-control form-control-sm filter"
+                                                    <input type="text" class="form-control form-control-sm filter"
                                                         data-name="sellerName" placeholder="Type Here">
                                                 </div>
                                             </div>
@@ -164,7 +157,7 @@
         $(document).ready(function() {
             const urlAjax = "{{ route('product_list.index') }}";
 
-            var productTable = $('#js-table-supplier').DataTable({
+            var productTable = $('#js-table-product').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -192,17 +185,9 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    // {
-                    //     data: 'productName',
-                    //     name: 'productName',
-                    //     sortable: false,
-                    //     orderable: false,
-                    //     searchable: false,
-                    //     className: 'text-lg-left text-center small',
-                    // },
                     {
-                        data: 'productName',
-                        name: 'productName',
+                        data: 'name',
+                        name: 'name',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -213,10 +198,10 @@
                             element += `
                                 <div class="product-cell">
                                     <div class="product-cell__image">
-                                        <img src="${row.picture}" />
+                                        <img src="${row.image}" />
                                     </div>
                                     <div class="product-cell__content">
-                                        <span class="product-cell__title">${row.productName}</span>
+                                        <span class="product-cell__title">${row.name}</span>
                                         <div class="product-cell__stats"></div>
                                     </div>
                                 </div>
@@ -242,8 +227,8 @@
                         className: 'text-lg-left text-center small',
                     },
                     {
-                        data: 'sellerName',
-                        name: 'sellerName',
+                        data: 'sellerUsername',
+                        name: 'sellerUsername',
                         sortable: false,
                         orderable: false,
                         searchable: false,

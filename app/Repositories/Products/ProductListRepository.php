@@ -29,25 +29,28 @@ class ProductListRepository implements ProductListRepositoryInterface
         }
 
         if ($productName) {
-            $url .= '&productName=' . $productName;
+            $url .= '&name=' . $productName;
         }
 
         if ($sellerName) {
-            $url .= '&sellerName=' . $sellerName;
+            $url .= '&sellerUsername=' . $sellerName;
         }
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$token}",
         ])->get($url);
 
+        $data = $response['data']['data'] ?? [];
+        // $results = $data['results'] ?? [];
 
-        $data = $response['data'] ?? [];
-        $results = $data['results'] ?? [];
-        $pagination = $data['pagination'] ?? [];
-        $this->totalProduct = $pagination['totalData'] ?? 0;
-        $this->totalPage = $pagination['totalPage'] ?? 0;
+        // dd($data);
+        // exit;
 
-        return  $results ?? [];
+        // $pagination = $data['pagination'] ?? [];
+        // $this->totalProduct = $pagination['totalData'] ?? 0;
+        // $this->totalPage = $pagination['totalPage'] ?? 0;
+
+        return  $data ?? [];
     }
 
     public function getTotalSupplier()
@@ -58,30 +61,32 @@ class ProductListRepository implements ProductListRepositoryInterface
     {
         $limit = $request->input('length') ?? 20;
         $start = $request->input('start') ?? 1;
-        $productName = $request->input('productName') ?? '';
+        $productName = $request->input('name') ?? '';
         $page = (floor($start / $limit)) + 1;
-        $sellerName = $request->input('sellerName') ?? '';
+        $sellerName = $request->input('sellerUsername') ?? '';
 
         $products = $this->getProduct($limit, $page, $productName, $sellerName);
-        $total_data = $this->totalProduct;
+        // $total_data = $this->totalProduct;
+
+        $total_data = count($this->getProduct($limit, $page, $productName, $sellerName));
 
         $data = [];
 
         if (!empty($products)) {
             foreach ($products  as $product) {
-                $productName = $product['productName'];
-                $sellerName = $product['sellerName'];
+                $productName = $product['name'];
+                $sellerName = $product['sellerUsername'];
                 $priceFormat = $product['priceFormat'];
-                $picture = $product['picture'];
+                $picture = $product['image'];
                 $priceFormat = $product['price'];
                 $sellPriceFormat = $product['sellPrice'];
 
 
                 $data[] = [
-                    'productName' => $productName,
-                    'sellerName' => $sellerName,
-                    'priceFormat' => $priceFormat,
-                    'picture' => $picture,
+                    'name' => $productName,
+                    'sellerUsername' => $sellerName,
+                    'price' => $priceFormat,
+                    'image' => $picture,
                     'priceFormat' => formatRupiah($priceFormat),
                     'sellPriceFormat' => formatRupiah($sellPriceFormat),
                 ];
