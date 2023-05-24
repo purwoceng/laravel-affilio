@@ -36,6 +36,13 @@ class BonusAcaraExport implements FromView, WithEvents, ShouldAutoSize
             $query = $query->where('code', $this->fundCode);
         }
 
+        if ($this->fundCode == 'all') {
+            $query = $query->where(function($query) {
+                $query->where('code', '=', 'BRAO')
+                    ->orWhere('code', '=', 'BRAT');
+            });
+        }
+
         if ($this->startDate && $this->endDate) {
             $query->whereDate('created_at', '>=',  [$this->startDate])->whereDate('created_at', '<=', [$this->endDate]);
         }
