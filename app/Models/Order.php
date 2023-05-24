@@ -46,6 +46,7 @@ class Order extends Model
         'shipping_courier',
         'shipping_service',
         'shipping_cost',
+        'affilio_subtotal',
         'fee',
         'original_value',
         'value',
@@ -91,6 +92,6 @@ class Order extends Model
 
     public function order_products()
     {
-        return $this->belongsTo(OrderProduct::class,'id','order_id');
+        return $this->belongsTo(OrderProduct::class, 'id', 'order_id');
     }
 }

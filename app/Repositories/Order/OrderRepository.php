@@ -93,8 +93,8 @@ class OrderRepository implements OrderRepositoryInterface
         if ($request->filled('status')) {
             $keyword = $request->get('status');
             if ($keyword != 'all') {
-                $getQuery->where('status',$keyword);
-                $getQueryTotal->where('status',$keyword);
+                $getQuery->where('status', $keyword);
+                $getQueryTotal->where('status', $keyword);
                 // $totalData = $getQuery->count();
                 // $totalFiltered = $totalData;
             }
@@ -114,6 +114,7 @@ class OrderRepository implements OrderRepositoryInterface
                 $name = $order->customer_name;
                 $resi = !empty($order->resi) ?  $order->resi : '-';
                 $shippingCost = $order->shipping_cost;
+                $affilio_subtotal = $order->affilio_subtotal ?? '-';
                 $subtotal = $order->value;
                 $total = $order->total;
                 $phone = $order->phone;
@@ -143,6 +144,7 @@ class OrderRepository implements OrderRepositoryInterface
                     'name' => $name,
                     'resi' => $resi,
                     'shipping_cost' => formatRupiah($shippingCost),
+                    'affilio_subtotal' => formatRupiah($affilio_subtotal),
                     'subtotal' => formatRupiah($subtotal),
                     'total' =>  formatRupiah($total),
                     'phone' => $phone,
