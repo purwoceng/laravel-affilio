@@ -42,13 +42,13 @@ class SupplierListRepository implements SupplierListRepositoryInterface
         ])->get($url);
 
 
-        $data = $response['data'] ?? [];
-        $results = $data['results'] ?? [];
-        $pagination = $data['pagination'] ?? [];
-        $this->totalSupplier = $pagination['totalData'] ?? 0;
-        $this->totalPage = $pagination['totalPage'] ?? 0;
+        $data = $response['data']['data'] ?? [];
+        //$results = $data['results'] ?? [];
+        // $pagination = $data['pagination'] ?? [];
+        // $this->totalSupplier = $pagination['totalData'] ?? 0;
+        // $this->totalPage = $pagination['totalPage'] ?? 0;
 
-        return  $results ?? [];
+        return  $data ?? [];
     }
 
     public function getTotalSupplier()
@@ -64,7 +64,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
         $storeName = $request->input('storeName') ?? '';
 
         $suppliers = $this->getSupplier($limit, $page, $username, $storeName);
-        $total_data = $this->totalSupplier;
+        $total_data =count($this->getSupplier($limit, $page, $username, $storeName));
 
         $data = [];
 
