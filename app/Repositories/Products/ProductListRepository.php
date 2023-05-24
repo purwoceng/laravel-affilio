@@ -19,9 +19,9 @@ class ProductListRepository implements ProductListRepositoryInterface
     public function getProduct($limit, $page, $productName, $sellerName )
     {
         $token = config('app.baleomol_token_auth');
-        $url = config('app.baleomol_url') . '/products?req=affilio';
-        if($limit){
-            $url.='&limit='.(int)$limit;
+        $url = config('app.baleomol_url') . '/affiliator/products?appx=true';
+        if ($limit) {
+            $url .= '&limit=' . (int)$limit;
         }
 
         if($page){
@@ -39,6 +39,7 @@ class ProductListRepository implements ProductListRepositoryInterface
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$token}",
         ])->get($url);
+
 
         $data = $response['data'] ?? [];
         $results = $data['results'] ?? [];

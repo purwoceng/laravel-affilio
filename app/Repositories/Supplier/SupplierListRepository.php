@@ -20,7 +20,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
     public function getSupplier($limit, $page, $username, $storeName)
     {
         $token = config('app.baleomol_token_auth');
-        $url = config('app.baleomol_url') . '/suppliers?req=affilio';
+        $url = config('app.baleomol_url') . '/affiliator/sellers';
         if ($limit) {
             $url .= '&limit=' . (int)$limit;
         }
