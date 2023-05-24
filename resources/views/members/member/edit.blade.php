@@ -144,6 +144,25 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="input-is-blocked">Akun Blocked</label>
+                            <select name="is_blocked" id="input-is-blocked" class="form-control"
+                                aria-describedby="is-blocked-helper" required>
+                                <option selected disabled value="3">Pilih Status Block</option>
+                                <option value="1" {{ $data->is_blocked == '1' ? 'selected' : '' }}>
+                                    Active
+                                </option>
+                                <option value="0" {{ $data->is_blocked == '0' ? 'selected' : '' }}>
+                                    Non-Active
+                                </option>
+                            </select>
+
+                            @error('is_transaction')
+                                <small id="is-transaction-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="input-image">Gambar</label>
                             <input type="file" accept=".jpg, .jpeg, .png" class="form-control"
                                 aria-describedby="image-helper" name="image" />
