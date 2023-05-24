@@ -125,7 +125,20 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Pilih Kode Bpnus Pensiun</label>
+                                        <select class="form-control form-control-sm filter" data-name="code"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Kode Penarikan</option>
+                                            <option value="">Semua</option>
+                                            <option value="BPSB">BPSB(Bonus Pensiun Bronze)</option>
+                                            <option value="BPSG">BPSG(Bonus Pensiun Gold)</option>
+                                            <option value="BPSP">BPSP(Bonus Pensiun Platinum)</option>
+                                            <option value="BPSD">BPSD(Bonus Pensiun Diamond)</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

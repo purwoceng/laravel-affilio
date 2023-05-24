@@ -3,7 +3,7 @@
         <tr>
             <th>No</th>
             <th>Username</th>
-            {{-- <th>Status</th> --}}
+            <th>Status</th>
             <th>Kode</th>
             <th>Title</th>
             <th>Value</th>
@@ -18,7 +18,6 @@
                 <td>{{ $pensiun->username }}</td>
                 <td>{{ $pensiun->status }}</td>
                 <td>{{ $pensiun->code }}</td>
-                {{-- <td>{{ $pensiun->is_active }}</td> --}}
                 <td>{{ $pensiun->title }}</td>
                 <td>Rp. {{ $pensiun->value }}</td>
                 <td>{{ $pensiun->created_at }}</td>

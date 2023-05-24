@@ -3,7 +3,7 @@
         <tr>
             <th>No</th>
             <th>Username</th>
-            {{-- <th>Status</th> --}}
+            <th>Status</th>
             <th>Kode</th>
             <th>Title</th>
             <th>Value</th>
@@ -18,7 +18,6 @@
                 <td>{{ $withdraw->username }}</td>
                 <td>{{ $withdraw->status }}</td>
                 <td>{{ $withdraw->code }}</td>
-                {{-- <td>{{ $withdraw->is_active }}</td> --}}
                 <td>{{ $withdraw->title }}</td>
                 <td>Rp. {{ $withdraw->value }}</td>
                 <td>{{ $withdraw->created_at }}</td>
