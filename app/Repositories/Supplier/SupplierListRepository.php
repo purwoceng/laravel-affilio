@@ -73,6 +73,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
                 $username = $supplier['username'];
                 $name = $supplier['name'];
                 $store = $supplier['store']['storeName'];
+                $image = $supplier['store']['image'];
                 $id = $supplier['id'];
                 $created_at = $supplier['dateRegistration'];
                 $actions = $id;
@@ -80,6 +81,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
                 $data[] = [
                     'username' => $username,
                     'name' => $name,
+                    'image' => $image,
                     'storeName' => $store,
                     'id' => $actions,
                     'created_at' => date(' d F Y H:i', strtotime($created_at)),

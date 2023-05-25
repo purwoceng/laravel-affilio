@@ -89,7 +89,7 @@
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
-                            return `<img src="${row.product_image}" class="image-fluid" width="80px">`;
+                            return `<img src="${row.image}" class="image-fluid" width="80px">`;
                         }
                     },
                     {
