@@ -29,11 +29,11 @@ class ProductListRepository implements ProductListRepositoryInterface
         }
 
         if ($productName) {
-            $url .= '&name=' . $productName;
+            $url .= '&productName=' . $productName;
         }
 
         if ($sellerName) {
-            $url .= '&sellerUsername=' . $sellerName;
+            $url .= '&sellerName=' . $sellerName;
         }
 
         $response = Http::withHeaders([
@@ -83,10 +83,9 @@ class ProductListRepository implements ProductListRepositoryInterface
 
 
                 $data[] = [
-                    'name' => $productName,
-                    'sellerUsername' => $sellerName,
-                    'price' => $priceFormat,
-                    'image' => $picture,
+                    'productName' => $productName,
+                    'sellerName' => $sellerName,
+                    'picture' => $picture,
                     'priceFormat' => formatRupiah($priceFormat),
                     'sellPriceFormat' => formatRupiah($sellPriceFormat),
                 ];

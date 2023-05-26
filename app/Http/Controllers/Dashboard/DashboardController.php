@@ -27,7 +27,7 @@ class DashboardController extends Controller
                 ->pluck('bulan');
 
         $total_margin = Order::select(DB::raw("CAST(sum(value - affilio_value) as int) as total_margin"))
-                        ->where('status','success')
+                        //->where('status','success')
                         ->GroupBy(DB::raw("Month(created_at)"))
                         ->pluck('total_margin');
 
@@ -131,7 +131,7 @@ class DashboardController extends Controller
         $countBonusPensiun = $countBonusPensiun1 + $countBonusPensiun2 + $countBonusPensiun3 + $countBonusPensiun4;
 
         $results = [
-            'total_member' => $countTotalMember,
+            'total_member' =>number_format($countTotalMember) ,
             'total_margin' => formatRupiah($countMargin),
             'total_bonus' => formatRupiah($countTotalOmzet),
             'total_bonus_acara' => formatRupiah($countBonusAcara),

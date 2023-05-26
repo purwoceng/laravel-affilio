@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class SupplierController extends Controller
 {
-    
+
     protected $token;
     protected $endpoint;
     protected $headers;

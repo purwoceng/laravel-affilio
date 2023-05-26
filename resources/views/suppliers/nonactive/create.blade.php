@@ -131,7 +131,7 @@
         'use strict';
 
         const API_URL = '{{ config('app.baleomol_url') }}';
-        const suppliersEndpoint = `${API_URL}/suppliers`;
+        const suppliersEndpoint = `${API_URL}/affiliator/sellers?appx=true`;
 
         $(document).ready(function() {
             function formatProduct(supplier) {
@@ -175,12 +175,14 @@
                     headers: {
                         Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
                     },
-                    processResults: function(data, params) {
-                        var result = { results: [] };
-                        if (data.success) {
-                            const { results: resultData } = data.data;
+                    processResults: function(response, params) {
+                        var result = {
+                            results: []
+                        };
 
-                            const suppliers = resultData.map(item => {
+                        if (response.success) {
+                            const productData = response.data.data
+                            const suppliers = productData.map(item => {
 
                                 return {
                                     id: item.id,

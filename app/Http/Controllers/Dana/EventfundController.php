@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Dana;
 
+use App\Exports\BonusAcaraExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Dana\EventfundRepository;
 
 class EventfundController extends Controller
@@ -93,5 +95,28 @@ class EventfundController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportexcel(Request $request)
+    {
+        $dateRange = [];
+        $status = '';
+
+        if (isset($request->daterange1)) {
+            $dateRange = explode('-', $request->daterange1);
+            $dateRange = array_map(function ($item) {
+                $date = trim($item);
+                $date = strtotime($date);
+                $date = date('Y-m-d H:i:s', $date);
+
+                return $date;
+            }, $dateRange);
+        }
+
+        if (isset($request->status1)) {
+            $status = $request->status1;
+        }
+
+        return Excel::download(new BonusAcaraExport($status, $dateRange), 'bonusacara.xlsx');
     }
 }
