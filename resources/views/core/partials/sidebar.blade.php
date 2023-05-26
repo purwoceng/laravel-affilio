@@ -59,91 +59,49 @@
                  </a>
              </li>
 
-             @hasanyrole('akutansi|super_user|admin_member')
-             <li class="menu-item menu-item-submenu {{ request()->is('invoices*') ? 'menu-item-open' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <i class="fas fa-clipboard-list"></i>
-                     </span>
-                     <span class="menu-text">Invoice</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Invoice</span>
-                             </span>
-                         </li>
 
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices/unpaid*') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('invoices.unpaid.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Invoice Belum Dibayar</span>
-                             </a>
-                         </li>
-
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices/paid*') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('invoices.paid.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Invoice Terbayar</span>
-                             </a>
-                         </li>
-
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('invoices/cancel*') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('invoices.cancel.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Invoice Dibatalkan</span>
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
-             </li>
 
 
              <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}"
                  aria-haspopup="true" data-menu-toggle="hover">
                  <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
                      <span class="svg-icon menu-icon">
-                         <i class="fas fa-shopping-cart"></i>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-cart-fill" viewBox="0 0 18 18">
+                             <path
+                                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                         </svg>
                      </span>
                      <span class="menu-text">Orders</span>
                  </a>
              </li>
-             @endhasrole
+
              @hasanyrole('supplier|super_user|admin_member')
-             <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <i class="fas fa-box"></i>
-                     </span>
-                     <span class="menu-text">Produk</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                        <li class="menu-item" aria-haspopup="true">
+                 <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="javascript:void(0)" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-box2-fill" viewBox="0 0 19 19">
+                                 <path
+                                     d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6l.5.667Z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Produk</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             {{-- <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('product_list.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
                                 <span class="menu-text">Daftar Produk</span>
                             </a>
-                        </li>
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/inactive*') ? 'active' : '' }}"
+                        </li> --}}
+                             {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/inactive*') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('products.inactive.index') }}" class="menu-link menu-toggle">
                                  <i class="menu-bullet menu-bullet-line">
@@ -151,59 +109,132 @@
                                  </i>
                                  <span class="menu-text">Produk Nonaktif</span>
                              </a>
-                         </li>
+                         </li> --}}
 
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/wishlist*') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('products.wishlists.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Produk Wishlist</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('product_home.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Produk Rekomendasi</span>
-                             </a>
-                         </li>
+                             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('products/wishlist*') ? 'active' : '' }}"
+                                 aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('products.wishlists.index') }}" class="menu-link menu-toggle">
+                                     <i class="menu-bullet menu-bullet-line">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Produk Wishlist</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('product_home.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Produk Rekomendasi</span>
+                                 </a>
+                             </li>
 
-                     </ul>
-                 </div>
-             </li>
+                         </ul>
+                     </div>
+                 </li>
              @endhasanyrole
-             @hasanyrole('akutansi|super_user|event|admin_member')
-             <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <i class="fas fa-users"></i>
-                     </span>
-                     <span class="menu-text">Member</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Member</span>
-                             </span>
-                         </li>
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members') ? 'active' : '' }}"
+
+             @hasanyrole('supplier|super_user|admin_member')
+                 <li class="menu-item menu-item-submenu 
+                 {{-- {{ request()->is('suppliers*') ? 'menu-item-open' : '' }} --}}
+                 "
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="javascript:void(0)" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             {{-- <i class="fas fa-address-book"></i> --}}
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-tags-fill" viewBox="0 0 17 17">
+                                 <path
+                                     d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                                 <path
+                                     d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Markup</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                 <span class="menu-link">
+                                     <span class="menu-text">Markup</span>
+                                 </span>
+                             </li>
+                             {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierslist') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('members.index') }}" class="menu-link menu-toggle">
+                             <a href="{{ route('supplierslist.index') }}" class="menu-link menu-toggle">
                                  <i class="menu-bullet menu-bullet-line">
                                      <span></span>
                                  </i>
-                                 <span class="menu-text">Data Member</span>
+                                 <span class="menu-text">Daftar Supplier </span>
                              </a>
-                         </li>
+                         </li> --}}
+                             {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                             <a href="{{ route('suppliers.nonactive.index') }}" class="menu-link menu-toggle">
+                                 <i class="menu-bullet menu-bullet-line">
+                                     <span></span>
+                                 </i>
+                                 <span class="menu-text">Supplier Non Active </span>
+                             </a>
+                         </li> --}}
 
-                         {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('markup.edit') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Markup Global</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('markup_product.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Markup Produk Satuan</span>
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
+                 </li>
+             @endhasanyrole
+
+             @hasanyrole('akutansi|super_user|event|admin_member')
+                 <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="javascript:void(0)" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             {{-- <i class="fas fa-users"></i> --}}
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                 <path
+                                     d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Member</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                 <span class="menu-link">
+                                     <span class="menu-text">Member</span>
+                                 </span>
+                             </li>
+                             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members') ? 'active' : '' }}"
+                                 aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('members.index') }}" class="menu-link menu-toggle">
+                                     <i class="menu-bullet menu-bullet-line">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Data Member</span>
+                                 </a>
+                             </li>
+
+                             {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('members.accounts.index') }}" class="menu-link menu-toggle">
                                  <i class="menu-bullet menu-bullet-line">
@@ -214,127 +245,68 @@
                          </li> --}}
 
 
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('members.blocked.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Member Blokir</span>
-                             </a>
-                         </li>
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/member_type*') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('members.member_type.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text"> Tipe Member</span>
-                             </a>
-                         </li>
+                             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"
+                                 aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('members.blocked.index') }}" class="menu-link menu-toggle">
+                                     <i class="menu-bullet menu-bullet-line">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Member Blokir</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/member_type*') ? 'active' : '' }}"
+                                 aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('members.member_type.index') }}" class="menu-link menu-toggle">
+                                     <i class="menu-bullet menu-bullet-line">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text"> Tipe Member</span>
+                                 </a>
+                             </li>
 
-                     </ul>
-                 </div>
-             </li>
+                         </ul>
+                     </div>
+                 </li>
              @endhasanyrole
 
-             @hasanyrole('supplier|super_user|admin_member')
-             <li class="menu-item menu-item-submenu {{ request()->is('suppliers*') ? 'menu-item-open' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <i class="fas fa-address-book"></i>
-                     </span>
-                     <span class="menu-text">Supplier</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Supplier</span>
-                             </span>
-                         </li>
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierslist') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('supplierslist.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Daftar Supplier </span>
-                             </a>
-                         </li>
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('suppliers') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('suppliers.nonactive.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Supplier Non Active </span>
-                             </a>
-                         </li>
-                         <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierscover') ? 'active' : '' }}"
-                             aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="{{ route('supplierscover.index') }}" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Background Cover Supplier</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('markup.edit') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Markup Global</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('markup_product.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Markup Produk Satuan</span>
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
-             </li>
-             @endhasanyrole
+
 
              @hasanyrole('konten|super_user|admin_member')
-             <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <i class="fas fa-pencil-alt"></i>
-                     </span>
-                     <span class="menu-text">Konten</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Konten</span>
-                             </span>
-                         </li>
+                 <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="javascript:void(0)" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             {{-- <i class="fas fa-pencil-alt"></i> --}}
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil-fill" viewBox="0 0 18 18">
+                                 <path
+                                     d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Konten</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                 <span class="menu-link">
+                                     <span class="menu-text">Konten</span>
+                                 </span>
+                             </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('banners.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Banner</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('banners.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Banner</span>
+                                 </a>
+                             </li>
 
 
 
-                         {{-- <li class="menu-item" aria-haspopup="true">
+                             {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('supplier_home.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
@@ -344,37 +316,37 @@
                          </li> --}}
 
 
-                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                             <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                 <i class="menu-bullet menu-bullet-line">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Nomor CS</span>
-                                 <i class="menu-arrow"></i>
-                             </a>
-                             <div class="menu-submenu">
-                                 <i class="menu-arrow"></i>
-                                 <ul class="menu-subnav">
-                                     <li class="menu-item" aria-haspopup="true">
-                                         <a href="{{ route('cs-number.category.index') }}" class="menu-link">
-                                             <i class="menu-bullet menu-bullet-dot">
-                                                 <span></span>
-                                             </i>
-                                             <span class="menu-text">Kategori</span>
-                                         </a>
-                                     </li>
-                                     <li class="menu-item" aria-haspopup="true">
-                                         <a href="{{ route('cs-number.index') }}" class="menu-link">
-                                             <i class="menu-bullet menu-bullet-dot">
-                                                 <span></span>
-                                             </i>
-                                             <span class="menu-text">Data Nomor CS</span>
-                                         </a>
-                                     </li>
-                                 </ul>
-                             </div>
-                         </li>
-                         {{-- <li class="menu-item" aria-haspopup="true">
+                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                 {{-- <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                     <i class="menu-bullet menu-bullet-line">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Nomor CS</span>
+                                     <i class="menu-arrow"></i>
+                                 </a> --}}
+                                 <div class="menu-submenu">
+                                     <i class="menu-arrow"></i>
+                                     <ul class="menu-subnav">
+                                         <li class="menu-item" aria-haspopup="true">
+                                             <a href="{{ route('cs-number.category.index') }}" class="menu-link">
+                                                 <i class="menu-bullet menu-bullet-dot">
+                                                     <span></span>
+                                                 </i>
+                                                 <span class="menu-text">Kategori</span>
+                                             </a>
+                                         </li>
+                                         {{-- <li class="menu-item" aria-haspopup="true">
+                                             <a href="{{ route('cs-number.index') }}" class="menu-link">
+                                                 <i class="menu-bullet menu-bullet-dot">
+                                                     <span></span>
+                                                 </i>
+                                                 <span class="menu-text">Data Nomor CS</span>
+                                             </a>
+                                         </li> --}}
+                                     </ul>
+                                 </div>
+                             </li>
+                             {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('video_tutorials.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
@@ -382,82 +354,98 @@
                                  <span class="menu-text">Video Tutorials</span>
                              </a>
                          </li> --}}
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('video_training.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Video Training</span>
-                             </a>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('categories.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Kategori</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('video_training.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Video Training</span>
+                                 </a>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('categories.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Kategori</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('supplierscover.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Cover Supplier</span>
+                                 </a>
+                             </li>
+                             {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierscover') ? 'active' : '' }}"
+                             aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('supplierscover.index') }}" class="menu-link menu-toggle">
+                                     <i class="menu-bullet menu-bullet-line">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Cover Supplier</span>
+                                 </a>
+                             </li> --}}
+                         </ul>
+                     </div>
+                 </li>
 
-                     </ul>
-                 </div>
-             </li>
+                 {{-- start --}}
 
-             {{-- start --}}
+                 <li class="menu-item menu-item-submenu menu-item-{{ request()->is('funnel*') ? 'active' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="{{ route('funnel.index') }}" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-house-gear-fill" viewBox="0 0 17 17">
+                                 <path
+                                     d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5Z" />
+                                 <path
+                                     d="M11.07 9.047a1.5 1.5 0 0 0-1.742.26l-.02.021a1.5 1.5 0 0 0-.261 1.742 1.5 1.5 0 0 0 0 2.86 1.504 1.504 0 0 0-.12 1.07H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6 4.724 4.724a1.5 1.5 0 0 0-1.654 1.03Z" />
+                                 <path
+                                     d="m13.158 9.608-.043-.148c-.181-.613-1.049-.613-1.23 0l-.043.148a.64.64 0 0 1-.921.382l-.136-.074c-.561-.306-1.175.308-.87.869l.075.136a.64.64 0 0 1-.382.92l-.148.045c-.613.18-.613 1.048 0 1.229l.148.043a.64.64 0 0 1 .382.921l-.074.136c-.306.561.308 1.175.869.87l.136-.075a.64.64 0 0 1 .92.382l.045.149c.18.612 1.048.612 1.229 0l.043-.15a.64.64 0 0 1 .921-.38l.136.074c.561.305 1.175-.309.87-.87l-.075-.136a.64.64 0 0 1 .382-.92l.149-.044c.612-.181.612-1.049 0-1.23l-.15-.043a.64.64 0 0 1-.38-.921l.074-.136c.305-.561-.309-1.175-.87-.87l-.136.075a.64.64 0 0 1-.92-.382ZM12.5 14a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Funnel</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                 <span class="menu-link">
+                                     <span class="menu-text">Funnel</span>
+                                 </span>
+                             </li>
 
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('funnel*') ? 'active' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="{{ route('funnel.index') }}" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                             class="bi bi-house-gear-fill" viewBox="0 0 16 16">
-                             <path
-                                 d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5Z" />
-                             <path
-                                 d="M11.07 9.047a1.5 1.5 0 0 0-1.742.26l-.02.021a1.5 1.5 0 0 0-.261 1.742 1.5 1.5 0 0 0 0 2.86 1.504 1.504 0 0 0-.12 1.07H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6 4.724 4.724a1.5 1.5 0 0 0-1.654 1.03Z" />
-                             <path
-                                 d="m13.158 9.608-.043-.148c-.181-.613-1.049-.613-1.23 0l-.043.148a.64.64 0 0 1-.921.382l-.136-.074c-.561-.306-1.175.308-.87.869l.075.136a.64.64 0 0 1-.382.92l-.148.045c-.613.18-.613 1.048 0 1.229l.148.043a.64.64 0 0 1 .382.921l-.074.136c-.306.561.308 1.175.869.87l.136-.075a.64.64 0 0 1 .92.382l.045.149c.18.612 1.048.612 1.229 0l.043-.15a.64.64 0 0 1 .921-.38l.136.074c.561.305 1.175-.309.87-.87l-.075-.136a.64.64 0 0 1 .382-.92l.149-.044c.612-.181.612-1.049 0-1.23l-.15-.043a.64.64 0 0 1-.38-.921l.074-.136c.305-.561-.309-1.175-.87-.87l-.136.075a.64.64 0 0 1-.92-.382ZM12.5 14a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
-                         </svg>
-                     </span>
-                     <span class="menu-text">Funnel</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Funnel</span>
-                             </span>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('funnel.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Funnel Home</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('notification.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Notification</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('headerfunnel.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Header</span>
+                                 </a>
+                             </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('funnel.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Funnel Home</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('notification.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Notification</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('headerfunnel.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Header</span>
-                             </a>
-                         </li>
-
-                     </ul>
-                 </div>
-             </li>
+                         </ul>
+                     </div>
+                 </li>
              @endhasanyrole
 
 
@@ -465,94 +453,95 @@
 
              {{-- end --}}
              @hasanyrole('admin_member|super_user|event')
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('event*') ? 'active' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="{{ route('event.index') }}" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                             class="bi bi-calendar2-event" viewBox="0 0 20 20">
-                             <path
-                                 d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
-                             <path
-                                 d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
-                             <path
-                                 d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
-                         </svg>
-                     </span>
-                     <span class="menu-text">Event</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Event</span>
-                             </span>
-                         </li>
+                 <li class="menu-item menu-item-submenu menu-item-
+                    {{ request()->is('event*') ? 'menu-item-open' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="{{ route('event.index') }}" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-calendar2-event" viewBox="0 0 20 20">
+                                 <path
+                                     d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                 <path
+                                     d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                 <path
+                                     d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Event</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                 <span class="menu-link">
+                                     <span class="menu-text">Event</span>
+                                 </span>
+                             </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('event.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Event</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('greeting.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Greeting</span>
-                             </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('tiket.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Tiket</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('event.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Event</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('greeting.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Greeting</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('tiket.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Tiket</span>
+                                 </a>
+                             </li>
 
-                     </ul>
-                 </div>
-             </li>
+                         </ul>
+                     </div>
+                 </li>
              @endhasanyrole
              @hasanyrole('akutansi|super_user')
-             <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                             class="bi bi-wallet2" viewBox="0 0 18 18">
-                             <path
-                                 d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z" />
-                         </svg>
-                     </span>
-                     <span class="menu-text">Dana</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="menu-submenu">
-                     <i class="menu-arrow"></i>
-                     <ul class="menu-subnav">
-                         <li class="menu-item menu-item-parent" aria-haspopup="true">
-                             <span class="menu-link">
-                                 <span class="menu-text">Dana</span>
-                             </span>
-                         </li>
+                 <li class="menu-item menu-item-submenu {{ request()->is('dana*') ? 'menu-item-open' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="javascript:void(0)" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                 class="bi bi-wallet2" viewBox="0 0 18 18">
+                                 <path
+                                     d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Dana</span>
+                         <i class="menu-arrow"></i>
+                     </a>
+                     <div class="menu-submenu">
+                         <i class="menu-arrow"></i>
+                         <ul class="menu-subnav">
+                             <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                 <span class="menu-link">
+                                     <span class="menu-text">Dana</span>
+                                 </span>
+                             </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('eventfund.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Acara</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('eventfund.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Acara</span>
+                                 </a>
+                             </li>
 
-                         {{-- <li class="menu-item" aria-haspopup="true">
+                             {{-- <li class="menu-item" aria-haspopup="true">
                              <a href="{{ route('reward.index') }}" class="menu-link">
                                  <i class="menu-bullet menu-bullet-dot">
                                      <span></span>
@@ -561,36 +550,36 @@
                              </a>
                          </li> --}}
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('pensiun.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Pensiun</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('pensiun.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Pensiun</span>
+                                 </a>
+                             </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('fund.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Riwayat</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('fund.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Riwayat</span>
+                                 </a>
+                             </li>
 
-                         <li class="menu-item" aria-haspopup="true">
-                             <a href="{{ route('withdraw.index') }}" class="menu-link">
-                                 <i class="menu-bullet menu-bullet-dot">
-                                     <span></span>
-                                 </i>
-                                 <span class="menu-text">Penarikan</span>
-                             </a>
-                         </li>
+                             <li class="menu-item" aria-haspopup="true">
+                                 <a href="{{ route('withdraw.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Penarikan</span>
+                                 </a>
+                             </li>
 
-                     </ul>
-                 </div>
-             </li>
+                         </ul>
+                     </div>
+                 </li>
              @endhasanyrole
 
              @role('super_user')
@@ -601,7 +590,12 @@
                  <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:;" class="menu-link menu-toggle">
                          <span class="svg-icon menu-icon">
-                             <i class="fas fa-users-cog"></i>
+                             {{-- <i class="fas fa-users-cog"></i> --}}
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person-fill-gear" viewBox="0 0 18 18">
+                                 <path
+                                     d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
+                             </svg>
                          </span>
                          <span class="menu-text">Manajemen Akses</span>
                          <i class="menu-arrow"></i>
