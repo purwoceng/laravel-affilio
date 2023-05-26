@@ -28,8 +28,8 @@ class ProductController extends Controller
             $result = [];
 
             foreach ($products as $product) {
-                $token = config('app.baleomol_key');
-                $url = config('app.baleomol_url') . '/products/' . $product['product_id'];
+                $token = config('app.baleomol_token_auth');
+                $url = config('app.baleomol_url') . '/affiliator/products/' . $product['product_id'];
 
                 $response = Http::withHeaders([
                     'Authorization' => "Bearer {$token}",
