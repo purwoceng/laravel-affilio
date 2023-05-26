@@ -100,8 +100,16 @@
                     <form action="{{ route('suppliers.nonactive.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label>Nama Suppliers<span class="text-danger">*</span></label>
-                            <input class="form-control" placeholder="Masukkan Nama Suppliers .." name="title" value="{{$results['username']}}" required></input>
+                            <label for="input-supplier-id">Nama Supplier</label>
+                            <select name="supplier_id"
+                                id="input-supplier-id"
+                                class="js-supplier-selector form-control" required></select>
+
+                            @error('supplier_id')
+                                <small id="name-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
                         </div>
 
                         <input type="hidden" name="origin_supplier_store_name" value="" />
@@ -123,7 +131,7 @@
         'use strict';
 
         const API_URL = '{{ config('app.baleomol_url') }}';
-        const suppliersEndpoint = `${API_URL}/suppliers`;
+        const suppliersEndpoint = `${API_URL}/affiliator/sellers?appx=true`;
 
         $(document).ready(function() {
             function formatProduct(supplier) {
@@ -165,14 +173,16 @@
                         return query;
                     },
                     headers: {
-                        Authorization: `Bearer {{ config('app.baleomol_key') }}`,
+                        Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
                     },
-                    processResults: function(data, params) {
-                        var result = { results: [] };
-                        if (data.success) {
-                            const { results: resultData } = data.data;
+                    processResults: function(response, params) {
+                        var result = {
+                            results: []
+                        };
 
-                            const suppliers = resultData.map(item => {
+                        if (response.success) {
+                            const productData = response.data.data
+                            const suppliers = productData.map(item => {
 
                                 return {
                                     id: item.id,

@@ -128,6 +128,7 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Kode</th>
+                                <th class="text-center">Status Dana</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Value</th>
                                 <th class="text-center">Status Transfer</th>
@@ -218,6 +219,21 @@
                         className: 'text-center small',
                         render: function(data, type, row) {
                             return statusDescription(row.code);
+                        }
+                    },
+                    {
+                        data: 'is_active',
+                        name: 'is_active',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                        render: function(data, type, row, meta) {
+                            if (row.is_active) {
+                                return '<span class="label  label-light-success label-inline label-bold">Bonus</span>';
+                            } else {
+                                return '<span class="label  label-light-danger label-inline label-bold">Calon Bonus</span>';
+                            }
                         }
                     },
                     {
@@ -471,6 +487,7 @@
 
                 //     },
                 // });
+            }
 
                 //exportexcel
                 let excelModal = $('#js-detail-modal');
@@ -537,6 +554,47 @@
 
                 });
 
+            //button export
+            $(document).on('click', '#submitexcel', function() {
+                var date_range1 = $("#date_range1").val();
+                var status1 = $("#status1").val();
+                var x = document.getElementById("submitexcel");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'GET',
+                    url: "{{ route('fund.exportexcel') }}",
+                    data: {
+                        "daterange1": date_range1,
+                        "status1": status1
+                    },
+                    cache: false,
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(data) {
+                        const url = window.URL || window.webkitURL;
+                        const downloadURL = url.createObjectURL(data);
+                        var a = $("<a />");
+                        a.attr("download", 'Daftar Riwayat Dana-' + status1 + '-Tanggal-' +
+                            date_range1 + '.xlsx');
+                        a.attr("href", downloadURL);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                });
+            });
+
                 //js datepicker excel
                 $('#js-detail-modal').on('shown.bs.modal', function(e) {
                     $('input[name="date_range1"]').daterangepicker({
@@ -546,48 +604,6 @@
                             ' to ' + end.format('YYYY-MM-DD'));
                     });
                 });
-
-                //button export
-                // $(document).on('click', '#submitexcel', function() {
-                //     var date_range1 = $("#date_range1").val();
-                //     var status1 = $("#status1").val();
-                //     var x = document.getElementById("submitexcel");
-                //     x.disabled = true;
-                //     var xhr = $.ajax({
-                //         type: 'GET',
-                //         url: "{{ route('fund.exportexcel') }}",
-                //         data: {
-                //             "daterange1": date_range1,
-                //             "status1": status1
-                //         },
-                //         cache: false,
-                //         xhr: function() {
-                //             var xhr = new XMLHttpRequest();
-                //             xhr.onreadystatechange = function() {
-                //                 if (xhr.readyState == 2) {
-                //                     if (xhr.status == 200) {
-                //                         xhr.responseType = "blob";
-                //                     } else {
-                //                         xhr.responseType = "text";
-                //                     }
-                //                 }
-                //             };
-                //             return xhr;
-                //         },
-                //         success: function(data) {
-                //             const url = window.URL || window.webkitURL;
-                //             const downloadURL = url.createObjectURL(data);
-                //             var a = $("<a />");
-                //             a.attr("download", 'Daftar Riwayat Dana-' + status1 + '-Tanggal-' +
-                //                 date_range1 + '.xlsx');
-                //             a.attr("href", downloadURL);
-                //             $("body").append(a);
-                //             a[0].click();
-                //             $("body").remove(a);
-                //         }
-                //     });
-                // });
-            }
 
         });
     </script>

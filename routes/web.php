@@ -453,6 +453,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [EventfundController::class, 'index'])->name('index');
             Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show');
             Route::get('/get-dashboard', [EventDashboardController::class, 'getDashboard'])->name('dashboard');
+            Route::get('/exportexcel', [EventfundController::class, 'exportexcel'])->name('exportexcel');
         });
 
     //riwayat dana

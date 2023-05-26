@@ -42,13 +42,13 @@ class SupplierListRepository implements SupplierListRepositoryInterface
         ])->get($url);
 
 
-        $data = $response['data'] ?? [];
-        $results = $data['results'] ?? [];
-        $pagination = $data['pagination'] ?? [];
-        $this->totalSupplier = $pagination['totalData'] ?? 0;
-        $this->totalPage = $pagination['totalPage'] ?? 0;
+        $data = $response['data']['data'] ?? [];
+        //$results = $data['results'] ?? [];
+        // $pagination = $data['pagination'] ?? [];
+        // $this->totalSupplier = $pagination['totalData'] ?? 0;
+        // $this->totalPage = $pagination['totalPage'] ?? 0;
 
-        return  $results ?? [];
+        return  $data ?? [];
     }
 
     public function getTotalSupplier()
@@ -64,7 +64,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
         $storeName = $request->input('storeName') ?? '';
 
         $suppliers = $this->getSupplier($limit, $page, $username, $storeName);
-        $total_data = $this->totalSupplier;
+        $total_data =count($this->getSupplier($limit, $page, $username, $storeName));
 
         $data = [];
 
@@ -73,6 +73,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
                 $username = $supplier['username'];
                 $name = $supplier['name'];
                 $store = $supplier['store']['storeName'];
+                $image = $supplier['store']['image'];
                 $id = $supplier['id'];
                 $created_at = $supplier['dateRegistration'];
                 $actions = $id;
@@ -80,6 +81,7 @@ class SupplierListRepository implements SupplierListRepositoryInterface
                 $data[] = [
                     'username' => $username,
                     'name' => $name,
+                    'image' => $image,
                     'storeName' => $store,
                     'id' => $actions,
                     'created_at' => date(' d F Y H:i', strtotime($created_at)),

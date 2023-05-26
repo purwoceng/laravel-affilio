@@ -74,23 +74,22 @@ class SupplierListController extends Controller
      */
     public function edit($id)
     {
-        // $supplierslist= [$id];
-        // $suppliers_id = $supplierslist;
-        // $token = config('app.baleomol_key');
-        // $url = config('app.baleomol_url') . '/suppliers/' ;
+        $supplierslist= [$id];
+        $suppliers_id = $supplierslist;
+        $token = config('app.baleomol_token_auth');
+        $url = config('app.baleomol_url') . '/affiliator/sellers?appx=true/{$id}';
 
-        // $response = Http::withHeaders([
-        //     'Authorization' => "Bearer {$token}",
-        // ])->get($url);
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$token}",
+        ])->get($url);
 
-        // $data = $response['data'] ?? [];
-        // $results = $data['results'] ?? [];
-        // return  $results ?? [];
+        $data = $response['data']['data'] ?? [];
+        // return  $data ?? [];
 
         // $product_data = $response['results'];
         // dd($product_data);
         // exit;
-        // return view('suppliers.list.createnonactive',compact('results'));
+        return view('suppliers.list.createnonactive',compact('data'));
     }
 
     /**

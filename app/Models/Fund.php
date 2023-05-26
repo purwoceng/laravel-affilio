@@ -17,6 +17,7 @@ class Fund extends Model
         'email',
         'status',
         'code',
+        'is_active',
         'title',
         'value',
         'status_transfer',

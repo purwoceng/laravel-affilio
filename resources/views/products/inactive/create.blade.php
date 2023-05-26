@@ -132,8 +132,8 @@
     <script>
         'use strict';
 
-        const API_URL = '{{ config('app.url') }}';
-        const productsEndpoint = `${API_URL}/api/v1/products`;
+        const API_URL = '{{ config('app.baleomol_url') }}';
+        const productsEndpoint = `${API_URL}/affiliator/products?appx=true`;
 
         $(document).ready(function() {
             function formatProduct(product) {
@@ -180,22 +180,27 @@
 
                         return query;
                     },
-                    processResults: function(data, params) {
-                        var result = { results: [] };
+                    headers: {
+                        Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
+                    },
+                    processResults: function(response, params) {
+                        var result = {
+                            results: []
+                        };
 
-                        if (data.success) {
-                            const { results: resultData } = data.data;
-                            const products = resultData.map(item => {
+                        if (response.success) {
+                            const productData = response.data.data
+                            const products = productData.map(item => {
                                 return {
-                                    id: item.productId,
-                                    text: item.productName,
-                                    image: item.picture,
+                                    id: item.id,
+                                    text: item.name,
+                                    image: item.image,
+                                    sellerName: item.sellerUsername,
                                     sellerId: item.sellerId,
-                                    sellerName: item.sellerName,
                                     price: item.price,
                                     stock: item.stock,
                                     isVariation: item.isVariation,
-                                    alternativePriceFormat: item.alternativePriceFormat,
+                                    alternativePriceFormat: item.priceFormat,
                                     priceFormat: item.priceFormat,
                                 }
                             });

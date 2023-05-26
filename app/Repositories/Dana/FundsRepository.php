@@ -15,7 +15,7 @@ class FundsRepository implements FundsRepositoryInterface
 
     public function getCountFund($startDate, $endDate)
     {
-        return Fund::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return Fund::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
 
     public function getDataById($id)
@@ -44,42 +44,39 @@ class FundsRepository implements FundsRepositoryInterface
             $endDate = $now;
         }
         $fund_query = $this->getFund($limit, $start, $startDate, $endDate);
-        $totalData = $this->getCountFund($startDate, $endDate);
-        $totalFiltered = $totalData;
+        $getQueryTotal = $this->getCountFund($startDate, $endDate);
+
 
         if ($request->filled('username')) {
             $keyword = $request->get('username');
             $fund_query->where('username', 'like', '%' . $keyword . '%');
-            $totalData = $fund_query->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('username', 'like', '%' . $keyword . '%');
         }
 
         if ($request->filled('status')) {
             $keyword = $request->get('status');
             $fund_query->where('status', 'like', '%' . $keyword . '%');
-            $totalData = $fund_query->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('status', 'like', '%' . $keyword . '%');
         }
 
         if ($request->filled('code')) {
             $keyword = $request->get('code');
             $fund_query->where('code', 'like', '%' . $keyword . '%');
-            $totalData = $fund_query->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('code', 'like', '%' . $keyword . '%');
         }
         if ($request->filled('title')) {
             $keyword = $request->get('title');
             $fund_query->where('title', 'like', '%' . $keyword . '%');
-            $totalData = $fund_query->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('title', 'like', '%' . $keyword . '%');
         }
         if ($request->filled('status_transfer')) {
             $keyword = $request->get('status_transfer');
             $fund_query->where('status_transfer', 'like', '%' . $keyword . '%');
-            $totalData = $fund_query->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('status_transfer', 'like', '%' . $keyword . '%');
         }
 
+        $totalData = $getQueryTotal->count();
+        $totalFiltered = $totalData;
         $funds = $fund_query->orderBy('id', 'desc')->get();
         $data = [];
 
@@ -90,6 +87,7 @@ class FundsRepository implements FundsRepositoryInterface
                 $email = $fund->members->email ?? '-';
                 $status = $fund->status;
                 $code = $fund->code;
+                $is_active = $fund->is_active;
                 $title = $fund->title;
                 $value = $fund->value ?? '-';
                 $status_transfer = $fund->status_transfer ?? '-';
@@ -103,6 +101,7 @@ class FundsRepository implements FundsRepositoryInterface
                     'email',
                     'status',
                     'code',
+                    'is_active',
                     'title',
                     'value',
                     'status_transfer',

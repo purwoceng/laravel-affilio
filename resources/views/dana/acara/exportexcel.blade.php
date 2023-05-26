@@ -6,7 +6,7 @@
             <th>Username</th>
             <th>Status</th>
             <th>Kode Penarikan</th>
-            <th>Status Bonus Dana</th>
+            <th>Status Dana Bonus Acara</th>
             <th>Title</th>
             <th>Value</th>
             <th>Tanggal</th>

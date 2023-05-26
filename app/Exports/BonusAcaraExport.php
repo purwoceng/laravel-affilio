@@ -7,11 +7,10 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-
-class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
+class BonusAcaraExport implements FromView, WithEvents, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -37,6 +36,13 @@ class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
             $query = $query->where('code', $this->fundCode);
         }
 
+        if ($this->fundCode == 'all') {
+            $query = $query->where(function($query) {
+                $query->where('code', '=', 'BRAO')
+                    ->orWhere('code', '=', 'BRAT');
+            });
+        }
+
         if ($this->startDate && $this->endDate) {
             $query->whereDate('created_at', '>=',  [$this->startDate])->whereDate('created_at', '<=', [$this->endDate]);
         }
@@ -47,7 +53,7 @@ class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
 
         $funds = $query->paginate(100);
 
-        return view('dana.fund.exportexcel', [
+        return view('dana.acara.exportexcel', [
             'funds' => $funds,
         ]);
     }
@@ -71,5 +77,4 @@ class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
             },
         ];
     }
-
 }
