@@ -3,6 +3,7 @@
 namespace App\Repositories\Dana;
 
 use App\Models\Withdraw;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Interfaces\Dana\WithdrawRepositoryInterface;
 
 class WithdrawRepository implements WithdrawRepositoryInterface
@@ -75,8 +76,12 @@ class WithdrawRepository implements WithdrawRepositoryInterface
             }
         }
 
+        $total_transfer = Withdraw::select(DB::raw("( value * 6 / 100 ) as total_transfer"))
+                        ->where('publish', '1')
+                        ->pluck('total_transfer');
 
         $withdraws = $wd_query->orderBy('id', 'desc')->get();
+
         $data =  [];
 
         if (!empty($withdraws)) {
@@ -89,27 +94,33 @@ class WithdrawRepository implements WithdrawRepositoryInterface
                 $description = $withdraw->description ?? '-';
                 $status_transfer = $withdraw->status_transfer ?? '-';
                 $value = $withdraw->value;
+                $pajak = $withdraw->value * 6/100;
+                $total_transfer = $withdraw-> value - $pajak;
                 $is_active = $withdraw->is_active ?? '-';
                 $publish = $withdraw->publish ?? '-';
                 $created_at = date('d/m/Y H:i', strtotime($withdraw->created_at));
                 $actions = $id;
 
-                $data[] = compact(
-                    'id',
-                    'username',
-                    'email',
-                    'code',
-                    'title',
-                    'description',
-                    'status_transfer',
-                    'value',
-                    'is_active',
-                    'publish',
-                    'created_at',
-                    'actions',
+                $data[] = array(
+                    'id' => $id,
+                    'username' => $username,
+                    'email' => $email,
+                    'code' => $code,
+                    'title' => $title,
+                    'description' => $description,
+                    'status_transfer' => $status_transfer,
+                    'value' => formatRupiah($value),
+                    'pajak' => formatRupiah($pajak),
+                    'total_transfer' => formatRupiah($total_transfer),
+                    'is_active' => $is_active,
+                    'publish' => $publish,
+                    'created_at' => $created_at,
+                    'actions' => $actions,
                 );
             }
         }
+
+        //$data['total_transfer'] = $total_transfer;
 
         $result = [
             'draw' => intval($request->input('draw')),

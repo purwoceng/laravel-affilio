@@ -160,6 +160,7 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Kode</th>
                                 <th class="text-center">Value</th>
+                                <th class="text-center">Total Transfer</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Status Transfer</th>
@@ -253,8 +254,14 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center small',
-
-
+                    },
+                    {
+                        data: 'total_transfer',
+                        name: 'total_transfer',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
                     },
                     {
                         data: 'title',

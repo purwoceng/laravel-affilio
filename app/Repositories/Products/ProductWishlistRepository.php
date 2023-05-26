@@ -14,14 +14,19 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
         //
     }
 
-    public function getData($limit, $start)
+    public function getCountWishlist($startDate, $endDate)
     {
-       return ProductWishlist::limit($limit)->offset($start);
+        return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->get()->count();
     }
 
-    public function getTotalData()
+    public function getData($limit, $start, $startDate, $endDate)
     {
-        return ProductWishlist::all()->count();
+       return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->offset($start)->limit($limit);
+    }
+
+    public function getTotalData($startDate, $endDate)
+    {
+        return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->get()->count();
     }
 
     public function getDataTable($request)
@@ -29,12 +34,31 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        $query = $this->getData($limit, $start);
-        $totalData = $this->getTotalData();
+        if (!empty($request->date_range)) {
+            $dateRange = $request->date_range;
+            $date = explode("/", $dateRange);;
+            $startDate = $date[0];
+            $endDate = $date[1];
+        } else {
+            $now = date('Y-m-d');
+            $startDate = $now;
+            $endDate = $now;
+        }
+
+        $query = $this->getData($limit, $start, $startDate, $endDate);
+        $totalData = $this->getTotalData($startDate, $endDate);
+        $totalFilteredData = $totalData;
 
         $getDatas = $query->orderBy('id','desc')->get();
 
-        $totalFilteredData = $totalData;
+        if ($request->filled('product')) {
+            $keyword = $request->get('product');
+            $query->where('product_id', 'like', '%' . $keyword . '%');
+            $totalData = $query->count();
+            $totalFiltered = $totalData;
+        }
+
+
 
         $data = [];
 
@@ -44,24 +68,26 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
                 $product_id = $value->product_id;
 
                 $memberId = $value->member_id;
+                $created_at = date(' d F Y H:i', strtotime($value->date));
                 $member = Member::where('id',$memberId)->first();
                 $member_name = $member->name ?? '-';
 
-                $token = config('app.baleomol_key');
-                $url = config('app.baleomol_url') . '/products/' . $product_id;
+                $token = config('app.baleomol_token_auth');
+                $url = config('app.baleomol_url') . '/affiliator/products/' . $product_id;
 
                 $response = Http::withHeaders([
                     'Authorization' => "Bearer {$token}",
                 ])->get($url);
 
-                $product_data = $response['data'];
-                $product_image = $product_data['picture'][0];
+                $product_image = $response['data'];
+                //$product_image = $product_data['media'][1] ?? [];
 
 
                 $data[] = compact(
                     'id',
                     'product_image',
                     'member_name',
+                    'created_at',
                 );
             }
         }
