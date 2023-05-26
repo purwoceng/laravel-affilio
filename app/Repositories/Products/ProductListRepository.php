@@ -16,7 +16,7 @@ class ProductListRepository implements ProductListRepositoryInterface
         //
     }
 
-    public function getProduct($limit, $page, $productName, $sellerName )
+    public function getProduct($limit, $page, $productName, $sellerName)
     {
         $token = config('app.baleomol_token_auth');
         $url = config('app.baleomol_url') . '/affiliator/products?appx=true';
@@ -24,30 +24,33 @@ class ProductListRepository implements ProductListRepositoryInterface
             $url .= '&limit=' . (int)$limit;
         }
 
-        if($page){
-            $url.='&page='.$page;
+        if ($page) {
+            $url .= '&page=' . $page;
         }
 
-        if($productName){
-            $url.='&productName='.$productName;
+        if ($productName) {
+            $url .= '&productName=' . $productName;
         }
 
-        if($sellerName){
-            $url.='&sellerName='.$sellerName;
+        if ($sellerName) {
+            $url .= '&sellerName=' . $sellerName;
         }
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$token}",
         ])->get($url);
 
+        $data = $response['data']['data'] ?? [];
+        // $results = $data['results'] ?? [];
 
-        $data = $response['data'] ?? [];
-        $results = $data['results'] ?? [];
-        $pagination = $data['pagination'] ?? [];
-        $this->totalProduct = $pagination['totalData'] ?? 0;
-        $this->totalPage = $pagination['totalPage'] ?? 0;
+        // dd($data);
+        // exit;
 
-        return  $results ?? [];
+        // $pagination = $data['pagination'] ?? [];
+        // $this->totalProduct = $pagination['totalData'] ?? 0;
+        // $this->totalPage = $pagination['totalPage'] ?? 0;
+
+        return  $data ?? [];
     }
 
     public function getTotalSupplier()
@@ -56,23 +59,25 @@ class ProductListRepository implements ProductListRepositoryInterface
     }
     public function getDataTable($request)
     {
-        $limit = $request->input('length') ?? 20 ;
+        $limit = $request->input('length') ?? 20;
         $start = $request->input('start') ?? 1;
-        $productName = $request->input('productName') ?? '';
+        $productName = $request->input('name') ?? '';
         $page = (floor($start / $limit)) + 1;
-        $sellerName = $request->input('sellerName') ?? '';
+        $sellerName = $request->input('sellerUsername') ?? '';
 
         $products = $this->getProduct($limit, $page, $productName, $sellerName);
-        $total_data = $this->totalProduct;
+        // $total_data = $this->totalProduct;
+
+        $total_data = count($this->getProduct($limit, $page, $productName, $sellerName));
 
         $data = [];
 
         if (!empty($products)) {
             foreach ($products  as $product) {
-                $productName = $product['productName'];
-                $sellerName = $product['sellerName'];
+                $productName = $product['name'];
+                $sellerName = $product['sellerUsername'];
                 $priceFormat = $product['priceFormat'];
-                $picture = $product['picture'];
+                $picture = $product['image'];
                 $priceFormat = $product['price'];
                 $sellPriceFormat = $product['sellPrice'];
 
@@ -88,7 +93,7 @@ class ProductListRepository implements ProductListRepositoryInterface
         }
 
         $result = [
-            'draw' =>$page,
+            'draw' => $page,
             'recordsTotal' => intval($total_data),
             'recordsFiltered' => intval($total_data),
             'data' => $data,

@@ -247,9 +247,9 @@
             return query;
         }
 
-        const API_URL = '{{ config('app.url') }}';
-        const productsEndpoint = `${API_URL}/api/v1/products`;
-        const suppliersEndpoint = `${API_URL}/api/v1/suppliers`;
+        const API_URL = '{{ config('app.baleomol_url') }}';
+        const productsEndpoint = `${API_URL}/affiliator/products?appx=true`;
+        const suppliersEndpoint = `${API_URL}/affiliator/sellers?appx=true`;
         const SELECT2_AJAX_OPTIONS = {
             url: '',
             dataType: 'json',
@@ -318,27 +318,27 @@
                     ajax: {
                         ...SELECT2_AJAX_OPTIONS,
                         url: productsEndpoint,
+                        headers: {
+                            Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
+                        },
                         data: productParamsHandler,
-                        processResults: function(data, params) {
+                        processResults: function(response, params) {
                             var result = {
                                 results: []
                             };
 
-                            if (data.success) {
-                                const {
-                                    results: resultData
-                                } = data.data;
-                                const products = resultData.map(item => {
+                            if (response.success) {
+                                const productData = response.data.data;
+                                const products = productData.map(item => {
                                     return {
-                                        id: item.productId,
-                                        text: item.productName,
-                                        image: item.picture,
-                                        sellerId: item.sellerId,
-                                        sellerName: item.sellerName,
+                                        id: item.id,
+                                        text: item.name,
+                                        image: item.image,
+                                        sellerName: item.sellerUsername,
                                         price: item.price,
                                         stock: item.stock,
                                         isVariation: item.isVariation,
-                                        alternativePriceFormat: item.alternativePriceFormat,
+                                        alternativePriceFormat: item.priceFormat,
                                         priceFormat: item.priceFormat,
                                     }
                                 });
@@ -387,18 +387,19 @@
                     ajax: {
                         ...SELECT2_AJAX_OPTIONS,
                         url: suppliersEndpoint,
+                        headers: {
+                            Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
+                        },
                         data: supplierParamsHandler,
-                        processResults: function(data, params) {
+                        processResults: function(response, params) {
                             var result = {
                                 results: []
                             };
 
-                            if (data.success) {
-                                const {
-                                    results: resultData
-                                } = data.data;
+                            if (response.success) {
+                                const suppliersData = response.data.data;
 
-                                const suppliers = resultData.map(item => {
+                                const suppliers = suppliersData.map(item => {
                                     return {
                                         id: item.id,
                                         text: item.store?.name || '',

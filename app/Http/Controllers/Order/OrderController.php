@@ -62,9 +62,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::where('id',$id)->first();
+        $order = Order::where('id', $id)->first();
 
-        $orderProducts = OrderProduct::where('order_id',$id)->get();
+        $orderProducts = OrderProduct::where('order_id', $id)->get();
         foreach ($orderProducts as $key => $value) {
             if ($value->options == '{}') {
                 $variantName = '-';
@@ -73,7 +73,7 @@ class OrderController extends Controller
                 $variantName = $variant->name;
             }
 
-            $resultOrderProducts [] =[
+            $resultOrderProducts[] = [
                 'order_id' => $value->order_id,
                 'product_name' => $value->product_name,
                 'original_price' => formatRupiah($value->original_price),
@@ -101,15 +101,16 @@ class OrderController extends Controller
             'customer_name' => Str::ucfirst($order->customer_name),
             'fee' => formatRupiah($order->fee),
             'shipping_cost' => formatRupiah($order->shipping_cost),
+            'subtotal_affilio' => formatRupiah($order->subtotal_affilio),
             'value' => formatRupiah($order->value),
             'total' => formatRupiah($order->total),
             'status' => $order->status,
             'phone' => $order->phone,
-            'resi' => !empty($order->resi) ? $order->resi: '-',
+            'resi' => !empty($order->resi) ? $order->resi : '-',
             'shipping_courier' => $order->shipping_courier,
             'shipping_service' => $order->shipping_service,
             'address' => $order->address,
-            'full_address' => $order->subdistrict . ', ' . $order->city . ', '. $order->province,
+            'full_address' => $order->subdistrict . ', ' . $order->city . ', ' . $order->province,
             'message' => !empty($order->message) ? $order->message : 'Tidak Ada Catatan',
             'zip_code' => $order->zip_code ?? '-',
             'date_created' =>  date('Y-m-d H:i', strtotime($order->date_created)),
@@ -118,7 +119,7 @@ class OrderController extends Controller
 
         return response()->json([
             200,
-            'status' =>true,
+            'status' => true,
             'data' => [
                 'order' => $order,
                 'orderProducts' => $resultOrderProducts,

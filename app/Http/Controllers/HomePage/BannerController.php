@@ -137,16 +137,16 @@ class BannerController extends Controller
         $productData = [];
         $supplierData = [];
 
-        $token = config('app.baleomol_key');
+        $token = config('app.baleomol_token_auth');
 
         if ($data->type == 'store') {
-            $url = config('app.baleomol_url') . '/suppliers/' . $data->target_url;
+            $url = config('app.baleomol_url') . '/affiliator/sellers?appx=true' . $data->target_url;
             $response = Http::withHeaders(['Authorization' => "Bearer {$token}"])->get($url);
             $supplierData = $response['data'];
         }
 
         if ($data->type == 'product') {
-            $url = config('app.baleomol_url') . '/products/' . $data->target_url;
+            $url = config('app.baleomol_url') . '/affiliator/products?appx=true' . $data->target_url;
             $response = Http::withHeaders(['Authorization' => "Bearer {$token}"])->get($url);
             $productData = $response['data'];
         }
