@@ -107,7 +107,7 @@
                                 id="input-product-id"
                                 class="js-product-selector form-control"
                                 required>
-                                <option selected value="{{ $real_product['id'] }}">{{ $real_product['productName'] }}</option>
+                                <option selected value="{{ $real_product['id'] }}">{{ $real_product['name'] }}</option>
                             </select>
 
                             @error('product_id')
@@ -128,7 +128,7 @@
                                     value="{{ $markup_product->value }}">
                                 <span class="input-group-text" id="percentage">%</span>
                             </div>
-                            
+
                             @error('queue_number')
                                 <small id="queue-helper" class="form-text text-danger">
                                     {{ $message }}
@@ -151,8 +151,8 @@
     <script>
         'use strict';
 
-        const API_URL = '{{ config('app.url') }}';
-        const productsEndpoint = `${API_URL}/api/v1/products`;
+        const API_URL = '{{ config('app.baleomol_url') }}';
+        const productsEndpoint = `${API_URL}/affiliator/products?appx=true`;
 
         $(document).ready(function() {
             function formatProduct(product) {
@@ -199,23 +199,24 @@
                         return query;
                     },
                     headers: {
-                        Authorization: `Bearer {{ config('app.baleomol_key') }}`,
+                        Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
                     },
-                    processResults: function(data, params) {
+
+                    processResults: function(response, params) {
                         var result = { results: [] };
 
-                        if (data.success) {
-                            const { results: resultData } = data.data;
-                            const products = resultData.map(item => {
+                        if (response.success) {
+                            const productData = response.data.data
+                            const products = productData.map(item => {
                                 return {
-                                    id: item.productId,
-                                    text: item.productName,
-                                    image: item.picture,
-                                    sellerName: item.sellerName,
+                                    id: item.id,
+                                    text: item.name,
+                                    image: item.image,
+                                    sellerName: item.sellerUsername,
                                     price: item.price,
                                     stock: item.stock,
                                     isVariation: item.isVariation,
-                                    alternativePriceFormat: item.alternativePriceFormat,
+                                    alternativePriceFormat: item.priceFormat,
                                     priceFormat: item.priceFormat,
                                 }
                             });
@@ -225,7 +226,7 @@
 
                         return result;
                     },
-                    
+
                 },
                 templateResult: formatProduct,
                 // templateSelection: formatProductSelection,

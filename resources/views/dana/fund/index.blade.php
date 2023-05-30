@@ -102,6 +102,18 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Status Bonus Dana</label>
+                                        <select class="form-control form-control-sm filter" data-name="is_active"
+                                            placeholder="Type Here">
+                                            <option disabled selected>Pilih Status</option>
+                                            <option value="">Semua</option>
+                                            <option value="1">Bonus</option>
+                                            <option value="0">Calon Bonus</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                                     <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
                                     <div class='input-group' id='js-daterange-picker'>

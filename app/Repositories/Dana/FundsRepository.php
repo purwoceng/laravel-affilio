@@ -74,6 +74,11 @@ class FundsRepository implements FundsRepositoryInterface
             $fund_query->where('status_transfer', 'like', '%' . $keyword . '%');
             $getQueryTotal->where('status_transfer', 'like', '%' . $keyword . '%');
         }
+        if ($request->filled('is_active')) {
+            $keyword = $request->get('is_active');
+            $fund_query->where('is_active', 'like', '%' . $keyword . '%');
+            $getQueryTotal->where('is_active', 'like', '%' . $keyword . '%');
+        }
 
         $totalData = $getQueryTotal->count();
         $totalFiltered = $totalData;
@@ -95,19 +100,19 @@ class FundsRepository implements FundsRepositoryInterface
                 $created_at = date('d/m/Y H:i', strtotime($fund->created_at));
                 $actions = $id;
 
-                $data[] = compact(
-                    'id',
-                    'username',
-                    'email',
-                    'status',
-                    'code',
-                    'is_active',
-                    'title',
-                    'value',
-                    'status_transfer',
-                    'status_verify',
-                    'created_at',
-                    'actions',
+                $data[] = array(
+                    'id' => $id,
+                    'username' => $username,
+                    'email' => $email,
+                    'status' => $status,
+                    'code' => $code,
+                    'is_active' => $is_active,
+                    'title' => $title,
+                    'value' => $value,
+                    'status_transfer' => $status_transfer,
+                    'status_verify' => $status_verify,
+                    'created_at' => $created_at,
+                    'actions' => $actions,
                 );
             }
         }

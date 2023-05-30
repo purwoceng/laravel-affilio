@@ -35,16 +35,17 @@ class MarkupProductController extends Controller
 
             foreach ($markup_products as $markup) {
                 $product_id = str_replace('markup_product_', '', $markup['key']);
-                $token = config('app.baleomol_key');
-                $url = config('app.baleomol_url') . '/products/' . $product_id;
+                $token = config('app.baleomol_token_auth');
+                $url = config('app.baleomol_url') . '/affiliator/products/'.$product_id.'?appx=true' ;
                 $response = Http::withHeaders([
                     'Authorization' => "Bearer {$token}",
                 ])->get($url);
 
-                $markup_price = floor($response['data']['price'] * $markup['value'] / 100);
-                $sell_price = $response['data']['price'] + $markup_price;
-
+                $product_info = $response['data'];
+                $markup_price = ($product_info['price'] * $markup['value'] / 100);
+                $sell_price = $product_info['price'] + $markup_price;
                 $markup['product_data'] = $response['data'];
+
                 $markup['markup_price'] = $markup_price;
                 $markup['sell_price'] = $sell_price;
                 $markup['markup_price_formatted'] = number_format($markup_price, 0, ',', '.');
@@ -160,8 +161,8 @@ class MarkupProductController extends Controller
 
         if ($markup_product) {
             $product_id = str_replace('markup_product_', '', $markup_product['key']);
-            $token = config('app.baleomol_key');
-            $url = config('app.baleomol_url') . '/products/' . $product_id;
+            $token = config('app.baleomol_token_auth');
+            $url = config('app.baleomol_url') . '/affiliator/products/'.$product_id.'?appx=true' ;
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
             ])->get($url);
@@ -191,8 +192,8 @@ class MarkupProductController extends Controller
     public function update(Request $request, $id)
     {
         $validation_messages = [
-            'product_id.required' => 'Produk wajib dipilih!',
-            'product_id.unique' => 'Produk telah ditambahkan sebelumnya, silakan pilih produk lain',
+            // 'product_id.required' => 'Produk wajib dipilih!',
+            //'product_id.unique' => 'Produk telah ditambahkan sebelumnya, silakan pilih produk lain',
             'markup_product.required' => 'Persentase markup harga produk wajib diisi!',
             'markup_product.integer' => 'Persentase harus berupa integer (angka bulat) tanpa koma',
             'markup_product.min' => 'Persentase markup harga minimal 0% (sesuai harga asli)',
@@ -202,11 +203,11 @@ class MarkupProductController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'product_id' => [
-                    'required',
-                    'integer',
-                    'min:1',
-                ],
+                // 'product_id' => [
+                //     'required',
+                //     'integer',
+                //     'min:1',
+                // ],
                 'markup_product' => [
                     'required',
                     'integer',

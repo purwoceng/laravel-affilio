@@ -34,7 +34,7 @@
                                               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                             </ol>
                                             <div class="carousel-inner">
-                                                @foreach ($product_data['picture'] as $product_datas)
+                                                @foreach ($product_data['media'][1] as $product_datas)
                                                    <div class="carousel-item active">
                                                 <img src="{{ asset($product_datas) }}" alt="First slide" width="300px" height="300px">
                                               </div>
@@ -69,7 +69,7 @@
                                     <label class="col-3 col-form-label">Nama Produk</label>
                                     <div class="col-9">
                                         <input type="text" class="form-control" placeholder=""
-                                            name="" value="{{ $product_data['productName'] }}" disabled />
+                                            name="" value="{{ $product_data['name'] }}" disabled />
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -102,10 +102,10 @@
                                 </div>
                             </form>
                         </div>
-                        @if ($product_data['isVariationActive'] === true)
+                        @if ($product_data['isVariation'] === true)
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Tabel Varian Produk Wishlist {{ $product_data['productName'] }}</b></label>
+                                    <label class="col-12 col-form-label"><b>Tabel Varian Produk Wishlist {{ $product_data['name'] }}</b></label>
                                 </div>
                                 <div class="card-body"  name="event1">
                                     <table class="table table-striped table-head-custom table-checkable nowrap">
@@ -137,7 +137,7 @@
                             @else
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group row">
-                                    <label class="col-12 col-form-label"><b>Tidak Ada Varian Produk Wishlist Untuk {{ $product_data['productName'] }}</b></label>
+                                    <label class="col-12 col-form-label"><b>Tidak Ada Varian Produk Wishlist Untuk {{ $product_data['name'] }}</b></label>
                                 </div>
                             </div>
                             @endif

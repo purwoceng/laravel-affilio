@@ -60,8 +60,10 @@ class ProductWishlistController extends Controller
     {
         $productWishlist = ProductWishlist::where('id',$id)->first();
         $product_id = $productWishlist->product_id;
-        $token = config('app.baleomol_key');
-        $url = config('app.baleomol_url') . '/products/' . $product_id;
+        // $token = config('app.baleomol_key');
+        // $url = config('app.baleomol_url') . '/products/' . $product_id;
+        $token = config('app.baleomol_token_auth');
+        $url = config('app.baleomol_url') . '/affiliator/products/'.$product_id.'?appx=true' ;
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$token}",

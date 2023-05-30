@@ -11,4 +11,6 @@ interface ProductWishlistRepositoryInterface
     public function getDataTable($request);
 
     public function getDataById($id);
+
+//     public function getCountWishlist($startDate, $endDate);
 }
