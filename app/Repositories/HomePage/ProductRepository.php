@@ -15,17 +15,17 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getProductHomeTypes($limit, $start)
     {
-        return ProductHomeType::offset($start)->limit($limit);
+        return ProductHomeType::where('type', ['recommendation'])->offset($start)->limit($limit);
     }
 
     public function getProductHomeTypeById($id)
     {
-        return ProductHomeType::where('id', $id)->first();
+        return ProductHomeType::where('type', ['recommendation'])->where('id', $id)->first();
     }
 
     public function getTotalProductHomeTypes()
     {
-        return ProductHomeType::all()->count();
+        return ProductHomeType::where('type', ['recommendation'])->count();
     }
 
     public function getProductHomeTypeDataTable($request)
@@ -71,17 +71,17 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getProductHomes($limit, $start)
     {
-        return ProductHome::offset($start)->limit($limit);
+        return ProductHome::where('type', ['recommendation'])->offset($start)->limit($limit);
     }
 
     public function getProductHomeById($id)
     {
-        return ProductHome::where('id', $id)->first();
+        return ProductHome::where('type', ['recommendation'])->where('id', $id)->first();
     }
 
     public function getTotalProductHomes()
     {
-        return ProductHome::all()->count();
+        return ProductHome::where('type', ['recommendation'])->count();
     }
 
     public function getDataTable($request)

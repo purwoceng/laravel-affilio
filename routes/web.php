@@ -53,6 +53,7 @@ use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\Notification\NotificationStatusController;
 use App\Http\Controllers\City\CityController;
+use App\Http\Controllers\Product\ProductAffilioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,6 +216,21 @@ Route::middleware('auth')->group(function () {
             Route::get('/types/edit/{id}', [ProductTypeController::class, 'edit'])->name('edit_type');
             Route::put('/types/update/{id}', [ProductTypeController::class, 'update'])->name('update_type');
             Route::get('/types/delete/{id}', [ProductTypeController::class, 'delete'])->name('delete_type');
+        });
+
+    //recommendation affilio
+
+    Route::prefix('recommendation-affilio')
+        ->name('recommendation_affilio.')
+        ->group(function () {
+            // Products
+            Route::get('/', [ProductAffilioController::class, 'index'])->name('index');
+            Route::get('/create', [ProductAffilioController::class, 'create'])->name('create');
+            Route::post('/store', [ProductAffilioController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [ProductAffilioController::class, 'edit'])->name('edit');
+            Route::put('/update/{id}', [ProductAffilioController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [ProductAffilioController::class, 'delete'])->name('delete');
+            Route::get('/avail-numbers', [ProductAffilioController::class, 'getAvailableQueueNumber'])->name('avail_numbers');
         });
 
     Route::prefix('banners')
