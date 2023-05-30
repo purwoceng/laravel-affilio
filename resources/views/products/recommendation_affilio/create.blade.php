@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Produk Rekomendasi Affilio'))
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Produk Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk Rekomendasi Affilio</h5>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Tambah Produk Rekomendasi</h3>
+                        <h3 class="card-label">Tambah Produk Rekomendasi Affilio</h3>
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                         </span>
                     @endif
 
-                    <form action="{{ route('product_home.store') }}" method="post">
+                    <form action="{{ route('recommendation_affilio.store') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
@@ -140,7 +140,7 @@
                             @enderror
                         </div>
 
-                        <a class="btn btn-outline-danger" href="{{ route('product_home.index') }}">Kembali</a>
+                        <a class="btn btn-outline-danger" href="{{ route('recommendation_affilio.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

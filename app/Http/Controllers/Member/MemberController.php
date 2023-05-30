@@ -38,10 +38,10 @@ class MemberController extends Controller
         // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
         //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
         //                     ->get();
-//        $getMemberBlockeds = DB::table('members')
-//            ->leftjoin('member_addresses', 'members.id', '=', 'member_addresses.member_id')
-//            ->where('members.publish', '1')
-//            ->get();
+        //        $getMemberBlockeds = DB::table('members')
+        //            ->leftjoin('member_addresses', 'members.id', '=', 'member_addresses.member_id')
+        //            ->where('members.publish', '1')
+        //            ->get();
 
         $member_type = MemberType::get();
         if ($request->ajax()) {
@@ -182,7 +182,7 @@ class MemberController extends Controller
         $member->username = $request->username;
         $member->phone = $request->phone;
         $member->member_type_id = $request->member_type_id;
-        // $member->referral = $request->referral;
+        $member->is_verified = $request->is_verified;
         $member->is_founder = $request->is_founder;
         $member->is_transaction = $request->is_transaction;
         $member->is_blocked = $request->is_blocked;

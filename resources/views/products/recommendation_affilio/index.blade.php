@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Produk Rekomendasi Affilio'))
 
 @push('css')
     <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -69,7 +69,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Produk Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk Rekomendasi Affilio</h5>
             </div>
         </div>
     </div>
@@ -91,10 +91,10 @@
 
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Produk Rekomendasi</h3>
+                        <h3 class="card-label">Produk Rekomendasi Affilio</h3>
                     </div>
-                    <a class="btn btn-success float-right" href={{ route('product_home.create') }}
-                        title="Tambah Produk Rekomendasi">
+                    <a class="btn btn-success float-right" href={{ route('recommendation_affilio.create') }}
+                        title="Tambah Produk Rekomendasi Affilio">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
                     </a>
@@ -128,7 +128,7 @@
         'use strict';
 
         $(document).ready(function() {
-            const ajaxUrl = "{{ route('product_home.index') }}";
+            const ajaxUrl = "{{ route('recommendation_affilio.index') }}";
 
             $('#js-product-table').DataTable({
                 destroy: true,
@@ -172,7 +172,6 @@
 
                             let element = '';
                             const isVariant = Number(data.isVariation);
-
                             const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
                             console.log(data);
@@ -185,7 +184,7 @@
                                         <div class="product-cell__content">
                                             <span class="product-cell__title">${data.name}</span>
                                             <div class="product-cell__stats">
-                                                <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
+                                                <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.sellerName}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
                                             </div>
