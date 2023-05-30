@@ -191,10 +191,12 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
-                        render: function(data) {
+                       render: function(data) {
                             let element = '';
+                            const isVariant = Number(data.isVariationActive);
+                            const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                            if (data) {
+                            if (data.media?.[1]) {
                                 element += `
                                     <div class="product-cell">
                                         <div class="product-cell__image">
@@ -204,6 +206,7 @@
                                             <span class="product-cell__title">${data.name}</span>
                                             <div class="product-cell__stats">
                                                 <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
+                                                <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
                                             </div>
                                         </div>

@@ -73,7 +73,8 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
                 $member_name = $member->name ?? '-';
 
                 $token = config('app.baleomol_token_auth');
-                $url = config('app.baleomol_url') . '/affiliator/products/' . $product_id;
+                  $url = config('app.baleomol_url') . '/affiliator/products/'.$product_id.'?appx=true' ;
+
 
                 $response = Http::withHeaders([
                     'Authorization' => "Bearer {$token}",
