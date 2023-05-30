@@ -14,19 +14,19 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
         //
     }
 
-    public function getCountWishlist($startDate, $endDate)
+    // public function getCountWishlist($startDate, $endDate)
+    // {
+    //     return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->get()->count();
+    // }
+
+    public function getData($limit, $start)
     {
-        return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->get()->count();
+       return ProductWishlist::offset($start)->limit($limit);
     }
 
-    public function getData($limit, $start, $startDate, $endDate)
+    public function getTotalData()
     {
-       return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->offset($start)->limit($limit);
-    }
-
-    public function getTotalData($startDate, $endDate)
-    {
-        return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->get()->count();
+        return ProductWishlist::all()->count();
     }
 
     public function getDataTable($request)
@@ -34,19 +34,19 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
         $limit = $request->input('length');
         $start = $request->input('start');
 
-        if (!empty($request->date_range)) {
-            $dateRange = $request->date_range;
-            $date = explode("/", $dateRange);;
-            $startDate = $date[0];
-            $endDate = $date[1];
-        } else {
-            $now = date('Y-m-d');
-            $startDate = $now;
-            $endDate = $now;
-        }
+        // if (!empty($request->date_range)) {
+        //     $dateRange = $request->date_range;
+        //     $date = explode("/", $dateRange);;
+        //     $startDate = $date[0];
+        //     $endDate = $date[1];
+        // } else {
+        //     $now = date('Y-m-d');
+        //     $startDate = $now;
+        //     $endDate = $now;
+        // }
 
-        $query = $this->getData($limit, $start, $startDate, $endDate);
-        $totalData = $this->getTotalData($startDate, $endDate);
+        $query = $this->getData($limit, $start);
+        $totalData = $this->getTotalData();
         $totalFilteredData = $totalData;
 
         $getDatas = $query->orderBy('id','desc')->get();
@@ -79,13 +79,14 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
                     'Authorization' => "Bearer {$token}",
                 ])->get($url);
 
-                $product_image = $response['data'];
-                //$product_image = $product_data['media'][1] ?? [];
+                $product_data = $response['data'];
+                $product_image = $product_data['media'][1] ?? [];
 
 
                 $data[] = compact(
                     'id',
                     'product_image',
+                    'product_data',
                     'member_name',
                     'created_at',
                 );

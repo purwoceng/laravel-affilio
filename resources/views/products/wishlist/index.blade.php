@@ -64,76 +64,6 @@
         }
     </style>
 @endpush
-@push('css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
-        .select2-container .select2-selection--single {
-            height: auto !important;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 1.5 !important;
-        }
-
-        .xselect-option {
-            display: flex;
-            padding: .25rem .5rem;
-            gap: 1rem;
-            flex-wrap: nowrap;
-        }
-
-        .xselect-option .xselect-option__avatar {
-            height: 60px;
-            width: 60px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .xselect-option .xselect-option__avatar img {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .xselect-option .xselect-option__desc {
-            display: flex;
-            flex-flow: column nowrap;
-            justify-content: space-between;
-        }
-
-        .xselect-option .xselect-option__title {
-            font-weight: 500;
-            font-size: 1.04rem;
-            line-height: 1.5;
-            color: #212121;
-        }
-
-        .xselect-option .xselect-option__stats {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: .75rem;
-        }
-
-        .xselect-option .xselect-option__stats .xselect-option__stat {
-            font-size: .75rem;
-            line-height: 1.5;
-            display: flex;
-            gap: .35rem;
-        }
-
-        .xselect-option .xselect-option__stats .xselect-option__stat i {
-            font-size: .875rem;
-            color: rgba(40, 40, 40, .56);
-        }
-
-        .select2-container--default .select2-results>.select2-results__options {
-            max-height: 400px;
-        }
-    </style>
-@endpush
 
 @section('content')
 
@@ -154,7 +84,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
                                 <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
@@ -169,16 +99,16 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="filter-wrapper">
-                        {{-- <form action="#" class="form" id="filter">
+                    </div> --}}
+                    {{-- <div class="filter-wrapper">
+                        <form action="#" class="form" id="filter">
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                                     <div class="form-group">
                                         <label for="js-daterange-picker" class="font-weight-bold">Cari Produk</label>
-                                        <select data-name="product"
+                                        <select data-name="storeName"
                                                     id="input-supplier-id"
-                                                    class="js-product-selector form-control form-control-sm filter" required></select>
+                                                    class="js-supplier-selector form-control filter" required></select>
 
                                                 @error('supplier_id')
                                                     <small id="name-helper" class="form-text text-danger">
@@ -188,8 +118,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </form> --}}
-                    </div>
+                        </form>
+                    </div> --}}
 
                 <div class="card-body">
 
@@ -220,7 +150,6 @@
 
 @push('js')
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
     <script>
@@ -256,18 +185,16 @@
                         }
                     },
                     {
-                        data: 'product_image',
-                        name: 'product_image',
+                        data: 'product_data',
+                        name: 'product_data',
                         sortable: false,
                         orderable: false,
                         searchable: false,
                         className: 'text-lg-left text-center small',
                         render: function(data) {
                             let element = '';
-                            const isVariant = Number(data.isVariationActive);
-                            const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                            if (data.media?.[1]) {
+                            if (data) {
                                 element += `
                                     <div class="product-cell">
                                         <div class="product-cell__image">
@@ -277,7 +204,6 @@
                                             <span class="product-cell__title">${data.name}</span>
                                             <div class="product-cell__stats">
                                                 <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
-                                                <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
                                             </div>
                                         </div>
@@ -289,13 +215,6 @@
 
                             return element;
                         }
-                        // render: function(data, type, row, meta) {
-                        //     if (data.link) {
-                        //     return `<img src="${data.link}" class="image-fluid" width="80px">`;
-                        // } else {
-                        //         return  '-';
-                        //     }
-                        // }
                     },
                     {
                         data: 'member_name',
@@ -345,223 +264,133 @@
                 ],
             });
 
-            init();
+    //         init();
 
-            function init() {
-            getDateRangeHandler();
-            $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
-            }
+    // function init() {
+    //     getDateRangeHandler();
+    //     $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+    // }
 
-        function getDateRangeHandler() {
-            $('#js-daterange-picker').daterangepicker({
-                timePickerSeconds: true,
-                showDropdwons: true,
-                autoApply: true,
-                ranges: {
-                    'Semua': [moment(new Date('01-01-2021')), moment()],
-                    'Hari Ini': [moment(), moment()],
-                    '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
-                    '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
-                    'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-                },
-                locale: {
-                    format: 'YYYY-MM-DD',
-                    separator: " to ",
-                    applyLabel: "Apply",
-                    cancelLabel: "Cancel",
-                    fromLabel: "From",
-                    toLabel: "To",
-                    customRangeLabel: "Custom Range",
-                    weekLabel: "W",
-                    daysOfWeek: [
-                        "Su",
-                        "Mo",
-                        "Tu",
-                        "We",
-                        "Th",
-                        "Fr",
-                        "Sa"
-                    ],
-                    monthNames: [
-                        "Januari",
-                        "Februari",
-                        "Maret",
-                        "April",
-                        "Mei",
-                        "Juni",
-                        "Juli",
-                        "Agustus",
-                        "September",
-                        "October",
-                        "November",
-                        "December"
-                    ],
-                    firstDay: 1
-                },
-                autoUpdateInput: false,
-                alwaysShowCalendars: false,
-                startDate: moment(),
-                endDate: moment(),
-                    }, rangePickerCB);
-                    rangePickerCB(moment(), moment());
-                    let data = [];
-                    data.push(moment().format('YYYY-MM-DD'));
-                    data.push(moment().format('YYYY-MM-DD'));
-                }
+    // function getDateRangeHandler() {
+    //     $('#js-daterange-picker').daterangepicker({
+    //         timePickerSeconds: true,
+    //         showDropdwons: true,
+    //         autoApply: true,
+    //         ranges: {
+    //             'Semua': [moment(new Date('01-01-2021')), moment()],
+    //             'Hari Ini': [moment(), moment()],
+    //             '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+    //             '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+    //             'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+    //         },
+    //         locale: {
+    //             format: 'YYYY-MM-DD',
+    //             separator: " to ",
+    //             applyLabel: "Apply",
+    //             cancelLabel: "Cancel",
+    //             fromLabel: "From",
+    //             toLabel: "To",
+    //             customRangeLabel: "Custom Range",
+    //             weekLabel: "W",
+    //             daysOfWeek: [
+    //                 "Su",
+    //                 "Mo",
+    //                 "Tu",
+    //                 "We",
+    //                 "Th",
+    //                 "Fr",
+    //                 "Sa"
+    //             ],
+    //             monthNames: [
+    //                 "Januari",
+    //                 "Februari",
+    //                 "Maret",
+    //                 "April",
+    //                 "Mei",
+    //                 "Juni",
+    //                 "Juli",
+    //                 "Agustus",
+    //                 "September",
+    //                 "October",
+    //                 "November",
+    //                 "December"
+    //             ],
+    //             firstDay: 1
+    //         },
+    //         autoUpdateInput: false,
+    //         alwaysShowCalendars: false,
+    //         startDate: moment(),
+    //         endDate: moment(),
+    //             }, rangePickerCB);
+    //             rangePickerCB(moment(), moment());
+    //             let data = [];
+    //             data.push(moment().format('YYYY-MM-DD'));
+    //             data.push(moment().format('YYYY-MM-DD'));
+    //         }
 
-        function rangePickerCB(start, end, label) {
-            $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
-                'YYYY-MM-DD'));
-            $('#js-date-range-reward').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-            $('#js-date-range-transaksi').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-            $('#js-date-range-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
-                'YYYY-MM-DD'));
-            getDataFiltered();
+    //     function rangePickerCB(start, end, label) {
+    //         $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
+    //             'YYYY-MM-DD'));
+    //         $('#js-date-range-reward').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+    //         $('#js-date-range-transaksi').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+    //         $('#js-date-range-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+    //             'YYYY-MM-DD'));
+    //         getDataFiltered();
 
-        };
+    //     };
 
-        function getDataFiltered() {
-            let filterEl = $('.filter');
-            let data = {};
+        // function getDataFiltered() {
+        //     let filterEl = $('.filter');
+        //     let data = {};
 
-            $.each(filterEl, function(i, v) {
-                let key = $(v).data('name');
-                let value = $(v).val();
-                if (key == 'date') {
-                    if (value != '') {
-                        value = value.split('/');
-                        data[key] = JSON.stringify(value);
-                    }
-                } else {
-                    if (value != '') {
-                        data[key] = value;
-                    }
-                }
-            });
+        //     $.each(filterEl, function(i, v) {
+        //         let key = $(v).data('name');
+        //         let value = $(v).val();
+        //         if (key == 'date') {
+        //             if (value != '') {
+        //                 value = value.split('/');
+        //                 data[key] = JSON.stringify(value);
+        //             }
+        //         } else {
+        //             if (value != '') {
+        //                 data[key] = value;
+        //             }
+        //         }
+        //     });
 
-            if (getURLVar('start')) {
-                data.start = getURLVar('start');
-            }
+        //     if (getURLVar('start')) {
+        //         data.start = getURLVar('start');
+        //     }
 
-            if (getURLVar('limit')) {
-                data.limit = getURLVar('limit');
-            }
-            reDrawTable(data);
-        };
+        //     if (getURLVar('limit')) {
+        //         data.limit = getURLVar('limit');
+        //     }
+        //     reDrawTable(data);
+        // };
 
-        function getFullUrl(data) {
-            let
-                url = urlAjax,
-                params = '';
+        // function getFullUrl(data) {
+        //     let
+        //         url = urlAjax,
+        //         params = '';
 
-            $.each(data, function(key, value) {
-                if (!!value) {
-                    params += `${key}=${value}&`;
-                }
-            });
+        //     $.each(data, function(key, value) {
+        //         if (!!value) {
+        //             params += `${key}=${value}&`;
+        //         }
+        //     });
 
-            params = params.replace(/\&$/, '');
+        //     params = params.replace(/\&$/, '');
 
-            if (params != '') {
-                url = `${url}?${params}`;
-            }
-            return url;
-        };
+        //     if (params != '') {
+        //         url = `${url}?${params}`;
+        //     }
+        //     return url;
+        // };
 
-        function reDrawTable(data) {
-            wishlistTable.ajax.url(getFullUrl(data)).load(null, false);
-        };
+        // function reDrawTable(data) {
+        //     wishlistTable.ajax.url(getFullUrl(data)).load(null, false);
+        // };
 
-        init();
-
-        function init() {
-            $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
-        }
-
-        const API_URL = '{{ config('app.baleomol_url') }}';
-        const productsEndpoint = `${API_URL}/affiliator/products/`;
-
-        $(document).ready(function() {
-            function formatProduct(product) {
-                if (product.loading) {
-                    return product.productName;
-                }
-
-                const isVariant = Number(product.isVariation);
-                const price = isVariant ? product.alternativePriceFormat : product.priceFormat;
-
-                const $container = $(
-                    `<div class="xselect-option clearfix">
-                        <div class="xselect-option__avatar">
-                            <img src="${product.image}" />
-                        </div>
-                        <div class="xselect-option__desc">
-                            <div class="xselect-option__title">${product.text}</div>
-                            <div class="xselect-option__stats">
-                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerName}</div>
-                                <div class="xselect-option__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
-                                <div class="xselect-option__stat"><i class="fas fa-box-open"></i> ${product.stock} Unit</div>
-                            </div>
-                        </div>
-                    </div>`
-                );
-
-                return $container;
-            }
-
-            function formatProductSelection(product) {
-                return product.productName;
-            }
-
-            $('.js-product-selector').select2({
-                placeholder: 'Ketik Nama Produk',
-                minimumInputLength: 2,
-                ajax: {
-                    url: productsEndpoint,
-                    dataType: 'json',
-                    data: function(params) {
-                        const query = {
-                            limit: 10
-                        };
-                        if (params.term) query.keyword = params.term;
-
-                        return query;
-                    },
-                    headers: {
-                        Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
-                    },
-                    processResults: function(response, params) {
-                        var result = {
-                            results: []
-                        };
-
-                        if (response.success) {
-                            const productData = response.data.data
-                            const products = productData.map(item => {
-                                return {
-                                    id: item.id,
-                                    text: item.name,
-                                    image: item.image,
-                                    sellerName: item.sellerUsername,
-                                    price: item.price,
-                                    stock: item.stock,
-                                    isVariation: item.isVariation,
-                                    alternativePriceFormat: item.priceFormat,
-                                    priceFormat: item.priceFormat,
-                                }
-                            });
-
-                            result.results = products;
-                        }
-
-                        return result;
-                    },
-
-                },
-                templateResult: formatProduct,
-                // templateSelection: formatProductSelection,
-            });
-            });
-            });
+        });
     </script>
 @endpush

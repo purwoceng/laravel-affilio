@@ -160,6 +160,7 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Kode</th>
                                 <th class="text-center">Value</th>
+                                <th class="text-center">Pajak 6%</th>
                                 <th class="text-center">Total Transfer</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Deskripsi</th>
@@ -250,6 +251,14 @@
                     {
                         data: 'value',
                         name: 'value',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'pajak',
+                        name: 'pajak',
                         sortable: false,
                         orderable: false,
                         searchable: false,

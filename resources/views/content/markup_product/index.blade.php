@@ -176,14 +176,14 @@
                             const isVariant = Number(data.isVariationActive);
                             const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                            if (data.picture?.[0]) {
+                            if (data.media?.[1]) {
                                 element += `
                                     <div class="product-cell">
                                         <div class="product-cell__image">
-                                            <img src="${data.picture[0]}" />
+                                            <img src="${data.media[1].link}" />
                                         </div>
                                         <div class="product-cell__content">
-                                            <span class="product-cell__title">${data.productName}</span>
+                                            <span class="product-cell__title">${data.name}</span>
                                             <div class="product-cell__stats">
                                                 <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
                                                 <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
