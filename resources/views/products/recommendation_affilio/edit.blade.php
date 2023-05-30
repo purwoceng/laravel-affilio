@@ -1,5 +1,5 @@
 @extends('core.app')
-@section('title', __('Produk Rekomendasi'))
+@section('title', __('Produk Rekomendasi Affilio'))
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Produk Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk Rekomendasi Affilio</h5>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Tambah Produk Rekomendasi</h3>
+                        <h3 class="card-label">Edit Produk Rekomendasi Affilio</h3>
                     </div>
                 </div>
 
@@ -97,12 +97,33 @@
                         </span>
                     @endif
 
-                    <form action="{{ route('product_home.store') }}" method="post">
+                    <form action="{{ route('recommendation_affilio.update', $product->id) }}" method="post">
                         @csrf
+                        @method('put')
+
+                        {{-- <div class="form-group">
+                            <label for="input-product-id">Produk</label>
+                            <select name="product_id" id="input-product-id" class="js-product-selector form-control"
+                                required>
+                                <option selected value="{{ $product->product_id }}">{{ $real_product['name'] }}
+                                </option>
+                            </select>
+
+                            @error('product_id')
+                                <small id="name-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div> --}}
+
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
                             <select name="product_id" id="input-product-id" class="js-product-selector form-control"
-                                required></select>
+                                required>
+                                <option selected value="{{ $product->product_id }}">
+                                    {{-- {{ $real_product['name'] }} --}}
+                                </option>
+                            </select>
 
                             @error('product_id')
                                 <small id="name-helper" class="form-text text-danger">
@@ -115,12 +136,12 @@
                             <label>Tipe <span class="text-danger">*</span></label>
                             <select class="custom-select form-control" name="type" required>
                                 <option disabled>Pilih tipe</option>
-                                <option value="recommendation">Rekomendasi</option>
-                                <option value="affilio_recommendation">Affilio</option>
+                                <option value="recommendation" {{ $product->type == 'recommendation' ? 'selected' : '' }}>
+                                    Rekomendasi</option>
+                                <option value="affilio_recommendation"
+                                    {{ $product->type == 'affilio_recommendation' ? 'selected' : '' }}>Affilio</option>
                             </select>
                         </div>
-
-
                         <div class="form-group">
                             <label for="input-queue-number">Urutan</label>
                             <select name="queue_number" id="input-queue-number" class="form-control"
@@ -128,8 +149,10 @@
                                 <option selected disabled value="0">Pilih nomor urut</option>
 
                                 @foreach ($available_numbers as $number)
-                                    <option value="{{ $number }}" {{ old('title') == $number ? 'selected' : '' }}>
-                                        Ke-{{ $number }}</option>
+                                    <option value="{{ $number }}"
+                                        {{ $number == $product->queue_number ? 'selected' : '' }}>
+                                        Ke-{{ $number }}
+                                    </option>
                                 @endforeach
                             </select>
 
@@ -140,7 +163,27 @@
                             @enderror
                         </div>
 
-                        <a class="btn btn-outline-danger" href="{{ route('product_home.index') }}">Kembali</a>
+
+                        <div class="form-group">
+                            <label for="input-is-active">Status</label>
+                            <select name="is_active" id="input-is-active" class="form-control"
+                                aria-describedby="is-active-helper" required>
+                                <option value="1" {{ $product->is_active == '1' ? 'selected' : '' }}>
+                                    Aktif
+                                </option>
+                                <option value="0" {{ $product->is_active == '0' ? 'selected' : '' }}>
+                                    Non-aktif
+                                </option>
+                            </select>
+
+                            @error('is_active')
+                                <small id="is-active-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <a class="btn btn-outline-danger" href="{{ route('recommendation_affilio.index') }}">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -156,26 +199,26 @@
         'use strict';
 
         const API_URL = '{{ config('app.baleomol_url') }}';
-        const productsEndpoint = `${API_URL}/affiliator/products?appx=true`;
+        const productsEndpoint = `${API_URL}/affiliator/products`;
 
         $(document).ready(function() {
             function formatProduct(product) {
                 if (product.loading) {
-                    return product.productName;
+                    return product.name;
                 }
 
                 const isVariant = Number(product.isVariation);
-                const price = isVariant ? product.priceRangeVariation : product.priceFormat;
+                const price = isVariant ? product.alternativePriceFormat : product.priceFormat;
 
                 const $container = $(
                     `<div class="xselect-option clearfix">
                         <div class="xselect-option__avatar">
-                            <img src="${product.image}" />
+                            <img src="${product.media[1].link}" />
                         </div>
                         <div class="xselect-option__desc">
                             <div class="xselect-option__title">${product.text}</div>
                             <div class="xselect-option__stats">
-                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerName}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerUsername}</div>
                                 <div class="xselect-option__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
                                 <div class="xselect-option__stat"><i class="fas fa-box-open"></i> ${product.stock} Unit</div>
                             </div>
@@ -207,23 +250,25 @@
                     headers: {
                         Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
                     },
-                    processResults: function(response, params) {
+                    processResults: function(data, params) {
                         var result = {
                             results: []
                         };
 
-                        if (response.success) {
-                            const productData = response.data.data
-                            const products = productData.map(item => {
+                        if (data.success) {
+                            const {
+                                results: resultData
+                            } = data.data;
+                            const products = resultData.map(item => {
                                 return {
                                     id: item.id,
                                     text: item.name,
-                                    image: item.image,
+                                    image: item.media,
                                     sellerName: item.sellerUsername,
                                     price: item.price,
                                     stock: item.stock,
                                     isVariation: item.isVariation,
-                                    alternativePriceFormat: item.priceFormat,
+                                    alternativePriceFormat: item.alternativePriceFormat,
                                     priceFormat: item.priceFormat,
                                 }
                             });
