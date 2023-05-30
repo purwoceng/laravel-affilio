@@ -106,6 +106,25 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="input-is-verified">Status Verifikasi</label>
+                            <select name="is_verified" id="input-is-verified" class="form-control"
+                                aria-describedby="is-verified-helper" required>
+                                <option selected disabled value="3">Pilih Status Verifikasi</option>
+                                <option value="1" {{ $data->is_verified == '1' ? 'selected' : '' }}>
+                                    Verifikasi
+                                </option>
+                                <option value="0" {{ $data->is_verified == '0' ? 'selected' : '' }}>
+                                    Belum-Verifikasi
+                                </option>
+                            </select>
+
+                            @error('is_verified')
+                                <small id="is-verified-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="input-is-active">Status Founder</label>
                             <select name="is_founder" id="input-is-active" class="form-control"
                                 aria-describedby="is-active-helper" required>
