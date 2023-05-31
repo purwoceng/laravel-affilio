@@ -122,7 +122,7 @@ class ProductAffilioController extends Controller
             );
 
             $token = config('app.baleomol_token_auth');
-            $url = config('app.baleomol_url') . '/affiliator/products/' . $product['product_id'];
+            $url = config('app.baleomol_url') . '/affiliator/products?appx=true' . $product['product_id'];
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
             ])->get($url);

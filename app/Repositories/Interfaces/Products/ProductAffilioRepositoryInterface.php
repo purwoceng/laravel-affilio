@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\interfaces\Products;
+namespace App\Repositories\Interfaces\Products;
 
 interface ProductAffilioRepositoryInterface
 {
