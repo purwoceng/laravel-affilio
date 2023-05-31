@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk Rekomendasi Affilio</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk </h5>
             </div>
         </div>
     </div>
@@ -101,28 +101,14 @@
                         @csrf
                         @method('put')
 
-                        {{-- <div class="form-group">
-                            <label for="input-product-id">Produk</label>
-                            <select name="product_id" id="input-product-id" class="js-product-selector form-control"
-                                required>
-                                <option selected value="{{ $product->product_id }}">{{ $real_product['name'] }}
-                                </option>
-                            </select>
-
-                            @error('product_id')
-                                <small id="name-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div> --}}
 
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
                             <select name="product_id" id="input-product-id" class="js-product-selector form-control"
-                                required>
-                                <option selected value="{{ $product['id'] }}">
-                                    {{ $product['name'] }}
-                                </option>
+                                required></select>
+                            <option selected value="{{ $product['id'] }}">
+                                {{ $product['name'] }}
+                            </option>
                             </select>
 
                             @error('product_id')
