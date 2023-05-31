@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <label>Password<span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" placeholder="Masukkan Password"
-                                        name="password" value="" required />
+                                        name="password" value="{{$data->password}}" required />
                                 </div>
                                 <div class="form-group">
                                     <label for="input-member-type-id">Role</label>
