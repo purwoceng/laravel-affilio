@@ -3,10 +3,9 @@
 namespace App\Repositories\Products;
 
 use App\Models\ProductAffilio;
-use App\Repositories\interfaces\Products\ProductAffilioRepositoryInterface;
+use App\Repositories\Interfaces\Products\ProductAffilioRepositoryInterface;
 
 class ProductAffilioRepository implements ProductAffilioRepositoryInterface
-
 {
     public function __construct()
     {

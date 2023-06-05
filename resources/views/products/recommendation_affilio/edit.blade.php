@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk Rekomendasi Affilio</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk </h5>
             </div>
         </div>
     </div>
@@ -101,28 +101,14 @@
                         @csrf
                         @method('put')
 
-                        {{-- <div class="form-group">
-                            <label for="input-product-id">Produk</label>
-                            <select name="product_id" id="input-product-id" class="js-product-selector form-control"
-                                required>
-                                <option selected value="{{ $product->product_id }}">{{ $real_product['name'] }}
-                                </option>
-                            </select>
-
-                            @error('product_id')
-                                <small id="name-helper" class="form-text text-danger">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                        </div> --}}
 
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
                             <select name="product_id" id="input-product-id" class="js-product-selector form-control"
-                                required>
-                                <option selected value="{{ $product->product_id }}">
-                                    {{-- {{ $real_product['name'] }} --}}
-                                </option>
+                                required></select>
+                            <option selected value="{{ $product['id'] }}">
+                                {{ $product['name'] }}
+                            </option>
                             </select>
 
                             @error('product_id')
@@ -199,12 +185,12 @@
         'use strict';
 
         const API_URL = '{{ config('app.baleomol_url') }}';
-        const productsEndpoint = `${API_URL}/affiliator/products`;
+        const productsEndpoint = `${API_URL}/affiliator/products?appx=true`;
 
         $(document).ready(function() {
             function formatProduct(product) {
                 if (product.loading) {
-                    return product.name;
+                    return product.productName;
                 }
 
                 const isVariant = Number(product.isVariation);
@@ -213,12 +199,12 @@
                 const $container = $(
                     `<div class="xselect-option clearfix">
                         <div class="xselect-option__avatar">
-                            <img src="${product.media[1].link}" />
+                            <img src="${product.image}" />
                         </div>
                         <div class="xselect-option__desc">
                             <div class="xselect-option__title">${product.text}</div>
                             <div class="xselect-option__stats">
-                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerUsername}</div>
+                                <div class="xselect-option__stat"><i class="fas fa-store"></i> ${product.sellerName}</div>
                                 <div class="xselect-option__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
                                 <div class="xselect-option__stat"><i class="fas fa-box-open"></i> ${product.stock} Unit</div>
                             </div>
@@ -230,7 +216,7 @@
             }
 
             function formatProductSelection(product) {
-                return product.productName;
+                return product.name;
             }
 
             $('.js-product-selector').select2({
@@ -256,14 +242,12 @@
                         };
 
                         if (data.success) {
-                            const {
-                                results: resultData
-                            } = data.data;
+                            const resultData = data.data.data;
                             const products = resultData.map(item => {
                                 return {
                                     id: item.id,
                                     text: item.name,
-                                    image: item.media,
+                                    image: item.image,
                                     sellerName: item.sellerUsername,
                                     price: item.price,
                                     stock: item.stock,
