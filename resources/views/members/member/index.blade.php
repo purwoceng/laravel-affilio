@@ -341,7 +341,7 @@
                             let elements = '';
 
                             elements += `
-                                <div class="dropdown dropdown-inline">
+                                <div class="mr-3">
                                     <a class="btn btn-sm btn-success btn-icon" href="${urlAjax}/detail/${row.id}" title="Detail Member">
                                     <i class="fas fa-eye mr-1 fa-sm"></i>
                                     </a>
