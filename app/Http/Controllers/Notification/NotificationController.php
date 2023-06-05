@@ -26,7 +26,7 @@ class NotificationController extends Controller
     {
         if ($request->ajax()) {
             $result = $this->NotificationRepository->getDataTable($request);
-            $data = array_map(function($item) {
+            $data = array_map(function ($item) {
                 $member_type = MemberType::where('id', $item['member_type_id'])->first();
                 $new_item = array_merge($item, [
                     'member_type_id' => $member_type->type ?? '-',
@@ -37,7 +37,7 @@ class NotificationController extends Controller
 
             return response()->json($result);
         }
-        return view ('notification.index');
+        return view('notification.index');
     }
 
     /**
@@ -48,7 +48,7 @@ class NotificationController extends Controller
     public function create()
     {
         $member_types = MemberType::whereNull('deleted_at')->get();
-        return view ('notification.create',compact('member_types'));
+        return view('notification.create', compact('member_types'));
     }
 
     /**
@@ -62,12 +62,13 @@ class NotificationController extends Controller
         $messages = [
             'title.required' => 'Title tidak boleh kosong',
             'description.required' => 'Notifikasi tidak boleh kosong',
-            'member_type_id.required' => 'Kategori tidak boleh kosong',
-            'creator_id.required' => 'Kreator tidak boleh kosong',
+            'member_type_id.required' => 'Tipe Mmber tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), [
             'description' => 'required|max:255',
+            'member_type_id' => 'required',
+            'title' => 'required',
 
         ], $messages);
 
@@ -96,7 +97,6 @@ class NotificationController extends Controller
         } else {
             return back()->withInput()->with('info', 'Gagal membuat data notifikasi');
         }
-
     }
 
     /**
@@ -168,6 +168,8 @@ class NotificationController extends Controller
 
         $validator = Validator::make($request->all(), [
             'description' => 'required|max:255',
+            'member_type_id' => 'required',
+            'title' => 'required',
         ], $messages);
 
         if ($validator->fails()) {
@@ -187,7 +189,7 @@ class NotificationController extends Controller
             'creator_id' => $creator_id,
         ];
 
-        $result = $this->NotificationRepository->update($id,$updateData);
+        $result = $this->NotificationRepository->update($id, $updateData);
 
         if ($result) {
             return redirect()->route('notification.index')

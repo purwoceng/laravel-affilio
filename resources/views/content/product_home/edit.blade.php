@@ -76,7 +76,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Produk Rekomendasi (Home Page)</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Produk </h5>
             </div>
         </div>
     </div>
@@ -120,8 +120,10 @@
                             <label>Tipe <span class="text-danger">*</span></label>
                             <select class="custom-select form-control" name="type" required>
                                 <option disabled>Pilih tipe</option>
-                                <option value="recommendation" {{ $product->type == 'recommendation' ? 'selected' : '' }}>Rekomendasi</option>
-                                <option value="affilio_recommendation" {{ $product->type == 'affilio_recommendation' ? 'selected' : '' }}>Affilio</option>
+                                <option value="recommendation" {{ $product->type == 'recommendation' ? 'selected' : '' }}>
+                                    Rekomendasi</option>
+                                <option value="affilio_recommendation"
+                                    {{ $product->type == 'affilio_recommendation' ? 'selected' : '' }}>Affilio</option>
                             </select>
                         </div>
                         <div class="form-group">
