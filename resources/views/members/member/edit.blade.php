@@ -20,11 +20,18 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('error'))
-                        <span class="alert alert-danger my-3 mx-4" role="alert">
-                            Oops - {{ session('error') }}
-                        </span>
+                    @if (session('success'))
+                        <div class="alert alert-success my-3 mx-4" role="alert">
+                            {{ session('success') }}
+                        </div>
                     @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger my-3 mx-4" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
 
                     <form action="{{ route('members.update', $data->id) }}" method="post" enctype="multipart/form-data">
                         @csrf

@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
                                 <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     {{-- <div class="filter-wrapper">
                         <form action="#" class="form" id="filter">
                             <div class="row">
@@ -267,132 +267,132 @@
                 ],
             });
 
-    //         init();
+            init();
 
-    // function init() {
-    //     getDateRangeHandler();
-    //     $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
-    // }
+    function init() {
+        getDateRangeHandler();
+        $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
+    }
 
-    // function getDateRangeHandler() {
-    //     $('#js-daterange-picker').daterangepicker({
-    //         timePickerSeconds: true,
-    //         showDropdwons: true,
-    //         autoApply: true,
-    //         ranges: {
-    //             'Semua': [moment(new Date('01-01-2021')), moment()],
-    //             'Hari Ini': [moment(), moment()],
-    //             '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
-    //             '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
-    //             'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-    //         },
-    //         locale: {
-    //             format: 'YYYY-MM-DD',
-    //             separator: " to ",
-    //             applyLabel: "Apply",
-    //             cancelLabel: "Cancel",
-    //             fromLabel: "From",
-    //             toLabel: "To",
-    //             customRangeLabel: "Custom Range",
-    //             weekLabel: "W",
-    //             daysOfWeek: [
-    //                 "Su",
-    //                 "Mo",
-    //                 "Tu",
-    //                 "We",
-    //                 "Th",
-    //                 "Fr",
-    //                 "Sa"
-    //             ],
-    //             monthNames: [
-    //                 "Januari",
-    //                 "Februari",
-    //                 "Maret",
-    //                 "April",
-    //                 "Mei",
-    //                 "Juni",
-    //                 "Juli",
-    //                 "Agustus",
-    //                 "September",
-    //                 "October",
-    //                 "November",
-    //                 "December"
-    //             ],
-    //             firstDay: 1
-    //         },
-    //         autoUpdateInput: false,
-    //         alwaysShowCalendars: false,
-    //         startDate: moment(),
-    //         endDate: moment(),
-    //             }, rangePickerCB);
-    //             rangePickerCB(moment(), moment());
-    //             let data = [];
-    //             data.push(moment().format('YYYY-MM-DD'));
-    //             data.push(moment().format('YYYY-MM-DD'));
-    //         }
+    function getDateRangeHandler() {
+        $('#js-daterange-picker').daterangepicker({
+            timePickerSeconds: true,
+            showDropdwons: true,
+            autoApply: true,
+            ranges: {
+                'Semua': [moment(new Date('01-01-2021')), moment()],
+                'Hari Ini': [moment(), moment()],
+                '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+                '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+                'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+            },
+            locale: {
+                format: 'YYYY-MM-DD',
+                separator: " to ",
+                applyLabel: "Apply",
+                cancelLabel: "Cancel",
+                fromLabel: "From",
+                toLabel: "To",
+                customRangeLabel: "Custom Range",
+                weekLabel: "W",
+                daysOfWeek: [
+                    "Su",
+                    "Mo",
+                    "Tu",
+                    "We",
+                    "Th",
+                    "Fr",
+                    "Sa"
+                ],
+                monthNames: [
+                    "Januari",
+                    "Februari",
+                    "Maret",
+                    "April",
+                    "Mei",
+                    "Juni",
+                    "Juli",
+                    "Agustus",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ],
+                firstDay: 1
+            },
+            autoUpdateInput: false,
+            alwaysShowCalendars: false,
+            startDate: moment(),
+            endDate: moment(),
+                }, rangePickerCB);
+                rangePickerCB(moment(), moment());
+                let data = [];
+                data.push(moment().format('YYYY-MM-DD'));
+                data.push(moment().format('YYYY-MM-DD'));
+            }
 
-    //     function rangePickerCB(start, end, label) {
-    //         $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
-    //             'YYYY-MM-DD'));
-    //         $('#js-date-range-reward').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-    //         $('#js-date-range-transaksi').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-    //         $('#js-date-range-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
-    //             'YYYY-MM-DD'));
-    //         getDataFiltered();
+        function rangePickerCB(start, end, label) {
+            $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
+                'YYYY-MM-DD'));
+            $('#js-date-range-reward').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            $('#js-date-range-transaksi').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            $('#js-date-range-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+                'YYYY-MM-DD'));
+            getDataFiltered();
 
-    //     };
+        };
 
-        // function getDataFiltered() {
-        //     let filterEl = $('.filter');
-        //     let data = {};
+        function getDataFiltered() {
+            let filterEl = $('.filter');
+            let data = {};
 
-        //     $.each(filterEl, function(i, v) {
-        //         let key = $(v).data('name');
-        //         let value = $(v).val();
-        //         if (key == 'date') {
-        //             if (value != '') {
-        //                 value = value.split('/');
-        //                 data[key] = JSON.stringify(value);
-        //             }
-        //         } else {
-        //             if (value != '') {
-        //                 data[key] = value;
-        //             }
-        //         }
-        //     });
+            $.each(filterEl, function(i, v) {
+                let key = $(v).data('name');
+                let value = $(v).val();
+                if (key == 'date') {
+                    if (value != '') {
+                        value = value.split('/');
+                        data[key] = JSON.stringify(value);
+                    }
+                } else {
+                    if (value != '') {
+                        data[key] = value;
+                    }
+                }
+            });
 
-        //     if (getURLVar('start')) {
-        //         data.start = getURLVar('start');
-        //     }
+            if (getURLVar('start')) {
+                data.start = getURLVar('start');
+            }
 
-        //     if (getURLVar('limit')) {
-        //         data.limit = getURLVar('limit');
-        //     }
-        //     reDrawTable(data);
-        // };
+            if (getURLVar('limit')) {
+                data.limit = getURLVar('limit');
+            }
+            reDrawTable(data);
+        };
 
-        // function getFullUrl(data) {
-        //     let
-        //         url = urlAjax,
-        //         params = '';
+        function getFullUrl(data) {
+            let
+                url = urlAjax,
+                params = '';
 
-        //     $.each(data, function(key, value) {
-        //         if (!!value) {
-        //             params += `${key}=${value}&`;
-        //         }
-        //     });
+            $.each(data, function(key, value) {
+                if (!!value) {
+                    params += `${key}=${value}&`;
+                }
+            });
 
-        //     params = params.replace(/\&$/, '');
+            params = params.replace(/\&$/, '');
 
-        //     if (params != '') {
-        //         url = `${url}?${params}`;
-        //     }
-        //     return url;
-        // };
+            if (params != '') {
+                url = `${url}?${params}`;
+            }
+            return url;
+        };
 
-        // function reDrawTable(data) {
-        //     wishlistTable.ajax.url(getFullUrl(data)).load(null, false);
-        // };
+        function reDrawTable(data) {
+            wishlistTable.ajax.url(getFullUrl(data)).load(null, false);
+        };
 
         });
     </script>

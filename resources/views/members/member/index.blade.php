@@ -69,6 +69,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">No HP</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <input type="text" class="form-control form-control-sm filter"
+                                                        data-name="phone" placeholder="Type Here">
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row">
                                                 <label class="col-4 col-form-label">Tipe Member</label>
                                                 <div
                                                     class="col-8 d-flex flex-row justify-content-center align-items-center">
@@ -333,39 +341,23 @@
                             let elements = '';
 
                             elements += `
-                                <div class="dropdown dropdown-inline">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-icon" data-toggle="dropdown">
-                                        <i class="la la-cog"></i>
+                                <div class="mr-3">
+                                    <a class="btn btn-sm btn-success btn-icon" href="${urlAjax}/detail/${row.id}" title="Detail Member">
+                                    <i class="fas fa-eye mr-1 fa-sm"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                        <ul class="nav nav-hoverable flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/detail/${row.id}">
-                                                    <span class="nav-text">Detail</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/network/${row.id}">
-                                                    <span class="nav-text">Jaringan Member</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/edit/${row.id}">
-                                                    <span class="nav-text">Edit Member</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/reset-password/${row.id}">
-                                                    <span class="nav-text">Reset Password</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="${urlAjax}/reset-pin/${row.id}">
-                                                    <span class="nav-text">Ganti Pin</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <a class="btn btn-sm btn-primary btn-icon" href="${urlAjax}/network/${row.id}" title="Jaringan Member">
+                                    <i class="fas fa-network-wired mr-1 fa-sm"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-warning btn-icon" href="${urlAjax}/edit/${row.id}" title="Edit Member">
+                                    <i class="fas fa-edit mr-1 fa-sm"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger btn-icon" href="${urlAjax}/reset-password/${row.id}" title="Reset Password">
+                                    <i class="fas fa-key mr-1 fa-sm"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-info btn-icon" href="${urlAjax}/reset-pin/${row.id}" title="Ganti PIN">
+                                    <i class="fas fa-money-check mr-1 fa-sm"></i>
+                                    </a>
+
                                 </div>`;
 
                             return elements;
