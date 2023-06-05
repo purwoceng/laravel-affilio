@@ -120,7 +120,7 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $regex_phone = '/^(\+62|62|0)8[1-9][0-9]{6,9}$/';
+        // $regex_phone = '/^(\+62|62|0)8[1-9][0-9]{6,9}$/';
         $validation_messages = [
             'name.required' => 'Nama member wajib diisi!',
             'email.required' => 'Email wajib diisi!',
@@ -153,11 +153,13 @@ class MemberController extends Controller
                     Rule::unique('members', 'username')
                         ->ignore($id),
                 ],
-                'phone' => ['required', "regex:{$regex_phone}"],
-                'member_type_id' => [
-                    'required',
-                    Rule::exists('member_types', 'id'),
-                ],
+                // 'phone' => ['required', "regex:{$regex_phone}"],
+                // 'member_type_id' => [
+                //     'required',
+                //     Rule::exists('member_types', 'id'),
+                // ],
+                'phone' => ['required'],
+
                 'image' => [
                     'nullable',
                     'image',
