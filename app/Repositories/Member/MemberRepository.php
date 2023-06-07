@@ -12,7 +12,6 @@ class MemberRepository implements MemberRepositoryInterface
     {
         //
     }
-
     public function getMemberActive($limit, $start)
     {
         return Member::with('member_addresses')->where('publish', '1')->offset($start)->limit($limit);

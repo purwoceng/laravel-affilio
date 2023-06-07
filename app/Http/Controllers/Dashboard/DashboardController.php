@@ -18,11 +18,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $total_memberr = Member::select(DB::raw("CAST(sum(publish) as int) as total_member"))
+        $total_memberr = Member::select(DB::raw("CAST(SUM(publish)as int)  as total_member"))
+                        ->whereYear('created_at', date('Y'))
                         ->GroupBy(DB::raw("Month(created_at)"))
                         ->pluck('total_member');
 
         $bulan = Member::select(DB::raw("MONTHNAME(created_at) as bulan"))
+                 ->whereYear('created_at', date('Y'))
                 ->GroupBy(DB::raw("MONTHNAME(created_at)"))
                 ->pluck('bulan');
 
