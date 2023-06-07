@@ -45,14 +45,12 @@ class MemberRepository implements MemberRepositoryInterface
             $keyword = $request->get('name');
             $getQuery->where('name', 'like', '%' . $keyword . '%');
             $getQueryTotal->where('name', 'like', '%' . $keyword . '%');
-
         }
 
         if ($request->filled('username')) {
             $keyword = $request->get('username');
             $getQuery->where('username', 'like', '%' . $keyword . '%');
             $getQueryTotal->where('username', 'like', '%' . $keyword . '%');
-
         }
 
         if ($request->filled('email')) {
@@ -72,7 +70,27 @@ class MemberRepository implements MemberRepositoryInterface
                 $keyword = $request->get('member_type');
                 $getQuery->where('member_type_id', $keyword);
                 $getQueryTotal->where('member_type_id', $keyword);
-
+            }
+        }
+        if ($request->filled('is_verified')) {
+            if ($request->is_verified != 'all') {
+                $keyword = $request->get('is_verified');
+                $getQuery->where('is_verified', $keyword);
+                $getQueryTotal->where('is_verified', $keyword);
+            }
+        }
+        if ($request->filled('is_founder')) {
+            if ($request->is_founder != 'all') {
+                $keyword = $request->get('is_founder');
+                $getQuery->where('is_founder', $keyword);
+                $getQueryTotal->where('is_founder', $keyword);
+            }
+        }
+        if ($request->filled('is_transaction')) {
+            if ($request->is_transaction != 'all') {
+                $keyword = $request->get('is_transaction');
+                $getQuery->where('is_transaction', $keyword);
+                $getQueryTotal->where('is_transaction', $keyword);
             }
         }
         if ($request->filled('referral')) {
@@ -82,18 +100,18 @@ class MemberRepository implements MemberRepositoryInterface
                 $getQueryTotal->where('referral', 'like', '%' . $keyword . '%');
             }
         }
-         if ($request->filled('city_name')) {
-             if ($request->city_name != 'all') {
-                 $keyword = $request->get('city_name');
-                 $getQuery->whereHas('member_addresses', function ($query) use ($keyword) {
-                     return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . $keyword. '%');
-                 });
+        if ($request->filled('city_name')) {
+            if ($request->city_name != 'all') {
+                $keyword = $request->get('city_name');
+                $getQuery->whereHas('member_addresses', function ($query) use ($keyword) {
+                    return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . $keyword . '%');
+                });
 
-                 $getQueryTotal->whereHas('member_addresses', function ($query) use ($keyword) {
-                     return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . $keyword. '%');
-                 });
-             }
-          }
+                $getQueryTotal->whereHas('member_addresses', function ($query) use ($keyword) {
+                    return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . $keyword . '%');
+                });
+            }
+        }
 
         // if ($request->filled('is_transaction')) {
         //     $keyword = $request->get('is_transaction');
