@@ -61,20 +61,21 @@
 
 
 
-
-             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}"
-                 aria-haspopup="true" data-menu-toggle="hover">
-                 <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
-                     <span class="svg-icon menu-icon">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-cart-fill" viewBox="0 0 18 18">
-                             <path
-                                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                         </svg>
-                     </span>
-                     <span class="menu-text">Orders</span>
-                 </a>
-             </li>
+             @hasanyrole('super_user|admin_member|akutansi')
+                 <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}"
+                     aria-haspopup="true" data-menu-toggle="hover">
+                     <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
+                         <span class="svg-icon menu-icon">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-cart-fill" viewBox="0 0 18 18">
+                                 <path
+                                     d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                             </svg>
+                         </span>
+                         <span class="menu-text">Orders</span>
+                     </a>
+                 </li>
+             @endhasanyrole
 
              @hasanyrole('supplier|super_user|admin_member')
                  <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}"
@@ -209,7 +210,7 @@
                  </li>
              @endhasanyrole
 
-             @hasanyrole('akutansi|super_user|event|admin_member')
+             @hasanyrole('akutansi|super_user|event|admin_member|customer_service')
                  <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
