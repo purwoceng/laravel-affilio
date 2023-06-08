@@ -158,7 +158,7 @@ class MemberController extends Controller
                 //     'required',
                 //     Rule::exists('member_types', 'id'),
                 // ],
-                'phone' => ['required'],
+                'phone' => ['required', 'max:15', 'min:8',],
 
                 'image' => [
                     'nullable',

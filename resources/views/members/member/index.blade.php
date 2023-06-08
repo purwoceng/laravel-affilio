@@ -76,6 +76,7 @@
                                                         data-name="phone" placeholder="Type Here">
                                                 </div>
                                             </div>
+
                                             <div class="form-group form-group-sm row">
                                                 <label class="col-4 col-form-label">Tipe Member</label>
                                                 <div
@@ -87,6 +88,20 @@
                                                         @foreach ($member_type as $data)
                                                             <option value="{{ $data->id }}">{{ $data->type }}</option>
                                                         @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Status Founder</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <select type="text" class="form-control form-control-sm filter"
+                                                        data-name="is_founder" placeholder="Type Here">
+                                                        <option disabled>Pilih Status Founder</option>
+                                                        <option value="all" selected default>Semua</option>
+                                                        <option value="1">Founder</option>
+                                                        <option value="0">Bukan Founder</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -108,14 +123,6 @@
                                                         data-name="referral" placeholder="Type Here">
                                                 </div>
                                             </div>
-                                            {{-- <div class="form-group form-group-sm row">
-                                                <label class="col-4 col-form-label">Kota</label>
-                                                <div
-                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
-                                                    <input type="text" class="form-control form-control-sm filter"
-                                                        data-name="city_name" placeholder="Type Here">
-                                                </div>
-                                            </div> --}}
                                             <div class="form-group form-group-sm row">
                                                 <label class="col-4 col-form-label">Kota</label>
                                                 <div
@@ -126,6 +133,33 @@
                                                 </div>
                                             </div>
 
+
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label"> Verifikasi</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <select type="text" class="form-control form-control-sm filter"
+                                                        data-name="is_verified" placeholder="Type Here">
+                                                        <option disabled>Pilih Status Verifikasi</option>
+                                                        <option value="all" selected default>Semua</option>
+                                                        <option value="1">Verifikasi</option>
+                                                        <option value="0">Belum Verifikasi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row">
+                                                <label class="col-4 col-form-label">Role Transaksi</label>
+                                                <div
+                                                    class="col-8 d-flex flex-row justify-content-center align-items-center">
+                                                    <select type="text" class="form-control form-control-sm filter"
+                                                        data-name="is_transaction" placeholder="Type Here">
+                                                        <option disabled>Pilih Role Transaksi</option>
+                                                        <option value="all" selected default>Semua</option>
+                                                        <option value="1">Transaksi</option>
+                                                        <option value="0">Non-Transaksi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
