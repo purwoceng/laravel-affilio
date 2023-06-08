@@ -443,31 +443,51 @@
 
         });
 
-        var members = <?php echo json_encode($total_memberr, JSON_NUMERIC_CHECK) ?>;
+        var members = <?php echo json_encode($total_memberr) ?>;
         var bulan = <?php echo json_encode($bulan, JSON_NUMERIC_CHECK) ?>;
-        Highcharts.chart('grafik',{
-            title : {
-                text : 'Grafik Member Affilio'
-            },
-            xAxis : {
-                categories : bulan
-            },
-            yAxis : {
-                title : {
-                    text : 'Jumlah'
+        Highcharts.chart('grafik', {
+        title: {
+            text: ' Grafik Member Baru Affilio'
+        },
+        subtitle: {
+            text: 'Source: affilio.co.id'
+        },
+         xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Jumlah Member'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+        plotOptions: {
+            series: {
+                allowPointSelect: true
+            }
+        },
+        series: [{
+            name: 'Member Baru',
+            data: members
+        }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
                 }
-            },
-            plotOptions : {
-                series : {
-                    allowPointSelect : true
-                }
-            },
-            series :[
-                {
-                    name: 'Jumlah Member',
-                    data: members
-                }
-            ],
+            }]
+        }
         });
 
         var orders = <?php echo json_encode($total_margin, JSON_NUMERIC_CHECK) ?>;

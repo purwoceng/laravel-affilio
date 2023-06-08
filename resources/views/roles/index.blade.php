@@ -22,10 +22,10 @@
                     <div class="card-title">
                         <h3 class="card-label">Data Peran</h3>
                     </div>
-                    {{-- <a class="btn btn-success float-right" href="{{ route('roles.create') }}" title="Tambah Role">
+                    <a class="btn btn-success float-right" href="{{ route('roles.create') }}" title="Tambah User">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
                         Tambah
-                    </a> --}}
+                    </a>
                 </div>
 
                 <div class="card-body">

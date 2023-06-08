@@ -12,6 +12,10 @@ class RoleRepository implements RoleRepositoryInterface
         //
     }
 
+    public function create(array $data)
+    {
+        return Role::create($data);
+    }
     public function getRoles($limit, $start)
     {
         return Role::offset($start)->limit($limit);

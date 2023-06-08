@@ -1,11 +1,11 @@
-{{-- @extends('core.app')
+@extends('core.app')
 @section('title', __('Buat Roles'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Akses: Buat Roles</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Buat Roles User</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Roles User</h3>
+                        <h3 class="card-label">Buat Kategori Buat User</h3>
                     </div>
 
                 </div>
@@ -39,54 +39,23 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('roles.store') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
-                                    <label>Nama<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama User"
+                                    <label>Nama Roles User<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Roles User"
                                         name="name" value="" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>Username<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Username"
-                                        name="username" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>Email<span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" placeholder="Masukkan Email"
-                                        name="email" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label>Password<span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password"
-                                        name="password" value="" required />
-                                </div>
-                                <div class="form-group">
-                                    <label for="input-member-type-id">Role</label>
-                                    <select name="roles"
-                                        id="input-member-type-id"
-                                        class="form-control"
-                                        aria-describedby="member-type-helper"
-                                        required>
-                                        <option selected disabled value="0">Pilih Role User</option>
-                                        @foreach ($roles as $data)
-                                                            <option value="{{ $data->id }}">
-                                                                {{ $data->label }}
-                                                            </option>
-                                                        @endforeach
-                                    </select>
-
-                                    @error('member_type_id')
-                                        <small id="member-type-helper" class="form-text text-danger">
-                                            {{ $message }}
-                                        </small>
-                                    @enderror
+                                    <label>Label Role<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Label Role"
+                                        name="label" value="" required />
                                 </div>
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('users.index') }}"
+                                        <a href="{{ route('roles.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 
@@ -101,4 +70,4 @@
             </div>
         </div>
     </div>
-@endsection --}}
+@endsection
