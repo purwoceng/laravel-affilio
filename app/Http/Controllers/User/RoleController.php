@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\User\RoleRepositoryInterface;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Contracts\Validation\Validator;
+use App\Repositories\Interfaces\User\RoleRepositoryInterface;
 
 class RoleController extends Controller
 {
@@ -41,4 +44,43 @@ class RoleController extends Controller
 
         return view('roles.detail', $data);
     }
+
+    public function create()
+    {
+        return view ('roles.create');
+    }
+
+    public function store(Request $request)
+    {
+        $messages = [
+            'name.required' => 'Judul Video tidak boleh kosong',
+            'label.required' => 'url video tidak boleh kosong',
+        ];
+
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|max:100',
+
+        // ], $messages);
+
+        // if($validator->fails()){
+        //     return Redirect::back()->withErrors($validator)->withInput();
+        // }
+
+        $createData = [
+            'name' => $request->name,
+            'label' => $request->label,
+            'guard_name' => 'web',
+        ];
+
+
+        $result = $this->role_repository->create($createData);
+
+        if ($result) {
+            return redirect()->route('roles.index')
+                ->with('success', 'Data Video Training telah berhasil dibuat');
+        } else {
+            return back()->withInput()->with('info', 'Gagal membuat data video training');
+        }
+    }
+
 }

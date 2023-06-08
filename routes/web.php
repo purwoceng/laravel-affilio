@@ -167,6 +167,8 @@ Route::middleware('auth')->group(function () {
         ->name('roles.')
         ->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('index');
+            Route::get('/create', [RoleController::class, 'create'])->name('create');
+            Route::post('/store', [RoleController::class, 'store'])->name('store');
             Route::get('/detail/{id}', [RoleController::class, 'show'])->name('detail');
         });
 
