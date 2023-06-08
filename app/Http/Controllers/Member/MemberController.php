@@ -200,20 +200,11 @@ class MemberController extends Controller
 
         $member->save();
 
-        $referral = ReferralHelper::find($id);
-        $referral = ReferralHelper::where('member_id','=', $id)->get();
-        foreach($referral as $ref){
-        $ref -> member_is_founder = $request->is_founder;
-        $ref->save();
-        }
+        //update member
+        ReferralHelper::where('member_id', '=', $id)->update(['member_is_founder' => $request->is_founder]);
 
-        $referral1 = ReferralHelper::find($id);
-        $referral1 = ReferralHelper::where('referral_id','=', $id)->get();
-        foreach($referral1 as $ref1){
-        $ref1 -> referral_is_founder = $request->is_founder;
-        $ref1->save();
-        }
-
+        //update referral
+        ReferralHelper::where('referral_id', '=', $id)->update(['referral_is_founder' => $request->is_founder]);
 
         if ($member) {
             return redirect()
