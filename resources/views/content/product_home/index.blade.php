@@ -175,12 +175,22 @@
 
                             const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                            console.log(data);
-                            if (data.media?.[1]) {
+                            let image = '';
+                            for(let i = 0; i< data.media.length; i++){
+                                if(data.media[i].type == "video"){
+                                    continue;
+                                }
+
+                                if(data.media[i].type == "image"){
+                                    image = data.media[i].link
+                                    break;
+                                }
+                            }
+                            if (image) {
                                 element += `
                                     <div class="product-cell">
                                         <div class="product-cell__image">
-                                            <img src="${data.media[1].link}" />
+                                            <img src="${image}" />
                                         </div>
                                         <div class="product-cell__content">
                                             <span class="product-cell__title">${data.name}</span>
