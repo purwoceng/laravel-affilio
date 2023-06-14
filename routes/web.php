@@ -156,6 +156,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
             Route::get('/detail/{id}', [UserController::class, 'show'])->name('detail');
+            Route::get('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
         });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -177,6 +178,8 @@ Route::middleware('auth')->group(function () {
         ->name('permissions.')
         ->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('index');
+            Route::get('/create', [PermissionController::class, 'create'])->name('create');
+            Route::post('/store', [PermissionController::class, 'store'])->name('store');
             Route::get('/detail/{id}', [PermissionController::class, 'show'])->name('detail');
         });
 

@@ -97,4 +97,13 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
+
+    public function destroy($id)
+    {
+        $role = User::findOrFail($id);
+        $role->delete();
+        return redirect()->back()->with(['success' => 'User: <strong>' . $role->name . '</strong> Dihapus']);
+
+
+    }
 }

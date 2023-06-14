@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Edit User'))
+@section('title', __('Buat Roles'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Edit User</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Buat Roles User</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Edit User</h3>
+                        <h3 class="card-label">Buat Kategori Buat User</h3>
                     </div>
 
                 </div>
@@ -39,33 +39,19 @@
                                 </ul>
                             @endif
 
-                            <form method="POST" action="{{ route('users.update', $data->id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('permissions.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
 
                                 <div class="form-group">
-                                    <label>Nama<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama User"
-                                        name="name" value="{{$data->name}}"/>
+                                    <label>Nama Roles User<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Roles User"
+                                        name="name" value="" required />
                                 </div>
-                                <div class="form-group">
-                                    <label>Username<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Username"
-                                        name="username" value="{{$data->username}}" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Email<span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" placeholder="Masukkan Email"
-                                        name="email" value="{{$data->email}}"  />
-                                </div>
-                                <div class="form-group">
-                                    <label>Password<span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password"
-                                        name="password" value="{{$data->password}}" required />
-                                </div>
+
+
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
-                                        <a href="{{ route('users.index') }}"
+                                        <a href="{{ route('permissions.index') }}"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 

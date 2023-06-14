@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\User\PermissionRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -40,5 +41,18 @@ class PermissionController extends Controller
         $data = ['permission' => $selected_permission, 'title' => $title];
 
         return view('permissions.detail', $data);
+    }
+
+    public function create()
+    {
+        return view ('permissions.create');
+    }
+
+    public function store(Request $request)
+    {
+        Permission::create([
+            'name' => $request->name,
+            'guard_name' => 'web',
+        ]);
     }
 }

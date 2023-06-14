@@ -70,6 +70,7 @@
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -146,6 +147,14 @@
                         className: 'text-left small',
                     },
                     {
+                        data: 'roles',
+                        name: 'roles',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
                         data: 'actions',
                         name: 'actions',
                         sortable: false,
@@ -173,6 +182,13 @@
                                                 <span class="nav-text">Edit User</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
+                                                    href="{{ url('users/delete/${row.id}') }}">
+                                                    <span class="nav-text nav-text-danger">Hapus</span>
+                                                </a>
+                                            </li>
                                     </ul>
                                 </div>
                             </div>`;

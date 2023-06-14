@@ -143,7 +143,7 @@
              @endhasanyrole
 
              @hasanyrole('supplier|super_user|admin_member')
-                 <li class="menu-item menu-item-submenu 
+                 <li class="menu-item menu-item-submenu
                  {{-- {{ request()->is('suppliers*') ? 'menu-item-open' : '' }} --}}
                  "
                      aria-haspopup="true" data-menu-toggle="hover">
