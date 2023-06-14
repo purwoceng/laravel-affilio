@@ -51,7 +51,7 @@ class MemberExport implements FromView, WithEvents, ShouldAutoSize
 
 
 
-        $members = $query->get();
+        $members = $query->paginate(500);
 
         return view('members.member.exportexcel', [
             'members' => $members,
