@@ -58,10 +58,41 @@
                                     <input type="email" class="form-control" placeholder="Masukkan Email"
                                         name="email" value="{{$data->email}}"  />
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label>Password<span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" placeholder="Masukkan Password"
                                         name="password" value="{{$data->password}}" required />
+                                </div> --}}
+                                <div class="form-group">
+                                    <label>Role<span class="text-danger">*</span></label>
+                                    @foreach ($data->getRoleNames() as $item)
+                                        <input type="text" class="form-control" placeholder="Masukkan Password"
+                                        name="password" value="{{$item}}" disabled />
+                                    @endforeach
+                                </div>
+                                <div class="form-group">
+                                    <label>Permission<span class="text-danger"></span></label>
+                                    @foreach ($data->getPermissionNames() as $permissions)
+                                    <div class="form-check">
+                                        <div class="checkbox">
+                                        <label for="checkbox1" class="checkbox-bootstrap checkbox-lg ">
+                                          <input type="checkbox" id="input-member-type-id" name="member_type_id[]" value="{{ $permissions }}" disabled checked> {{ $permissions }}
+                                        </label>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="form-group">
+                                    <label>Tambah Permission<span class="text-danger"></span></label>
+                                    @foreach ($permission as $key=> $permissions)
+                                    <div class="form-check">
+                                        <div class="checkbox">
+                                        <label for="checkbox1" class="form-check-label ">
+                                          <input type="checkbox" id="input-member-type-id" name="permission[]" value="{{ $permissions->id }}"{{ $data->permissions->pluck('id')->contains($permissions->id) ? 'checked' : '' }}> {{ $permissions->name }}
+                                        </label>
+                                        </div>
+                                    </div>
+                                    @endforeach
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">

@@ -83,6 +83,18 @@
                                         </small>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label>Permission<span class="text-danger"></span></label>
+                                    @foreach ($permission as $key=> $permissions)
+                                    <div class="form-check">
+                                        <div class="checkbox">
+                                        <label for="checkbox1" class="form-check-label ">
+                                          <input type="checkbox" id="input-member-type-id" name="permission[]" value="{{ $permissions->id }}"> {{ $permissions->name }}
+                                        </label>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
 
                                 <div class="d-flex flex-row">
                                     <div class="p-1">

@@ -50,9 +50,23 @@ class PermissionController extends Controller
 
     public function store(Request $request)
     {
-        Permission::create([
+        $input = Permission::create([
             'name' => $request->name,
             'guard_name' => 'web',
         ]);
+        if ($input) {
+            return redirect()
+                ->route('permissions.index')
+                ->with([
+                    'success' => 'Berhasil memperbarui data permission.'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi kesalahan saat memperbarui data. Mohon coba kembali!'
+                ]);
+        }
     }
 }

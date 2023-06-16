@@ -77,9 +77,9 @@ Route::middleware('auth')->group(function () {
 
     // Member Menu
     Route::prefix('members')->name('members.')->group(function () {
-        Route::get('/', [MemberController::class, 'index'])->name('index');
-        Route::get('/detail/{id}', [MemberController::class, 'show'])->name('detail');
-        Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit');
+        Route::get('/', [MemberController::class, 'index'])->name('index')->middleware('can:read_member');
+        Route::get('/detail/{id}', [MemberController::class, 'show'])->name('detail')->middleware('can:read_member');
+        Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit')->middleware('can:update_member');
         Route::put('/update/{id}', [MemberController::class, 'update'])->name('update');
         Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
         Route::get('/exportexcel', [MemberController::class, 'exportexcel'])->name('exportexcel');
@@ -97,30 +97,30 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('reset-password')->name('reset-password.')->group(function () {
-            Route::get('/{id}', [MemberResetPassword::class, 'resetPassword'])->name('resetPassword');
+            Route::get('/{id}', [MemberResetPassword::class, 'resetPassword'])->name('resetPassword')->middleware('can:update_member');
             Route::put('/update/{id}', [MemberResetPassword::class, 'updatePassword'])->name('updatePassword');
         });
 
         Route::prefix('reset-pin')->name('reset-pin.')->group(function () {
-            Route::get('/{id}', [MemberResetPin::class, 'resetPin'])->name('resetPin');
+            Route::get('/{id}', [MemberResetPin::class, 'resetPin'])->name('resetPin')->middleware('can:update_member');
             Route::put('/update/{id}', [MemberResetPin::class, 'updatePin'])->name('updatePin');
         });
 
         Route::prefix('member_type')->name('member_type.')->group(function () {
             Route::get('/', [MemberTypeController::class, 'index'])->name('index');
-            Route::get('/create', [MemberTypeController::class, 'create'])->name('create');
+            Route::get('/create', [MemberTypeController::class, 'create'])->name('create')->middleware('can:create_member');
             Route::post('/store', [MemberTypeController::class, 'store'])->name('store');
             Route::get('/show/{id}', [MemberTypeController::class, 'show'])->name('show');
-            Route::get('/edit/{id}', [MemberTypeController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [MemberTypeController::class, 'edit'])->name('edit')->middleware('can:update_member');
             Route::put('/update/{id}', [MemberTypeController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [MemberTypeController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [MemberTypeController::class, 'destroy'])->name('destroy')->middleware('can:update_member');
         });
     });
 
     // Orders Menu
     Route::prefix('orders')->name('orders.')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('index');
-        Route::get('/show/{id}', [OrderController::class, 'show'])->name('show');
+        Route::get('/', [OrderController::class, 'index'])->name('index')->middleware('can:read_orders');
+        Route::get('/show/{id}', [OrderController::class, 'show'])->name('show')->middleware('can:read_orders');
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
@@ -154,7 +154,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/create', [UserController::class, 'create'])->name('create');
             Route::post('/store', [UserController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+            Route::get('/editpassword/{id}', [UserController::class, 'editpassword'])->name('editpassword');
             Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
+            Route::put('/updatepassword/{id}', [UserController::class, 'updatepassword'])->name('updatepassword');
             Route::get('/detail/{id}', [UserController::class, 'show'])->name('detail');
             Route::get('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
         });
@@ -207,11 +209,11 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             // Products
             Route::get('/', [ProductController::class, 'index'])->name('index');
-            Route::get('/create', [ProductController::class, 'create'])->name('create');
+            Route::get('/create', [ProductController::class, 'create'])->name('create')->middleware('can:create_produk');
             Route::post('/store', [ProductController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit')->middleware('can:update_produk');
             Route::put('/update/{id}', [ProductController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('delete');
+            Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('delete')->middleware('can:delete_produk');
             Route::get('/avail-numbers', [ProductController::class, 'getAvailableQueueNumber'])->name('avail_numbers');
 
             // Categories / Types
@@ -230,11 +232,11 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             // Products
             Route::get('/', [ProductAffilioController::class, 'index'])->name('index');
-            Route::get('/create', [ProductAffilioController::class, 'create'])->name('create');
+            Route::get('/create', [ProductAffilioController::class, 'create'])->name('create')->middleware('can:create_produk');
             Route::post('/store', [ProductAffilioController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [ProductAffilioController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [ProductAffilioController::class, 'edit'])->name('edit')->middleware('can:update_produk');
             Route::put('/update/{id}', [ProductAffilioController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [ProductAffilioController::class, 'delete'])->name('delete');
+            Route::get('/delete/{id}', [ProductAffilioController::class, 'delete'])->name('delete')->middleware('can:delete_produk');
             Route::get('/avail-numbers', [ProductAffilioController::class, 'getAvailableQueueNumber'])->name('avail_numbers');
         });
 
@@ -242,12 +244,12 @@ Route::middleware('auth')->group(function () {
         ->name('banners.')
         ->group(function () {
             Route::get('/', [BannerController::class, 'index'])->name('index');
-            Route::get('/create', [BannerController::class, 'create'])->name('create');
+            Route::get('/create', [BannerController::class, 'create'])->name('create')->middleware('can:create_konten');
             Route::post('/store', [BannerController::class, 'store'])->name('store');
             Route::get('/show/{id}', [BannerController::class, 'show'])->name('show');
-            Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('edit')->middleware('can:update_konten');
             Route::post('/update/{id}', [BannerController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [BannerController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [BannerController::class, 'destroy'])->name('destroy')->middleware('can:delete_konten');
 
             Route::prefix('category')->name('category.')->group(function () {
                 Route::get('/', [BannerCategoryController::class, 'index'])->name('index');
@@ -275,12 +277,12 @@ Route::middleware('auth')->group(function () {
     //supplier-cover
     Route::prefix('supplierscover')->name('supplierscover.')->group(function () {
         Route::get('/', [SupplierCoverController::class, 'index'])->name('index');
-        Route::get('/create', [SupplierCoverController::class, 'create'])->name('create');
+        Route::get('/create', [SupplierCoverController::class, 'create'])->name('create')->middleware('can:create_konten');
         Route::post('/store', [SupplierCoverController::class, 'store'])->name('store');
         Route::get('/show/{id}', [SupplierCoverController::class, 'show'])->name('show');
-        Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit');
+        Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit')->middleware('can:update_konten');
         Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy');
+        Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy')->middleware('can:delete_konten');
     });
     //supplier-list
     Route::prefix('supplierslist')->name('supplierslist.')->group(function () {
@@ -334,12 +336,12 @@ Route::middleware('auth')->group(function () {
         ->name('video_training.')
         ->group(function () {
             Route::get('/', [VideoTrainingController::class, 'index'])->name('index');
-            Route::get('/create', [VideoTrainingController::class, 'create'])->name('create');
+            Route::get('/create', [VideoTrainingController::class, 'create'])->name('create')->middleware('can:create_konten');
             Route::post('/store', [VideoTrainingController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [VideoTrainingController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [VideoTrainingController::class, 'edit'])->name('edit')->middleware('can:update_konten');
             Route::put('/update/{id}', [VideoTrainingController::class, 'update'])->name('update');
             Route::get('/show/{id}', [VideoTrainingController::class, 'show'])->name('show');
-            Route::get('/delete/{id}', [VideoTrainingController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [VideoTrainingController::class, 'destroy'])->name('destroy')->middleware('can:delete_konten');
         });
 
     //video home
@@ -360,12 +362,12 @@ Route::middleware('auth')->group(function () {
         ->name('notification.')
         ->group(function () {
             Route::get('/', [NotificationController::class, 'index'])->name('index');
-            Route::get('/create', [NotificationController::class, 'create'])->name('create');
+            Route::get('/create', [NotificationController::class, 'create'])->name('create')->middleware('can:create_funnel');
             Route::post('/store', [NotificationController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [NotificationController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [NotificationController::class, 'edit'])->name('edit')->middleware('can:update_funnel');
             Route::put('/update/{id}', [NotificationController::class, 'update'])->name('update');
             Route::get('/show/{id}', [NotificationController::class, 'show'])->name('show');
-            Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [NotificationController::class, 'destroy'])->name('destroy')->middleware('can:delete_funnel');
         });
     //notifikasi pesan
     Route::prefix('notificationstatus')
@@ -389,19 +391,19 @@ Route::middleware('auth')->group(function () {
     Route::prefix('markup')
         ->name('markup.')
         ->group(function () {
-            Route::get('/edit', [GlobalSettingController::class, 'edit'])->name('edit');
-            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update');
+            Route::get('/edit', [GlobalSettingController::class, 'edit'])->name('edit')->middleware('can:read_markup');
+            Route::put('/update', [GlobalSettingController::class, 'update'])->name('update')->middleware('can:update_markup');
         });
 
     Route::prefix('markup-product')
         ->name('markup_product.')
         ->group(function () {
             Route::get('/', [MarkupProductController::class, 'index'])->name('index');
-            Route::get('/edit/{id}', [MarkupProductController::class, 'edit'])->name('edit');
-            Route::get('/create', [MarkupProductController::class, 'create'])->name('create');
+            Route::get('/edit/{id}', [MarkupProductController::class, 'edit'])->name('edit')->middleware('can:update_markup');
+            Route::get('/create', [MarkupProductController::class, 'create'])->name('create')->middleware('can:create_markup');
             Route::post('/store', [MarkupProductController::class, 'store'])->name('store');
             Route::put('/update/{id}', [MarkupProductController::class, 'update'])->name('update');
-            Route::get('/destroy/{id}', [MarkupProductController::class, 'destroy'])->name('destroy');
+            Route::get('/destroy/{id}', [MarkupProductController::class, 'destroy'])->name('destroy')->middleware('can:delete_markup');
         });
 
 
@@ -431,29 +433,29 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('event')->name('event.')->group(function () {
-        Route::get('/', [EventController::class, 'index'])->name('index');
-        Route::get('/create', [EventController::class, 'create'])->name('create');
+        Route::get('/', [EventController::class, 'index'])->name('index')->middleware('can:read_event');
+        Route::get('/create', [EventController::class, 'create'])->name('create')->middleware('can:create_event');
         Route::post('/store', [EventController::class, 'store'])->name('store');
-        Route::get('/delete/{id}', [EventController::class, 'destroy'])->name('destroy');
+        Route::get('/delete/{id}', [EventController::class, 'destroy'])->name('destroy')->middleware('can:delete_event');
         Route::get('/show/{id}', [EventController::class, 'show'])->name('show');
-        Route::get('/edit/{id}', [EventController::class, 'edit'])->name('edit');
+        Route::get('/edit/{id}', [EventController::class, 'edit'])->name('edit')->middleware('can:update_event');
         Route::post('/update/{id}', [EventController::class, 'update'])->name('update');
     });
 
     Route::prefix('tiket')->name('tiket.')->group(function () {
-        Route::get('/', [TiketController::class, 'index'])->name('index');
-        Route::get('/create', [TiketController::class, 'create'])->name('create');
+        Route::get('/', [TiketController::class, 'index'])->name('index')->middleware('can:read_event');
+        Route::get('/create', [TiketController::class, 'create'])->name('create')->middleware('can:create_event');
         Route::post('/store', [TiketController::class, 'store'])->name('store');
-        Route::get('/delete/{id}', [TiketController::class, 'destroy'])->name('destroy');
+        Route::get('/delete/{id}', [TiketController::class, 'destroy'])->name('destroy')->middleware('can:delete_event');
         Route::get('/show/{id}', [TiketController::class, 'show'])->name('show');
-        Route::get('/edit/{id}', [TiketController::class, 'edit'])->name('edit');
+        Route::get('/edit/{id}', [TiketController::class, 'edit'])->name('edit')->middleware('can:update_event');
         Route::post('/update/{id}', [TiketController::class, 'update'])->name('update');
     });
 
     //dana pensiun
     Route::prefix('pensiun')->name('pensiun.')->group(function () {
-        Route::get('/', [DanaPensiunController::class, 'index'])->name('index');
-        Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show');
+        Route::get('/', [DanaPensiunController::class, 'index'])->name('index')->middleware('can:read_dana');
+        Route::get('/show/{id}', [DanaPensiunController::class, 'show'])->name('show')->middleware('can:read_dana');
         Route::get('/get-dashboard', [PensiunDashboardController::class, 'getDashboard'])->name('dashboard');
         Route::get('/exportexcel', [DanaPensiunController::class, 'exportexcel'])->name('exportexcel');
     });
@@ -464,15 +466,15 @@ Route::middleware('auth')->group(function () {
     Route::prefix('reward')
         ->name('reward.')
         ->group(function () {
-            Route::get('/', [RewardController::class, 'index'])->name('index');
-            Route::get('/show/{id}', [RewardController::class, 'show'])->name('show');
+            Route::get('/', [RewardController::class, 'index'])->name('index')->middleware('can:read_dana');
+            Route::get('/show/{id}', [RewardController::class, 'show'])->name('show')->middleware('can:read_dana');
         });
     //dana acara
     Route::prefix('eventfund')
         ->name('eventfund.')
         ->group(function () {
-            Route::get('/', [EventfundController::class, 'index'])->name('index');
-            Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show');
+            Route::get('/', [EventfundController::class, 'index'])->name('index')->middleware('can:read_dana');
+            Route::get('/show/{id}', [EventfundController::class, 'show'])->name('show')->middleware('can:read_dana');
             Route::get('/get-dashboard', [EventDashboardController::class, 'getDashboard'])->name('dashboard');
             Route::get('/exportexcel', [EventfundController::class, 'exportexcel'])->name('exportexcel');
         });
@@ -481,8 +483,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('fund')
         ->name('fund.')
         ->group(function () {
-            Route::get('/', [FundController::class, 'index'])->name('index');
-            Route::get('/show/{id}', [FundController::class, 'show'])->name('show');
+            Route::get('/', [FundController::class, 'index'])->name('index')->middleware('can:read_dana');
+            Route::get('/show/{id}', [FundController::class, 'show'])->name('show')->middleware('can:read_dana');
             Route::get('/exportexcel', [FundController::class, 'exportexcel'])->name('exportexcel');
         });
 
@@ -490,8 +492,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('withdraw')
         ->name('withdraw.')
         ->group(function () {
-            Route::get('/', [WithdrawController::class, 'index'])->name('index');
-            Route::get('/show/{id}', [WithdrawController::class, 'show'])->name('show');
+            Route::get('/', [WithdrawController::class, 'index'])->name('index')->middleware('can:read_dana');
+            Route::get('/show/{id}', [WithdrawController::class, 'show'])->name('show')->middleware('can:read_dana');
             Route::post('/verification', [WithdrawController::class, 'verification'])->name('verification');
             Route::get('/exportexcel', [WithdrawController::class, 'exportexcel'])->name('exportexcel');
         });
@@ -501,12 +503,12 @@ Route::middleware('auth')->group(function () {
         ->name('funnel.')
         ->group(function () {
             Route::get('/', [FunnelLinkController::class, 'index'])->name('index');
-            Route::get('/create', [FunnelLinkController::class, 'create'])->name('create');
+            Route::get('/create', [FunnelLinkController::class, 'create'])->name('create')->middleware('can:create_funnel');
             Route::post('/store', [FunnelLinkController::class, 'store'])->name('store');
             Route::get('/show/{id}', [FunnelLinkController::class, 'show'])->name('show');
-            Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [FunnelLinkController::class, 'edit'])->name('edit')->middleware('can:update_funnel');
             Route::put('/update/{id}', [FunnelLinkController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [FunnelLinkController::class, 'destroy'])->name('destroy')->middleware('can:delete_funnel');
         });
 
     //Header Funnelink
@@ -514,25 +516,25 @@ Route::middleware('auth')->group(function () {
         ->name('headerfunnel.')
         ->group(function () {
             Route::get('/', [HeaderFunnelController::class, 'index'])->name('index');
-            Route::get('/create', [HeaderFunnelController::class, 'create'])->name('create');
+            Route::get('/create', [HeaderFunnelController::class, 'create'])->name('create')->middleware('can:create_funnel');
             Route::post('/store', [HeaderFunnelController::class, 'store'])->name('store');
             Route::get('/show/{id}', [HeaderFunnelController::class, 'show'])->name('show');
-            Route::get('/edit/{id}', [HeaderFunnelController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [HeaderFunnelController::class, 'edit'])->name('edit')->middleware('can:update_funnel');
             Route::put('/update/{id}', [HeaderFunnelController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [HeaderFunnelController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [HeaderFunnelController::class, 'destroy'])->name('destroy')->middleware('can:delete_funnel');
         });
 
     // Greeting Event
     Route::prefix('greeting')
         ->name('greeting.')
         ->group(function () {
-            Route::get('/', [EventGreetingController::class, 'index'])->name('index');
-            Route::get('/create', [EventGreetingController::class, 'create'])->name('create');
+            Route::get('/', [EventGreetingController::class, 'index'])->name('index')->middleware('can:read_event');
+            Route::get('/create', [EventGreetingController::class, 'create'])->name('create')->middleware('can:create_event');
             Route::post('/store', [EventGreetingController::class, 'store'])->name('store');
             Route::get('/show/{id}', [EventGreetingController::class, 'show'])->name('show');
-            Route::get('/edit/{id}', [EventGreetingController::class, 'edit'])->name('edit');
+            Route::get('/edit/{id}', [EventGreetingController::class, 'edit'])->name('edit')->middleware('can:update_event');
             Route::put('/update/{id}', [EventGreetingController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [EventGreetingController::class, 'destroy'])->name('destroy');
+            Route::get('/delete/{id}', [EventGreetingController::class, 'destroy'])->name('destroy')->middleware('can:delete_event');
         });
 
 

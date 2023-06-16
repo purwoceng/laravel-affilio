@@ -29,6 +29,17 @@
                 </div>
 
                 <div class="card-body">
+                    @if (session('success'))
+                    <div class="alert alert-success my-3 mx-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger my-3 mx-4" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
                     <table id="js-user-table" class="table table-separate table-head-custom table-checkable nowrap">
                         <thead>
                             <div class="filter-wrapper">
@@ -180,6 +191,11 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="${ajaxUrl}/edit/${data}">
                                                 <span class="nav-text">Edit User</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${ajaxUrl}/editpassword/${data}">
+                                                <span class="nav-text">Edit Password User</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">

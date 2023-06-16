@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
@@ -48,7 +50,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::get();
-        return view('users.create',compact('roles'));
+        $permission = Permission::get();
+        return view('users.create',compact('roles','permission'));
     }
     public function store(Request $request)
     {
@@ -65,6 +68,7 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
+        $user->syncPermissions($request->input('permission'));
 
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
@@ -72,28 +76,29 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $data = User::find($id);
+        $data = User::with('permissions')->find($id);
         $roles = Role::get();
-        return view('users.edit',compact('data','roles'));
+        $permission = Permission::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+        ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+        ->all();
+        return view('users.edit',compact('data','roles','permission'));
     }
 
     public function update(Request $request, $id)
     {
-         $this->validate($request, [
+        $this->validate($request, [
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
-            'password' => 'required',
-            'roles' => 'required'
         ]);
 
-        $input = $request->except(['_token']);
-        $input['password'] = Hash::make($input['password']);
-
-        $user = User::whereIn('id', $id)->update($input);
-       //$user = User::find($id)->update($input);
-        $user->assignRole($request->input('roles'));
-
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->syncPermissions($request->input('permission'));
+        $user->save();
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
@@ -105,5 +110,24 @@ class UserController extends Controller
         return redirect()->back()->with(['success' => 'User: <strong>' . $role->name . '</strong> Dihapus']);
 
 
+    }
+
+    public function editpassword($id)
+    {
+        $data = User::find($id);
+        return view ('users.editpassword',compact('data'));
+    }
+
+    public function updatepassword(Request $request, $id)
+    {
+        $this->validate($request, [
+            'password' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user['password'] = Hash::make($request['password']);
+        $user->save();
+        return redirect()->route('users.index')
+                        ->with('success','Password User updated successfully');
     }
 }

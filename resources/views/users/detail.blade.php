@@ -33,6 +33,26 @@
                             <div class="col-4 col-md-3">Email</div>
                             <div class="col-8 col-md-9">: {{ $user->email }}</div>
                         </div>
+                        <hr/>
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Role</div>
+                            @foreach ($user->getRoleNames() as $role)
+                                 <div class="col-8 col-md-9">: {{ $role }}</div>
+                            @endforeach
+                        </div>
+                        <hr />
+                        <div class="row row--lined">
+                            <div class="col-4 col-md-3">Permissions</div>
+                            @foreach ($user->getPermissionNames() as $permissions)
+                                 <div class="form-check">
+                                    <div class="checkbox">
+                                    <label for="checkbox1" class="checkbox-bootstrap checkbox-lg ">
+                                      <input type="checkbox" id="input-member-type-id" name="member_type_id[]" value="{{ $permissions }} :" disabled checked> {{ $permissions }}
+                                    </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                         <hr />
                     @else
                         <h3>Pengguna Tidak Ditemukan</h3>
