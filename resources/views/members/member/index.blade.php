@@ -165,6 +165,8 @@
                                 </form>
 
                             </div>
+
+
                             <tr class="text-center small">
                                 <th>#</th>
                                 <th>Username</th>
@@ -185,11 +187,13 @@
                         </thead>
                         <tbody>
                         </tbody>
+
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    @include('orders.partials.modal')
 @endsection
 
 @push('js')
@@ -401,107 +405,7 @@
                 ],
             });
 
-            //exportexcel
-            // let excelModal = $('#js-detail-modal');
-            // $(document).on("click", ".excel", function(e) {
-            //     let elementHTML = `
-        //         <div class="form-group row">
-        //             <label for="js-daterange-picker1" class="col-sm-2 col-form-label">Tipe Member</label>
-        //                 <div class="col-sm-10">
-        //                     <div class='input-group' id='js-daterange-picker'>
-        //                         <input type='text' class="form-control filter"
-        //                                 id="date_range1" name="date_range1" placeholder="Select date range" />
-        //                             <div class="input-group-append">
-        //                                 <span class="input-group-text">
-        //                                     <i class="la la-calendar-check-o"></i>
-        //                                 </span>
-        //                             </div>
-        //                     </div>
-        //                 </div>
-        //         </div>
-        //         <div class="form-group row">
-        //             <label class="col-sm-2 col-form-label">Tipe Member</label>
-        //             <div class="col-sm-10">
-        //                 <select class="form-control form-control-sm filter" data-name="type_member" id="type_member"
-        //                                     placeholder="Type Here">
-        //                                     <option disabled >Pilih Status Order</option>
-        //                                     <option value="all" selected>Semua</option>
-        //                                     <option value="1">Affliator</option>
-        //                                     <option value="2">Affliator Inti</option>
-        //                                     <option value="3">Bronze</option>
-        //                                     <option value="4">Gold</option>
-        //                                     <option value="5">Platinum</option>
-        //                                     <option value="6">Diamond</option>
-        //                                     </select>
-        //             </div>
-        //         </div>
 
-
-        //     `;
-
-
-            //     let elementFooter = `
-        //                 <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
-        //                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
-        //                 `;
-
-            //     excelModal.find(".modal-title").html('Input Export Excel');
-            //     excelModal.find(".modal-body").html(elementHTML);
-            //     excelModal.find(".modal-footer").html(elementFooter);
-            //     excelModal.modal('show');
-
-            // });
-
-            // //js datepicker excel
-            // $('#js-detail-modal').on('shown.bs.modal', function(e) {
-            //     $('input[name="date_range1"]').daterangepicker({
-            //         opens: 'left'
-            //     }, function(start, end, label) {
-            //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
-            //             ' to ' + end.format('YYYY-MM-DD'));
-            //     });
-            // });
-
-            // //button export
-            // $(document).on('click', '#submitexcel', function() {
-            //     var date_range1 = $("#date_range1").val();
-            //     var type_member = $("#type_member").val();
-            //     var x = document.getElementById("submitexcel");
-            //     x.disabled = true;
-            //     var xhr = $.ajax({
-            //         type: 'GET',
-            //         url: "{{ route('members.exportexcel') }}",
-            //         data: {
-            //             "daterange1": date_range1,
-            //             "type_member": type_member
-            //         },
-            //         cache: false,
-            //         xhr: function() {
-            //             var xhr = new XMLHttpRequest();
-            //             xhr.onreadystatechange = function() {
-            //                 if (xhr.readyState == 2) {
-            //                     if (xhr.status == 200) {
-            //                         xhr.responseType = "blob";
-            //                     } else {
-            //                         xhr.responseType = "text";
-            //                     }
-            //                 }
-            //             };
-            //             return xhr;
-            //         },
-            //         success: function(data) {
-            //             const url = window.URL || window.webkitURL;
-            //             const downloadURL = url.createObjectURL(data);
-            //             var a = $("<a />");
-            //             a.attr("download", 'Daftar Pesanan-' + type_member + '-Tanggal-' +
-            //                 date_range1 + '.xlsx');
-            //             a.attr("href", downloadURL);
-            //             $("body").append(a);
-            //             a[0].click();
-            //             $("body").remove(a);
-            //         }
-            //     });
-            // });
 
             function getDataFiltered() {
                 let filterEl = $('.filter');
@@ -583,6 +487,91 @@
                     $('#select_city').val(cityName[1])
                 }
             });
+
+            //exportexcel
+            let excelModal = $('#js-detail-modal');
+            $(document).on("click", ".excel", function(e) {
+                let elementHTML = `
+                
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Kode Member</label>
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm filter" data-name="status1" id="status1"
+                                            placeholder="Type Here">
+                                            <option disabled >Pilih Kode Data</option>
+                                            <option value="all" selected>Semua</option>
+                                            <option value="1">nol</option>
+                                            <option value="2">satu</option>
+                                            <option value="3">dua</option>
+                                        </select>
+                    </div>
+                </div>
+            `;
+
+
+                let elementFooter = `
+                        <button type="submit" class="btn btn-light-success font-weight-bold" id="submitexcel">Export</button>
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button> </form>
+                        `;
+
+                excelModal.find(".modal-title").html('Input Export Excel Member');
+                excelModal.find(".modal-body").html(elementHTML);
+                excelModal.find(".modal-footer").html(elementFooter);
+                excelModal.modal('show');
+
+            });
+
+            // //js datepicker excel
+            // $('#js-detail-modal').on('shown.bs.modal', function(e) {
+            //     $('input[name="date_range1"]').daterangepicker({
+            //         opens: 'left'
+            //     }, function(start, end, label) {
+            //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') +
+            //             ' to ' + end.format('YYYY-MM-DD'));
+            //     });
+            // });
+
+            //button export
+            $(document).on('click', '#submitexcel', function() {
+                // var date_range1 = $("#date_range1").val();
+                var status1 = $("#status1").val();
+                var x = document.getElementById("submitexcel");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'GET',
+                    url: "{{ route('members.exportexcel') }}",
+                    data: {
+                        // "daterange1": date_range1,
+                        "status1": status1
+                    },
+                    cache: false,
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(data) {
+                        const url = window.URL || window.webkitURL;
+                        const downloadURL = url.createObjectURL(data);
+                        var a = $("<a />");
+                        a.attr("download", 'Daftar Data Member-' + status1 + '.xlsx');
+                        a.attr("href", downloadURL);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                });
+            });
+
+
         });
     </script>
 @endpush

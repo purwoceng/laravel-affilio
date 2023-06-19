@@ -29,6 +29,17 @@
                 </div>
 
                 <div class="card-body">
+                    @if (session('success'))
+                    <div class="alert alert-success my-3 mx-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger my-3 mx-4" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
                     <table id="js-user-table" class="table table-separate table-head-custom table-checkable nowrap">
                         <thead>
                             <div class="filter-wrapper">
@@ -70,6 +81,7 @@
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -146,6 +158,14 @@
                         className: 'text-left small',
                     },
                     {
+                        data: 'roles',
+                        name: 'roles',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-left small',
+                    },
+                    {
                         data: 'actions',
                         name: 'actions',
                         sortable: false,
@@ -173,6 +193,18 @@
                                                 <span class="nav-text">Edit User</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${ajaxUrl}/editpassword/${data}">
+                                                <span class="nav-text">Edit Password User</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.name}')"
+                                                    href="{{ url('users/delete/${row.id}') }}">
+                                                    <span class="nav-text nav-text-danger">Hapus</span>
+                                                </a>
+                                            </li>
                                     </ul>
                                 </div>
                             </div>`;

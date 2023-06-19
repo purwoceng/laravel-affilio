@@ -13,6 +13,11 @@ class UserRepository implements UserRepositoryInterface
         // FIXME
     }
 
+    public function delete($id)
+    {
+        return User::where('id',$id)->delete();
+    }
+
     public function getUsers($limit, $start)
     {
         return User::offset($start)->limit($limit);
@@ -65,6 +70,7 @@ class UserRepository implements UserRepositoryInterface
                 $name = $user->name;
                 $username = $user->username;
                 $email = $user->email;
+                $roles = $user->getRoleNames();
                 $email_verified_at = $user->email_verified_at;
                 $actions = $id;
 
@@ -73,6 +79,7 @@ class UserRepository implements UserRepositoryInterface
                     'name',
                     'username',
                     'email',
+                    'roles',
                     'email_verified_at',
                     'actions',
                 );

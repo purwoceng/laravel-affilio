@@ -29,7 +29,7 @@ class ProductAffilioController extends Controller
 
             foreach ($products as $product) {
                 $token = config('app.baleomol_token_auth');
-                $url = config('app.baleomol_url') . '/affiliator/products/' . $product['product_id'];
+                $url = config('app.baleomol_url') . '/affiliator/products/' . $product['product_id'] . '?appx=true';
 
                 $response = Http::withHeaders([
                     'Authorization' => "Bearer {$token}",

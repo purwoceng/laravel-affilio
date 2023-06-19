@@ -9,4 +9,5 @@ interface PermissionRepositoryInterface
     public function getPermissionById($id);
 
     public function getDataTable($request);
+    public function create(array $data);
 }

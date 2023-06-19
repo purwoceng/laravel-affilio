@@ -51,7 +51,7 @@ class BonusAcaraExport implements FromView, WithEvents, ShouldAutoSize
         //     $query = $query->where('is_active','1');
         // }
 
-        $funds = $query->paginate(100);
+        $funds = $query->get();
 
         return view('dana.acara.exportexcel', [
             'funds' => $funds,

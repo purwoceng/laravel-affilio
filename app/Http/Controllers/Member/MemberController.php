@@ -233,28 +233,19 @@ class MemberController extends Controller
         //
     }
 
-    // public function exportexcel(Request $request)
-    // {
-    //     $dateRange = [];
-    //     $status = '';
+    public function exportexcel(Request $request)
+    {
 
-    //     if (isset($request->daterange1)) {
-    //         $dateRange = explode('-', $request->daterange1);
-    //         $dateRange = array_map(function ($item) {
-    //             $date = trim($item);
-    //             $date = strtotime($date);
-    //             $date = date('Y-m-d H:i:s', $date);
+        $status = '';
 
-    //             return $date;
-    //         }, $dateRange);
-    //     }
 
-    //     if (isset($request->status1)) {
-    //         $status = $request->status1;
-    //     }
 
-    //     return Excel::download(new MemberExport($status, $dateRange), 'member.xlsx');
-    // }
+        if (isset($request->status1)) {
+            $status = $request->status1;
+        }
+
+        return Excel::download(new MemberExport($status), 'member.xlsx');
+    }
 
     public function network($id)
     {

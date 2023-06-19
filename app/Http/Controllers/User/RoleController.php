@@ -77,9 +77,9 @@ class RoleController extends Controller
 
         if ($result) {
             return redirect()->route('roles.index')
-                ->with('success', 'Data Video Training telah berhasil dibuat');
+                ->with('success', 'Data Role User telah berhasil dibuat');
         } else {
-            return back()->withInput()->with('info', 'Gagal membuat data video training');
+            return back()->withInput()->with('info', 'Gagal membuat data role user');
         }
     }
 

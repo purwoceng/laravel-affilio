@@ -9,4 +9,7 @@ interface UserRepositoryInterface
     public function getUserById($id);
 
     public function getDataTable($request);
+
+    public function delete($id);
+
 }
