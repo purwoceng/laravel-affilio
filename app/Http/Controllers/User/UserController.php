@@ -87,11 +87,22 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validation_messages = [
+            'name.required' => 'Nama member wajib diisi!',
+            'email.required' => 'Email wajib diisi!',
+            'email.email' => 'Email tidak valid!',
+            'email.unique' => 'Email tidak tersedia atau telah dipakai oleh member lain',
+            'username.required' => 'Username wajib diisi!',
+            'username.unique' => 'Username tidak tersedia atau telah dipakai oleh member lain',
+        ];
+
         $this->validate($request, [
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
-        ]);
+        ],
+        $validation_messages,
+    );
 
         $user = User::findOrFail($id);
         $user->name = $request->name;
