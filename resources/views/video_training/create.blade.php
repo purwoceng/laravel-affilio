@@ -57,6 +57,16 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    {{-- @foreach ($member_types as $key => $member_type)
+                                    <div class="form-check">
+                                      <div class="checkbox">
+                                      <label for="checkbox1" class="form-check-label ">
+                                        <input type="checkbox" id="input-member-type-id" name="member_type_id[]" value="{{ $member_type->id }}"> {{ $member_type->type }}
+                                      </label>
+                                      </div>
+                                      </div>
+                                      @endforeach --}}
+
 
                                     @error('member_type_id')
                                         <small id="member-type-helper" class="form-text text-danger">

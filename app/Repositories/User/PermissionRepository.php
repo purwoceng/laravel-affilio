@@ -12,6 +12,10 @@ class PermissionRepository implements PermissionRepositoryInterface
         //
     }
 
+    public function create(array $data)
+    {
+        return Permission::create($data);
+    }
     public function getPermissions($limit, $start)
     {
         return Permission::offset($start)->limit($limit);
@@ -29,7 +33,7 @@ class PermissionRepository implements PermissionRepositoryInterface
 
     public function getDataTable($request)
     {
-        
+
         $limit = $request->input('length');
         $start = $request->input('start');
 

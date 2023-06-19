@@ -61,7 +61,7 @@
 
 
 
-             @hasanyrole('super_user|admin_member|akutansi')
+             @hasanyrole('super_user|admin_member|akutansi|view')
                  <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
@@ -77,7 +77,7 @@
                  </li>
              @endhasanyrole
 
-             @hasanyrole('supplier|super_user|admin_member')
+             @hasanyrole('supplier|super_user|admin_member|view')
                  <li class="menu-item menu-item-submenu {{ request()->is('products*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -143,8 +143,8 @@
                  </li>
              @endhasanyrole
 
-             @hasanyrole('supplier|super_user|admin_member')
-                 <li class="menu-item menu-item-submenu 
+             @hasanyrole('supplier|super_user|admin_member|view')
+                 <li class="menu-item menu-item-submenu
                  {{-- {{ request()->is('suppliers*') ? 'menu-item-open' : '' }} --}}
                  "
                      aria-haspopup="true" data-menu-toggle="hover">
@@ -210,7 +210,7 @@
                  </li>
              @endhasanyrole
 
-             @hasanyrole('akutansi|super_user|event|admin_member|customer_service')
+             @hasanyrole('akutansi|super_user|event|admin_member|customer_service|view')
                  <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -280,7 +280,7 @@
 
 
 
-             @hasanyrole('konten|super_user|admin_member')
+             @hasanyrole('konten|super_user|admin_member|view')
                  <li class="menu-item menu-item-submenu {{ request()->is('banners*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -461,7 +461,7 @@
 
 
              {{-- end --}}
-             @hasanyrole('admin_member|super_user|event')
+             @hasanyrole('admin_member|super_user|event|view')
                  <li class="menu-item menu-item-submenu menu-item-
                     {{ request()->is('event*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
@@ -518,7 +518,7 @@
                      </div>
                  </li>
              @endhasanyrole
-             @hasanyrole('akutansi|super_user')
+             @hasanyrole('akutansi|super_user|view')
                  <li class="menu-item menu-item-submenu {{ request()->is('dana*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">

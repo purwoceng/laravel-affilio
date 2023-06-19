@@ -453,7 +453,7 @@
             text: 'Source: affilio.co.id'
         },
          xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: bulan
         },
         yAxis: {
             title: {
