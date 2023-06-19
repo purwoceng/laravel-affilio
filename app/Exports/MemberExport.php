@@ -5,45 +5,55 @@ namespace App\Exports;
 use App\Models\Member;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Events\AfterSheet;
+
 
 class MemberExport implements FromView, WithEvents, ShouldAutoSize
 {
     /**
      * @return \Illuminate\Support\Collection
      */
-
     public $view;
-    public $startDate;
-    public $endDate;
-    public $member_type_id;
-
-    public function __construct($member_type_id = '', $dateRange = [])
+    // public $startDate;
+    // public $endDate;
+    public $memberType;
+    public function __construct($status = '', $dateRange = [])
     {
-        $this->member_type_id = $member_type_id;
+        $this->memberType = $status;
 
-        if (isset($dateRange[0])) $this->startDate = $dateRange[0];
+        // if (isset($dateRange[0])) $this->startDate = $dateRange[0];
 
-        if (isset($dateRange[1])) $this->endDate = $dateRange[1];
+        // if (isset($dateRange[1])) $this->endDate = $dateRange[1];
     }
 
     public function view(): View
     {
         $query = Member::whereNotNull('id');
 
-        if ($this->member_type_id != 'all') {
-            $query = $query->where('member_type_id', $this->member_type_id);
+        if ($this->memberType != 'all') {
+            $query = $query->where('member_type_id', $this->memberType);
         }
 
-        if ($this->startDate && $this->endDate) {
-            $query->whereDate('date_created', '>=',  [$this->startDate])->whereDate('date_created', '<=', [$this->endDate]);
-        }
+        // if ($this->memberType == 'all') {
+        //     $query = $query->where(function ($query) {
+        //         $query->where('member_type_id', '=', '0')
+        //             ->orWhere('member_type_id', '=', '1')
+        //             ->orWhere('member_type_id', '=', '2')
+        //             ->orWhere('member_type_id', '=', '3');
+        //     });
+        // }
 
-        $members = $query->get();
+        // if ($this->startDate && $this->endDate) {
+        //     $query->whereDate('created_at', '>=',  [$this->startDate])->whereDate('created_at', '<=', [$this->endDate]);
+        // }
 
-        return view('members.exportexcel', [
+
+
+        $members = $query->paginate(500);
+
+        return view('members.member.exportexcel', [
             'members' => $members,
         ]);
     }

@@ -168,11 +168,6 @@
 
 
 @push('js')
-    {{-- <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script> --}}
-    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
     <script>
@@ -280,10 +275,6 @@
                         render: function(data, type, row, meta) {
                             let showUrl =
                                 `{{ url('pensiun/show/${row.id}') }}`;
-                            // let editUrl =
-                            //     `{{ url('pensiun/edit/${row.id}') }}`;
-                            // let deleteUrl =
-                            //     `{{ url('pensiun/delete/${row.id}') }}`;
                             let elements = '';
                             elements += `
                             <div class="dropdown dropdown-inline"><a href="javascript:void(0)"
