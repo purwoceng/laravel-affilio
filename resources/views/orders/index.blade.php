@@ -586,6 +586,7 @@
                                 <th class="text-center" width="10%">#</th>
                                 <th class="text-center" width="10%">Order Code</th>
                                 <th class="text-center" width="10%">Invoice Code</th>
+                                <th class="text-center" width="10%">Username</th>
                                 <th class="text-center" width="10%">Nama Pembeli</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
                                 <th class="text-center" width="10%">Ongkir</th>
@@ -676,6 +677,14 @@
                     {
                         data: 'invoice_code',
                         name: 'invoice_code',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'username',
+                        name: 'username',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -1633,26 +1642,26 @@
                                                     let orderId = data.data
                                                         .orderData[i]
                                                         .partnershipOrderId;
-                                                    results.push ({
+                                                    results.push({
                                                         'order_id': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .orderId,
                                                         'order_code': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .orderCode,
                                                         'partnership_order_id': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .partnershipOrderId,
                                                         'products': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .products,
                                                     })
                                                     // results += JSON.stringify([{
@@ -1687,7 +1696,9 @@
                                                             invoice_id: invoiceId,
                                                             invoice_code: invoiceCode,
                                                             invoice_total: invoiceTotal,
-                                                            order_data: JSON.stringify(results),
+                                                            order_data: JSON
+                                                                .stringify(
+                                                                    results),
                                                         },
                                                         success: function(
                                                             response) {

@@ -111,6 +111,7 @@ class OrderRepository implements OrderRepositoryInterface
                 $id = $order->id;
                 $invoiceCode = $order->invoice_code;
                 $code = $order->code;
+                $username = $order->username;
                 $name = $order->customer_name;
                 $resi = !empty($order->resi) ?  $order->resi : '-';
                 $shippingCost = $order->shipping_cost;
@@ -141,6 +142,7 @@ class OrderRepository implements OrderRepositoryInterface
                     'id' => $id,
                     'invoice_code' => $invoiceCode,
                     'code' => $code,
+                    'username' => $username,
                     'name' => $name,
                     'resi' => $resi,
                     'shipping_cost' => formatRupiah($shippingCost),
