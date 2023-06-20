@@ -1633,28 +1633,50 @@
                                                     let orderId = data.data
                                                         .orderData[i]
                                                         .partnershipOrderId;
-                                                    results += JSON.stringify([{
+                                                    results.push ({
                                                         'order_id': data
                                                             .data
                                                             .orderData[
-                                                                i]
+                                                            i]
                                                             .orderId,
                                                         'order_code': data
                                                             .data
                                                             .orderData[
-                                                                i]
+                                                            i]
                                                             .orderCode,
                                                         'partnership_order_id': data
                                                             .data
                                                             .orderData[
-                                                                i]
+                                                            i]
                                                             .partnershipOrderId,
                                                         'products': data
                                                             .data
                                                             .orderData[
-                                                                i]
+                                                            i]
                                                             .products,
-                                                    }]);
+                                                    })
+                                                    // results += JSON.stringify([{
+                                                    //     'order_id': data
+                                                    //         .data
+                                                    //         .orderData[
+                                                    //             i]
+                                                    //         .orderId,
+                                                    //     'order_code': data
+                                                    //         .data
+                                                    //         .orderData[
+                                                    //             i]
+                                                    //         .orderCode,
+                                                    //     'partnership_order_id': data
+                                                    //         .data
+                                                    //         .orderData[
+                                                    //             i]
+                                                    //         .partnershipOrderId,
+                                                    //     'products': data
+                                                    //         .data
+                                                    //         .orderData[
+                                                    //             i]
+                                                    //         .products,
+                                                    // }]);
                                                 }
 
                                                 $.ajax({
@@ -1665,7 +1687,7 @@
                                                             invoice_id: invoiceId,
                                                             invoice_code: invoiceCode,
                                                             invoice_total: invoiceTotal,
-                                                            order_data: results,
+                                                            order_data: JSON.stringify(results),
                                                         },
                                                         success: function(
                                                             response) {
