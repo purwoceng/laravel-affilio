@@ -492,7 +492,7 @@
             let excelModal = $('#js-detail-modal');
             $(document).on("click", ".excel", function(e) {
                 let elementHTML = `
-                
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kode Member</label>
                     <div class="col-sm-10">

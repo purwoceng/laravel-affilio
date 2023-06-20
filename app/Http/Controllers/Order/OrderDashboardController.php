@@ -13,6 +13,7 @@ class OrderDashboardController extends Controller
     {
         $startDate = $request->start_date;
         $endDate = $request->end_date;
+        $status = $request->status;
 
         $dataAffiliasi = DB::table('product_shared');
         $totalOmzet = DB::table('orders');
@@ -29,6 +30,9 @@ class OrderDashboardController extends Controller
         $dataCancelButUnpaid =  Order::where('status', 'cancel_unpaid');
         $dataComplain =  Order::where('status', 'complain');
 
+        if (!empty($status)){
+            $dataSupplierPrice->where('status','=', $status);
+        }
         if (!empty($startDate) && !empty($endDate)) {
             $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataAffiliasi->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
@@ -56,7 +60,7 @@ class OrderDashboardController extends Controller
             ]);
         }
         // Total Omzet : Harga produk + harga markup
-        $countTotalOmzet = $dataSupplierPrice->sum('subtotal');
+        $countTotalOmzet = ($dataSupplierPrice->sum('subtotal') + $totalOmzet->sum('shipping_cost')) ;
         // Harga Supplier : Harga produk asli dari baleomol
         $countTotalSupplierPrice = $dataSupplierPrice->sum('affilio_value');
         // Bonus Profit : Harga Markup - Harga Asli

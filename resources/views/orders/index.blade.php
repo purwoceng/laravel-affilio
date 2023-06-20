@@ -1015,6 +1015,8 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
+                let status = data.status;
+
                 let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
 
                 $.ajax({
@@ -1023,6 +1025,7 @@
                     data: {
                         start_date: startDate,
                         end_date: endDate,
+                        statusOrder : status,
 
                     },
                     dataType: "json",

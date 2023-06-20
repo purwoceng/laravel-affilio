@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\City\CityController;
 use App\Http\Controllers\Dana\FundController;
+use App\Http\Controllers\ExceptionController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Dana\RewardController;
@@ -38,6 +40,7 @@ use App\Http\Controllers\Dana\PensiunDashboardController;
 use App\Http\Controllers\HomePage\HeaderFunnelController;
 use App\Http\Controllers\Product\MarkupProductController;
 use App\Http\Controllers\Supplier\SupplierListController;
+use App\Http\Controllers\Product\ProductAffilioController;
 use App\Http\Controllers\Supplier\SupplierCoverController;
 use App\Http\Controllers\HomePage\BannerCategoryController;
 use App\Http\Controllers\Product\ProductInactiveController;
@@ -52,8 +55,6 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\Notification\NotificationStatusController;
-use App\Http\Controllers\City\CityController;
-use App\Http\Controllers\Product\ProductAffilioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -420,7 +421,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('products')->name('products.')->group(function () {
         Route::prefix('wishlist')->name('wishlists.')->group(function () {
-            Route::get('/', [ProductWishlistController::class, 'index'])->name('index');
+            Route::get('/', [ProductWishlistController::class, 'index'])->name('index')->middleware('can:read_produk');
             Route::get('/show/{id}', [ProductWishlistController::class, 'show'])->name('show');
         });
 
@@ -487,6 +488,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/show/{id}', [FundController::class, 'show'])->name('show')->middleware('can:read_dana');
             Route::get('/exportexcel', [FundController::class, 'exportexcel'])->name('exportexcel');
         });
+
+    Route::get('exception/index', 'ExceptionController@index');
 
     //riwayat dana
     Route::prefix('withdraw')
