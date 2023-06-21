@@ -124,6 +124,9 @@
                                             <a class="nav-link" href="${ajaxUrl}/detail/${data}">
                                                 <span class="nav-text">Detail</span>
                                             </a>
+                                            <a class="nav-link" onclick="return confirm('Anda yakin ingin menghapus data Peran ${row.name}')" href="${ajaxUrl}/delete/${data}">
+                                                <span class="nav-text">Hapus</span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

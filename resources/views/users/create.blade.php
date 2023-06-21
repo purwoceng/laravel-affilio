@@ -59,8 +59,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Password<span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password"
+                                    <input type="password" class="form-control form-password" placeholder="Masukkan Password"
                                         name="password" value="" required />
+                                        <br>
+                                        <input type="checkbox" class="form-checkbox1"> Show password
                                 </div>
                                 <div class="form-group">
                                     <label for="input-member-type-id">Role</label>
@@ -84,16 +86,34 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Permission<span class="text-danger"></span></label>
-                                    @foreach ($permission as $key=> $permissions)
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                        <label for="checkbox1" class="form-check-label ">
-                                          <input type="checkbox" id="input-member-type-id" name="permission[]" value="{{ $permissions->id }}"> {{ $permissions->name }}
-                                        </label>
+                                    <label>Permission<span class="text-danger"></span></label><br>
+                                    <table class="table-all" border="1">
+                                        <thead>
+                                            <tr>
+                                            <th>
+                                                 <b><input type="checkbox" onclick="toggle(this);" />Check all</b><br />
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <tr>
+                                            <th>
+                                               @foreach ($permission as $key=> $permissions)
+                                        <div class="form-check">
+                                            <div class="checkbox">
+                                            <label for="checkbox1" class="form-check-label ">
+                                            <input type="checkbox" id="input-member-type-id" name="permission[]" value="{{ $permissions->id }}"> {{ $permissions->name }}
+                                            </label>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endforeach
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+
+
                                 </div>
 
                                 <div class="d-flex flex-row">
@@ -114,3 +134,27 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        function toggle(source) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i] != source)
+                    checkboxes[i].checked = source.checked;
+            }
+        }
+
+        $(document).ready(function(){
+		$('.form-checkbox1').click(function(){
+			if($(this).is(':checked')){
+				$('.form-password').attr('type','text');
+			}else{
+				$('.form-password').attr('type','password');
+			}
+		});
+	});
+
+
+    </script>
+@endpush

@@ -30,13 +30,9 @@ class OrderDashboardController extends Controller
         $dataCancelButUnpaid =  Order::where('status', 'cancel_unpaid');
         $dataComplain =  Order::where('status', 'complain');
 
-        if (!empty($status)){
-            $dataSupplierPrice->where('status','=', $status);
-        }
         if (!empty($startDate) && !empty($endDate)) {
             $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataAffiliasi->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-
             $dataOrder->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataPaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
@@ -59,8 +55,10 @@ class OrderDashboardController extends Controller
                 ],
             ]);
         }
+        // Total Omzet : Harga produk + harga markup + ongkir
+        $countTotalOmzetOngkir = ($dataSupplierPrice->sum('subtotal') + $totalOmzet->sum('shipping_cost')) ;
         // Total Omzet : Harga produk + harga markup
-        $countTotalOmzet = ($dataSupplierPrice->sum('subtotal') + $totalOmzet->sum('shipping_cost')) ;
+        $countTotalOmzet = $dataSupplierPrice->sum('subtotal');
         // Harga Supplier : Harga produk asli dari baleomol
         $countTotalSupplierPrice = $dataSupplierPrice->sum('affilio_value');
         // Bonus Profit : Harga Markup - Harga Asli
@@ -111,6 +109,7 @@ class OrderDashboardController extends Controller
 
         $results = [
             'total_omzet' => formatRupiah($countTotalOmzet),
+            'total_omzet_ongkir' => formatRupiah($countTotalOmzetOngkir),
             'supplier_price' => formatRupiah($countTotalSupplierPrice),
             'bonus_profit' => formatRupiah($countTotalBonusProfit),
             'Affiliasi_profit' => formatRupiah($countTotalAffiliasiProfit),

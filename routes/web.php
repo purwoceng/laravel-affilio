@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/detail/{id}', [MemberController::class, 'show'])->name('detail')->middleware('can:read_member');
         Route::get('/edit/{id}', [MemberController::class, 'edit'])->name('edit')->middleware('can:update_member');
         Route::put('/update/{id}', [MemberController::class, 'update'])->name('update');
+        Route::put('/updatecs/{id}', [MemberController::class, 'updatecs'])->name('updatecs');
         Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
         Route::get('/exportexcel', [MemberController::class, 'exportexcel'])->name('exportexcel');
 
@@ -174,6 +175,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/create', [RoleController::class, 'create'])->name('create');
             Route::post('/store', [RoleController::class, 'store'])->name('store');
             Route::get('/detail/{id}', [RoleController::class, 'show'])->name('detail');
+            Route::get('/delete/{id}', [RoleController::class, 'destroy'])->name('destroy');
         });
 
     // Permissions Menu
