@@ -56,30 +56,29 @@
                                         <label class="font-weight-bold">Kode</label>
                                         <select class="form-control form-control-sm filter" data-name="code"
                                             placeholder="Type Here">
-                                            <option disabled selected>Pilih Kode Dana</option>
                                             <option value="">Semua</option>
                                             <option value="WDK">WDK (Penarikan Komisi)</option>
                                             <option value="WDB">WDB (Penarikan Bonus)</option>
                                             <option value="BRAO">BRAO (Bonus Reward Acara Ongkir)</option>
                                             <option value="BRAT">BRAT (Bonus Reward Acara Transaksi)</option>
-                                            <option value="BPSD">BPSD (Bonus Pensiun Diamond)</option>
-                                            <option value="BPSP">BPSP (Bonus Pensiun Platinum)</option>
-                                            <option value="BPSG">BPSG (Bonus Pensiun Gold)</option>
-                                            <option value="BPSB">BPSB (Bonus Pensiun Bronze)</option>
+                                            <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
+                                            <option value="BPC4">BPC4 (Bonus Pensiun Challenge 4)</option>
+                                            <option value="BPC3">BPC3 (Bonus Pensiun Challenge 3)</option>
+                                            <option value="BPC2">BPC2 (Bonus Pensiun Challenge 2)</option>
                                             <option value="BFO">BFO (Bonus Founder)</option>
-                                            <option value="BSD1">BSD1 (Bonus Super Diamond 1)</option>
-                                            <option value="BSD2">BSD2 (Bonus Super Diamond 2)</option>
-                                            <option value="BSP1">BSP1 (Bonus Super Platinum 1)</option>
-                                            <option value="BSP2">BSP2 (Bonus Super Platinum 2)</option>
-                                            <option value="BSG1">BSG1 (Bonus Super Gold 1)</option>
-                                            <option value="BSG2">BSG2 (Bonus Super Gold 2)</option>
-                                            <option value="BSB1">BSB1 (Bonus Super Bronze 1)</option>
-                                            <option value="BSB1">BSB2 (Bonus Super Bronze 2)</option>
-                                            <option value="BPD">BPD (Bonus Peringkat Diamond)</option>
-                                            <option value="BPP">BPP (Bonus Peringkat Platinum)</option>
-                                            <option value="BPG">BPG (Bonus Peringkat Gold)</option>
-                                            <option value="BPB">BPB (Bonus Peringkat Bronze)</option>
-                                            <option value="BA">BA (Bonus Affiliasi)</option>
+                                            <option value="BSC51">BSC51 (Bonus Super Challenge 5 1)</option>
+                                            <option value="BSC52">BSC52 (Bonus Super Challenge 5 2)</option>
+                                            <option value="BSC41">BSC41 (Bonus Super Challenge 4 1)</option>
+                                            <option value="BSC42">BSC42 (Bonus Super Challenge 4 2)</option>
+                                            <option value="BSC31">BSC31 (Bonus Super Challenge 3 1)</option>
+                                            <option value="BSC32">BSC32 (Bonus Super Challenge 3 2)</option>
+                                            <option value="BSC21">BSC21 (Bonus Super Challenge 2 1)</option>
+                                            <option value="BSC22">BSC22 (Bonus Super Challenge 2 2)</option>
+                                            <option value="BC5">BC5 (Bonus Peringkat Challenge 5)</option>
+                                            <option value="BC4">BC4 (Bonus Peringkat Challenge 4)</option>
+                                            <option value="BC3">BC3 (Bonus Peringkat Challenge 3)</option>
+                                            <option value="BC2">BC2 (Bonus Peringkat Challenge 2)</option>
+                                            <option value="BC1">BC1 (Bonus Peringkat Challenge 1)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -109,6 +108,7 @@
                                             placeholder="Type Here">
                                             <option disabled selected>Pilih Status</option>
                                             <option value="">Semua</option>
+                                            <option value="2">Gagal Calon Bonus</option>
                                             <option value="1">Bonus</option>
                                             <option value="0">Calon Bonus</option>
                                         </select>
@@ -524,30 +524,30 @@
                         <div class="col-sm-10">
                             <select class="form-control form-control-sm filter" data-name="status1" id="status1"
                                                 placeholder="Type Here">
-                                                <option disabled >Pilih Kode Penarikan Dana</option>
-                                                <option value="all" selected>Semua</option>
-                                                <option value="WDK">WDK (Penarikan Komisi)</option>
-                                                <option value="WDB">WDB (Penarikan Bonus)</option>
-                                                <option value="BRAO">BRAO (Bonus Reward Acara Ongkir)</option>
-                                                <option value="BRAT">BRAT (Bonus Reward Acara Transaksi)</option>
-                                                <option value="BPSD">BPSD (Bonus Pensiun Diamond)</option>
-                                                <option value="BPSP">BPSP (Bonus Pensiun Platinum)</option>
-                                                <option value="BPSG">BPSG (Bonus Pensiun Gold)</option>
-                                                <option value="BPSB">BPSB (Bonus Pensiun Bronze)</option>
-                                                <option value="BFO">BFO (Bonus Founder)</option>
-                                                <option value="BSD1">BSD1 (Bonus Super Diamond 1)</option>
-                                                <option value="BSD2">BSD2 (Bonus Super Diamond 2)</option>
-                                                <option value="BSP1">BSP1 (Bonus Super Platinum 1)</option>
-                                                <option value="BSP2">BSP2 (Bonus Super Platinum 2)</option>
-                                                <option value="BSG1">BSG1 (Bonus Super Gold 1)</option>
-                                                <option value="BSG2">BSG2 (Bonus Super Gold 2)</option>
-                                                <option value="BSB1">BSB1 (Bonus Super Bronze 1)</option>
-                                                <option value="BSB1">BSB2 (Bonus Super Bronze 2)</option>
-                                                <option value="BPD">BPD (Bonus Peringkat Diamond)</option>
-                                                <option value="BPP">BPP (Bonus Peringkat Platinum)</option>
-                                                <option value="BPG">BPG (Bonus Peringkat Gold)</option>
-                                                <option value="BPB">BPB (Bonus Peringkat Bronze)</option>
-                                                <option value="BA">BA (Bonus Affiliasi)</option>
+                                                <option disabled selected>Pilih Kode Dana</option>
+                                            <option value="">Semua</option>
+                                            <option value="WDK">WDK (Penarikan Komisi)</option>
+                                            <option value="WDB">WDB (Penarikan Bonus)</option>
+                                            <option value="BRAO">BRAO (Bonus Reward Acara Ongkir)</option>
+                                            <option value="BRAT">BRAT (Bonus Reward Acara Transaksi)</option>
+                                            <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
+                                            <option value="BPC4">BPC4 (Bonus Pensiun Challenge 4)</option>
+                                            <option value="BPC3">BPC3 (Bonus Pensiun Challenge 3)</option>
+                                            <option value="BPC2">BPC2 (Bonus Pensiun Challenge 2)</option>
+                                            <option value="BFO">BFO (Bonus Founder)</option>
+                                            <option value="BSC51">BSC51 (Bonus Super Challenge 5 1)</option>
+                                            <option value="BSC52">BSC52 (Bonus Super Challenge 5 2)</option>
+                                            <option value="BSC41">BSC41 (Bonus Super Challenge 4 1)</option>
+                                            <option value="BSC42">BSC42 (Bonus Super Challenge 4 2)</option>
+                                            <option value="BSC31">BSC31 (Bonus Super Challenge 3 1)</option>
+                                            <option value="BSC32">BSC32 (Bonus Super Challenge 3 2)</option>
+                                            <option value="BSC21">BSC21 (Bonus Super Challenge 2 1)</option>
+                                            <option value="BSC22">BSC22 (Bonus Super Challenge 2 2)</option>
+                                            <option value="BC5">BC5 (Bonus Peringkat Challenge 5)</option>
+                                            <option value="BC4">BC4 (Bonus Peringkat Challenge 4)</option>
+                                            <option value="BC3">BC3 (Bonus Peringkat Challenge 3)</option>
+                                            <option value="BC2">BC2 (Bonus Peringkat Challenge 2)</option>
+                                            <option value="BC1">BC1 (Bonus Peringkat Challenge 1)</option>
                                             </select>
                         </div>
                     </div>
