@@ -19,9 +19,12 @@ class MemberExport implements FromView, WithEvents, ShouldAutoSize
     // public $startDate;
     // public $endDate;
     public $memberType;
+    // public $city_name;
+
     public function __construct($status = '', $dateRange = [])
     {
         $this->memberType = $status;
+        // $this->city_name = $status;
 
         // if (isset($dateRange[0])) $this->startDate = $dateRange[0];
 
@@ -35,6 +38,14 @@ class MemberExport implements FromView, WithEvents, ShouldAutoSize
         if ($this->memberType != 'all') {
             $query = $query->where('member_type_id', $this->memberType);
         }
+
+
+        // if ($this->city_name) {
+        //     $query->whereHas('member_addresses', function ($query) {
+        //         return $query->where('member_addresses.main_address', '=', 1)->where('member_addresses.city_name', 'LIKE', '%' . '%');
+        //     });
+        // }
+
 
         // if ($this->memberType == 'all') {
         //     $query = $query->where(function ($query) {
