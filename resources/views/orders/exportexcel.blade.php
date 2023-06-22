@@ -7,6 +7,7 @@
             <th>Nama Pembeli</th>
             <th>Nomor Resi</th>
             <th>Ongkir</th>
+            <th>Fee</th>
             <th>Sub Total</th>
             <th>Total</th>
             <th>Nomor HP</th>
@@ -26,6 +27,7 @@
                 <td>{{ $order->customer_name }}</td>
                 <td>{{ $order->resi }}</td>
                 <td>{{ $order->shipping_cost }}</td>
+                <td>{{ $order->fee }}</td>
                 <td>{{ $order->value }}</td>
                 <td>{{ $order->total }}</td>
                 <td>{{ $order->phone }}</td>

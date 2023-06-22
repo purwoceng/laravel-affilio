@@ -124,6 +124,7 @@ class OrderRepository implements OrderRepositoryInterface
                 $name = $order->customer_name;
                 $resi = !empty($order->resi) ?  $order->resi : '-';
                 $shippingCost = $order->shipping_cost;
+                $fee = $order->fee ?? '-';
                 $affilio_subtotal = $order->affilio_subtotal ?? '-';
                 $subtotal = $order->value;
                 $total = $order->total;
@@ -156,6 +157,7 @@ class OrderRepository implements OrderRepositoryInterface
                     'name' => $name,
                     'resi' => $resi,
                     'shipping_cost' => formatRupiah($shippingCost),
+                    'fee' => formatRupiah($fee),
                     'affilio_subtotal' => formatRupiah($affilio_subtotal),
                     'subtotal' => formatRupiah($subtotal),
                     'total' =>  formatRupiah($total),

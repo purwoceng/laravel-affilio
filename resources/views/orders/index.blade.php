@@ -624,6 +624,7 @@
                                 <th class="text-center" width="10%">Nama Pembeli</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
                                 <th class="text-center" width="10%">Ongkir</th>
+                                <th class="text-center" width="10%">Fee</th>
                                 <th class="text-center" width="10%">Harga</th>
                                 <th class="text-center" width="10%">Subtotal</th>
                                 <th class="text-center" width="10%">Total</th>
@@ -751,6 +752,14 @@
                     {
                         data: 'shipping_cost',
                         name: 'shipping_cost',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'fee',
+                        name: 'fee',
                         sortable: false,
                         orderable: false,
                         searchable: false,
