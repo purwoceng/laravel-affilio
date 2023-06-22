@@ -13,7 +13,7 @@ class OrderDashboardController extends Controller
     {
         $startDate = $request->start_date;
         $endDate = $request->end_date;
-        $status = $request->status;
+        $statusOrder = $request->statusOrder;
 
         $dataAffiliasi = DB::table('product_shared');
         $totalOmzet = DB::table('orders');
