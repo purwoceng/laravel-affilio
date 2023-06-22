@@ -97,6 +97,7 @@ class OrderController extends Controller
         $order = [
             'id' => $order->id,
             'invoice_code' => $order->invoice_code,
+            'baleo_order_code' => $order->baleo_order_code ?? '-',
             'code' => $order->code,
             'username' => $order->username,
             'customer_name' => Str::ucfirst($order->customer_name),
