@@ -2,7 +2,7 @@
 @section('page_title', __('Masuk'))
 @section('content')
     @include('authentication.components.logo')
-    
+
     @if(count($errors) > 0)
         @foreach( $errors->all() as $message )
             <div class="alert alert-danger display-hide">
@@ -51,12 +51,27 @@
                 <input
                     class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
                     type="password"
+                    id="typepass"
                     name="password"
                     autocomplete="off"
                     required
-                />
+                /><br>
+                <input type="checkbox" onclick="Toggle()">
+                <strong>Show Password</strong>
             </div>
+                <script>
+                    // Change the type of input to password or text
+                    function Toggle() {
+                        let temp = document.getElementById("typepass");
 
+                        if (temp.type === "password") {
+                            temp.type = "text";
+                        }
+                        else {
+                            temp.type = "password";
+                        }
+                    }
+                </script>
             <div class="pb-lg-0 pb-5">
                 <button type="submit" id="kt_login_singin_form_submit_button" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Login</button>
             </div>

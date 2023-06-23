@@ -26,7 +26,7 @@
                                 <path
                                     d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
                             </svg>
-                            Total Omzet
+                            Total Omzet Sebelum + Ongkir
                         </p>
                         <small class="card-text text-muted">( <span id="js-date-range-omzet"></span> )</small>
                     </div>
@@ -53,7 +53,23 @@
 
     <div class="container text-center my-2">
         <div class="row ">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="js-dashboard-total-omzet-ongkir" class="card-title mb-5">0</h5>
+                        <p class="card-subtitle mb-1 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            Total Omzet + Ongkir
+                        </p>
+                        <small class="card-text text-muted">( <span id="js-date-range-omzet-ongkir"></span> )</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 id="js-dashboard-bonus-profit" class="card-title mb-5">0</h5>
@@ -995,6 +1011,7 @@
                 $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
                     'YYYY-MM-DD'));
                 $('#js-date-range-omzet').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-omzet-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
                 $('#js-date-range-supplier-price').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
                     'YYYY-MM-DD'));
                 $('#js-date-range-bonus-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
@@ -1075,6 +1092,8 @@
                 let dataSplit = dateRangeVal.split("/");
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
+                let status = data.status;
+
                 let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
 
                 $.ajax({
@@ -1083,6 +1102,7 @@
                     data: {
                         start_date: startDate,
                         end_date: endDate,
+                        status : status,
 
                     },
                     dataType: "json",
@@ -1103,6 +1123,7 @@
             }
 
             let totalOmzetAll = $('#js-dashboard-total-omzet');
+            let totalOmzetOngkir = $('#js-dashboard-total-omzet-ongkir');
             let totalSupplierPrice = $('#js-dashboard-supplier-price');
             let bonusProfit = $('#js-dashboard-bonus-profit');
             let AffiliasiProfit = $('#js-dashboard-affiliasi-profit');
@@ -1148,6 +1169,7 @@
 
             function mappingDashboard(data) {
                 totalOmzetAll.html(data.total_omzet);
+                totalOmzetOngkir.html(data.total_omzet_ongkir);
                 totalSupplierPrice.html(data.supplier_price);
                 bonusProfit.html(data.bonus_profit);
                 AffiliasiProfit.html(data.Affiliasi_profit);

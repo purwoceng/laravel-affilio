@@ -105,10 +105,9 @@
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
                             <select name="product_id" id="input-product-id" class="js-product-selector form-control"
-                                required></select>
-                            <option selected value="{{ $product['id'] }}">
-                                {{ $product['name'] }}
-                            </option>
+                                required>
+                                <option selected value="{{ $product->product_id }}">{{ $real_product['name'] }}
+                                </option>
                             </select>
 
                             @error('product_id')

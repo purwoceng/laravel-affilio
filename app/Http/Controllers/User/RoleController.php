@@ -83,4 +83,13 @@ class RoleController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        $role = Role::findOrFail($id);
+        $role->delete();
+        return redirect()->back()->with(['success' => 'User:  $role->name  Dihapus']);
+
+
+    }
+
 }

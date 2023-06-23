@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Edit Pssword User</h3>
+                        <h3 class="card-label">Buat Kategori Edit Pasword User</h3>
                     </div>
 
                 </div>
@@ -55,8 +55,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Password Baru<span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password"
-                                        name="password" value="" required />
+                                    <input type="password" class="form-control form-password" placeholder="Masukkan Password"
+                                        name="password" value="" required /><br>
+                                        <input type="checkbox" class="form-checkbox1"> Show password
                                 </div>
                                 <div class="d-flex flex-row">
                                     <div class="p-1">
@@ -76,3 +77,16 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+         $(document).ready(function(){
+		$('.form-checkbox1').click(function(){
+			if($(this).is(':checked')){
+				$('.form-password').attr('type','text');
+			}else{
+				$('.form-password').attr('type','password');
+			}
+		});
+	});
+    </script>
+@endpush

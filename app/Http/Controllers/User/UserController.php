@@ -118,7 +118,7 @@ class UserController extends Controller
     {
         $role = User::findOrFail($id);
         $role->delete();
-        return redirect()->back()->with(['success' => 'User: <strong>' . $role->name . '</strong> Dihapus']);
+        return redirect()->back()->with(['success' => 'User:  $role->name  Dihapus']);
 
 
     }

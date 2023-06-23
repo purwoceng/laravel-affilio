@@ -221,6 +221,108 @@ class MemberController extends Controller
                 ]);
         }
     }
+    public function updatecs(Request $request, $id)
+    {
+        // $regex_phone = '/^(\+62|62|0)8[1-9][0-9]{6,9}$/';
+        $validation_messages = [
+            'name.required' => 'Nama member wajib diisi!',
+            'email.required' => 'Email wajib diisi!',
+            'email.email' => 'Email tidak valid!',
+            'email.unique' => 'Email tidak tersedia atau telah dipakai oleh member lain',
+            'username.required' => 'Username wajib diisi!',
+            'username.unique' => 'Username tidak tersedia atau telah dipakai oleh member lain',
+            'phone.required' => 'Nomor Telepon / HP tidak valid!',
+            'phone.regex' => 'Nomor telepon / HP harus diisi dengan nomor telepon indonesia',
+            // 'member_type_id.required' => 'Tipe member wajib diisi!',
+            // 'member_type_id.exists' => 'Tipe member tidak valid. Muat ulang halaman!',
+            // 'image.image' => 'File yang diinput wajib gambar!',
+            // 'image.mimes' => 'Gambar yang diinput wajib berformat PNG atau JPEG!',
+            // 'image.max' => 'Gambar maksimal berukuran 2MB!',
+            // 'image.dimensions' => 'Resolusi gambar maksimal 1000 pixel!',
+        ];
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required'],
+                'email' => [
+                    'required',
+                    'email:dns',
+                    Rule::unique('members', 'email')
+                        ->ignore($id),
+                ],
+                'username' => [
+                    'required',
+                    Rule::unique('members', 'username')
+                        ->ignore($id),
+                ],
+                // 'phone' => ['required', "regex:{$regex_phone}"],
+                // 'member_type_id' => [
+                //     'required',
+                //     Rule::exists('member_types', 'id'),
+                // ],
+                'phone' => ['required', 'max:15', 'min:8',],
+
+                'image' => [
+                    'nullable',
+                    'image',
+                    'mimes:jpg,png,jpeg',
+                    'max:2048',
+                    'dimensions:max_width=1000,max_height=1000',
+                ],
+            ],
+            $validation_messages,
+        );
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $member = Member::findOrFail($id);
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->username = $request->username;
+        $member->phone = $request->phone;
+        // $member->member_type_id = $request->member_type_id;
+        // $member->is_verified = $request->is_verified;
+        // $member->is_founder = $request->is_founder;
+        // $member->is_transaction = $request->is_transaction;
+        $member->is_blocked = $request->is_blocked;
+
+        $image = $request->file('image');
+
+        if ($image) {
+            $new_file_name = 'profile_pic_' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/category/'), $new_file_name);
+            $member->image = 'member/' . $new_file_name;
+        }
+
+        $member->save();
+
+        // //update member
+        // ReferralHelper::where('member_id', '=', $id)->update(['member_is_founder' => $request->is_founder]);
+
+        // //update referral
+        // ReferralHelper::where('referral_id', '=', $id)->update(['referral_is_founder' => $request->is_founder]);
+
+        if ($member) {
+            return redirect()
+                ->route('members.index')
+                ->with([
+                    'success' => 'Berhasil memperbarui data member.'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi kesalahan saat memperbarui data. Mohon coba kembali!'
+                ]);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

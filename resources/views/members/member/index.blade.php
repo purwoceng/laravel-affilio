@@ -492,18 +492,32 @@
             let excelModal = $('#js-detail-modal');
             $(document).on("click", ".excel", function(e) {
                 let elementHTML = `
-                
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kode Member</label>
                     <div class="col-sm-10">
                         <select class="form-control form-control-sm filter" data-name="status1" id="status1"
-                                            placeholder="Type Here">
-                                            <option disabled >Pilih Kode Data</option>
-                                            <option value="all" selected>Semua</option>
-                                            <option value="1">nol</option>
-                                            <option value="2">satu</option>
-                                            <option value="3">dua</option>
-                                        </select>
+                                        id="input-member-type-id"
+                                        class="form-control"
+                                        aria-describedby="member-type-helper"
+                                        required>
+                                        <option selected disabled value="0">Pilih Tipe Member</option>
+                                        <option selected  value="all">Semua</option>
+                                        @foreach ($member_type as $key => $member_type)
+                                            <option
+                                                value="{{ $member_type->id }}"
+                                                {{ old('member_type_id') == $member_type->id ? 'selected' : '' }}>
+                                                {{ $member_type->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('member_type_id')
+                                        <small id="member-type-helper" class="form-text text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                </div>
                     </div>
                 </div>
             `;
