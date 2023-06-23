@@ -3,6 +3,7 @@
     <thead>
         <tr>
             <th>No</th>
+            <th>Kode Order</th>
             <th>Username</th>
             <th>Status</th>
             <th>Kode Penarikan</th>
@@ -17,6 +18,7 @@
         @foreach ($funds as $fund)
         <tr>
             <td>{{ $no++ }}</td>
+            <td>{{ $fund->order_code}}</td>
             <td>{{ $fund->username}}</td>
             <td>{{ $fund->status}}</td>
             <td>{{ $fund->code}}</td>
