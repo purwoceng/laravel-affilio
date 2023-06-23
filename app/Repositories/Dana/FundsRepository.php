@@ -58,6 +58,11 @@ class FundsRepository implements FundsRepositoryInterface
             $fund_query->where('status', 'like', '%' . $keyword . '%');
             $getQueryTotal->where('status', 'like', '%' . $keyword . '%');
         }
+        if ($request->filled('order_code')) {
+            $keyword = $request->get('order_code');
+            $fund_query->where('order_code', 'like', '%' . $keyword . '%');
+            $getQueryTotal->where('order_code', 'like', '%' . $keyword . '%');
+        }
 
         if ($request->filled('code')) {
             $keyword = $request->get('code');
@@ -88,6 +93,7 @@ class FundsRepository implements FundsRepositoryInterface
         if (!empty($funds)) {
             foreach ($funds  as $key => $fund) {
                 $id = $fund->id;
+                $order_code = $fund->order_code;
                 $username = $fund->username;
                 $email = $fund->members->email ?? '-';
                 $status = $fund->status;
@@ -103,6 +109,7 @@ class FundsRepository implements FundsRepositoryInterface
                 $data[] = array(
                     'id' => $id,
                     'username' => $username,
+                    'order_code' => $order_code,
                     'email' => $email,
                     'status' => $status,
                     'code' => $code,

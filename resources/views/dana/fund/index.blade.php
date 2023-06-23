@@ -31,6 +31,18 @@
                     {{-- filter --}}
                     <div class="filter-wrapper">
                         <form action="#" class="form" id="filter">
+                                <div class="col-lg-4 col-md-4 col-sm-12 ml-auto mb-2">
+                                    <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
+                                    <div class='input-group' id='js-daterange-picker'>
+                                        <input type='text' class="form-control filter" readonly="readonly"
+                                            data-name="date_range" placeholder="Select date range" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
@@ -82,13 +94,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label class="font-weight-bold">Title</label>
-                                        <input type="text" class="form-control form-control-sm filter" data-name="title"
-                                            placeholder="Find Title" />
+                                        <label class="font-weight-bold">Kode Order</label>
+                                        <input type="text" class="form-control form-control-sm filter" data-name="order_code"
+                                            placeholder="Find Kode Order" />
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <label class="font-weight-bold">Status Transfer</label>
@@ -114,18 +126,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
-                                    <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
-                                    <div class='input-group' id='js-daterange-picker'>
-                                        <input type='text' class="form-control filter" readonly="readonly"
-                                            data-name="date_range" placeholder="Select date range" />
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar-check-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </form>
@@ -136,6 +136,7 @@
                         <thead class="thead-secondary">
                             <tr class="small">
                                 <th class="text-center">#</th>
+                                <th class="text-center">Kode Order</th>
                                 <th class="text-center">Username</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Status</th>
@@ -197,6 +198,14 @@
                             const index = meta.row + meta.settings._iDisplayStart + 1;
                             return index;
                         }
+                    },
+                    {
+                        data: 'order_code',
+                        name: 'order_code',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
                     },
                     {
                         data: 'username',
@@ -525,7 +534,7 @@
                             <select class="form-control form-control-sm filter" data-name="status1" id="status1"
                                                 placeholder="Type Here">
                                                 <option disabled selected>Pilih Kode Dana</option>
-                                            <option value="">Semua</option>
+                                            <option value="all">Semua</option>
                                             <option value="WDK">WDK (Penarikan Komisi)</option>
                                             <option value="WDB">WDB (Penarikan Bonus)</option>
                                             <option value="BRAO">BRAO (Bonus Reward Acara Ongkir)</option>
