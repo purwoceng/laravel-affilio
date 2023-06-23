@@ -26,7 +26,7 @@
                                 <path
                                     d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
                             </svg>
-                            Bonus Pensiun Bronze
+                            Bonus Pensiun Challenge 2
                         </p>
                         <small class="card-text text-muted">( <span id="js-date-range-bronze"></span> )</small>
                     </div>
@@ -38,11 +38,11 @@
                         <h5 id="js-dashboard-pensiun-gold" class="card-title mb-5">0</h2>
                             <p class="card-subtitle mb-1 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-box2-fill" viewBox="0 0 16 16">
+                                    class="bi bi-credit-card-fill" viewBox="0 0 16 16">
                                     <path
-                                        d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6l.5.667Z" />
+                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
                                 </svg>
-                                Bonus Pensiun Gold
+                                Bonus Challenge 3
                             </p>
                             <small class="card-text text-muted">( <span id="js-date-range-gold"></span> )</small>
                     </div>
@@ -62,7 +62,7 @@
                                 <path
                                     d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
                             </svg>
-                            Bonus Pensiun Platinum
+                            Bonus Pensiun Challenge 4
                         </p>
                         <small class="card-text text-muted">( <span id="js-date-range-diamond"></span> )</small>
                     </div>
@@ -74,11 +74,11 @@
                         <h5 id="js-dashboard-pensiun-diamond" class="card-title mb-5">0</h2>
                             <p class="card-subtitle mb-1 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-box2-fill" viewBox="0 0 16 16">
+                                    class="bi bi-credit-card-fill" viewBox="0 0 16 16">
                                     <path
-                                        d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5ZM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6l.5.667Z" />
+                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z" />
                                 </svg>
-                                Bonus Pensiun Diamond
+                                Bonus Pensiun Challenge 5
                             </p>
                             <small class="card-text text-muted">( <span id="js-date-range-diamond"></span> )</small>
                     </div>
@@ -132,10 +132,10 @@
                                             placeholder="Type Here">
                                             <option disabled selected>Kode Penarikan</option>
                                             <option value="">Semua</option>
-                                            <option value="BPSB">BPSB(Bonus Pensiun Bronze)</option>
-                                            <option value="BPSG">BPSG(Bonus Pensiun Gold)</option>
-                                            <option value="BPSP">BPSP(Bonus Pensiun Platinum)</option>
-                                            <option value="BPSD">BPSD(Bonus Pensiun Diamond)</option>
+                                            <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
+                                            <option value="BPC4">BPC4 (Bonus Pensiun Challenge 4)</option>
+                                            <option value="BPC3">BPC3 (Bonus Pensiun Challenge 3)</option>
+                                            <option value="BPC2">BPC2 (Bonus Pensiun Challenge 2)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -495,10 +495,10 @@
                                             placeholder="Type Here">
                                             <option disabled >Pilih Kode Penarikan Dana</option>
                                             <option value="all" selected>Semua</option>
-                                            <option value="BPSD">BPSD (Bonus Pensiun Diamond)</option>
-                                            <option value="BPSP">BPSP (Bonus Pensiun Platinum)</option>
-                                            <option value="BPSG">BPSG (Bonus Pensiun Gold)</option>
-                                            <option value="BPSB">BPSB (Bonus Pensiun Bronze)</option>
+                                            <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
+                                            <option value="BPC4">BPC4 (Bonus Pensiun Challenge 4)</option>
+                                            <option value="BPC3">BPC3 (Bonus Pensiun Challenge 3)</option>
+                                            <option value="BPC2">BPC2 (Bonus Pensiun Challenge 2)</option>
                                         </select>
                     </div>
                 </div>

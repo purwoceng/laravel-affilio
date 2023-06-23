@@ -13,10 +13,10 @@ class PensiunDashboardController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $PensiunBronze = Fund::where('code', 'BPSB');
-        $PensiunGold = Fund::where('code', 'BPSG');
-        $PensiunPlatinum = Fund::where('code', 'BPSP');
-        $PensiunDiamond = Fund::where('code', 'BPSD');
+        $PensiunBronze = Fund::where('code', 'BPC2');
+        $PensiunGold = Fund::where('code', 'BPC3');
+        $PensiunPlatinum = Fund::where('code', 'BPC4');
+        $PensiunDiamond = Fund::where('code', 'BPC5');
 
         if (!empty($startDate) && !empty($endDate)) {
             $PensiunBronze->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);

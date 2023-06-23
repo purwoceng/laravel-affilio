@@ -21,7 +21,7 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
 
     public function getData($limit, $start, $startDate, $endDate)
     {
-       return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->offset($start)->limit($limit);
+        return ProductWishlist::whereDate('date', '>=', $startDate)->whereDate('date', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getTotalData($startDate, $endDate)
@@ -49,17 +49,14 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
         $totalData = $this->getTotalData($startDate, $endDate);
         $totalFilteredData = $totalData;
 
-        $getDatas = $query->orderBy('id','desc')->get();
-
-        if ($request->filled('product')) {
-            $keyword = $request->get('product');
+        if ($request->filled('product_name')) {
+            $keyword = $request->get('product_name');
             $query->where('product_id', 'like', '%' . $keyword . '%');
             $totalData = $query->count();
-            $totalFiltered = $totalData;
+            $totalFilteredData = $totalData;
         }
 
-
-
+        $getDatas = $query->orderBy('id', 'desc')->get();
         $data = [];
 
         if (!empty($getDatas)) {
@@ -69,11 +66,11 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
 
                 $memberId = $value->member_id;
                 $created_at = date(' d F Y H:i', strtotime($value->date));
-                $member = Member::where('id',$memberId)->first();
+                $member = Member::where('id', $memberId)->first();
                 $member_name = $member->name ?? '-';
 
                 $token = config('app.baleomol_token_auth');
-                $url = config('app.baleomol_url') . '/affiliator/products/'.$product_id.'?appx=true' ;
+                $url = config('app.baleomol_url') . '/affiliator/products/' . $product_id . '?appx=true';
 
 
                 $response = Http::withHeaders([
@@ -107,6 +104,5 @@ class ProductWishlistRepository implements ProductWishlistRepositoryInterface
 
     public function getDataById($id)
     {
-
     }
 }
