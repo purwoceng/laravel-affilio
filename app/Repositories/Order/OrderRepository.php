@@ -67,6 +67,14 @@ class OrderRepository implements OrderRepositoryInterface
             // $totalFiltered = $totalData;
         }
 
+        if ($request->filled('baleo_order_code')) {
+            $keyword = $request->get('baleo_order_code');
+            $getQuery->where('baleo_order_code', 'like', '%' . $keyword . '%');
+            $getQueryTotal->where('baleo_order_code', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
+        }
+
         if ($request->filled('phone')) {
             $keyword = $request->get('phone');
             $getQuery->where('phone', 'like', '%' . $keyword . '%');
@@ -110,10 +118,13 @@ class OrderRepository implements OrderRepositoryInterface
             foreach ($getResults  as $key => $order) {
                 $id = $order->id;
                 $invoiceCode = $order->invoice_code;
+                $baleoOrderCode = $order->baleo_order_code ?? '-';
                 $code = $order->code;
+                $username = $order->username;
                 $name = $order->customer_name;
                 $resi = !empty($order->resi) ?  $order->resi : '-';
                 $shippingCost = $order->shipping_cost;
+                $fee = $order->fee ?? '-';
                 $affilio_subtotal = $order->affilio_subtotal ?? '-';
                 $subtotal = $order->value;
                 $total = $order->total;
@@ -140,10 +151,13 @@ class OrderRepository implements OrderRepositoryInterface
                 $data[] = array(
                     'id' => $id,
                     'invoice_code' => $invoiceCode,
+                    'baleo_order_code' => $baleoOrderCode,
                     'code' => $code,
+                    'username' => $username,
                     'name' => $name,
                     'resi' => $resi,
                     'shipping_cost' => formatRupiah($shippingCost),
+                    'fee' => formatRupiah($fee),
                     'affilio_subtotal' => formatRupiah($affilio_subtotal),
                     'subtotal' => formatRupiah($subtotal),
                     'total' =>  formatRupiah($total),

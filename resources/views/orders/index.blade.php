@@ -479,6 +479,30 @@
 
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 mr">
+                            <div class="form-group">
+                                <label for="#" class="font-weight-bold">Pilih Status Order</label>
+                                <select class="form-control form-control-sm filter" data-name="status"
+                                    placeholder="Type Here">
+                                    <option disabled selected>Status Order</option>
+                                    <option value="all">Semua</option>
+                                    <option value="unpaid">Unpaid</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="success">Success</option>
+                                    <option value="cancel_unpaid">Cancel Unpaid</option>
+                                    <option value="request_pickup">Riquest Pickup</option>
+                                    <option value="shipping">On Shipping</option>
+                                    <option value="on_return_shipping">On Return Shipping</option>
+                                    <option value="on_return_apply">On Return Apply</option>
+                                    <option value="received">Received</option>
+                                    <option value="reject">Reject</option>
+                                    <option value="claim_not_process">Claim Not Process</option>
+                                    <option value="refund_disbursed">Refund Disbursed</option>
+                                    <option value="disbursed">Disbursed</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
                                 <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
@@ -493,6 +517,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
 
 
@@ -523,6 +549,13 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-sm filter"
+                                            data-name="baleo_order_code" placeholder="Kode Order Baleo" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
                                             data-name="phone" placeholder="Nomor Handphone" />
                                     </div>
                                 </div>
@@ -534,7 +567,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                {{-- <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <select class="form-control form-control-sm filter" data-name="status"
                                             placeholder="Type Here">
@@ -555,7 +588,7 @@
                                             <option value="disbursed">Disbursed</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </form>
@@ -602,9 +635,12 @@
                                 <th class="text-center" width="10%">#</th>
                                 <th class="text-center" width="10%">Order Code</th>
                                 <th class="text-center" width="10%">Invoice Code</th>
+                                <th class="text-center" width="10%">Baleo Order Code</th>
+                                <th class="text-center" width="10%">Username</th>
                                 <th class="text-center" width="10%">Nama Pembeli</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
                                 <th class="text-center" width="10%">Ongkir</th>
+                                <th class="text-center" width="10%">Fee</th>
                                 <th class="text-center" width="10%">Harga</th>
                                 <th class="text-center" width="10%">Subtotal</th>
                                 <th class="text-center" width="10%">Total</th>
@@ -698,6 +734,22 @@
                         className: 'text-center small',
                     },
                     {
+                        data: 'baleo_order_code',
+                        name: 'baleo_order_code',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'username',
+                        name: 'username',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
                         data: 'name',
                         name: 'name',
                         sortable: false,
@@ -716,6 +768,14 @@
                     {
                         data: 'shipping_cost',
                         name: 'shipping_cost',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
+                        data: 'fee',
+                        name: 'fee',
                         sortable: false,
                         orderable: false,
                         searchable: false,
@@ -1655,26 +1715,26 @@
                                                     let orderId = data.data
                                                         .orderData[i]
                                                         .partnershipOrderId;
-                                                    results.push ({
+                                                    results.push({
                                                         'order_id': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .orderId,
                                                         'order_code': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .orderCode,
                                                         'partnership_order_id': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .partnershipOrderId,
                                                         'products': data
                                                             .data
                                                             .orderData[
-                                                            i]
+                                                                i]
                                                             .products,
                                                     })
                                                     // results += JSON.stringify([{
@@ -1709,7 +1769,9 @@
                                                             invoice_id: invoiceId,
                                                             invoice_code: invoiceCode,
                                                             invoice_total: invoiceTotal,
-                                                            order_data: JSON.stringify(results),
+                                                            order_data: JSON
+                                                                .stringify(
+                                                                    results),
                                                         },
                                                         success: function(
                                                             response) {

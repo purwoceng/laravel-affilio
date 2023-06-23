@@ -38,10 +38,10 @@ class PensiunExport implements FromView, WithEvents, ShouldAutoSize
 
         if ($this->fundCode == 'all') {
             $query = $query->where(function ($query) {
-                $query->where('code', '=', 'BPSB')
-                    ->orWhere('code', '=', 'BPSG')
-                    ->orWhere('code', '=', 'BPSP')
-                    ->orWhere('code', '=', 'BPSD');
+                $query->where('code', '=', 'BPC2')
+                    ->orWhere('code', '=', 'BPC3')
+                    ->orWhere('code', '=', 'BPC4')
+                    ->orWhere('code', '=', 'BPC5');
             });
         }
 
