@@ -59,6 +59,14 @@ class OrderRepository implements OrderRepositoryInterface
             // $totalFiltered = $totalData;
         }
 
+        if ($request->filled('username')) {
+            $keyword = $request->get('username');
+            $getQuery->where('username', 'like', '%' . $keyword . '%');
+            $getQueryTotal->where('username', 'like', '%' . $keyword . '%');
+            // $totalData = $getQuery->count();
+            // $totalFiltered = $totalData;
+        }
+
         if ($request->filled('invoice_code')) {
             $keyword = $request->get('invoice_code');
             $getQuery->where('invoice_code', 'like', '%' . $keyword . '%');
@@ -103,6 +111,15 @@ class OrderRepository implements OrderRepositoryInterface
             if ($keyword != 'all') {
                 $getQuery->where('status', $keyword);
                 $getQueryTotal->where('status', $keyword);
+                // $totalData = $getQuery->count();
+                // $totalFiltered = $totalData;
+            }
+        }
+        if ($request->filled('baleomol_status')) {
+            $keyword = $request->get('baleomol_status');
+            if ($keyword != 'all') {
+                $getQuery->where('baleomol_status', $keyword);
+                $getQueryTotal->where('baleomol_status', $keyword);
                 // $totalData = $getQuery->count();
                 // $totalFiltered = $totalData;
             }
