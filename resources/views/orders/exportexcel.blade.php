@@ -4,7 +4,8 @@
             <th>No</th>
             <th>Order Kode</th>
             <th>Order Kode Baleo</th>
-            <th>Nama Pembeli</th>
+            <th>Username</th>
+            <th>Nama Penerima</th>
             <th>Nomor Resi</th>
             <th>Ongkir</th>
             <th>Fee</th>
@@ -24,6 +25,7 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ $order->code }}</td>
                 <td>{{ $order->baleo_order_code }}</td>
+                <td>{{ $order->username }}</td>
                 <td>{{ $order->customer_name }}</td>
                 <td>{{ $order->resi }}</td>
                 <td>{{ $order->shipping_cost }}</td>
