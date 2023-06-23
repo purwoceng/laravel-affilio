@@ -1042,7 +1042,7 @@
                     data: {
                         start_date: startDate,
                         end_date: endDate,
-                        statusOrder : status,
+                        status : status,
 
                     },
                     dataType: "json",

@@ -13,7 +13,7 @@ class OrderDashboardController extends Controller
     {
         $startDate = $request->start_date;
         $endDate = $request->end_date;
-        $statusOrder = $request->statusOrder;
+        $status = $request->status;
 
         $dataAffiliasi = DB::table('product_shared');
         $totalOmzet = DB::table('orders');
@@ -29,6 +29,25 @@ class OrderDashboardController extends Controller
         $dataCancel = Order::where('status', 'cancel');
         $dataCancelButUnpaid =  Order::where('status', 'cancel_unpaid');
         $dataComplain =  Order::where('status', 'complain');
+
+        if (!empty($status )){
+            if($status != 'all'){
+            $totalOmzet->where('status','=', $status);
+            $dataSupplierPrice->where('status','=', $status);
+            $dataOrder->where('status','=', $status);
+            $dataUnpaid->where('status','=', $status);
+            $dataPaid->where('status','=', $status);
+            $dataAwaitingSupplier->where('status','=', $status);
+            $dataShipping->where('status','=', $status);
+            $dataReceived->where('status','=', $status);
+            $dataSuccess->where('status','=', $status);
+            $dataCancel->where('status','=', $status);
+            $dataCancelButUnpaid->where('status','=', $status);
+            $dataComplain->where('status','=', $status);
+
+            }
+        }
+
 
         if (!empty($startDate) && !empty($endDate)) {
             $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);

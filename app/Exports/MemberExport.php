@@ -30,7 +30,8 @@ class MemberExport implements FromView, WithEvents, ShouldAutoSize
 
     public function view(): View
     {
-        $query = Member::whereNotNull('id');
+        // $query = Member::whereNotNull('id');
+        $query = Member::with('member_type', 'member_addresses')->whereNotNull('id');
 
         if ($this->memberType != 'all') {
             $query = $query->where('member_type_id', $this->memberType);
