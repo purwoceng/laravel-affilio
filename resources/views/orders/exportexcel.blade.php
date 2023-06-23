@@ -9,10 +9,12 @@
             <th>Nomor Resi</th>
             <th>Ongkir</th>
             <th>Fee</th>
+            <th>Harga</th>
             <th>Sub Total</th>
             <th>Total</th>
             <th>Nomor HP</th>
             <th>Alamat</th>
+            <th>Status Baleo</th>
             <th>Status</th>
             <th>Kurir</th>
             <th>Tanggal Pemesanan</th>
@@ -31,9 +33,11 @@
                 <td>{{ $order->shipping_cost }}</td>
                 <td>{{ $order->fee }}</td>
                 <td>{{ $order->value }}</td>
+                <td>{{ $order->affilio_subtotal }}</td>
                 <td>{{ $order->total }}</td>
                 <td>{{ $order->phone }}</td>
                 <td>{{ $order->address }}</td>
+                <td>{{ $order->baleomol_status }}</td>
                 <td>{{ $order->status }}</td>
                 <td>{{ $order->shipping_courier }}-{{ $order->shipping_service }}</td>
                 <td>{{ $order->date_created }}</td>
