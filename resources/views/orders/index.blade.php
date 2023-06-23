@@ -121,7 +121,8 @@
                                 Keuntungan Affilio (24%)
                             </p>
                             <br>
-                            <small class="card-text text-muted">( <span id="js-date-range-profit-keuntungan-affilio"></span>
+                            <small class="card-text text-muted">( <span
+                                    id="js-date-range-profit-keuntungan-affilio"></span>
                                 )</small>
                     </div>
                 </div>
@@ -131,8 +132,8 @@
                     <div class="card-body">
                         <h5 id="js-dashboard-cadangan-kerugian-affilio" class="card-title mb-5">0</h2>
                             <p class="card-subtitle mb-1 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-building-dash" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
                                     <path
                                         d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1Z" />
                                     <path
@@ -502,6 +503,29 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mr">
+                            <div class="form-group">
+                                <label for="#" class="font-weight-bold">Pilih Baleo Status Order</label>
+                                <select class="form-control form-control-sm filter" data-name="baleomol_status"
+                                    placeholder="Type Here">
+                                    <option disabled selected>Status Order</option>
+                                    <option value="all">Semua</option>
+                                    <option value="unpaid">Unpaid</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="success">Success</option>
+                                    <option value="cancel_unpaid">Cancel Unpaid</option>
+                                    <option value="request_pickup">Riquest Pickup</option>
+                                    <option value="shipping">On Shipping</option>
+                                    <option value="on_return_shipping">On Return Shipping</option>
+                                    <option value="on_return_apply">On Return Apply</option>
+                                    <option value="received">Received</option>
+                                    <option value="reject">Reject</option>
+                                    <option value="claim_not_process">Claim Not Process</option>
+                                    <option value="refund_disbursed">Refund Disbursed</option>
+                                    <option value="disbursed">Disbursed</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
@@ -528,7 +552,21 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-sm filter"
-                                            data-name="customer_name" placeholder="Nama Pembeli" />
+                                            data-name="customer_name" placeholder="Nama Penerima" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="username" placeholder="Username Pembeli" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="resi" placeholder="Nomor Resi" />
                                     </div>
                                 </div>
 
@@ -560,12 +598,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-sm filter"
-                                            data-name="resi" placeholder="Nomor Resi" />
-                                    </div>
-                                </div>
+
 
                                 {{-- <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
@@ -637,7 +670,7 @@
                                 <th class="text-center" width="10%">Invoice Code</th>
                                 <th class="text-center" width="10%">Baleo Order Code</th>
                                 <th class="text-center" width="10%">Username</th>
-                                <th class="text-center" width="10%">Nama Pembeli</th>
+                                <th class="text-center" width="10%">Nama Penerima</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
                                 <th class="text-center" width="10%">Ongkir</th>
                                 <th class="text-center" width="10%">Fee</th>
@@ -1011,7 +1044,8 @@
                 $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
                     'YYYY-MM-DD'));
                 $('#js-date-range-omzet').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
-                $('#js-date-range-omzet-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+                $('#js-date-range-omzet-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+                    'YYYY-MM-DD'));
                 $('#js-date-range-supplier-price').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
                     'YYYY-MM-DD'));
                 $('#js-date-range-bonus-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
@@ -1102,7 +1136,7 @@
                     data: {
                         start_date: startDate,
                         end_date: endDate,
-                        status : status,
+                        status: status,
 
                     },
                     dataType: "json",
