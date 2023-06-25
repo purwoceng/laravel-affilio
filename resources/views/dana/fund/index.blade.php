@@ -31,18 +31,18 @@
                     {{-- filter --}}
                     <div class="filter-wrapper">
                         <form action="#" class="form" id="filter">
-                                <div class="col-lg-4 col-md-4 col-sm-12 ml-auto mb-2">
-                                    <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
-                                    <div class='input-group' id='js-daterange-picker'>
-                                        <input type='text' class="form-control filter" readonly="readonly"
-                                            data-name="date_range" placeholder="Select date range" />
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar-check-o"></i>
-                                            </span>
-                                        </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 ml-auto mb-2">
+                                <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
+                                <div class='input-group' id='js-daterange-picker'>
+                                    <input type='text' class="form-control filter" readonly="readonly"
+                                        data-name="date_range" placeholder="Select date range" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
                                     </div>
                                 </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
@@ -97,8 +97,8 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
                                         <label class="font-weight-bold">Kode Order</label>
-                                        <input type="text" class="form-control form-control-sm filter" data-name="order_code"
-                                            placeholder="Find Kode Order" />
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="order_code" placeholder="Find Kode Order" />
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
@@ -120,9 +120,9 @@
                                             placeholder="Type Here">
                                             <option disabled selected>Pilih Status</option>
                                             <option value="">Semua</option>
-                                            <option value="2">Gagal Calon Bonus</option>
-                                            <option value="1">Bonus</option>
                                             <option value="0">Calon Bonus</option>
+                                            <option value="1">Bonus</option>
+                                            <option value="2">Gagal Bonus</option>
                                         </select>
                                     </div>
                                 </div>
@@ -250,10 +250,12 @@
                         searchable: false,
                         className: 'text-center small',
                         render: function(data, type, row, meta) {
-                            if (row.is_active) {
+                            if (row.is_active == '1') {
                                 return '<span class="label  label-light-success label-inline label-bold">Bonus</span>';
-                            } else {
+                            } else if (row.is_active == '0') {
                                 return '<span class="label  label-light-danger label-inline label-bold">Calon Bonus</span>';
+                            } else {
+                                return '<span class="label  label-light-danger label-inline label-bold">Gagal Bonus</span>';
                             }
                         }
                     },
