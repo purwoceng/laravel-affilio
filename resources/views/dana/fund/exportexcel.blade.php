@@ -22,7 +22,12 @@
             <td>{{ $fund->username}}</td>
             <td>{{ $fund->status}}</td>
             <td>{{ $fund->code}}</td>
-            <td>{{ $fund->is_active}}</td>
+            {{-- <td>{{ $fund->is_active}}</td> --}}
+            @if($fund->is_active == '1')
+                <td>Bonus</td>
+            @else
+                <td>Calon Bonus</td>
+            @endif
             <td>{{ $fund->title}}</td>
             <td>{{ $fund->value}}</td>
             <td>{{ $fund->created_at}}</td>
