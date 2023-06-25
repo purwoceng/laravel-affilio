@@ -163,6 +163,30 @@ class OrderController extends Controller
         //
     }
 
+    public function verification(Request $request)
+    {
+        if (!empty($request->id)) {
+
+            $data = [
+                'status' => 'success',
+            ];
+            Order::where('id', $request->id)->update($data);
+            return response()->json([
+                'status' => 'true',
+                'title' => 'Berhasil Sukseskan Pesanan!',
+                'message' => 'Berhasil melakukan sukseskan pesanan',
+                'icon' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'false',
+                'title' => 'Gagal Suksesi !!',
+                'message' => 'Gagal melakukan sukseskan pesanan',
+                'icon' => 'warning',
+            ]);
+        }
+    }
+
     public function exportexcel(Request $request)
     {
         $dateRange = [];

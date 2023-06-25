@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Fund;
 use Carbon\Carbon;
 
 class OrderCheckoutController extends Controller
@@ -118,5 +119,33 @@ class OrderCheckoutController extends Controller
             'message' => '<b>'. count($orderData) . '</b> Pesanan Anda telah berhasil checkout ke Baleomol.com. Kode Invoice anda: <b>#'. $invoiceCode .'</b>',
             'icon' => 'success',
         ]);
+    }
+
+    public function verification(Request $request)
+    {
+        if (!empty($request->id)) {
+
+            // $data = [
+            //     'status' => 'success',
+            // ];
+            Order::where('id', $request->id)->update(['status' => 'success']);
+            // $data = [
+            //     'is_active' => 1,
+            // ];
+            Fund::where('order_id', $request->id)->update(['is_active' => '1']);
+            return response()->json([
+                'status' => 'true',
+                'title' => 'Berhasil Sukseskan Pesanan!',
+                'message' => 'Berhasil melakukan sukseskan pesanan',
+                'icon' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'false',
+                'title' => 'Gagal Suksesi !!',
+                'message' => 'Gagal melakukan sukseskan pesanan',
+                'icon' => 'warning',
+            ]);
+        }
     }
 }
