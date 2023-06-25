@@ -981,6 +981,9 @@
                                             </a>
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Sukseskan
                                             </a>
+                                            <a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
+                                                    <span class="nav-text" data-id="${row.id}">Batalkan</span>
+                                                </a>
                                             ${checkoutButton}
                                         </li>
                                     </ul>
@@ -2196,6 +2199,62 @@
                     });
             });
 
+            //batalkan
+            $(document).on('click', '.js-cancel-order', function(e) {
+
+                swal.fire({
+                    title: "Apakah anda yakin ?",
+                    text: "Anda akan melakukan batalkan oreder ini!",
+                    showCancelButton: true,
+                    showConfirmButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Batal",
+                }).then(function(result) {
+                    if (result.value) {
+                        Swal.fire({
+                            showCloseButton: false,
+                            showConfirmButton: false,
+                            icon: 'info',
+                            title: 'Harap Tunggu',
+                            text: 'Sedang meneruskan request Anda...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: function() {
+                                Swal.showLoading();
+                            },
+                        });
+                        setTimeout(function() {
+                            let urlActivation =
+                                "{{ route('orders.batalkan') }}";
+                            let Id = $(e.target).data('id');
+                            $.ajax({
+                                type: "POST",
+                                url: urlActivation,
+                                data: {
+                                    id: Id,
+                                    "_token": "{{ csrf_token() }}",
+                                },
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: response.icon,
+                                        title: response.title,
+                                        text: response.message,
+                                    });
+
+                                    getDataFiltered();
+                                }
+                            });
+
+                        }, 500);
+                    } else if (result.dismiss === 'Batal') {
+                        console.log('Batal')
+                    }
+
+                });
+            });
         });
     </script>
 @endpush

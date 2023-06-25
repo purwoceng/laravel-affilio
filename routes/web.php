@@ -128,6 +128,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
         Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
         Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder');
+        Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan');
     });
 
     //Invoice Menu
