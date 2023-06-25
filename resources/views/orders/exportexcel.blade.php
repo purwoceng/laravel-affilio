@@ -32,8 +32,8 @@
                 <td>{{ $order->resi }}</td>
                 <td>{{ $order->shipping_cost }}</td>
                 <td>{{ $order->fee }}</td>
-                <td>{{ $order->value }}</td>
                 <td>{{ $order->affilio_subtotal }}</td>
+                <td>{{ $order->subtotal }}</td>
                 <td>{{ $order->total }}</td>
                 <td>{{ $order->phone }}</td>
                 <td>{{ $order->address }}</td>

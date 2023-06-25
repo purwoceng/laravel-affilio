@@ -485,21 +485,17 @@
                                 <label for="#" class="font-weight-bold">Pilih Status Order</label>
                                 <select class="form-control form-control-sm filter" data-name="status"
                                     placeholder="Type Here">
-                                    <option disabled selected>Status Order</option>
-                                    <option value="all">Semua</option>
+                                    <option disabled>Pilih Status Order</option>
+                                    <option value="all" selected>Semua</option>
                                     <option value="unpaid">Unpaid</option>
                                     <option value="paid">Paid</option>
-                                    <option value="success">Success</option>
-                                    <option value="cancel_unpaid">Cancel Unpaid</option>
-                                    <option value="request_pickup">Riquest Pickup</option>
-                                    <option value="shipping">On Shipping</option>
-                                    <option value="on_return_shipping">On Return Shipping</option>
-                                    <option value="on_return_apply">On Return Apply</option>
-                                    <option value="received">Received</option>
+                                    <option value="process">Proses</option>
+                                    <option value="shipping">Shipping</option>
                                     <option value="reject">Reject</option>
-                                    <option value="claim_not_process">Claim Not Process</option>
-                                    <option value="refund_disbursed">Refund Disbursed</option>
-                                    <option value="disbursed">Disbursed</option>
+                                    <option value="cancel">Cancel</option>
+                                    <option value="complaint">Complaint</option>
+                                    <option value="received">Received</option>
+                                    <option value="success">Success</option>
                                 </select>
                             </div>
                         </div>
@@ -510,19 +506,40 @@
                                     placeholder="Type Here">
                                     <option disabled selected>Status Order</option>
                                     <option value="all">Semua</option>
-                                    <option value="unpaid">Unpaid</option>
-                                    <option value="paid">Paid</option>
-                                    <option value="success">Success</option>
-                                    <option value="cancel_unpaid">Cancel Unpaid</option>
-                                    <option value="request_pickup">Riquest Pickup</option>
-                                    <option value="shipping">On Shipping</option>
-                                    <option value="on_return_shipping">On Return Shipping</option>
+                                    <option value="canceled">Canceled</option>
+                                    <option value="canceled_but_unpaid">Cancel But Unpaid</option>
+                                    <option value="confirm">Confirm</option>
+                                    <option value="on_cancel_apply">On Cancel Apply</option>
+                                    <option value="on_conpensation_apply">On Conpensation Apply</option>
+                                    <option value="on_expedition">On Expedition</option>
+                                    <option value="on_pickup">On Pickup</option>
+                                    <option value="on_process">On Process</option>
+                                    <option value="on_process_partner">On Process Partner</option>
                                     <option value="on_return_apply">On Return Apply</option>
-                                    <option value="received">Received</option>
-                                    <option value="reject">Reject</option>
-                                    <option value="claim_not_process">Claim Not Process</option>
-                                    <option value="refund_disbursed">Refund Disbursed</option>
-                                    <option value="disbursed">Disbursed</option>
+                                    <option value="on_return_partner">On Return Partner</option>
+                                    <option value="on_rueturn_shipping">On Return Shipping</option>
+                                    <option value="on_rueturn_shipping_2">On Return Shipping2</option>
+                                    <option value="on_shipping">On Shipping</option>
+                                    <option value="on_shipping_partner">On Shipping Partner</option>
+                                    <option value="on_shipping_resend_partial">On Shipping Resend Partial</option>
+                                    <option value="over_sla">Over Sla</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="pending_success">Pending Success</option>
+                                    <option value="pickedup">Pickedup</option>
+                                    <option value="recived">Recived</option>
+                                    <option value="refund">Refund</option>
+                                    <option value="request_pickup">Request Pickup</option>
+                                    <option value="request_resi">Request Resi</option>
+                                    <option value="resi_uploaded">Resi Uploaded</option>
+                                    <option value="return_granted">Return Granted</option>
+                                    <option value="returned">Returned</option>
+                                    <option value="seller_return_confirm">Seller Return Confirm</option>
+                                    <option value="success">Success</option>
+                                    <option value="success_verified">Success Verified</option>
+                                    <option value="success_with_cod_refund">Success With Cod Refund</option>
+                                    <option value="success_with_complaint_partial_refund">Success With Complaint Partial
+                                        Refund</option>
+                                    <option value="unpaid">Unpaid</option>
                                 </select>
                             </div>
                         </div>
@@ -1276,17 +1293,13 @@
                                                 <option value="all" selected>Semua</option>
                                                 <option value="unpaid">Unpaid</option>
                                                 <option value="paid">Paid</option>
-                                                <option value="success">Success</option>
-                                                <option value="cancel_unpaid">Cancel Unpaid</option>
-                                                <option value="request_pickup">Riquest Pickup</option>
+                                                <option value="process">Proses</option>
                                                 <option value="shipping">Shipping</option>
-                                                <option value="on_return_shipping">On Return Shipping</option>
-                                                <option value="on_return_apply">On Return Apply</option>
-                                                <option value="received">Received</option>
                                                 <option value="reject">Reject</option>
-                                                <option value="claim_not_process">Claim Not Process</option>
-                                                <option value="refund_disbursed">Refund Disbursed</option>
-                                                <option value="disbursed">Disbursed</option>
+                                                <option value="cancel">Cancel</option>
+                                                <option value="complaint">Complaint</option>
+                                                <option value="received">Received</option>
+                                                <option value="success">Success</option>
                                             </select>
                         </div>
                     </div>
