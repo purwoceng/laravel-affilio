@@ -130,6 +130,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
         Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder');
         Route::post('/verification', [OrderCheckoutController::class, 'verification'])->name('verification');
+        Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan');
     });
 
     //Invoice Menu
