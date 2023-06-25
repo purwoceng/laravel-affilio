@@ -124,10 +124,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index')->middleware('can:read_orders');
         Route::get('/show/{id}', [OrderController::class, 'show'])->name('show')->middleware('can:read_orders');
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
+        //Route::post('/verification', [OrderController::class, 'verification'])->name('verification');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
         Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
         Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder');
+        Route::post('/verification', [OrderCheckoutController::class, 'verification'])->name('verification');
         Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan');
     });
 
