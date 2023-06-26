@@ -53,7 +53,7 @@ class ProductAffilioController extends Controller
 
     public function create()
     {
-        $arr_range = range(1, 25);
+        $arr_range = range(1, 500);
         $data = ProductAffilio::whereNull('deleted_at')->get();
 
         $exists_numbers = array_map(function ($product) {
@@ -75,7 +75,7 @@ class ProductAffilioController extends Controller
     {
         $this->validate($request, [
             'product_id' => 'required|numeric|min:1',
-            'queue_number' => 'required|numeric|min:1|max:100',
+            'queue_number' => 'required|numeric|min:1|max:500',
         ]);
 
         $product_affilio = ProductAffilio::create([
@@ -106,7 +106,7 @@ class ProductAffilioController extends Controller
         $product = ProductAffilio::findOrFail($id);
 
         if ($product) {
-            $arr_range = range(1, 25);
+            $arr_range = range(1, 500);
             $data = ProductAffilio::where('id', '!=', $id)->whereNull('deleted_at')->get();
 
             $exists_numbers = array_map(function ($product) {
@@ -122,7 +122,7 @@ class ProductAffilioController extends Controller
             );
 
             $token = config('app.baleomol_token_auth');
-            $url = config('app.baleomol_url') . '/affiliator/products/' . $product['product_id'].'?appx=true';
+            $url = config('app.baleomol_url') . '/affiliator/products/' . $product['product_id'] . '?appx=true';
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
             ])->get($url);
@@ -146,7 +146,7 @@ class ProductAffilioController extends Controller
     {
         $this->validate($request, [
             'product_id' => 'required|numeric|min:1',
-            'queue_number' => 'required|numeric|min:1|max:100',
+            'queue_number' => 'required|numeric|min:1|max:500',
         ]);
 
         $product = ProductAffilio::findOrFail($id);
@@ -177,7 +177,7 @@ class ProductAffilioController extends Controller
         $exception_id = $request->exception_id ?? 0;
         $type_id = $request->type_id ?? 0;
 
-        $arr_range = range(1, 25);
+        $arr_range = range(1, 500);
 
         $data = ProductAffilio::where('id', '!=', $exception_id)->where('is_active', 1)->get();
 
