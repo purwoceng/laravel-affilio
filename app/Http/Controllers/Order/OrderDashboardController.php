@@ -14,6 +14,7 @@ class OrderDashboardController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
         $status = $request->status;
+        $baleomol_status = $request->baleomol_status;
 
         $dataAffiliasi = DB::table('product_shared');
         $totalOmzet = DB::table('orders');
@@ -45,6 +46,22 @@ class OrderDashboardController extends Controller
             $dataCancelButUnpaid->where('status','=', $status);
             $dataComplain->where('status','=', $status);
 
+            }
+        }
+        if (!empty($baleomol_status )){
+            if($baleomol_status != 'all'){
+            $totalOmzet->where('baleomol_status','=', $baleomol_status);
+            $dataSupplierPrice->where('baleomol_status','=', $baleomol_status);
+            $dataOrder->where('baleomol_status','=', $baleomol_status);
+            $dataUnpaid->where('baleomol_status','=', $baleomol_status);
+            $dataPaid->where('baleomol_status','=', $baleomol_status);
+            $dataAwaitingSupplier->where('baleomol_status','=', $baleomol_status);
+            $dataShipping->where('baleomol_status','=', $baleomol_status);
+            $dataReceived->where('baleomol_status','=', $baleomol_status);
+            $dataSuccess->where('baleomol_status','=', $baleomol_status);
+            $dataCancel->where('baleomol_status','=', $baleomol_status);
+            $dataCancelButUnpaid->where('baleomol_status','=', $baleomol_status);
+            $dataComplain->where('baleomol_status','=', $baleomol_status);
             }
         }
 
