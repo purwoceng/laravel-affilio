@@ -1148,6 +1148,7 @@
                 let startDate = dataSplit[0];
                 let endDate = dataSplit[1];
                 let status = data.status;
+                let baleomol_status = data.baleomol_status;
 
                 let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
 
@@ -1158,6 +1159,7 @@
                         start_date: startDate,
                         end_date: endDate,
                         status: status,
+                        baleomol_status: baleomol_status,
 
                     },
                     dataType: "json",
