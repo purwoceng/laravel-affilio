@@ -210,7 +210,7 @@
                  </li>
              @endhasanyrole
 
-             @hasanyrole('akutansi|super_user|event|admin_member|customer_service|view')
+             @hasanyrole('akutansi|super_user|event|admin_member|customer_service|view|super_cs')
                  <li class="menu-item menu-item-submenu {{ request()->is('members*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
