@@ -1,4 +1,4 @@
-@hasanyrole('super_user')
+@hasanyrole('super_user|super_cs')
 @extends('core.app')
 @section('title', __('Edit Member'))
 
@@ -284,7 +284,7 @@
                         <div class="form-group">
                             <label for="input-member-phone">Nomor Telepon / HP*</label>
                             <input type="text" id="input-member-phone" class="form-control" name="phone"
-                                value="{{ $data->phone }}" aria-describedby="phone-helper" required />
+                                value="{{ $data->phone }}" aria-describedby="phone-helper" required disabled/>
 
                             @error('phone')
                                 <small id="phone-helper" class="form-text text-danger">
