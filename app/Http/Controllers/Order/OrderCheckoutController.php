@@ -151,22 +151,28 @@ class OrderCheckoutController extends Controller
                 'icon' => 'error',
             ]);
         }
-        for ($i = 0; $i < count($orderData); $i++) {
-            $orderId = $orderData[$i]['partnership_order_id'];
-            $orderCode = $orderData[$i]['order_code'];
-            $originOrderId = $orderData[$i]['order_id'];
+        foreach ($orderData as $result) {
+            $orderId = $result['partnership_order_id'];
+            $orderCode = $result['order_code'];
+            $originOrderId = $result['order_id'];
             $status = 'paid';
+            $mesaggeArray = [];
+            foreach ($result['products'] as $product){
+                $mesaggeArray = array_merge($mesaggeArray, $product['errors']);
+            }
 
-            $updateData = [
-                'baleo_invoice_id' => $invoiceId,
-                'baleo_order_id' => $originOrderId,
-                'baleo_invoice_code' => $invoiceCode,
-                'baleo_order_code' => $orderCode,
-                'baleomol_status' => $status,
-                'date_checkout_baleo' => Carbon::now(),
-            ];
+            if(count($mesaggeArray) < 1){
+                $updateData = [
+                    'baleo_invoice_id' => $invoiceId,
+                    'baleo_order_id' => $originOrderId,
+                    'baleo_invoice_code' => $invoiceCode,
+                    'baleo_order_code' => $orderCode,
+                    'baleomol_status' => $status,
+                    'date_checkout_baleo' => Carbon::now(),
+                ];
 
-            Order::where('id', $orderId)->update($updateData);
+                Order::where('id', $orderId)->update($updateData);
+            }
         }
 
 
