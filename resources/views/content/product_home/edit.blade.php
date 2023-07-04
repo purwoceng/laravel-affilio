@@ -122,8 +122,8 @@
                                 <option disabled>Pilih tipe</option>
                                 <option value="recommendation" {{ $product->type == 'recommendation' ? 'selected' : '' }}>
                                     Rekomendasi</option>
-                                <option value="affilio_recommendation"
-                                    {{ $product->type == 'affilio_recommendation' ? 'selected' : '' }}>Affilio</option>
+                                {{-- <option value="affilio_recommendation"
+                                    {{ $product->type == 'affilio_recommendation' ? 'selected' : '' }}>Affilio</option> --}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -235,7 +235,9 @@
                         Authorization: `Bearer {{ config('app.baleomol_token_auth') }}`,
                     },
                     processResults: function(response, params) {
-                        var result = { results: [] };
+                        var result = {
+                            results: []
+                        };
 
                         if (response.success) {
                             const productData = response.data.data
