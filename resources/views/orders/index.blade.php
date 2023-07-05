@@ -1907,7 +1907,7 @@
                                                     });
 
                                             } else {
-                                                let messages = '';
+                                                //let messages = '';
                                                 if (data.data === undefined || data
                                                     .data == null || data.data
                                                     .length <= 0) {
@@ -1917,25 +1917,37 @@
                                                         icon: 'error',
                                                     });
                                                 } else {
-                                                    messages += '<ul>';
-                                                    for (let i = 0; i < data.data
-                                                        .length; i++) {
-                                                        for (let j = 0; j < data
-                                                            .data[i].products[0]
-                                                            .errors.length; j++) {
-                                                            messages +=
-                                                                '<li style="text-align: left;">' +
-                                                                data.data[i]
-                                                                .products[0].errors[
-                                                                    j] + '</li>';
-                                                        }
+                                                    //messages += '<ul>';
+                                                    // for (let i = 0; i < data.data
+                                                    //     .length; i++) {
+                                                    //     messageArray.push()
+                                                    //     for (let j = 0; j < data
+                                                    //         .data[i].products[0]
+                                                    //         .errors.length; j++) {
+                                                    //         messages +=
+                                                    //             '<li style="text-align: left;">' +
+                                                    //             data.data[i]
+                                                    //             .products[0].errors[
+                                                    //                 j] + '</li>';
+                                                    //     }
+                                                    //
+                                                    // }
 
+                                                    //messages += '</ul>';
+                                                    let messageArray = []
+                                                    for (const orderData of  data.data){
+                                                        for(const product of orderData.products){
+                                                            messageArray.push(...product.errors)
+                                                        }
                                                     }
-                                                    messages += '</ul>';
+
+
+                                                    const messageString = messageArray.join('<br/>')
+
                                                     Swal.fire({
                                                         title: data.message,
                                                         html: '<span style="text-align: left; display:block;">Pesanan gagal diteruskan di Baleomol.com, dengan rincian : </span><br>' +
-                                                            messages,
+                                                            messageString,
                                                         icon: 'error',
                                                     });
                                                 }
