@@ -961,11 +961,19 @@
                         render: function(data, type, row, meta) {
                             let elements = '';
                             let checkoutButton = '';
+                            let suksesButton = '';
 
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
                                 .payment_status === 'paid') {
                                 checkoutButton +=
                                     `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                            }
+
+                            if (row.baleomol_status === 'received' && row.status === 'received') {
+                                suksesButton +=
+                                    `<hr/ class="m-1"><a class="nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
+                                                    <span class="nav-text" data-id="${row.id}">Sukseskan</span>
+                                                </a>`;
                             }
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -979,9 +987,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
                                             </a>
-                                            <a class="nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Sukseskan</span>
-                                                </a>
+                                            ${suksesButton}
                                                 <a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
                                                     <span class="nav-text" data-id="${row.id}">Batalkan</span>
                                                 </a>
