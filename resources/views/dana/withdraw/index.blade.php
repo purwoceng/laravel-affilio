@@ -164,9 +164,9 @@
                                 <th class="text-center">Total Transfer</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Deskripsi</th>
-                                <th class="text-center">Status Transfer</th>
+                                {{-- <th class="text-center">Status Transfer</th> --}}
                                 <th class="text-center">Aktifasi</th>
-                                <th class="text-center">Publish</th>
+                                <th class="text-center">Status Verifikasi Penarikan</th>
                                 <th class="text-center">Dibuat</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -288,21 +288,21 @@
                         searchable: false,
                         className: 'text-center small',
                     },
-                    {
-                        data: 'status_transfer',
-                        name: 'status_transfer',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center small',
-                        render: function(data, type, row, meta) {
-                            if (row.status_transfer) {
-                                return '<span class="label  label-light-success label-inline label-bold">Sukses</span>';
-                            } else {
-                                return '<span class="label  label-light-danger label-inline label-bold">Menunggu</span>';
-                            }
-                        }
-                    },
+                    // {
+                    //     data: 'status_transfer',
+                    //     name: 'status_transfer',
+                    //     sortable: false,
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center small',
+                    //     render: function(data, type, row, meta) {
+                    //         if (row.status_transfer) {
+                    //             return '<span class="label  label-light-success label-inline label-bold">Sukses</span>';
+                    //         } else {
+                    //             return '<span class="label  label-light-danger label-inline label-bold">Menunggu</span>';
+                    //         }
+                    //     }
+                    // },
                     {
                         data: 'is_active',
                         name: 'is_active',
