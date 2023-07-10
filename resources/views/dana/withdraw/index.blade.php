@@ -112,13 +112,13 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <label class="font-weight-bold">Pilih Status Publish</label>
+                                        <label class="font-weight-bold">Pilih Status Verifikasi Penarikan</label>
                                         <select class="form-control form-control-sm filter" data-name="publish"
                                             placeholder="Type Here">
-                                            <option disabled selected>Status Publish</option>
+                                            <option disabled selected>Status Verifikasi Penarikan</option>
                                             <option value="all">Semua</option>
-                                            <option value="1">Sukses</option>
-                                            <option value="0">Menunggu</option>
+                                            <option value="1">Sukses Verifikasi Penarikan</option>
+                                            <option value="0">Menunggu Verifikasi</option>
                                         </select>
                                     </div>
                                 </div>
@@ -159,13 +159,13 @@
                                 <th class="text-center">Username</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Kode</th>
-                                <th class="text-center">Value</th>
+                                <th class="text-center">Request Penarikan</th>
                                 <th class="text-center">Pajak 6%</th>
                                 <th class="text-center">Total Transfer</th>
                                 <th class="text-center">Title</th>
                                 <th class="text-center">Deskripsi</th>
                                 {{-- <th class="text-center">Status Transfer</th> --}}
-                                <th class="text-center">Aktifasi</th>
+                                {{-- <th class="text-center">Aktifasi</th> --}}
                                 <th class="text-center">Status Verifikasi Penarikan</th>
                                 <th class="text-center">Dibuat</th>
                                 <th class="text-center">Aksi</th>
@@ -303,21 +303,21 @@
                     //         }
                     //     }
                     // },
-                    {
-                        data: 'is_active',
-                        name: 'is_active',
-                        sortable: false,
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center small',
-                        render: function(data, type, row, meta) {
-                            if (row.is_active) {
-                                return '<span class="label  label-light-success label-inline label-bold">Active</span>';
-                            } else {
-                                return '<span class="label  label-light-danger label-inline label-bold">Non-Active</span>';
-                            }
-                        }
-                    },
+                    // {
+                    //     data: 'is_active',
+                    //     name: 'is_active',
+                    //     sortable: false,
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center small',
+                    //     render: function(data, type, row, meta) {
+                    //         if (row.is_active) {
+                    //             return '<span class="label  label-light-success label-inline label-bold">Active</span>';
+                    //         } else {
+                    //             return '<span class="label  label-light-danger label-inline label-bold">Non-Active</span>';
+                    //         }
+                    //     }
+                    // },
                     {
                         data: 'publish',
                         name: 'publish',
