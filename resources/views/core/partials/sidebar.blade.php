@@ -244,7 +244,7 @@
                                      <span class="menu-text">Data Member</span>
                                  </a>
                              </li>
-
+                             @hasanyrole('akutansi|super_user|admin_member|view|super_cs')
                              <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/accounts*') ? 'active' : '' }}"
                              aria-haspopup="true" data-menu-toggle="hover">
                              <a href="{{ route('members.accounts.index') }}" class="menu-link menu-toggle">
@@ -254,6 +254,7 @@
                                  <span class="menu-text">Data Rekening</span>
                              </a>
                          </li>
+                         @endhasanyrole
 
 
                              <li class="menu-item menu-item-submenu menu-item-{{ request()->is('members/blocked*') ? 'active' : '' }}"

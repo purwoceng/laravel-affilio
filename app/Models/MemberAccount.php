@@ -26,4 +26,9 @@ class MemberAccount extends Model
         'created_at'  => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function members()
+    {
+        return $this->belongsTo(Member::class, 'member_id', 'id');
+    }
 }
