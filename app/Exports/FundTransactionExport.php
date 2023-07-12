@@ -31,7 +31,7 @@ class FundTransactionExport implements FromView, WithEvents, ShouldAutoSize
 
     public function view():View
     {
-        $query = Fund::whereNotNull('id');
+        $query = Fund::with('members')->whereNotNull('id');
 
         if ($this->fundCode != 'all') {
             $query = $query->where('code', $this->fundCode);

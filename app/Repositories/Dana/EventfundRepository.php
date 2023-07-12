@@ -14,7 +14,7 @@ class EventfundRepository implements EventfundRepositoryInterface
 
     public function getCountEventFund($startDate, $endDate)
     {
-        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->where('is_active','1')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
     public function getDataById($id)
     {
@@ -24,7 +24,7 @@ class EventfundRepository implements EventfundRepositoryInterface
 
     public function getEventFund($limit, $start, $startDate, $endDate)
     {
-        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return RewardDana::whereBetween('code', ['BRAO', 'BRAT'])->where('is_active','1')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
@@ -44,18 +44,18 @@ class EventfundRepository implements EventfundRepositoryInterface
         }
 
         $event_query = $this->getEventFund($limit, $start, $startDate, $endDate);
-        $totalData = $this->getCountEventFund($startDate, $endDate);
-        $totalFiltered = $totalData;
+        $getQueryTotal = $this->getCountEventFund($startDate, $endDate);
+        // $totalFiltered = $totalData;
 
         if ($request->filled('code')) {
             if ($request->code != 'all') {
                 $keyword = $request->get('code');
                 $event_query->where('code', $keyword);
-                $totalData = $event_query->count();
-                $totalFiltered = $totalData;
+                $getQueryTotal->where('code', $keyword);
             }
         }
 
+        $totalData = $getQueryTotal->count();
         $events = $event_query->orderBy('id', 'desc')->get();
         $data =  [];
 
@@ -88,7 +88,7 @@ class EventfundRepository implements EventfundRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordsFiltered' => intval($totalFiltered),
+            'recordsFiltered' => intval($totalData),
             'data' => $data,
         ];
 
