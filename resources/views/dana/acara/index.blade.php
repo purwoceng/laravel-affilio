@@ -83,6 +83,9 @@
 
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ml-auto">
+                            <label for="js-daterange-picker" class="font-weight-bold">Bonus Acara Dihitung Berdasarkan Status Bonus yang Sudah menjadi Bonus</label>
+                        </div>
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
                                 <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
