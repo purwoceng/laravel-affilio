@@ -961,11 +961,18 @@
                         render: function(data, type, row, meta) {
                             let elements = '';
                             let checkoutButton = '';
+                            let batalButton = '';
 
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
                                 .payment_status === 'paid') {
                                 checkoutButton +=
                                     `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                            }
+                            if (row.baleomol_status === 'unpaid' && row.status === 'paid') {
+                                batalButton +=
+                                    `<hr/ class="m-1"><a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
+                                                    <span class="nav-text" data-id="${row.id}">Batalkan</span>
+                                                </a>`;
                             }
 
                             elements += `<div class="dropdown dropdown-inline">
@@ -982,9 +989,7 @@
                                             <a class="nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
                                                     <span class="nav-text" data-id="${row.id}">Sukseskan</span>
                                                 </a>
-                                                <a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Batalkan</span>
-                                                </a>
+                                               ${batalButton} 
                                             ${checkoutButton}
                                         </li>
                                     </ul>

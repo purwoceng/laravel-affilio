@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Exports\MemberAccountExport;
 use App\Http\Controllers\Controller;
 use App\Models\MemberAccount;
 use App\Repositories\Member\MemberAccountRepository;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberAccountController extends Controller
 {
@@ -49,5 +51,20 @@ class MemberAccountController extends Controller
                 'icon' => 'warning',
             ]);
         }
+    }
+
+    public function exportexcel(Request $request)
+    {
+
+        $bank_name = '';
+
+
+
+        if (isset($request->bank)) {
+            $bank_name = $request->bank;
+        }
+
+return Excel::download(new MemberAccountExport($bank_name), 'memberaccounts.xlsx');
+        // return Excel::download(new MemberAccountsExport($status), 'member.xlsx');
     }
 }

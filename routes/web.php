@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('accounts')->name('accounts.')->group(function () {
             Route::get('/', [MemberAccountController::class, 'index'])->name('index');
             Route::post('/verification', [MemberAccountController::class, 'verification'])->name('verification');
+            Route::get('/exportexcel', [MemberAccountController::class, 'exportexcel'])->name('exportexcel');
         });
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
