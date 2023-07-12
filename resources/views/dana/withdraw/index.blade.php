@@ -112,6 +112,13 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
+                                        <label class="font-weight-bold">Email</label>
+                                        <input type="text" class="form-control form-control-sm filter"
+                                            data-name="email" placeholder="Find Email" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
                                         <label class="font-weight-bold">Pilih Status Verifikasi Penarikan</label>
                                         <select class="form-control form-control-sm filter" data-name="publish"
                                             placeholder="Type Here">

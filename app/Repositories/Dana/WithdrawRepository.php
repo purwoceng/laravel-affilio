@@ -18,7 +18,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
 
     public function getCountWithdraw($startDate, $endDate)
     {
-        return Withdraw::with('members')->whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->get()->count();
+        return Withdraw::with('members')->whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
 
     public function getDataById($id)
@@ -49,37 +49,46 @@ class WithdrawRepository implements WithdrawRepositoryInterface
         }
 
         $wd_query = $this->getWithdraw($limit, $start, $startDate, $endDate);
-        $totalData = $this->getCountWithdraw($startDate, $endDate);
-        $totalFiltered = $totalData;
+        $getQueryTotal = $this->getCountWithdraw($startDate, $endDate);
+       // $totalFiltered = $totalData;
 
         if ($request->filled('username')) {
             $keyword = $request->get('username');
             $wd_query->where('username', 'like', '%' . $keyword . '%');
-            $totalData = $wd_query->count();
-            $totalFiltered = $totalData;
+            $getQueryTotal->where('username', 'like', '%' . $keyword . '%');
+
         }
 
         if ($request->filled('code')) {
             if ($request->code != 'all') {
                 $keyword = $request->get('code');
                 $wd_query->where('code', $keyword);
-                $totalData = $wd_query->count();
-                $totalFiltered = $totalData;
+                $getQueryTotal->where('code', $keyword);
+
             }
         }
         if ($request->filled('publish')) {
             if ($request->publish != 'all') {
                 $keyword = $request->get('publish');
                 $wd_query->where('publish', $keyword);
-                $totalData = $wd_query->count();
-                $totalFiltered = $totalData;
+                $getQueryTotal->where('publish', $keyword);
+            }
+        }
+        if ($request->filled('email')) {
+            if ($request->email != 'all') {
+                $keyword = $request->get('email');
+                $wd_query->whereHas('members', function ($query) use ($keyword) {
+                    return $query->where('members.publish', '=', 1)->where('members.email', 'LIKE', '%' . $keyword . '%');
+                });
+
+                $getQueryTotal->whereHas('members', function ($query) use ($keyword) {
+                    return $query->where('members.publish', '=', 1)->where('members.email', 'LIKE', '%' . $keyword . '%');
+                });
             }
         }
 
-        $total_transfer = Withdraw::select(DB::raw("( value * 6 / 100 ) as total_transfer"))
-                        ->where('publish', '1')
-                        ->pluck('total_transfer');
-
+        $totalData = $getQueryTotal->count();
+        $totalFiltered = $totalData;
         $withdraws = $wd_query->orderBy('id', 'desc')->get();
 
         $data =  [];
@@ -125,7 +134,7 @@ class WithdrawRepository implements WithdrawRepositoryInterface
         $result = [
             'draw' => intval($request->input('draw')),
             'recordsTotal' => intval($totalData),
-            'recordsFiltered' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
             'data' => $data,
         ];
 
