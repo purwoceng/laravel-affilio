@@ -71,8 +71,7 @@ class WebHookBaleo extends Controller
             return [
                 'orderId'=> $order->id,
                 'baleoOrderId' => $order->baleo_order_id,
-                'status'=> 'success',
-                'updateStatus'=> $order->toArray()
+                'status'=> 'success'
             ];
         } catch (\Exception $error){
             dd($error->getMessage());
