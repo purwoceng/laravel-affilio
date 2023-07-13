@@ -27,7 +27,7 @@ class Order
             $endpoint = $this->url. '/orders/cancel-waybill/'.$waybillId;
             $response = Http::withHeaders($this->headers)->post($endpoint);
             $result = $response->body();
-            return json_encode($result);
+            return json_decode($result, true);
         } catch (\Exception $error){
 
         }
