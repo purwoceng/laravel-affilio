@@ -967,38 +967,29 @@
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
                                 .payment_status === 'paid') {
                                 checkoutButton +=
-                                    `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                                    `<a class="btn btn-sm btn-primary btn-icon nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}"><i class="fas fa-cart-plus mr-1 fa-sm" data-id="${row.id}"></i></a>`;
                             }
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid') {
                                 batalButton +=
-                                    `<hr/ class="m-1"><a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Batalkan</span>
+                                    `<a class="btn btn-sm btn-danger btn-icon nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
+                                        <i class="fas fa-user-times mr-1 fa-sm" data-id="${row.id}"></i>
                                                 </a>`;
                             }
 
                             if (row.baleomol_status === 'received' && row.status === 'received') {
                                 suksesButton +=
-                                    `<hr/ class="m-1"><a class="nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Sukseskan</span>
+                                    `<a class="btn btn-sm btn-danger btn-icon nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
+                                        <i class="fas fa-user-times mr-1 fa-sm" data-id="${row.id}"></i>
                                                 </a>`;
                             }
 
-                            elements += `<div class="dropdown dropdown-inline">
-                                <a href="javascript:void(0)"
-                                    class="btn btn-sm btn-primary btn-icon"
-                                    data-toggle="dropdown">
-                                    <i class="la la-cog"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                    <ul class="nav nav-hoverable flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
+                            elements += `
+                            <div class="mr-3">
+                                            <a class="btn btn-sm btn-success btn-icon nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}"><i class="fas fa-eye mr-1 fa-sm data-id="${row.id}"></i>
                                             </a>
                                             ${suksesButton}
                                             ${batalButton}
                                             ${checkoutButton}
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>`;
 
