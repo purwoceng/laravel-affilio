@@ -669,13 +669,13 @@
                                             class="fas fa-tag fa-sm text-white-50"></i> Checkout Massal Pesanan</button>
                                 </div>
                             </div>
-                            <div class="btn-group">
+                            {{-- <div class="btn-group">
                                 <div class="m-1">
                                     <button class="btn btn-sm btn-danger shadow-sm text-white" id="js-btn-resi"
                                         disabled><i class="fas fa-print fa-sm text-white-50"></i> Buat Resi
                                         Pesanan</button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <table id="js-orders-table"
