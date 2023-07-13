@@ -4,6 +4,7 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\SupplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\WebHookBaleo;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,12 @@ Route::prefix('v1')
             ->group(function () {
                 Route::get('/', [SupplierController::class, 'getSuppliers'])->name('index');
                 Route::get('/{id}', [SupplierController::class, 'getSupplierById'])->name('detail');
+            });
+
+        // WebHookBaleo
+        Route::prefix('sync-order')
+            ->name('sync-order.')
+            ->group(function () {
+                Route::post('/', [WebHookBaleo::class, 'syncOrder'])->name('index');
             });
     });

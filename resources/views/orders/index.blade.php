@@ -989,7 +989,7 @@
                                             <a class="nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
                                                     <span class="nav-text" data-id="${row.id}">Sukseskan</span>
                                                 </a>
-                                               ${batalButton} 
+                                               ${batalButton}
                                             ${checkoutButton}
                                         </li>
                                     </ul>
@@ -2201,7 +2201,7 @@
 
             // Sync order status
             $(document).on('click', '.js-sync-order-btn', function(e) {
-                const el = $(e.target);
+                const el = $(this);
 
                 Swal.fire({
                         title: 'Sinkronkan Data Pesanan',
@@ -2231,14 +2231,16 @@
                             });
 
                             setTimeout(function() {
-                                const data = {
-                                    order_id: Number(el.data('id'))
-                                };
+                                const data = [{
+                                    orderId: Number(el.attr('data-id'))
+                                }];
+
                                 const ajaxConfigs = {
-                                    url: '{{ url('/api/sync-order') }}',
-                                    data: data,
+                                    url: '{{ url('/api/v1/sync-order') }}',
+                                    data: JSON.stringify(data),
                                     method: 'POST',
                                     dataType: 'json',
+                                    contentType: 'application/json',
                                     failed: function(err) {
                                         Swal.fire('Terjadi Kesalahan', JSON.stringify({
                                             err
