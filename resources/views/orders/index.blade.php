@@ -526,7 +526,7 @@
                                     <option value="paid">Paid</option>
                                     <option value="pending_success">Pending Success</option>
                                     <option value="pickedup">Pickedup</option>
-                                    <option value="recived">Recived</option>
+                                    <option value="received">Received</option>
                                     <option value="refund">Refund</option>
                                     <option value="request_pickup">Request Pickup</option>
                                     <option value="request_resi">Request Resi</option>
@@ -962,6 +962,7 @@
                             let elements = '';
                             let checkoutButton = '';
                             let suksesButton = '';
+                            let batalButton = '';
 
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
                                 .payment_status === 'paid') {
@@ -994,9 +995,7 @@
                                             <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
                                             </a>
                                             ${suksesButton}
-                                                <a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Batalkan</span>
-                                                </a>
+                                            ${batalButton}
                                             ${checkoutButton}
                                         </li>
                                     </ul>
