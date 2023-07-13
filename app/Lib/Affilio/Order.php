@@ -24,7 +24,7 @@ class Order
     public function cancelWaybill( string $waybillId)
     {
         try {
-            $endpoint = $this->url. '/cancel-waybill/'.$waybillId;
+            $endpoint = $this->url. '/orders/cancel-waybill/'.$waybillId;
             $response = Http::withHeaders($this->headers)->post($endpoint);
             $result = $response->body();
             return json_encode($result);
