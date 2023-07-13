@@ -125,7 +125,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index')->middleware('can:read_orders');
         Route::get('/show/{id}', [OrderController::class, 'show'])->name('show')->middleware('can:read_orders');
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
-        //Route::post('/verification', [OrderController::class, 'verification'])->name('verification');
+        //Route::post('/verification', [WebHookBaleo::class, 'verification'])->name('verification');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
         Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');

@@ -23,6 +23,7 @@ class Order extends Model
         'browser_id',
         'code',
         'baleo_order_code',
+        'baleo_order_id',
         'username',
         'seller',
         'customer_name',
@@ -88,6 +89,7 @@ class Order extends Model
         'date_success_expired' => 'datetime:Y-m-d H:i:s',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
+        'date_last_synced'=> 'datetime:Y-m-d H:i:s'
     ];
 
     public function order_products()

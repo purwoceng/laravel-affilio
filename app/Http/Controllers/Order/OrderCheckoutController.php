@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Fund;
 use Carbon\Carbon;
+use App\Lib\Affilio\Order as APIOrder;
 
 class OrderCheckoutController extends Controller
 {
@@ -112,14 +113,22 @@ class OrderCheckoutController extends Controller
     {
         if (!empty($request->id)) {
 
+            $apiOrder = new APIOrder();
+
             // $data = [
             //     'status' => 'success',
             // ];
-            Order::where('id', $request->id)->update(['status' => 'reject']);
+            $dataOrder = Order::where('id', $request->id)->first();
+            $dataOrder->status = 'reject';
+            $dataOrder->save();
             // $data = [
             //     'is_active' => 1,
             // ];
             Fund::where('order_id', $request->id)->update(['is_active' => '2']);
+
+            //batalkan resi ke IDE
+            $apiOrder->cancelWaybill($dataOrder->resi);
+
             return response()->json([
                 'status' => 'true',
                 'title' => 'Berhasil Batalkan Pesanan!',
