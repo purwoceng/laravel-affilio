@@ -38,8 +38,8 @@ class WithdrawExport implements FromView, WithEvents, ShouldAutoSize
 
         if ($this->fundCode == 'all') {
             $query = $query->where(function ($query) {
-                $query->where('code', '=', 'WDB')
-                    ->orWhere('code', '=', 'WDK');
+                $query->where('code', '=', 'PDB')
+                    ->orWhere('code', '=', 'PDK');
             });
         }
 

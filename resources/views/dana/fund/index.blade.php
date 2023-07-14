@@ -69,8 +69,8 @@
                                         <select class="form-control form-control-sm filter" data-name="code"
                                             placeholder="Type Here">
                                             <option value="">Semua</option>
-                                            <option value="WDK">WDK (Penarikan Komisi)</option>
-                                            <option value="WDB">WDB (Penarikan Bonus)</option>
+                                            <option value="PDK">PDK (Penarikan Komisi)</option>
+                                            <option value="PDB">PDB (Penarikan Bonus)</option>
                                             <option value="BRAO">BRAO (Bonus Reward Acara Ongkir)</option>
                                             <option value="BRAT">BRAT (Bonus Reward Acara Transaksi)</option>
                                             <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
@@ -537,8 +537,8 @@
                                                 placeholder="Type Here">
                                                 <option disabled selected>Pilih Kode Dana</option>
                                             <option value="all">Semua</option>
-                                            <option value="WDK">WDK (Penarikan Komisi)</option>
-                                            <option value="WDB">WDB (Penarikan Bonus)</option>
+                                            <option value="PDK">PDK (Penarikan Komisi)</option>
+                                            <option value="PDB">PDB (Penarikan Bonus)</option>
                                             <option value="BRAO">BRAO (Bonus Reward Acara Ongkir)</option>
                                             <option value="BRAT">BRAT (Bonus Reward Acara Transaksi)</option>
                                             <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
