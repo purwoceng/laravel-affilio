@@ -33,7 +33,7 @@ if (!function_exists('timeLine')) {
         $timestamp = strtotime($dateTime);
         $current_timestamp = time();
         $time_diff_labels = [
-            'ago' => __('product::messages.ago'),
+            'ago' => __('Yang Lalu'),
             'togo' => __('product::messages.togo'),
         ];
         $time_units = [
@@ -45,12 +45,12 @@ if (!function_exists('timeLine')) {
             'second' => 1,
         ];
         $time_labels = [
-            'second' => __('product::messages.second'),
-            'minute' => __('product::messages.minute'),
-            'hour' => __('product::messages.hour'),
-            'day' => __('product::messages.day'),
-            'week' => __('product::messages.week'),
-            'month' => __('product::messages.month'),
+            'second' => __('Detik'),
+            'minute' => __('Menit'),
+            'hour' => __('Jam'),
+            'day' => __('Hari'),
+            'week' => __('Minggu'),
+            'month' => __('Bulan'),
         ];
 
         $time_diff = $current_timestamp - $timestamp;
