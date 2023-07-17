@@ -64,7 +64,7 @@
                             </svg>
                             Bonus Pensiun Challenge 4
                         </p>
-                        <small class="card-text text-muted">( <span id="js-date-range-diamond"></span> )</small>
+                        <small class="card-text text-muted">( <span id="js-date-range-platinum"></span> )</small>
                     </div>
                 </div>
             </div>
