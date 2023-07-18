@@ -52,7 +52,21 @@ class EventController extends Controller
         // exit;
 
         $validation_massages = [
-            'name.required' => 'Judul Tidak Boleh Kosong',
+            'name.required' => 'Silahkan Isi Judul maksimal 64 kata ',
+            'speaker' => 'Silahkan Isi Pembicara',
+            'price' => 'Silahkan Isi Harga Tiket',
+            'tiket' => 'Silahkan Isi Link Tiket',
+            'kuota' => 'Silahkan Isi Kuota Event ',
+            'time' => 'Silahkan Isi Waktu Event',
+            'date' => 'Silahkan Isi Tanggal Event',
+            'location' => 'Silahkan Isi Lokasi',
+            'prefix' => 'Silahkan Isi Prefix',
+            'image' => 'Silahkan Masukkan Poster JPG/PNG/JPEG/GIF Maksimal 1024kb',
+            'video' => 'Silahkan Isi url video',
+            'type' => 'Silahkan Pilih Tipe Event',
+            'sorting' => 'Silahkan Pilih Urutan Event',
+            'description' => 'Silahkan Isi Deskripsi Event',
+            'status' => 'Silahkan Pilih Keaktifan event',
         ];
 
         $validator = Validator::make(
@@ -235,9 +249,9 @@ class EventController extends Controller
         if ($image) {
             $event = $this->eventRepository->getDataById($id);
             $imagePath = public_path('storage/' . $event->image);
-            if (File::exists($imagePath)) {
-                unlink($imagePath);
-            }
+            // if (File::exists($imagePath)) {
+            //     unlink($imagePath);
+            // }
 
             $fileName = 'image_' . time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
             $image->move(public_path('storage/event/thumbnail/'), $fileName);

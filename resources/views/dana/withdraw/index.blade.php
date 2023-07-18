@@ -136,8 +136,8 @@
                                             placeholder="Type Here">
                                             <option disabled selected>Kode Penarikan</option>
                                             <option value="">Semua</option>
-                                            <option value="WDK">WDK(Penarikan Dana Komisi)</option>
-                                            <option value="WDB">WDB(Penarikan Dana Bonus)</option>
+                                            <option value="PDK">PDK(Penarikan Dana Komisi)</option>
+                                            <option value="PDB">PDB(Penarikan Dana Bonus)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -656,8 +656,8 @@
                                             placeholder="Type Here">
                                             <option disabled >Pilih Kode Penarikan Dana</option>
                                             <option value="all" selected>Semua</option>
-                                            <option value="WDK">WDK (Penarikan Dana Komisi)</option>
-                                            <option value="WDB">WDB (Penarikan Dana Bonus)</option>
+                                            <option value="PDK">PDK (Penarikan Dana Komisi)</option>
+                                            <option value="PDB">PDB (Penarikan Dana Bonus)</option>
                                         </select>
                     </div>
                 </div>
