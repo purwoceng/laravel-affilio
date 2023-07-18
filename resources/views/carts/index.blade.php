@@ -270,8 +270,8 @@
                             className: 'text-lg-left text-center small',
                             render: function(data) {
                                 let element = '';
-                                const isVariant = Number(data.isVariationActive);
-                                const price = isVariant ? data.priceRangeVariation : data.priceFormat;
+                                // const isVariant = Number(data.isVariationActive);
+                                // const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
                                 // let image = '';
                                 // for (let i = 0; i < data.media.length; i++) {
@@ -290,11 +290,6 @@
                                     <div class="product-cell">
                                         <div class="product-cell__content">
                                             <span class="product-cell__title">${data.name}</span>
-                                            <div class="product-cell__stats">
-                                                <div class="product-cell__stat"><i class="fas fa-store"></i> ${data.seller.storeName}</div>
-                                                <div class="product-cell__stat"><i class="fas fa-money-bill"></i> Rp. ${price}</div>
-                                                <div class="product-cell__stat"><i class="fas fa-box-open"></i> ${data.stock} Unit</div>
-                                            </div>
                                         </div>
                                     </div>
                                 `;
