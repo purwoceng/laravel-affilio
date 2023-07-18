@@ -22,6 +22,7 @@ use App\Http\Controllers\User\PermissionController;
 use App\Http\Controllers\Dana\DanaPensiunController;
 use App\Http\Controllers\HomePage\ProductController;
 use App\Http\Controllers\Member\MemberResetPassword;
+use App\Http\Controllers\Order\CartsOrderController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\HomePage\CsNumberController;
 use App\Http\Controllers\HomePage\SupplierController;
@@ -133,6 +134,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/verification', [OrderCheckoutController::class, 'verification'])->name('verification');
         Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan');
     });
+
+    //carts order
+     //list produk
+     Route::prefix('carts')
+     ->name('carts.')
+     ->group(function () {
+         Route::get('/', [CartsOrderController::class, 'index'])->name('index');
+         Route::get('/delete/{id}', [CartsOrderController::class, 'delete'])->name('delete');
+     });
 
     //Invoice Menu
     Route::prefix('invoices')->name('invoices.')->group(function () {
