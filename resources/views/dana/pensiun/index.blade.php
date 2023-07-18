@@ -64,7 +64,7 @@
                             </svg>
                             Bonus Pensiun Challenge 4
                         </p>
-                        <small class="card-text text-muted">( <span id="js-date-range-diamond"></span> )</small>
+                        <small class="card-text text-muted">( <span id="js-date-range-platinum"></span> )</small>
                     </div>
                 </div>
             </div>
@@ -132,10 +132,10 @@
                                             placeholder="Type Here">
                                             <option disabled selected>Kode Penarikan</option>
                                             <option value="">Semua</option>
-                                            <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
-                                            <option value="BPC4">BPC4 (Bonus Pensiun Challenge 4)</option>
-                                            <option value="BPC3">BPC3 (Bonus Pensiun Challenge 3)</option>
-                                            <option value="BPC2">BPC2 (Bonus Pensiun Challenge 2)</option>
+                                            <option value="BPSD">BPSD (Bonus Pensiun Challenge 5)</option>
+                                            <option value="BPSP">BPSP (Bonus Pensiun Challenge 4)</option>
+                                            <option value="BPSG">BPSG (Bonus Pensiun Challenge 3)</option>
+                                            <option value="BPSB">BPSB (Bonus Pensiun Challenge 2)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -495,10 +495,10 @@
                                             placeholder="Type Here">
                                             <option disabled >Pilih Kode Penarikan Dana</option>
                                             <option value="all" selected>Semua</option>
-                                            <option value="BPC5">BPC5 (Bonus Pensiun Challenge 5)</option>
-                                            <option value="BPC4">BPC4 (Bonus Pensiun Challenge 4)</option>
-                                            <option value="BPC3">BPC3 (Bonus Pensiun Challenge 3)</option>
-                                            <option value="BPC2">BPC2 (Bonus Pensiun Challenge 2)</option>
+                                            <option value="BPSD">BPSD (Bonus Pensiun Challenge 5)</option>
+                                            <option value="BPSP">BPSP (Bonus Pensiun Challenge 4)</option>
+                                            <option value="BPSG">BPSG (Bonus Pensiun Challenge 3)</option>
+                                            <option value="BPSB">BPSB (Bonus Pensiun Challenge 2)</option>
                                         </select>
                     </div>
                 </div>

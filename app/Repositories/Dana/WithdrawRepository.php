@@ -18,18 +18,18 @@ class WithdrawRepository implements WithdrawRepositoryInterface
 
     public function getCountWithdraw($startDate, $endDate)
     {
-        return Withdraw::with('members')->whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+        return Withdraw::with('members')->whereBetween('code', ['PDB', 'PDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
 
     public function getDataById($id)
     {
-        return Withdraw::whereBetween('code', ['WDB', 'WDK'])->where('id', $id)->first();
+        return Withdraw::whereBetween('code', ['PDB', 'PDK'])->where('id', $id)->first();
     }
 
 
     public function getWithdraw($limit, $start, $startDate, $endDate)
     {
-        return Withdraw::with('members')->whereBetween('code', ['WDB', 'WDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return Withdraw::with('members')->whereBetween('code', ['PDB', 'PDK'])->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getDataTable($request)
