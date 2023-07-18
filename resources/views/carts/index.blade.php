@@ -168,7 +168,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-5 col-sm-12">
+                                {{-- <div class="col-lg-4 col-md-5 col-sm-12">
                                     <div class="form-group">
                                         <label for="js-product-selector" class="font-weight-bold">Username</label>
                                         <div>
@@ -176,7 +176,7 @@
                                                     data-name="username" placeholder="Username Member" />
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-4 col-md-5 col-sm-12 ml-auto">
                                     <div class="form-group">
                                         <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
@@ -204,8 +204,9 @@
                                 <tr class="text-center small">
                                     <th>#</th>
                                     <th>Produk</th>
+                                    <th>Produk ID</th>
+                                    <th>Nama Varian Produk</th>
                                     <th>Nama Member</th>
-                                    <th>Username Member</th>
                                     <th>Jumlah Barang</th>
                                     <th>Tanggal</th>
                                     <th>Actions</th>
@@ -272,24 +273,21 @@
                                 const isVariant = Number(data.isVariationActive);
                                 const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                                let image = '';
-                                for (let i = 0; i < data.media.length; i++) {
-                                    if (data.media[i].type == "video") {
-                                        continue;
-                                    }
+                                // let image = '';
+                                // for (let i = 0; i < data.media.length; i++) {
+                                //     if (data.media[i].type == "video") {
+                                //         continue;
+                                //     }
 
-                                    if (data.media[i].type == "image") {
-                                        image = data.media[i].link
-                                        break;
-                                    }
-                                }
+                                //     if (data.media[i].type == "image") {
+                                //         image = data.media[i].link
+                                //         break;
+                                //     }
+                                // }
 
-                                if (image) {
+                                if (data) {
                                     element += `
                                     <div class="product-cell">
-                                        <div class="product-cell__image">
-                                            <img src="${image}" />
-                                        </div>
                                         <div class="product-cell__content">
                                             <span class="product-cell__title">${data.name}</span>
                                             <div class="product-cell__stats">
@@ -308,16 +306,24 @@
                             }
                         },
                         {
-                            data: 'member_name',
-                            name: 'member_name',
+                            data: 'product_id',
+                            name: 'product_id',
                             sortable: false,
                             orderable: false,
                             searchable: false,
                             className: 'text-lg-left text-center small',
                         },
                         {
-                            data: 'username',
-                            name: 'username',
+                            data: 'product_variation_name',
+                            name: 'product_variation_name',
+                            sortable: false,
+                            orderable: false,
+                            searchable: false,
+                            className: 'text-lg-left text-center small',
+                        },
+                        {
+                            data: 'member_name',
+                            name: 'member_name',
                             sortable: false,
                             orderable: false,
                             searchable: false,

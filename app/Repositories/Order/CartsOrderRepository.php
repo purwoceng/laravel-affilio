@@ -16,7 +16,7 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
 
     public function getCount($startDate, $endDate)
     {
-        return CartsOrder::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+        return CartsOrder::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
 
     public function delete($id)
@@ -26,12 +26,12 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
 
     public function getData($limit, $start, $startDate, $endDate)
     {
-        return CartsOrder::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
+        return CartsOrder::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate)->offset($start)->limit($limit);
     }
 
     public function getTotalData($startDate, $endDate)
     {
-        return CartsOrder::with('members')->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
+        return CartsOrder::whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
     }
 
     public function getDataTable($request)
@@ -60,18 +60,18 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
             $getQueryTotal->where('affiliator_username', 'like', '%' . $keyword . '%');
         }
 
-        if ($request->filled('username')) {
-            if ($request->username != 'all') {
-                $keyword = $request->get('username');
-                $query->whereHas('members', function ($query1) use ($keyword) {
-                    return $query1->where('members.publish', '=', 1)->where('members.username', 'LIKE', '%' . $keyword . '%');
-                });
-                $getQueryTotal->whereHas('members', function ($query1) use ($keyword) {
-                    return $query1->where('members.publish', '=', 1)->where('members.username', 'LIKE', '%' . $keyword . '%');
-                });
+        // if ($request->filled('username')) {
+        //     if ($request->username != 'all') {
+        //         $keyword = $request->get('username');
+        //         $query->whereHas('members', function ($query1) use ($keyword) {
+        //             return $query1->where('members.publish', '=', 1)->where('members.username', 'LIKE', '%' . $keyword . '%');
+        //         });
+        //         $getQueryTotal->whereHas('members', function ($query1) use ($keyword) {
+        //             return $query1->where('members.publish', '=', 1)->where('members.username', 'LIKE', '%' . $keyword . '%');
+        //         });
 
-            }
-        }
+        //     }
+        // }
 
 
         $totalData = $getQueryTotal->count();
@@ -82,13 +82,13 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
         if (!empty($getDatas)) {
             foreach ($getDatas as $key => $value) {
                 $id = $value->id;
-                $product_id = $value->product_id;
-
+                $product_id = $value->product_id ?? '-';
                 $memberId = $value->member_id;
-                $username = $value->members->username ?? '-';
                 $created_at = date(' d F Y H:i', strtotime($value->created_at));
                 $member = Member::where('id', $memberId)->first();
-                $member_name = $member->name ?? '-';
+                // $member_name = $member->name ?? '-';
+                $member_name = $value->affiliator_username ?? '-';
+                $product_variation_name = $value->product_variation_name ?? '-';
                 $quantity = $value->quantity ?? '-';
 
                 $token = config('app.baleomol_token_auth');
@@ -107,8 +107,9 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
                     'id',
                     'product_image',
                     'product_data',
+                    'product_id',
                     'member_name',
-                    'username',
+                    'product_variation_name',
                     'quantity',
                     'created_at',
                 );
