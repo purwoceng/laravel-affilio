@@ -489,7 +489,7 @@
                                     <option value="all" selected>Semua</option>
                                     <option value="unpaid">Unpaid</option>
                                     <option value="paid">Paid</option>
-                                    <option value="process">Proses</option>
+                                    <option value="on_process">On Proses</option>
                                     <option value="shipping">Shipping</option>
                                     <option value="reject">Reject</option>
                                     <option value="cancel">Cancel</option>
@@ -967,38 +967,29 @@
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
                                 .payment_status === 'paid') {
                                 checkoutButton +=
-                                    `<hr/ class="m-1"><a class="nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}">Checkout Pesanan</span></a>`;
+                                    `<a class="btn btn-sm btn-primary btn-icon nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}" title="Checkout Baleomol"><i class="fas fa-shopping-cart mr-1 fa-sm" data-id="${row.id}"></i></a>`;
                             }
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid') {
                                 batalButton +=
-                                    `<hr/ class="m-1"><a class="nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Batalkan</span>
+                                    `<a class="btn btn-sm btn-danger btn-icon nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}" title="Batalkan Pesanan">
+                                                    <span class="nav-text" data-id="${row.id}"><i class="fas fa-store-slash mr-1 fa-sm" data-id="${row.id}"></i></span>
                                                 </a>`;
                             }
 
                             if (row.baleomol_status === 'received' && row.status === 'received') {
                                 suksesButton +=
-                                    `<hr/ class="m-1"><a class="nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}">
-                                                    <span class="nav-text" data-id="${row.id}">Sukseskan</span>
+                                    `<a class="btn btn-sm btn-info btn-icon nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}" title="Sukseskan Pesanan">
+                                                    <span class="nav-text" data-id="${row.id}"><i class="fas fa-check mr-1 fa-sm" data-id="${row.id}"></i></span>
                                                 </a>`;
                             }
 
-                            elements += `<div class="dropdown dropdown-inline">
-                                <a href="javascript:void(0)"
-                                    class="btn btn-sm btn-primary btn-icon"
-                                    data-toggle="dropdown">
-                                    <i class="la la-cog"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                    <ul class="nav nav-hoverable flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}">Detail
+                            elements += `
+                                <div class="mr-3">
+                                            <a class="btn btn-sm btn-success btn-icon nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}" title="Detail Order"><i class="fas fa-eye mr-1 fa-sm" data-id="${row.id}"></i>
                                             </a>
                                             ${suksesButton}
                                             ${batalButton}
                                             ${checkoutButton}
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>`;
 
@@ -1460,7 +1451,7 @@
 
                 swal.fire({
                     title: "Apakah anda yakin ?",
-                    text: "Anda akan mensukseskan ini!",
+                    text: "Anda akan mensukseskan pesanan ini!",
                     showCancelButton: true,
                     showConfirmButton: true,
                     confirmButtonColor: '#3085d6',
@@ -2286,7 +2277,7 @@
 
                 swal.fire({
                     title: "Apakah anda yakin ?",
-                    text: "Anda akan melakukan batalkan oreder ini!",
+                    text: "Anda akan melakukan batalkan order ini!",
                     showCancelButton: true,
                     showConfirmButton: true,
                     confirmButtonColor: '#3085d6',
