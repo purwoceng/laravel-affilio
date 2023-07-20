@@ -1910,7 +1910,7 @@
                                                     .length <= 0) {
                                                     Swal.fire({
                                                         title: data.message,
-                                                        html: 'Mohon maaf anda tidak dapat melakukan checkout pesanan dikarenakan </br> Vocuher anda <b>"Tidak Cukup"</b>',
+                                                        html: 'Mohon maaf anda tidak dapat melakukan checkout pesanan dikarenakan </br> Sistem Sedang <b>Maintenance</b>',
                                                         icon: 'error',
                                                     });
                                                 } else {
