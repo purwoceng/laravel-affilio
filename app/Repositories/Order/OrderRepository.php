@@ -4,6 +4,7 @@ namespace App\Repositories\Order;
 
 use App\Models\Order;
 use App\Repositories\Interfaces\Order\OrderRepositoryInterface;
+use Illuminate\Support\Optional;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -154,6 +155,8 @@ class OrderRepository implements OrderRepositoryInterface
                 $shippingService = $order->shipping_service ?? '-';
                 $courier = $shippingCourier . ' - ' . $shippingService;
                 $dateCreated = date(' d F Y H:i', strtotime($order->date_created));
+                // $datePaid = optional($order->date_paid);
+                $datePaid = optional($order->date_paid)->format('d F Y H:i');
 
                 $lastSyncedDate = $order->date_last_synced;
                 $lastSyncedStamp = 900;
@@ -185,6 +188,7 @@ class OrderRepository implements OrderRepositoryInterface
                     'payment_status' => $payment_status,
                     'courier' => $courier,
                     'date_created' => $dateCreated,
+                    'date_paid' => $datePaid ,
                     'last_synced_stamp' => $lastSyncedStamp,
                     'last_synced_elapsed' => $lastSyncedElapsed,
                     'actions' => $id,
