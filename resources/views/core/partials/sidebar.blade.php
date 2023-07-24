@@ -491,7 +491,7 @@
 
 
              {{-- end --}}
-             @hasanyrole('admin_member|super_user|event|view')
+             @hasanyrole('admin_member|super_user|event|view|konten')
                  <li class="menu-item menu-item-submenu menu-item-
                     {{ request()->is('event','greeting*','tiket*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
