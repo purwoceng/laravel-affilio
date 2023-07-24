@@ -18,6 +18,7 @@
             <th>Status</th>
             <th>Kurir</th>
             <th>Tanggal Pemesanan</th>
+            <th>Tanggal Pembayaran</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,7 @@
                 <td>{{ $order->status }}</td>
                 <td>{{ $order->shipping_courier }}-{{ $order->shipping_service }}</td>
                 <td>{{ $order->date_created }}</td>
+                <td>{{ $order->date_paid }}</td>
 
             </tr>
         @endforeach

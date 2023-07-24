@@ -24,10 +24,11 @@ class OrderDashboardController extends Controller
         $dataPaid = Order::where('status', 'paid');
         $dataAwaitingSupplier = Order::where('status', 'awaiting_supplier');
         $dataProcess = Order::where('status', 'on_process');
-        $dataShipping = Order::where('status', 'on_return_shipping');
+        $dataShipping = Order::where('status', 'shipping');
         $dataReceived = Order::where('status', 'received');
         $dataSuccess = Order::where('status', 'success');
         $dataCancel = Order::where('status', 'cancel');
+        $dataReject = Order::where('status', 'reject');
         $dataCancelButUnpaid =  Order::where('status', 'cancel_unpaid');
         $dataComplain =  Order::where('status', 'complain');
 
@@ -41,8 +42,10 @@ class OrderDashboardController extends Controller
             $dataAwaitingSupplier->where('status','=', $status);
             $dataShipping->where('status','=', $status);
             $dataReceived->where('status','=', $status);
+            $dataProcess->where('status','=', $status);
             $dataSuccess->where('status','=', $status);
             $dataCancel->where('status','=', $status);
+            $dataReject->where('status','=', $status);
             $dataCancelButUnpaid->where('status','=', $status);
             $dataComplain->where('status','=', $status);
 
@@ -60,6 +63,8 @@ class OrderDashboardController extends Controller
             $dataReceived->where('baleomol_status','=', $baleomol_status);
             $dataSuccess->where('baleomol_status','=', $baleomol_status);
             $dataCancel->where('baleomol_status','=', $baleomol_status);
+            $dataProcess->where('baleomol_status','=', $baleomol_status);
+            $dataReject->where('baleomol_status','=', $baleomol_status);
             $dataCancelButUnpaid->where('baleomol_status','=', $baleomol_status);
             $dataComplain->where('baleomol_status','=', $baleomol_status);
             }
@@ -78,6 +83,7 @@ class OrderDashboardController extends Controller
             $dataReceived->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataSuccess->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataCancel->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $dataReject->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataCancelButUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataComplain->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataSupplierPrice->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
@@ -124,7 +130,7 @@ class OrderDashboardController extends Controller
         $countPersenUnpaid = showPercent($countOrderUnpaid, $countOrder);
         $countOrderPaid = $dataPaid->count();
         $countPersenPaid = showPercent($countOrderPaid, $countOrder);
-        $countAwatingSupplier = $dataAwaitingSupplier->count();
+        $countAwatingSupplier = $dataReject->count();
         $countPersenAwaitingSupplier = showPercent($countAwatingSupplier, $countOrder);
         $countProcess = $dataProcess->count();
         $countPersenProcess = showPercent($countProcess, $countOrder);
@@ -135,6 +141,7 @@ class OrderDashboardController extends Controller
         $countSuccess = $dataSuccess->count();
         $countPersenSuccess = showPercent($countSuccess, $countOrder);
         $countCancel = $dataCancel->count();
+        $countReject = $dataReject->count();
         $countPersenCancel = showPercent($countCancel, $countOrder);
         $countCancelButUnpaid = $dataCancelButUnpaid->count();
         $countPersenCancelButUnpaid = showPercent($countCancelButUnpaid, $countOrder);
@@ -173,6 +180,7 @@ class OrderDashboardController extends Controller
             'total_success' => $countSuccess,
             'total_persen_success' => $countPersenSuccess,
             'total_cancel' => $countCancel,
+            'total_reject' => $countReject,
             'total_persen_cancel' => $countPersenCancel,
             'total_cancel_but_unpaid' => $countCancelButUnpaid,
             'total_persen_cancel_but_unpaid' => $countPersenCancelButUnpaid,

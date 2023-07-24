@@ -207,6 +207,9 @@ class OrderController extends Controller
             $status = $request->status1;
         }
 
+        ini_set('max_execution_time',600);
+        ini_set('memory_limit',"-1");
+
         return Excel::download(new OrderExport($status, $dateRange), 'order.xlsx');
     }
 }
