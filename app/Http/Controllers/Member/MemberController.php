@@ -201,10 +201,16 @@ class MemberController extends Controller
         $member->save();
 
         //update member
-        ReferralHelper::where('member_id', '=', $id)->update(['member_is_founder' => $request->is_founder]);
+        ReferralHelper::where('member_id', '=', $id)->update([
+            'member_is_founder' => $request->is_founder,
+            'member_type_id' => $request->member_type_id
+        ]);
 
         //update referral
-        ReferralHelper::where('referral_id', '=', $id)->update(['referral_is_founder' => $request->is_founder]);
+        ReferralHelper::where('referral_id', '=', $id)->update([
+            'referral_is_founder' => $request->is_founder,
+            'referral_type_id' => $request->member_type_id
+        ]);
 
         if ($member) {
             return redirect()
