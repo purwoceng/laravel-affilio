@@ -297,7 +297,7 @@
 
 
              @hasanyrole('konten|super_user|admin_member|view')
-                 <li class="menu-item menu-item-submenu {{ request()->is('banners*','video_training*','supplierscover*') ? 'menu-item-open' : '' }}"
+                 <li class="menu-item menu-item-submenu {{ request()->is('banners*','video_training*','supplierscover*','pushnotification*') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
                          <span class="svg-icon menu-icon">
@@ -403,6 +403,15 @@
                                          <span></span>
                                      </i>
                                      <span class="menu-text">Cover Supplier</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('pushnotification*') ? 'active' : '' }}"
+                                aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('pushnotification.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Push Notification</span>
                                  </a>
                              </li>
                              {{-- <li class="menu-item menu-item-submenu menu-item-{{ request()->is('supplierscover') ? 'active' : '' }}"

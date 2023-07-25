@@ -54,13 +54,13 @@ public function __construct(PopupRepository $popupRepository)
         $massages = [
             'title.required' => 'Title tidak boleh kosong',
             'image.required' => 'Gambar tidak boleh kosong',
-            'url.required' => 'Url tidak boleh kosong',
+            'url.required' => 'URL terlalu panjang',
         ];
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024',
-            'url' => 'required|max:255'
+            'url' => 'max:255'
         ], $massages);
 
         if ($validator->fails()){
@@ -69,7 +69,7 @@ public function __construct(PopupRepository $popupRepository)
 
         $title = $request->title;
         // $image = $request->image;
-        $url = $request->url ?? '';
+        $url = $request->url ?? '-';
 
         $createData = [
             'title' => $title,
@@ -133,12 +133,13 @@ if ($image){
         $massages = [
             'title.required' => 'Title Popup tidak boleh kosong',
             'image.required' => 'Image Popup wajib diisi',
-            'url.required' => 'URL Popup wajib diisi',
+            'url.required' => 'URL Popup terlalu panjang',
             
         ];
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:64',
+            'URL' => 'max:144',
             'image' => 'required|sometimes|mimes:jpg,png,jpeg,gif|max:1024'
         ], $massages);
 

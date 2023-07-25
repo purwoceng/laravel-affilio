@@ -57,6 +57,7 @@ use App\Http\Controllers\Invoice\Cancel\InvoiceCancelController;
 use App\Http\Controllers\Invoice\Unpaid\InvoiceUnpaidController;
 use App\Http\Controllers\Member\Blocked\MemberBlockedController;
 use App\Http\Controllers\Notification\NotificationStatusController;
+use App\Http\Controllers\Notification\PushNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -301,6 +302,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [SupplierCoverController::class, 'edit'])->name('edit')->middleware('can:update_konten');
         Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy')->middleware('can:delete_konten');
+    });
+   
+    //push-notification
+    Route::prefix('pushnotification')->name('pushnotification.')->group(function () {
+        Route::get('/', [PushNotificationController::class, 'index'])->name('index');
+        Route::get('/create', [PushNotificationController::class, 'create'])->name('create')->middleware('can:create_konten');
+        Route::post('/store', [PushNotificationController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [PushNotificationController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [PushNotificationController::class, 'edit'])->name('edit')->middleware('can:update_konten');
+        Route::put('/update/{id}', [PushNotificationController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [PushNotificationController::class, 'destroy'])->name('destroy')->middleware('can:delete_konten');
     });
     //supplier-list
     Route::prefix('supplierslist')->name('supplierslist.')->group(function () {

@@ -58,8 +58,8 @@ class PopupRepository implements PopupRepositoryInterface
                 $id = $popup->id;
                 $title = $popup->title;
                 $image = $popup->image ? config('app.s3_url') . $popup->image : '';
-                $url = $popup->url ?? '-';
-                $created_at = date('Y-m-d H:i', strtotime($popup->created_at));
+                $url = $popup->url;
+                $created_at = date('H:i | d-m-Y', strtotime($popup->created_at));
                 $actions =$id;
 
                 $data[] = compact(
