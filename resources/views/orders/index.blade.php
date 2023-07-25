@@ -689,7 +689,7 @@
                                 <th class="text-center" width="10%">Nama Penerima</th>
                                 <th class="text-center" width="10%">Nomor Resi</th>
                                 <th class="text-center" width="10%">Ongkir</th>
-                                <th class="text-center" width="10%">Fee</th>
+                                <th class="text-center" width="10%">Komisi Affiliasi Member</th>
                                 <th class="text-center" width="10%">Harga</th>
                                 <th class="text-center" width="10%">Subtotal</th>
                                 <th class="text-center" width="10%">Total</th>
