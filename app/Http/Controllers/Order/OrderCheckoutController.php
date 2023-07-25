@@ -170,6 +170,10 @@ class OrderCheckoutController extends Controller
                 $mesaggeArray = array_merge($mesaggeArray, $product['errors']);
             }
 
+            if(!empty($result['errors']) && is_array($result['errors'])){
+                $mesaggeArray = array_merge($mesaggeArray, $result['errors']);
+            }
+
             if(count($mesaggeArray) < 1){
                 $updateData = [
                     'baleo_invoice_id' => $invoiceId,
