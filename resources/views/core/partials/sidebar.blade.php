@@ -420,7 +420,7 @@
 
                  {{-- start --}}
 
-                 <li class="menu-item menu-item-submenu {{ request()->is('funnel*','notification','headerfunnel') ? 'menu-item-open' : '' }}"
+                 <li class="menu-item menu-item-submenu {{ request()->is('funnel*','notification','headerfunnel', 'popup') ? 'menu-item-open' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="javascript:void(0)" class="menu-link menu-toggle">
                          <span class="svg-icon menu-icon">
@@ -479,6 +479,15 @@
                                          <span></span>
                                      </i>
                                      <span class="menu-text">Header</span>
+                                 </a>
+                             </li>
+                             <li class="menu-item menu-item-submenu menu-item-{{ request()->is('popup*') ? 'active' : '' }}"
+                                aria-haspopup="true" data-menu-toggle="hover">
+                                 <a href="{{ route('popup.index') }}" class="menu-link">
+                                     <i class="menu-bullet menu-bullet-dot">
+                                         <span></span>
+                                     </i>
+                                     <span class="menu-text">Popup</span>
                                  </a>
                              </li>
 
