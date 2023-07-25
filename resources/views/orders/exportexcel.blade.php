@@ -8,7 +8,7 @@
             <th>Nama Penerima</th>
             <th>Nomor Resi</th>
             <th>Ongkir</th>
-            <th>Fee</th>
+            <th>Komisi Affiliasi Produk</th>
             <th>Harga</th>
             <th>Sub Total</th>
             <th>Total</th>

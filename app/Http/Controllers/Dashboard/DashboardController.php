@@ -111,14 +111,14 @@ class DashboardController extends Controller
     {
 
         $totalMember = Member::where('publish','1');
-        $totalMargin = DB::table('orders');
-        $totalOmzet = DB::table('orders');
-        $totalBonusAcara1 = Fund::where('code', 'BRAT');
-        $totalBonusAcara2 = Fund::where('code', 'BRAO');
-        $totalBonusPensiun1 = Fund::where('code','BPSB');
-        $totalBonusPensiun2 = Fund::where('code','BPSG');
-        $totalBonusPensiun3 = Fund::where('code','BPSP');
-        $totalBonusPensiun4 = Fund::where('code','BPSG');
+        $totalMargin = DB::table('orders')->where('status','success');
+        $totalOmzet = DB::table('orders')->where('status','success');
+        $totalBonusAcara1 = Fund::where('code', 'BRAT')->where('is_active','1');
+        $totalBonusAcara2 = Fund::where('code', 'BRAO')->where('is_active','1');
+        $totalBonusPensiun1 = Fund::where('code','BPSD')->where('is_active','1');
+        $totalBonusPensiun2 = Fund::where('code','BPSG')->where('is_active','1');
+        $totalBonusPensiun3 = Fund::where('code','BPSP')->where('is_active','1');
+        $totalBonusPensiun4 = Fund::where('code','BPSB')->where('is_active','1');
         // Bonus Acara Ongkir
         $countTotalMember = $totalMember->count();
         $countMargin = ($totalMargin->sum('value') - $totalMargin->sum('affilio_value'));
