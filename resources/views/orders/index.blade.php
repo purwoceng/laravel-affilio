@@ -1431,6 +1431,10 @@
                                                 <div class="p-1">Shipping Fee <span class="text-uppercase">${data.order.shipping_courier} - ${data.order.shipping_service}</span></div>
                                                 <div class="ml-auto p-1"><b>${data.order.shipping_cost}</b></div>
                                             </div>
+                                            <div class="d-flex">
+                                                <div class="p-1">Komisi Affiliasi Produk<span class="text-uppercase"></div>
+                                                <div class="ml-auto p-1"><b>${data.order.fee}</b></div>
+                                            </div>
                                         </div>
 
                                         <div class="justify-content mt-4 mb-2">
