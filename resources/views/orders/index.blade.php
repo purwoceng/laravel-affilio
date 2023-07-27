@@ -971,6 +971,7 @@
                             let checkoutButton = '';
                             let suksesButton = '';
                             let batalButton = '';
+                            let reorderButton = '';
 
                             if (row.baleomol_status === 'unpaid' && row.status === 'paid' && row
                                 .payment_status === 'paid') {
@@ -990,6 +991,12 @@
                                                     <span class="nav-text" data-id="${row.id}"><i class="fas fa-check mr-1 fa-sm" data-id="${row.id}"></i></span>
                                                 </a>`;
                             }
+                            if (row.baleomol_status === 'paid' && row.status === 'paid' ) {
+                                reorderButton +=
+                                    `<a class="btn btn-sm btn-info btn-icon nav-link js-reorder-order" href="javascript:void(0)" data-id="${row.id}" title="Reorder Baleo ">
+                                                    <span class="nav-text" data-id="${row.id}"><i class="fas fa-redo mr-1 fa-sm" data-id="${row.id}"></i></span>
+                                                </a>`;
+                            }
 
                             elements += `
                                 <div class="mr-3">
@@ -998,6 +1005,7 @@
                                             ${suksesButton}
                                             ${batalButton}
                                             ${checkoutButton}
+                                            ${reorderButton}
                                 </div>
                             </div>`;
 
@@ -1488,6 +1496,63 @@
                         setTimeout(function() {
                             let urlActivation =
                                 "{{ route('orders.verification') }}";
+                            let memberId = $(e.target).data('id');
+                            $.ajax({
+                                type: "POST",
+                                url: urlActivation,
+                                data: {
+                                    id: memberId,
+                                    "_token": "{{ csrf_token() }}",
+                                },
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: response.icon,
+                                        title: response.title,
+                                        text: response.message,
+                                    });
+
+                                    getDataFiltered();
+                                }
+                            });
+
+                        }, 500);
+                    } else if (result.dismiss === 'Batal') {
+                        console.log('Batal')
+                    }
+
+                });
+            });
+
+            //reorder baleomol staus paid->unpaid
+            $(document).on('click', '.js-reorder-order', function(e) {
+
+                swal.fire({
+                    title: "Apakah anda yakin ?",
+                    text: "Anda akan menguabah Status Pesanan Baleomol ke Unpaid pada pesanan ini!",
+                    showCancelButton: true,
+                    showConfirmButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Batal",
+                }).then(function(result) {
+                    if (result.value) {
+                        Swal.fire({
+                            showCloseButton: false,
+                            showConfirmButton: false,
+                            icon: 'info',
+                            title: 'Harap Tunggu',
+                            text: 'Sedang melakukan permintaan Anda...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: function() {
+                                Swal.showLoading();
+                            },
+                        });
+                        setTimeout(function() {
+                            let urlActivation =
+                                "{{ route('orders.reorderbaleo') }}";
                             let memberId = $(e.target).data('id');
                             $.ajax({
                                 type: "POST",

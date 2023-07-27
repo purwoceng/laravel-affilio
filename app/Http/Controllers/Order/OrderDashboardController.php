@@ -56,7 +56,6 @@ class OrderDashboardController extends Controller
         if (!empty($baleomol_status )){
             if($baleomol_status != 'all'){
             $totalOmzet->where('baleomol_status','=', $baleomol_status);
-            $invoices->where('baleomol_status','=', $baleomol_status);
             $dataSupplierPrice->where('baleomol_status','=', $baleomol_status);
             $dataOrder->where('baleomol_status','=', $baleomol_status);
             $dataUnpaid->where('baleomol_status','=', $baleomol_status);
