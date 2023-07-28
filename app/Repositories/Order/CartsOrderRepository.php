@@ -91,22 +91,22 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
                 $product_variation_name = $value->product_variation_name ?? '-';
                 $quantity = $value->quantity ?? '-';
 
-                $token = config('app.baleomol_token_auth');
-                $url = config('app.baleomol_url') . '/affiliator/products/' . $product_id . '?appx=true';
+                // $token = config('app.baleomol_token_auth');
+                // $url = config('app.baleomol_url') . '/affiliator/products/' . $product_id . '?appx=true';
 
 
-                $response = Http::withHeaders([
-                    'Authorization' => "Bearer {$token}",
-                ])->get($url);
+                // $response = Http::withHeaders([
+                //     'Authorization' => "Bearer {$token}",
+                // ])->get($url);
 
-                $product_data = $response['data'] ?? [];
-                $product_image = $product_data['media'][1] ?? [];
+                // $product_data = $response['data'] ?? [];
+                // $product_image = $product_data['media'][1] ?? [];
 
 
                 $data[] = compact(
                     'id',
-                    'product_image',
-                    'product_data',
+                    // 'product_image',
+                    // 'product_data',
                     'product_id',
                     'member_name',
                     'product_variation_name',
@@ -124,7 +124,7 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
             'data' => $data,
         ];
 
-        return $result;
+        return response()->json($result);
     }
 
     public function getDataById($id)

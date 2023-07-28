@@ -1,7 +1,7 @@
 @extends('core.app')
 @section('title', __('Keranjang Order'))
 
-@push('css')
+{{-- @push('css')
     <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
@@ -63,6 +63,10 @@
             color: rgba(40, 40, 40, .56);
         }
     </style>
+@endpush --}}
+@push('css')
+    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('css')
@@ -168,15 +172,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-4 col-md-5 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="js-product-selector" class="font-weight-bold">Username</label>
-                                        <div>
-                                            <input type='text' class="form-control filter"
-                                                    data-name="username" placeholder="Username Member" />
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-lg-4 col-md-5 col-sm-12 ml-auto">
                                     <div class="form-group">
                                         <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
@@ -196,19 +191,29 @@
                     </div>
 
                     <div class="card-body">
-
+                        {{-- <div class="js-action mt-2 mb-4">
+                            <div class="d-flex flex-row">
+                                <div class="btn-group">
+                                    <div class="m-1">
+                                        <button class="btn btn-sm btn-danger shadow-sm" id="js-btn-carts-order"><i
+                                                class="fa fa-trash fa-sm text-white-50"></i> Hapus Massal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
                         <table id="js-table-product-wishlist"
-                            class="table table-separate table-head-custom table-checkable nowrap mt-1" style="width:100%">
+                            class="table table-bordered table-hover table-head-custom table-checkable nowrap" style="width:100%">
 
-                            <thead>
+                            <thead class="thead-secondary">
                                 <tr class="text-center small">
                                     <th>#</th>
-                                    <th>Produk</th>
                                     <th>Produk ID</th>
                                     <th>Nama Varian Produk</th>
                                     <th>Nama Member</th>
                                     <th>Jumlah Barang</th>
                                     <th>Tanggal</th>
+                                    {{-- <th>Checkbox <input type="checkbox"
+                                        value="" id="checkAll" class="pt-2"></th> --}}
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -221,85 +226,92 @@
         </div>
     @endsection
 
-    @push('css')
+    {{-- @push('css')
         <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-    @endpush
+    @endpush --}}
 
     @push('js')
-        <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
 
 
         <script>
+            'use strict';
             $(document).ready(function() {
                 const urlAjax = "{{ route('carts.index') }}";
 
                 var wishlistTable = $('#js-table-product-wishlist').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    responsive: true,
-                    searching: false,
-                    autoWidth: true,
-                    select: true,
-                    language: {
-                        infoFiltered: "",
+                    pagingType: 'full_numbers',
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                searching: false,
+                autoWidth: true,
+                select: true,
+                language: {
+                    infoFiltered: "",
+                },
+                lengthMenu: [
+                    [50, 100, 200, 300, 400, 500],
+                    [50, 100, 200, 300, 400, 500, ]
+                ],
+                pageLength: 50,
+                order: [
+                    [0, 'DESC']
+                ],
+                ajax: {
+                    url: urlAjax,
+                    type: 'GET',
+                },
+                scrollX: true,
+                columns: [{
+                        data: null,
+                        sortable: false,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            const index = meta.row + meta.settings._iDisplayStart + 1;
+                            return index;
+                        }
                     },
-                    lengthChange: false,
-                    pageLength: 50,
-                    order: [
-                        [0, 'DESC']
-                    ],
-                    ajax: {
-                        url: urlAjax,
-                        type: 'GET',
-                    },
-                    scrollX: true,
-                    columns: [{
-                            data: null,
-                            sortable: false,
-                            className: 'text-center',
-                            render: function(data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1;
-                            }
-                        },
-                        {
-                            data: 'product_data',
-                            name: 'product_data',
-                            sortable: false,
-                            orderable: false,
-                            searchable: false,
-                            className: 'text-lg-left text-center small',
-                            render: function(data) {
-                                let element = '';
-                                // const isVariant = Number(data.isVariationActive);
-                                // const price = isVariant ? data.priceRangeVariation : data.priceFormat;
+                        // {
+                        //     data: 'product_data',
+                        //     name: 'product_data',
+                        //     sortable: false,
+                        //     orderable: false,
+                        //     searchable: false,
+                        //     className: 'text-lg-left text-center small',
+                        //     render: function(data) {
+                        //         let element = '';
+                        //         // const isVariant = Number(data.isVariationActive);
+                        //         // const price = isVariant ? data.priceRangeVariation : data.priceFormat;
 
-                                // let image = '';
-                                // for (let i = 0; i < data.media.length; i++) {
-                                //     if (data.media[i].type == "video") {
-                                //         continue;
-                                //     }
+                        //         // let image = '';
+                        //         // for (let i = 0; i < data.media.length; i++) {
+                        //         //     if (data.media[i].type == "video") {
+                        //         //         continue;
+                        //         //     }
 
-                                //     if (data.media[i].type == "image") {
-                                //         image = data.media[i].link
-                                //         break;
-                                //     }
-                                // }
+                        //         //     if (data.media[i].type == "image") {
+                        //         //         image = data.media[i].link
+                        //         //         break;
+                        //         //     }
+                        //         // }
 
-                                if (data) {
-                                    element += `
-                                    <div class="product-cell">
-                                        <div class="product-cell__content">
-                                            <span class="product-cell__title">${data.name}</span>
-                                        </div>
-                                    </div>
-                                `;
-                                } else {
-                                    element += '-';
-                                }
+                        //         if (data) {
+                        //             element += `
+                        //             <div class="product-cell">
+                        //                 <div class="product-cell__content">
+                        //                     <span class="product-cell__title">${data.name}</span>
+                        //                 </div>
+                        //             </div>
+                        //         `;
+                        //         } else {
+                        //             element += '-';
+                        //         }
 
-                                return element;
-                            }
-                        },
+                        //         return element;
+                        //     }
+                        // },
                         {
                             data: 'product_id',
                             name: 'product_id',
@@ -340,6 +352,18 @@
                             searchable: false,
                             className: 'text-lg-left text-center small',
                         },
+                    //     {
+                    //     data: 'checkbox',
+                    //     className: 'text-center small',
+                    //     searchable: false,
+                    //     orderable: false,
+                    //     render: function(data, type, row) {
+                    //         let elements = ``;
+                    //             elements =
+                    //                 `<input type="checkbox" name="orders[]" class="js-btn-carts-order"  value="${row.id}" data-id="${row.id}" data-customer="${row.affiliator_username}" data-date_created="${row.date_created}">`;
+                    //         return elements;
+                    //     }
+                    // },
                         {
                             data: 'id',
                             name: 'id',
@@ -357,7 +381,7 @@
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav nav-hoverable flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link"  onclick="return confirm('Anda yakin ingin menghapus data ${row.affiliator_username}')" href="${deleteUrl}"><span
+                                            <a class="nav-link"  onclick="return confirm('Anda yakin ingin menghapus data name ${row.affiliator_username}')" href="${deleteUrl}"><span
                                                     class="nav-text">Hapus</span></a>
                                         </li>
                                     </ul>
@@ -498,6 +522,37 @@
                 function reDrawTable(data) {
                     wishlistTable.ajax.url(getFullUrl(data)).load(null, false);
                 };
+
+                 // Checkbox Orderan
+            const checkAll = $("#checkAll");
+            const checkboxsingle = $('input:checkbox');
+            const sinkronMasalBtn = $('#js-btn-carts-order');
+            const checkoutVoucherBtn = $('#js-btn-checkout-voucher');
+            const ResiBtn = $('#js-btn-resi');
+
+            checkAll.click(function() {
+                if (!$(this).is(':checked')) {
+                    $('input:checkbox').not(this).prop('checked', this.checked);
+                    checkoutVoucherBtn.prop('disabled', true);
+                    ResiBtn.prop('disabled', true);
+                } else {
+                    $('input:checkbox').not(this).prop('checked', this.checked);
+                }
+            });
+
+            //function checkBox single
+            $(document).on('click', 'input:checkbox', function(e) {
+                if (!$(this).is(':checked')) {
+                    $('#checkAll').prop('checked', false);
+                     sinkronMasalBtn.prop('disabled', true);
+                    checkoutVoucherBtn.prop('disabled', true);
+                    ResiBtn.prop('disabled', true);
+                } else {
+                     sinkronMasalBtn.prop('disabled', false);
+                    checkoutVoucherBtn.prop('disabled', false);
+                    ResiBtn.prop('disabled', false);
+                }
+            });
 
             });
         </script>
