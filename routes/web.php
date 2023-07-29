@@ -135,6 +135,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder');
         Route::post('/verification', [OrderCheckoutController::class, 'verification'])->name('verification');
         Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan');
+        Route::post('/reorderbaleo', [OrderCheckoutController::class, 'reorderbaleo'])->name('reorderbaleo');
     });
 
     //carts order

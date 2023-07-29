@@ -18,6 +18,7 @@ class OrderDashboardController extends Controller
 
         $dataAffiliasi = DB::table('product_shared');
         $totalOmzet = DB::table('orders');
+        $invoices = DB::table('invoices');
         $dataSupplierPrice = DB::table('orders');
         $dataOrder =  DB::table('orders');
         $dataUnpaid = Order::where('status', 'unpaid');
@@ -35,6 +36,7 @@ class OrderDashboardController extends Controller
         if (!empty($status )){
             if($status != 'all'){
             $totalOmzet->where('status','=', $status);
+            $invoices->where('status','=', $status);
             $dataSupplierPrice->where('status','=', $status);
             $dataOrder->where('status','=', $status);
             $dataUnpaid->where('status','=', $status);
@@ -73,6 +75,7 @@ class OrderDashboardController extends Controller
 
         if (!empty($startDate) && !empty($endDate)) {
             $totalOmzet->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
+            $invoices->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataAffiliasi->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
             $dataOrder->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
             $dataUnpaid->whereDate('date_created', '>=', $startDate)->whereDate('date_created', '<=', $endDate);
@@ -120,9 +123,9 @@ class OrderDashboardController extends Controller
         // Kode unik : kode unik dikembalikan ke member
         $countTotalUniqueCode = 0;
         // Biaya lanyanan : biaya dari midtrans
-        $countTotalServiceFee = $totalOmzet->sum('fee');
+        $countTotalServiceFee = $invoices->sum('fee');
         // Keuntungan Affiliasi Produk Member
-        $countTotalAffiliasiProfit = $dataAffiliasi->sum('markup_price') * $dataAffiliasi->sum('sold');
+        $countTotalAffiliasiProfit =  $totalOmzet->sum('fee');
 
 
         $countOrder = $dataOrder->count();

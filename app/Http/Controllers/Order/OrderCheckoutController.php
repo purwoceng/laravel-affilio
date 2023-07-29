@@ -197,4 +197,24 @@ class OrderCheckoutController extends Controller
             'icon' => 'success',
         ]);
     }
+
+    public function reorderbaleo(Request $request)
+    {
+        if (!empty($request->id)) {
+            Order::where('id', $request->id)->update(['baleomol_status' => 'unpaid']);
+            return response()->json([
+                'status' => 'true',
+                'title' => 'Berhasil Mengubah Baleomol Status Ke Unpaid!',
+                'message' => 'Berhasil melakukan reOrder pesanan',
+                'icon' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'false',
+                'title' => 'Gagal ReOrder !!',
+                'message' => 'Gagal melakukan Re order pesanan',
+                'icon' => 'warning',
+            ]);
+        }
+    }
 }
