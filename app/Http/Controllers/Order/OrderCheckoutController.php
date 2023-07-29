@@ -99,7 +99,7 @@ class OrderCheckoutController extends Controller
             $rbmq = new Rbmq();
             $dataOrder = Order::where('id', $request->id)->first();
             $baleoOrderId = $dataOrder->baleo_order_id;
-            $baleoStatus = 'canceled';
+            $baleoStatus = 'success';
             $rbmq->updateOrder($baleoOrderId, $baleoStatus);
 
             return response()->json([
