@@ -132,6 +132,11 @@ return [
     'ide_security_key' => env('SECURITY_KEY_ID_EXPRESS'),
     'baleomol_username' => env('BALEOMOL_USERNAME'),
     'baleomol_password' => env('BALEOMOL_PASSWORD'),
+    'rabbit_mq_host' => env('RABBIT_MQ_HOST'),
+    'rabbit_mq_port' => env('RABBIT_MQ_PORT'),
+    'rabbit_mq_user' => env('RABBIT_MQ_USER'),
+    'rabbit_mq_password' => env('RABBIT_MQ_PASSWORD'),
+    'rabbit_mq_vhost' => env('RABBIT_MQ_VHOST'),
 
 
     /*

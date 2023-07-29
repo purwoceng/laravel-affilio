@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Fund;
 use Carbon\Carbon;
 use App\Lib\Affilio\Order as APIOrder;
+use App\Lib\Affilio\Rbmq;
 
 class OrderCheckoutController extends Controller
 {
@@ -93,6 +94,14 @@ class OrderCheckoutController extends Controller
             //     'is_active' => 1,
             // ];
             Fund::where('order_id', $request->id)->update(['is_active' => '1']);
+
+            //push data ke rbmq
+            $rbmq = new Rbmq();
+            $dataOrder = Order::where('id', $request->id)->first();
+            $baleoOrderId = $dataOrder->baleo_order_id;
+            $baleoStatus = 'success';
+            $rbmq->updateOrder($baleoOrderId, $baleoStatus);
+
             return response()->json([
                 'status' => 'true',
                 'title' => 'Berhasil Sukseskan Pesanan!',
@@ -114,6 +123,7 @@ class OrderCheckoutController extends Controller
         if (!empty($request->id)) {
 
             $apiOrder = new APIOrder();
+            $rbmq = new Rbmq();
 
             // $data = [
             //     'status' => 'success',
@@ -128,6 +138,11 @@ class OrderCheckoutController extends Controller
 
             //batalkan resi ke IDE
             $apiOrder->cancelWaybill($dataOrder->resi);
+
+            //push data ke rbmq
+            $baleoOrderId = $dataOrder->baleo_order_id;
+            $baleoStatus = 'canceled';
+            $rbmq->updateOrder($baleoOrderId, $baleoStatus);
 
             return response()->json([
                 'status' => 'true',
