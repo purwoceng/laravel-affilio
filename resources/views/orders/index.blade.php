@@ -492,7 +492,9 @@
                                     <option value="shipping">Shipping</option>
                                     <option value="reject">Reject</option>
                                     <option value="cancel">Cancel</option>
+                                    <option value="cancel_unpaid">Cancel Unpaid</option>
                                     <option value="complaint">Complaint</option>
+                                    <option value="receive">Receive</option>
                                     <option value="received">Received</option>
                                     <option value="success">Success</option>
                                 </select>
@@ -518,13 +520,14 @@
                                     <option value="on_return_partner">On Return Partner</option>
                                     <option value="on_rueturn_shipping">On Return Shipping</option>
                                     <option value="on_rueturn_shipping_2">On Return Shipping2</option>
-                                    <option value="on_shipping">On Shipping</option>
+                                    <option value="shipping">On Shipping</option>
                                     <option value="on_shipping_partner">On Shipping Partner</option>
                                     <option value="on_shipping_resend_partial">On Shipping Resend Partial</option>
                                     <option value="over_sla">Over Sla</option>
                                     <option value="paid">Paid</option>
                                     <option value="pending_success">Pending Success</option>
                                     <option value="pickedup">Pickedup</option>
+                                    <option value="receive">Receive</option>
                                     <option value="received">Received</option>
                                     <option value="refund">Refund</option>
                                     <option value="request_pickup">Request Pickup</option>
@@ -978,14 +981,14 @@
                                 checkoutButton +=
                                     `<a class="btn btn-sm btn-primary btn-icon nav-link js-checkout-item-order" href="javascript:void(0)" data-id="${row.id}" title="Checkout Baleomol"><i class="fas fa-shopping-cart mr-1 fa-sm" data-id="${row.id}"></i></a>`;
                             }
-                            if (row.baleomol_status === 'unpaid' && row.status === 'paid') {
+                            if (row.baleomol_status === 'unpaid' , 'paid', 'on_process', 'shipping' && ['paid','on_process','shipping'].includes(row.status)) {
                                 batalButton +=
                                     `<a class="btn btn-sm btn-danger btn-icon nav-link js-cancel-order" href="javascript:void(0)" data-id="${row.id}" title="Batalkan Pesanan">
                                                     <span class="nav-text" data-id="${row.id}"><i class="fas fa-store-slash mr-1 fa-sm" data-id="${row.id}"></i></span>
                                                 </a>`;
                             }
 
-                            if (row.baleomol_status === 'received' && row.status === 'received') {
+                            if (row.baleomol_status === 'receive' , 'received' && ['receive','received'].includes(row.status)) {
                                 suksesButton +=
                                     `<a class="btn btn-sm btn-info btn-icon nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}" title="Sukseskan Pesanan">
                                                     <span class="nav-text" data-id="${row.id}"><i class="fas fa-check mr-1 fa-sm" data-id="${row.id}"></i></span>
@@ -1320,7 +1323,9 @@
                                                 <option value="shipping">Shipping</option>
                                                 <option value="reject">Reject</option>
                                                 <option value="cancel">Cancel</option>
+                                                <option value="cancel_unpaid">Cancel Unpaid</option>
                                                 <option value="complaint">Complaint</option>
+                                                <option value="receive">Receive</option>
                                                 <option value="received">Received</option>
                                                 <option value="success">Success</option>
                                             </select>
