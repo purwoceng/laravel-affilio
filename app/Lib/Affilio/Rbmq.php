@@ -2,6 +2,7 @@
 
 namespace App\Lib\Affilio;
 
+use Illuminate\Support\Facades\Config;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 class Rbmq
@@ -13,17 +14,17 @@ class Rbmq
     public function __construct()
     {
         try {
+            $configs = Config::get('app');
             $rabbitConnection = new AMQPStreamConnection(
-                env('rabbit_mq_host'),
-                env('rabbit_mq_port'),
-                env('rabbit_mq_user'),
-                env('rabbit_mq_password'),
-                env('rabbit_mq_vhost')
+                $configs['rabbit_mq_host'],
+                $configs['rabbit_mq_port'],
+                $configs['rabbit_mq_user'],
+                $configs['rabbit_mq_password'],
+                $configs['rabbit_mq_vhost']
             );
             $this->connection = $rabbitConnection;
             $this->channel = $rabbitConnection->channel();
         } catch (\Exception $exception) {
-
         }
 
     }
