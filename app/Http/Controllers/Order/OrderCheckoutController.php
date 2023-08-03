@@ -89,18 +89,20 @@ class OrderCheckoutController extends Controller
             // $data = [
             //     'status' => 'success',
             // ];
-            Order::where('id', $request->id)->update(['status' => 'success']);
+            //Order::where('id', $request->id)->update(['status' => 'success']);
             // $data = [
             //     'is_active' => 1,
             // ];
-            Fund::where('order_id', $request->id)->update(['is_active' => '1']);
+            //Fund::where('order_id', $request->id)->update(['is_active' => '1']);
 
             //push data ke rbmq
             $rbmq = new Rbmq();
             $dataOrder = Order::where('id', $request->id)->first();
             $baleoOrderId = $dataOrder->baleo_order_id;
             $baleoStatus = 'success';
-            $rbmq->updateOrder($baleoOrderId, $baleoStatus);
+            if(!empty($baleoOrderId)){
+                $rbmq->updateOrder($baleoOrderId, $baleoStatus);
+            }
 
             return response()->json([
                 'status' => 'true',
@@ -142,7 +144,9 @@ class OrderCheckoutController extends Controller
             //push data ke rbmq
             $baleoOrderId = $dataOrder->baleo_order_id;
             $baleoStatus = 'canceled';
-            $rbmq->updateOrder($baleoOrderId, $baleoStatus);
+            if(!empty($baleoOrderId)){
+                $rbmq->updateOrder($baleoOrderId, $baleoStatus);
+            }
 
             return response()->json([
                 'status' => 'true',
