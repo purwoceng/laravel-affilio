@@ -987,7 +987,7 @@
                                                 </a>`;
                             }
 
-                            if (row.baleomol_status === 'receive' , 'received' && ['receive','received'].includes(row.status)) {
+                            if (['receive' , 'received','shipping'].includes(row.baleomol_status ) && ['receive','received','shipping'].includes(row.status)) {
                                 suksesButton +=
                                     `<a class="btn btn-sm btn-info btn-icon nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}" title="Sukseskan Pesanan">
                                                     <span class="nav-text" data-id="${row.id}"><i class="fas fa-check mr-1 fa-sm" data-id="${row.id}"></i></span>
@@ -1877,7 +1877,7 @@
                 if (!$(this).is(':checked')) {
                     $('#checkAll').prop('checked', false);
                      sinkronMasalBtn.prop('disabled', true);
-                    checkoutVoucherBtn.prop('disabled', true);
+                    checkoutVoucherBtn.prop('disabled', false);
                     ResiBtn.prop('disabled', true);
                 } else {
                      sinkronMasalBtn.prop('disabled', false);
