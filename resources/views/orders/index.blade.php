@@ -548,7 +548,7 @@
 
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto">
                             <div class="form-group">
-                                <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal</label>
+                                <label for="js-daterange-picker" class="font-weight-bold">Pilih tanggal Orderan</label>
                                 <div class='input-group' id='js-daterange-picker'>
                                     <input type='text' class="form-control filter" readonly="readonly"
                                         data-name="date_range" placeholder="Select date range" />
@@ -616,32 +616,31 @@
                                             data-name="phone" placeholder="Nomor Handphone" />
                                     </div>
                                 </div>
-
-
-
-                                {{-- <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group">
-                                        <select class="form-control form-control-sm filter" data-name="status"
+                                        <select class="form-control form-control-sm filter" data-name="date_paid"
                                             placeholder="Type Here">
-                                            <option disabled selected>Pilih Status Order</option>
+                                            <option disabled selected>Pilih Status Pembayaran</option>
                                             <option value="all">Semua</option>
                                             <option value="unpaid">Unpaid</option>
                                             <option value="paid">Paid</option>
-                                            <option value="success">Success</option>
-                                            <option value="cancel_unpaid">Cancel Unpaid</option>
-                                            <option value="request_pickup">Riquest Pickup</option>
-                                            <option value="shipping">On Shipping</option>
-                                            <option value="on_return_shipping">On Return Shipping</option>
-                                            <option value="on_return_apply">On Return Apply</option>
-                                            <option value="received">Received</option>
-                                            <option value="reject">Reject</option>
-                                            <option value="claim_not_process">Claim Not Process</option>
-                                            <option value="refund_disbursed">Refund Disbursed</option>
-                                            <option value="disbursed">Disbursed</option>
                                         </select>
                                     </div>
+                                </div>
+                                {{-- <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="js-daterange-paid" class="font-weight-bold">Pilih tanggal Pembayaran</label>
+                                        <div class='input-group' id='js-daterange-paid'>
+                                            <input type='text' class="form-control filter" readonly="readonly" id="date_range_paid"
+                                                data-name="date_range_paid" placeholder="Pilih Tanggal Pembayaran"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="la la-calendar-check-o"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div> --}}
-
                             </div>
                         </form>
                     </div>
@@ -1005,6 +1004,8 @@
                                 <div class="mr-3">
                                             <a class="btn btn-sm btn-success btn-icon nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}" title="Detail Order"><i class="fas fa-eye mr-1 fa-sm" data-id="${row.id}"></i>
                                             </a>
+                                            <a class="btn btn-sm btn-primary btn-icon nav-link js-create-pdf" href="javascript:void(0)" data-id="${row.id}" title="Buat PDF"><i class="fa fa-file-pdf mr-1 fa-xl" data-id="${row.id}"></i>
+                                            </a>
                                             ${suksesButton}
                                             ${batalButton}
                                             ${checkoutButton}
@@ -1022,6 +1023,7 @@
 
             function init() {
                 getDateRangeHandler();
+                // getDateRangeHandlerr();
                 $(document).on('keyup clear change', '.filter', delay(getDataFiltered, 1000));
             }
 
@@ -1076,6 +1078,58 @@
                     startDate: moment(),
                     endDate: moment(),
                 }, rangePickerCB);
+                // }
+                // $(document).ready(function(){
+                $('#js-daterange-paid').daterangepicker({
+                    timePickerSeconds: true,
+                    showDropdwons: true,
+                    autoApply: true,
+                    ranges: {
+                        'Semua': [moment(new Date('01-01-2021')), moment()],
+                        'Hari Ini': [moment(), moment()],
+                        '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+                        '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+                        'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+                    },
+                    locale: {
+                        format: 'YYYY-MM-DD',
+                        separator: " to ",
+                        applyLabel: "Apply",
+                        cancelLabel: "Cancel",
+                        fromLabel: "From",
+                        toLabel: "To",
+                        customRangeLabel: "Custom Range",
+                        weekLabel: "W",
+                        daysOfWeek: [
+                            "Su",
+                            "Mo",
+                            "Tu",
+                            "We",
+                            "Th",
+                            "Fr",
+                            "Sa"
+                        ],
+                        monthNames: [
+                            "Januari",
+                            "Februari",
+                            "Maret",
+                            "April",
+                            "Mei",
+                            "Juni",
+                            "Juli",
+                            "Agustus",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                        ],
+                        firstDay: 1
+                    },
+                    autoUpdateInput: false,
+                    alwaysShowCalendars: false,
+                    startDate1: moment(),
+                    endDate1: moment(),
+                }, rangePickerCB);
                 rangePickerCB(moment(), moment());
                 let data = [];
                 data.push(moment().format('YYYY-MM-DD'));
@@ -1084,6 +1138,8 @@
 
             function rangePickerCB(start, end, label) {
                 $('#js-daterange-picker').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
+                    'YYYY-MM-DD'));
+                $('#js-daterange-paid').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
                     'YYYY-MM-DD'));
                 $('#js-date-range-omzet').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
                 $('#js-date-range-omzet-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
@@ -1109,7 +1165,6 @@
                 getDataFiltered();
 
             };
-
             function getDataFiltered() {
                 let filterEl = $('.filter');
                 let data = {};
@@ -2352,6 +2407,185 @@
                     });
             });
 
+            //data tanggal pembayaran
+            // function getDateRangeHandlerr() {
+            //     $('#js-daterange-paid').daterangepicker({
+            //         timePickerSeconds: true,
+            //         showDropdwons: true,
+            //         autoApply: true,
+            //         ranges: {
+            //             'Semua': [moment(new Date('01-01-2021')), moment()],
+            //             'Hari Ini': [moment(), moment()],
+            //             '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
+            //             '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
+            //             'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+            //         },
+            //         locale: {
+            //             format: 'YYYY-MM-DD',
+            //             separator: " to ",
+            //             applyLabel: "Apply",
+            //             cancelLabel: "Cancel",
+            //             fromLabel: "From",
+            //             toLabel: "To",
+            //             customRangeLabel: "Custom Range",
+            //             weekLabel: "W",
+            //             daysOfWeek: [
+            //                 "Su",
+            //                 "Mo",
+            //                 "Tu",
+            //                 "We",
+            //                 "Th",
+            //                 "Fr",
+            //                 "Sa"
+            //             ],
+            //             monthNames: [
+            //                 "Januari",
+            //                 "Februari",
+            //                 "Maret",
+            //                 "April",
+            //                 "Mei",
+            //                 "Juni",
+            //                 "Juli",
+            //                 "Agustus",
+            //                 "September",
+            //                 "October",
+            //                 "November",
+            //                 "December"
+            //             ],
+            //             firstDay: 1
+            //         },
+            //         autoUpdateInput: false,
+            //         alwaysShowCalendars: false,
+            //         startDate1: moment(),
+            //         endDate1: moment(),
+            //     }, rangePickerCB1);
+            //     rangePickerCB1(moment(), moment());
+            //     let data = [];
+            //     data.push(moment().format('YYYY-MM-DD'));
+            //     data.push(moment().format('YYYY-MM-DD'));
+            // }
+
+            // function rangePickerCB1(start, end, label) {
+            //     $('#js-daterange-paid').find('.form-control').val(start.format('YYYY-MM-DD') + '/' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-omzet').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     $('#js-date-range-omzet-ongkir').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-supplier-price').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-bonus-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-affiliasi-profit').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-profit-keuntungan').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-profit-keuntungan-affilio').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-cadangan-kerugian-affilio').html(start.format('YYYY-MM-DD') + ' / ' + end.format(
+            //         'YYYY-MM-DD'));
+            //     $('#js-date-range-ongkir-60').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     $('#js-date-range-ongkir-30').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     $('#js-date-range-ongkir-10').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     $('#js-date-range-unique-code').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     $('#js-date-range-service-fee').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     $('#js-date-range-total-order').html(start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+            //     getDataFiltered1();
+
+            // };
+            // function getDataFiltered1() {
+            //     let filterEl = $('.filter');
+            //     let data = {};
+
+            //     $.each(filterEl, function(i, v) {
+            //         let key = $(v).data('name');
+            //         let value = $(v).val();
+            //         if (key == 'date') {
+            //             if (value != '') {
+            //                 value = value.split('/');
+            //                 data[key] = JSON.stringify(value);
+            //             }
+            //         } else {
+            //             if (value != '') {
+            //                 data[key] = value;
+            //             }
+            //         }
+            //     });
+
+            //     if (getURLVar('start')) {
+            //         data.start = getURLVar('start');
+            //     }
+
+            //     if (getURLVar('limit')) {
+            //         data.limit = getURLVar('limit');
+            //     }
+            //     dashboardHandler(data);
+            //     reDrawTable1(data);
+            // };
+
+            // function getFullUrl(data) {
+            //     let
+            //         url = ajaxUrl,
+            //         params = '';
+
+            //     $.each(data, function(key, value) {
+            //         if (!!value) {
+            //             params += `${key}=${value}&`;
+            //         }
+            //     });
+
+            //     params = params.replace(/\&$/, '');
+
+            //     if (params != '') {
+            //         url = `${url}?${params}`;
+            //     }
+            //     return url;
+            // };
+
+            // function reDrawTable1(data) {
+            //     ordersTable.ajax.url(getFullUrl(data)).load(null, false);
+            // };
+
+            // function dashboardHandler(data) {
+            //     let dateRangeVal = data.date_range;
+            //     let dataSplit = dateRangeVal.split("/");
+            //     let startDate1 = dataSplit[0];
+            //     let endDate1 = dataSplit[1];
+            //     let status = data.status;
+            //     let baleomol_status = data.baleomol_status;
+
+            //     let url = "{{ URL::to('/') }}" + `/orders/get-dashboard`;
+
+            //     $.ajax({
+            //         type: "GET",
+            //         url: url,
+            //         data: {
+            //             start_date: startDate1,
+            //             end_date: endDate1,
+            //             start_date: startDate1,
+            //             end_date: endDate1,
+            //             status: status,
+            //             baleomol_status: baleomol_status,
+
+            //         },
+            //         dataType: "json",
+            //         success: function(response) {
+            //             if (response.status) {
+
+            //                 mappingDashboard(response.data);
+            //             } else {
+            //                 Swal.fire({
+            //                     title: response.errors.title,
+            //                     html: response.errors.messages,
+            //                     icon: response.errors.icon,
+            //                 })
+            //             }
+
+            //         },
+            //     });
+            // }
+
+
+
             //batalkan
             $(document).on('click', '.js-cancel-order', function(e) {
 
@@ -2407,6 +2641,63 @@
                     }
 
                 });
+            });
+
+            //create pdf
+             $(document).on('click', '.js-create-pdf', function(e) {
+
+            swal.fire({
+                title: "Apakah anda yakin ?",
+                text: "Anda akan membuat PDF orderan ini!",
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Iya",
+                cancelButtonText: "Batal",
+            }).then(function(result) {
+                if (result.value) {
+                    Swal.fire({
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        icon: 'info',
+                        title: 'Harap Tunggu',
+                        text: 'Sedang meneruskan request Anda...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: function() {
+                            Swal.showLoading();
+                        },
+                    });
+                    setTimeout(function() {
+                        let urlActivation =
+                            "{{ route('orders.createpdf') }}";
+                        let Id = $(e.target).data('id');
+                        $.ajax({
+                            type: "POST",
+                            url: urlActivation,
+                            data: {
+                                id: Id,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: response.icon,
+                                    title: response.title,
+                                    text: response.message,
+                                });
+
+                                getDataFiltered();
+                            }
+                        });
+
+                    }, 500);
+                } else if (result.dismiss === 'Batal') {
+                    console.log('Batal')
+                }
+
+            });
             });
         });
     </script>

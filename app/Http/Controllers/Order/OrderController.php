@@ -212,4 +212,24 @@ class OrderController extends Controller
 
         return Excel::download(new OrderExport($status, $dateRange), 'order.xlsx');
     }
+
+    public function createpdf(Request $request)
+    {
+        if (!empty($request->id)) {
+        Order::where('id', $request->id)->first();
+        return response()->json([
+            'status' => 'true',
+            'title' => 'Berhasil membuat PDF Pesanan!',
+            'message' => 'Berhasil Berhasil membuat PDF pesanan',
+            'icon' => 'success',
+        ]);
+        } else {
+        return response()->json([
+            'status' => 'false',
+            'title' => 'Gagal Berhasil membuat PDF !!',
+            'message' => 'Gagal melakukan Berhasil membuat PDF',
+            'icon' => 'warning',
+        ]);
+        }
+    }
 }
