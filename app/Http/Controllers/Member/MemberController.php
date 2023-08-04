@@ -418,22 +418,33 @@ class MemberController extends Controller
     public function prosesPeringkat(Request $request)
     {
         if (!empty($request->id)) {
-            $data = Member::where('id', $request->id)->first();
-            $memberId = $data->id;
-            $username = $data->username;
-            $month = $request->month;
-            $year = $request->year;
+            try {
+                $data = Member::where('id', $request->id)->first();
+                $memberId = $data->id;
+                $username = $data->username;
+                $month = $request->month;
+                $year = $request->year;
 
-            //push to rbmq
-            $rbmq = new Rbmq();
-            $rbmq->prosesPeringkat($memberId, $username, $year, $month);
+                //push to rbmq
+                $rbmq = new Rbmq();
+                $rbmq->prosesPeringkat($memberId, $username, $year, $month);
 
-            return response()->json([
-                'status' => 'true',
-                'title' => 'Berhasil Menghitung Peringkat!',
-                'message' => 'Berhasil Menghitung Peringkat',
-                'icon' => 'success',
-            ]);
+                return response()->json([
+                    'status' => 'true',
+                    'title' => 'Berhasil Menghitung Peringkat!',
+                    'message' => 'Berhasil Menghitung Peringkat',
+                    'icon' => 'success',
+                    'username'=> $username
+                ]);
+            } catch (\Exception $exception){
+                return response()->json([
+                    'status' => 'false',
+                    'title' => 'Gagal Menghitung Peringkat !!',
+                    'message' => $exception->getMessage(),
+                    'icon' => 'warning',
+                ]);
+            }
+
         } else {
             return response()->json([
                 'status' => 'false',

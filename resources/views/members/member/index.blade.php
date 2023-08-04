@@ -586,19 +586,20 @@
                     }
 
 
-                 
-                   
+
+
                 });
             });
 
             //challange
             let challangeModal = $('#js-challange-modal');
             $(document).on("click", ".challange", function(e) {
+                let memberId = $(this).attr('data-id')
                 let elementHTML = `
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Bulan</label>
-                    
+
                     <div class="col-sm-10">
                         <select class="form-control form-control-sm filter" data-name="month" id="month"
                                         id="input-month"
@@ -617,15 +618,15 @@
                                         <option value="10">Oktober</option>
                                         <option value="11">November</option>
                                         <option value="12">Desember</option>
-                                        
+
                                     </select>
-                                   
+
                                 </div>
                     </div>
 </div>
 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tahun</label>
-                    
+
                     <div class="col-sm-10">
                         <select class="form-control form-control-sm filter" data-name="year" id="year"
                                         id="input-year"
@@ -634,7 +635,7 @@
                                         <option selected disabled value="0">Pilih Tahun</option>
                                         <option value="2023">2023</option>
                                     </select>
-                                   
+
                                 </div>
                     </div>
 
@@ -644,8 +645,8 @@
 
 
                 let elementFooter = `
-                        <button type="submit" class="btn btn-light-success font-weight-bold" id="submitchallange">Submit</button>
-                        <button type="button" class="btn btn-light-danger font-weight-bold" data-dismiss="modal">Tutup</button> </form>
+                        <button type="submit" class="btn btn-light-success font-weight-bold" id="submitchallange" data-id="${memberId}">Submit</button>
+                        <button type="button" class="btn btn-light-danger font-weight-bold" id="btn-close-modal-${memberId}" data-dismiss="modal">Tutup</button> </form>
                         `;
 
                 excelModal.find(".modal-title").html('Input Proses Peringkat Member');
@@ -657,6 +658,7 @@
 
    //button submit
    $(document).on('click', '#submitchallange', function() {
+                let memberId = $(this).attr('data-id')
                 // var date_range1 = $("#date_range1").val();
                 var month = $("#month").val();
                 var year = $("#year").val();
@@ -668,7 +670,7 @@
                     url: "{{ route('members.prosesPeringkat') }}",
                     data: {
                         // "daterange1": date_range1,
-                        "member_id" : memberId,
+                        "id" : memberId,
                         "month": month,
                         "year": year,
                         "_token": "{{ csrf_token() }}",
@@ -688,14 +690,14 @@
                         return xhr;
                     },
                     success: function(data) {
-                       
                     }
 
-
-                 
-                   
                 });
-            });
-});
+       $('#btn-close-modal-'+memberId).trigger('click')
+
+   });
+
+
+        });
     </script>
 @endpush
