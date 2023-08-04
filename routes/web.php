@@ -128,6 +128,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index')->middleware('can:read_orders');
         Route::get('/show/{id}', [OrderController::class, 'show'])->name('show')->middleware('can:read_orders');
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
+        Route::post('/createpdf', [OrderController::class, 'createpdf'])->name('createpdf');
         //Route::post('/verification', [WebHookBaleo::class, 'verification'])->name('verification');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
@@ -304,7 +305,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id}', [SupplierCoverController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [SupplierCoverController::class, 'destroy'])->name('destroy')->middleware('can:delete_konten');
     });
-   
+
     //push-notification
     Route::prefix('pushnotification')->name('pushnotification.')->group(function () {
         Route::get('/', [PushNotificationController::class, 'index'])->name('index');
@@ -556,7 +557,7 @@ Route::middleware('auth')->group(function () {
             Route::put('/update/{id}', [HeaderFunnelController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [HeaderFunnelController::class, 'destroy'])->name('destroy')->middleware('can:delete_funnel');
         });
-   
+
     //Popup Funnel
     Route::prefix('popup')
         ->name('popup.')
