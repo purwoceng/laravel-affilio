@@ -106,6 +106,7 @@
                             <tr class="small">
                                 <th>#</th>
                                 <th>Produk</th>
+                                <th>Nama</th>
                                 <th>Type</th>
                                 <th>Nomor Urut</th>
                                 <th>Status</th>
@@ -210,12 +211,20 @@
                         }
                     },
                     {
+                        data: 'name',
+                        name: 'name',
+                        sortable: false,
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center small',
+                    },
+                    {
                         data: 'type',
                         name: 'type',
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'queue_number',
@@ -223,7 +232,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'is_active',
@@ -231,7 +240,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-left small',
+                        className: 'text-center small',
                         render: function(data) {
                             let element = '';
 
@@ -252,7 +261,7 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-right small',
+                        className: 'text-center small',
                     },
                     {
                         data: 'actions',
@@ -279,7 +288,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.product_data.productName}')"
+                                                    onclick="return confirm('Anda yakin ingin menghapus data ${row.product_data.name}')"
                                                     href="${ajaxUrl}/delete/${row.id}">
                                                     <span class="nav-text nav-text-danger">Hapus</span>
                                                 </a>

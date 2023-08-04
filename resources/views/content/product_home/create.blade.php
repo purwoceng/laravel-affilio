@@ -101,14 +101,34 @@
                         @csrf
                         <div class="form-group">
                             <label for="input-product-id">Produk</label>
+                            <div>
                             <select name="product_id" id="input-product-id" class="js-product-selector form-control"
                                 required></select>
-
+                            </div>
                             @error('product_id')
                                 <small id="name-helper" class="form-text text-danger">
                                     {{ $message }}
                                 </small>
                             @enderror
+                        </div>
+
+                        {{--coba auto fill 
+                            <div class="form-group">
+                            <label >Nama Produk</label>
+                            <select name="name" id="input-product-name" class="js-product-selector form-control"
+                                value="productName" required></select>
+
+                            @error('name')
+                                <small id="name-helper" class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label>Nama <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="Sesuaikan Nama Produk diatas"
+                                name="name" value="" />
                         </div>
 
                         <div class="form-group">

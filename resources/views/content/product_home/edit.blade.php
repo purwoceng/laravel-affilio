@@ -117,6 +117,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Nama <span class="text-danger">*</span></label>
+                            <div >
+                                <input type="text" class="form-control" placeholder="Masukkan nama produk"
+                                    required name="name" value="{{ $product->name }}" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label>Tipe <span class="text-danger">*</span></label>
                             <select class="custom-select form-control" name="type" required>
                                 <option disabled>Pilih tipe</option>
