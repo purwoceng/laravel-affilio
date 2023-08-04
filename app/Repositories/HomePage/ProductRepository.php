@@ -98,6 +98,7 @@ class ProductRepository implements ProductRepositoryInterface
         if (!empty($product_homes)) {
             foreach ($product_homes  as $key => $product_home) {
                 $id = $product_home->id;
+                $name = $product_home->name ?? '-';
                 $type = $product_home->type;
                 $product_id = $product_home->product_id;
                 $queue_number = $product_home->queue_number;
@@ -108,6 +109,7 @@ class ProductRepository implements ProductRepositoryInterface
                 $data[] = compact(
                     'id',
                     'type',
+                    'name',
                     'product_id',
                     'queue_number',
                     'is_active',

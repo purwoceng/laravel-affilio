@@ -80,6 +80,7 @@ class ProductController extends Controller
 
         $product_home = ProductHome::create([
             'product_id' => $request->product_id,
+            'name' => $request->name,
             'type' => $request->type,
             'queue_number' => $request->queue_number,
             'is_active' => '1',
@@ -151,6 +152,7 @@ class ProductController extends Controller
 
         $product = ProductHome::findOrFail($id);
         $product->product_id = $request->product_id;
+        $product->name = $request->name;
         $product->type = $request->type;
         $product->queue_number = $request->queue_number;
         $product->is_active = $request->is_active;
