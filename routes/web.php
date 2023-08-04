@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/updatecs/{id}', [MemberController::class, 'updatecs'])->name('updatecs');
         Route::get('/network/{id}', [MemberController::class, 'network'])->name('network');
         Route::get('/exportexcel', [MemberController::class, 'exportexcel'])->name('exportexcel');
+        Route::post('/prosesPeringkat', [MemberController::class, 'prosesPeringkat'])->name('prosesPeringkat');
 
         Route::prefix('accounts')->name('accounts.')->group(function () {
             Route::get('/', [MemberAccountController::class, 'index'])->name('index');
