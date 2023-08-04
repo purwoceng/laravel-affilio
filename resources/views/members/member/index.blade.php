@@ -395,6 +395,8 @@
                                     <a class="btn btn-sm btn-info btn-icon" href="${urlAjax}/reset-pin/${row.id}" title="Ganti PIN">
                                     <i class="fas fa-money-check mr-1 fa-sm"></i>
                                     </a>
+                                     <a class="btn btn-sm btn-primary btn-icon nav-link challange" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}" title="Perhitungan Challange"><i class="fas fa-child mr-1 fa-xl" data-id="${row.id}"></i>
+                                            </a>
 
                                 </div>`;
 
@@ -582,10 +584,118 @@
                         a[0].click();
                         $("body").remove(a);
                     }
+
+
+                 
+                   
                 });
             });
 
+            //challange
+            let challangeModal = $('#js-challange-modal');
+            $(document).on("click", ".challange", function(e) {
+                let elementHTML = `
 
-        });
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Bulan</label>
+                    
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm filter" data-name="month" id="month"
+                                        id="input-month"
+                                        class="form-control"
+                                        required>
+                                        <option selected disabled value="0">Pilih Bulan</option>
+                                        <option value="01">Januari</option>
+                                        <option value="02">Februari</option>
+                                        <option value="03">Maret</option>
+                                        <option value="04">April</option>
+                                        <option value="05">Mei</option>
+                                        <option value="06">Juni</option>
+                                        <option value="07">Juli</option>
+                                        <option value="08">Agustus</option>
+                                        <option value="09">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                        
+                                    </select>
+                                   
+                                </div>
+                    </div>
+</div>
+<div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Tahun</label>
+                    
+                    <div class="col-sm-10">
+                        <select class="form-control form-control-sm filter" data-name="year" id="year"
+                                        id="input-year"
+                                        class="form-control"
+                                        required>
+                                        <option selected disabled value="0">Pilih Tahun</option>
+                                        <option value="2023">2023</option>
+                                    </select>
+                                   
+                                </div>
+                    </div>
+
+
+                </div>
+            `;
+
+
+                let elementFooter = `
+                        <button type="submit" class="btn btn-light-success font-weight-bold" id="submitchallange">Submit</button>
+                        <button type="button" class="btn btn-light-danger font-weight-bold" data-dismiss="modal">Tutup</button> </form>
+                        `;
+
+                excelModal.find(".modal-title").html('Input Proses Peringkat Member');
+                excelModal.find(".modal-body").html(elementHTML);
+                excelModal.find(".modal-footer").html(elementFooter);
+                excelModal.modal('show');
+
+            });
+
+   //button submit
+   $(document).on('click', '#submitchallange', function() {
+                // var date_range1 = $("#date_range1").val();
+                var month = $("#month").val();
+                var year = $("#year").val();
+
+                var x = document.getElementById("submitchallange");
+                x.disabled = true;
+                var xhr = $.ajax({
+                    type: 'POST',
+                    url: "{{ route('members.prosesPeringkat') }}",
+                    data: {
+                        // "daterange1": date_range1,
+                        "member_id" : memberId,
+                        "month": month,
+                        "year": year,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    cache: false,
+                    xhr: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 2) {
+                                if (xhr.status == 200) {
+                                    xhr.responseType = "blob";
+                                } else {
+                                    xhr.responseType = "text";
+                                }
+                            }
+                        };
+                        return xhr;
+                    },
+                    success: function(data) {
+                       
+                    }
+
+
+                 
+                   
+                });
+            });
+});
     </script>
 @endpush
