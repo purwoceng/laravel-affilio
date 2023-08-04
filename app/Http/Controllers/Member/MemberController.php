@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Member;
 
 use App\Exports\MemberExport;
+use App\Lib\Affilio\Rbmq;
 use App\Models\MemberType;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
@@ -411,5 +413,34 @@ class MemberController extends Controller
         ];
 
         return view('members.member.network', compact('member', 'networks'));
+    }
+
+    public function prosesPeringkat(Request $request)
+    {
+        if (!empty($request->id)) {
+            $data = Member::where('id', $request->id)->first();
+            $memberId = $data->id;
+            $username = $data->username;
+            $month = $request->month;
+            $year = $request->year;
+
+            //push to rbmq
+            $rbmq = new Rbmq();
+            $rbmq->prosesPeringkat($memberId, $username, $year, $month);
+
+            return response()->json([
+                'status' => 'true',
+                'title' => 'Berhasil Menghitung Peringkat!',
+                'message' => 'Berhasil Menghitung Peringkat',
+                'icon' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'false',
+                'title' => 'Gagal Menghitung Peringkat !!',
+                'message' => 'Gagal Menghitung Peringkat',
+                'icon' => 'warning',
+            ]);
+        }
     }
 }

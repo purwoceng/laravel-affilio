@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\Order\OrderRepositoryInterface;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Lib\Affilio\Rbmq;
 
 class OrderController extends Controller
 {
@@ -216,7 +217,15 @@ class OrderController extends Controller
     public function createpdf(Request $request)
     {
         if (!empty($request->id)) {
-        Order::where('id', $request->id)->first();
+        $data = Order::where('id', $request->id)->first();
+        $orderId = $data->id;
+        $username = $data->username;
+        $memberId = $data->member_id;
+
+        //push to rbmq
+        $rbmq = new Rbmq();
+        $rbmq->createPdf($orderId, $username, $memberId);
+
         return response()->json([
             'status' => 'true',
             'title' => 'Berhasil membuat PDF Pesanan!',
