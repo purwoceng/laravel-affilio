@@ -652,7 +652,7 @@
                                 <div class="m-1">
                                     <a href="javascript:void(0)" class="btn btn-sm btn-success  excel"
                                         data-toggle="modal">
-                                        <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                                        <i class="fas fa-file-excel fa-sm mr-1 excel"></i>@lang('Export Excel')
                                     </a>
                                 </div>
                             </div>
@@ -2292,6 +2292,13 @@
                 var date_range1 = $("#date_range1").val();
                 var status1 = $("#status1").val();
                 var x = document.getElementById("submitexcel");
+                Swal.fire({
+                        title: 'Sedang Meneruskan Request Anda',
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        });
                 x.disabled = true;
                 var xhr = $.ajax({
                     type: 'GET',
@@ -2315,6 +2322,14 @@
                         return xhr;
                     },
                     success: function(data) {
+                        $('#js-detail-modal').modal('hide');
+                        Swal.fire({
+                        title: 'File Daftar Pesanan ' + status1 + '-Tanggal-' + date_range1 + ' Berhasil di Download' ,
+                        icon: 'success',
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                        });
                         const url = window.URL || window.webkitURL;
                         const downloadURL = url.createObjectURL(data);
                         var a = $("<a />");
