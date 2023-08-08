@@ -98,7 +98,29 @@ class Rbmq
         } catch (\Exception $exception){
 
         }
+    }
 
+    /**
+     * @param int $orderId
+     * @param string $username
+     * @param int $memberId
+     * @return void
+     */
+    public function createWayBill(int $orderId, string $username, int $memberId)
+    {
+        try {
+            $this->channel->queue_declare('create_waybill_order', false, true, false, false);
+            $messageObject = [
+                "orderId" => $orderId,
+                "memberId"=> $memberId,
+                "username"=> $username
+            ];
+
+            $msg = new AMQPMessage(json_encode($messageObject));
+            $this->channel->basic_publish($msg, '', 'create_waybill_order');
+        } catch (\Exception $exception){
+
+        }
     }
 
     public function __desctruct()

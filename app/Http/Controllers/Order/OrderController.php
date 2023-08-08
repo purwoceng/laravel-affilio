@@ -247,9 +247,12 @@ class OrderController extends Controller
         if (!empty($request->id)) {
         $data = Order::where('id', $request->id)->first();
         $orderId = $data->id;
+        $username = $data->username;
+        $memberId = $data->member_id;
 
         //push to rbmq
         $rbmq = new Rbmq();
+        $rbmq->createWayBill($orderId, $username, $memberId);
 
 
         return response()->json([
