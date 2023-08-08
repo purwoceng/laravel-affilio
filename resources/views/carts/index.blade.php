@@ -210,6 +210,7 @@
                                     <th>Produk ID</th>
                                     <th>Nama Varian Produk</th>
                                     <th>Nama Member</th>
+                                    <th>Platform</th>
                                     <th>Jumlah Barang</th>
                                     <th>Tanggal</th>
                                     {{-- <th>Checkbox <input type="checkbox"
@@ -331,6 +332,14 @@
                         {
                             data: 'member_name',
                             name: 'member_name',
+                            sortable: false,
+                            orderable: false,
+                            searchable: false,
+                            className: 'text-lg-left text-center small',
+                        },
+                        {
+                            data: 'platform',
+                            name: 'platform',
                             sortable: false,
                             orderable: false,
                             searchable: false,

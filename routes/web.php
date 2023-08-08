@@ -130,6 +130,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{id}', [OrderController::class, 'show'])->name('show')->middleware('can:read_orders');
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
         Route::post('/createpdf', [OrderController::class, 'createpdf'])->name('createpdf');
+        Route::post('/buatwaybill', [OrderController::class, 'buatwaybill'])->name('buatwaybill');
         //Route::post('/verification', [WebHookBaleo::class, 'verification'])->name('verification');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');

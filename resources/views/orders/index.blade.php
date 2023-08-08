@@ -652,7 +652,7 @@
                                 <div class="m-1">
                                     <a href="javascript:void(0)" class="btn btn-sm btn-success  excel"
                                         data-toggle="modal">
-                                        <i class="fas fa-download fa-sm mr-1 excel"></i>@lang('Export Excel')
+                                        <i class="fas fa-file-excel fa-sm mr-1 excel"></i>@lang('Export Excel')
                                     </a>
                                 </div>
                             </div>
@@ -987,7 +987,7 @@
                                                 </a>`;
                             }
 
-                            if (row.baleomol_status === 'receive' , 'received' && ['receive','received'].includes(row.status)) {
+                            if (['receive' , 'received','shipping'].includes(row.baleomol_status ) && ['receive','received','shipping'].includes(row.status)) {
                                 suksesButton +=
                                     `<a class="btn btn-sm btn-info btn-icon nav-link js-activation-account" href="javascript:void(0)" data-id="${row.id}" title="Sukseskan Pesanan">
                                                     <span class="nav-text" data-id="${row.id}"><i class="fas fa-check mr-1 fa-sm" data-id="${row.id}"></i></span>
@@ -1005,6 +1005,8 @@
                                             <a class="btn btn-sm btn-success btn-icon nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}" title="Detail Order"><i class="fas fa-eye mr-1 fa-sm" data-id="${row.id}"></i>
                                             </a>
                                             <a class="btn btn-sm btn-primary btn-icon nav-link js-create-pdf" href="javascript:void(0)" data-id="${row.id}" title="Buat PDF"><i class="fa fa-file-pdf mr-1 fa-xl" data-id="${row.id}"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-primary btn-icon nav-link js-create-waybill" href="javascript:void(0)" data-id="${row.id}" title="Buat Waybill"><i class="fas fa-shipping-fast mr-1 fa-xl" data-id="${row.id}"></i>
                                             </a>
                                             ${suksesButton}
                                             ${batalButton}
@@ -1877,7 +1879,7 @@
                 if (!$(this).is(':checked')) {
                     $('#checkAll').prop('checked', false);
                      sinkronMasalBtn.prop('disabled', true);
-                    checkoutVoucherBtn.prop('disabled', true);
+                    checkoutVoucherBtn.prop('disabled', false);
                     ResiBtn.prop('disabled', true);
                 } else {
                      sinkronMasalBtn.prop('disabled', false);
@@ -2292,6 +2294,13 @@
                 var date_range1 = $("#date_range1").val();
                 var status1 = $("#status1").val();
                 var x = document.getElementById("submitexcel");
+                Swal.fire({
+                        title: 'Sedang Meneruskan Request Anda',
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        });
                 x.disabled = true;
                 var xhr = $.ajax({
                     type: 'GET',
@@ -2315,6 +2324,14 @@
                         return xhr;
                     },
                     success: function(data) {
+                        $('#js-detail-modal').modal('hide');
+                        Swal.fire({
+                        title: 'File Daftar Pesanan ' + status1 + '-Tanggal-' + date_range1 + ' Berhasil di Download' ,
+                        icon: 'success',
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                        });
                         const url = window.URL || window.webkitURL;
                         const downloadURL = url.createObjectURL(data);
                         var a = $("<a />");
@@ -2673,6 +2690,63 @@
                     setTimeout(function() {
                         let urlActivation =
                             "{{ route('orders.createpdf') }}";
+                        let Id = $(e.target).data('id');
+                        $.ajax({
+                            type: "POST",
+                            url: urlActivation,
+                            data: {
+                                id: Id,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: response.icon,
+                                    title: response.title,
+                                    text: response.message,
+                                });
+
+                                getDataFiltered();
+                            }
+                        });
+
+                    }, 500);
+                } else if (result.dismiss === 'Batal') {
+                    console.log('Batal')
+                }
+
+            });
+            });
+
+            //create waybill
+             $(document).on('click', '.js-create-waybill', function(e) {
+
+            swal.fire({
+                title: "Apakah anda yakin ?",
+                text: "Anda akan membuat Resi pada orderan ini!",
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Iya",
+                cancelButtonText: "Batal",
+            }).then(function(result) {
+                if (result.value) {
+                    Swal.fire({
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        icon: 'info',
+                        title: 'Harap Tunggu',
+                        text: 'Sedang meneruskan request Anda...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: function() {
+                            Swal.showLoading();
+                        },
+                    });
+                    setTimeout(function() {
+                        let urlActivation =
+                            "{{ route('orders.buatwaybill') }}";
                         let Id = $(e.target).data('id');
                         $.ajax({
                             type: "POST",

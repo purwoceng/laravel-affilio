@@ -236,7 +236,33 @@ class OrderController extends Controller
         return response()->json([
             'status' => 'false',
             'title' => 'Gagal Berhasil membuat PDF !!',
-            'message' => 'Gagal melakukan Berhasil membuat PDF',
+            'message' => 'Gagal membuat PDF',
+            'icon' => 'warning',
+        ]);
+        }
+    }
+
+    public function buatwaybill(Request $request)
+    {
+        if (!empty($request->id)) {
+        $data = Order::where('id', $request->id)->first();
+        $orderId = $data->id;
+
+        //push to rbmq
+        $rbmq = new Rbmq();
+
+
+        return response()->json([
+            'status' => 'true',
+            'title' => 'Berhasil membuat Resi Pesanan!',
+            'message' => 'Berhasil Berhasil membuat Resi pesanan',
+            'icon' => 'success',
+        ]);
+        } else {
+        return response()->json([
+            'status' => 'false',
+            'title' => 'Gagal Berhasil membuat Resi !!',
+            'message' => 'Gagal membuat Resi',
             'icon' => 'warning',
         ]);
         }

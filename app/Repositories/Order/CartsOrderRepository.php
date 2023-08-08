@@ -90,6 +90,7 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
                 $member_name = $value->affiliator_username ?? '-';
                 $product_variation_name = $value->product_variation_name ?? '-';
                 $quantity = $value->quantity ?? '-';
+                $platform = $value->platform?? '-';
 
                 // $token = config('app.baleomol_token_auth');
                 // $url = config('app.baleomol_url') . '/affiliator/products/' . $product_id . '?appx=true';
@@ -110,6 +111,7 @@ class CartsOrderRepository implements CartsOrderRepositoryInterface
                     'product_id',
                     'member_name',
                     'product_variation_name',
+                    'platform',
                     'quantity',
                     'created_at',
                 );
