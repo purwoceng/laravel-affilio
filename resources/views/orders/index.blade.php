@@ -1006,6 +1006,8 @@
                                             </a>
                                             <a class="btn btn-sm btn-primary btn-icon nav-link js-create-pdf" href="javascript:void(0)" data-id="${row.id}" title="Buat PDF"><i class="fa fa-file-pdf mr-1 fa-xl" data-id="${row.id}"></i>
                                             </a>
+                                            <a class="btn btn-sm btn-primary btn-icon nav-link js-create-waybill" href="javascript:void(0)" data-id="${row.id}" title="Buat Waybill"><i class="fas fa-shipping-fast mr-1 fa-xl" data-id="${row.id}"></i>
+                                            </a>
                                             ${suksesButton}
                                             ${batalButton}
                                             ${checkoutButton}
@@ -2688,6 +2690,63 @@
                     setTimeout(function() {
                         let urlActivation =
                             "{{ route('orders.createpdf') }}";
+                        let Id = $(e.target).data('id');
+                        $.ajax({
+                            type: "POST",
+                            url: urlActivation,
+                            data: {
+                                id: Id,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: response.icon,
+                                    title: response.title,
+                                    text: response.message,
+                                });
+
+                                getDataFiltered();
+                            }
+                        });
+
+                    }, 500);
+                } else if (result.dismiss === 'Batal') {
+                    console.log('Batal')
+                }
+
+            });
+            });
+
+            //create waybill
+             $(document).on('click', '.js-create-waybill', function(e) {
+
+            swal.fire({
+                title: "Apakah anda yakin ?",
+                text: "Anda akan membuat Resi pada orderan ini!",
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Iya",
+                cancelButtonText: "Batal",
+            }).then(function(result) {
+                if (result.value) {
+                    Swal.fire({
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        icon: 'info',
+                        title: 'Harap Tunggu',
+                        text: 'Sedang meneruskan request Anda...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: function() {
+                            Swal.showLoading();
+                        },
+                    });
+                    setTimeout(function() {
+                        let urlActivation =
+                            "{{ route('orders.buatwaybill') }}";
                         let Id = $(e.target).data('id');
                         $.ajax({
                             type: "POST",
