@@ -69,6 +69,7 @@
                                         <select class="form-control form-control-sm filter" data-name="code"
                                             placeholder="Type Here">
                                             <option value="">Semua</option>
+                                            <option value="KA">KA (Komisi Affiliasi)</option>
                                             <option value="PDK">PDK (Penarikan Komisi)</option>
                                             <option value="PDB">PDB (Penarikan Bonus)</option>
                                             <option value="BKT">BKT (Bonus Komisi Transaksi)</option>
@@ -546,6 +547,7 @@
                                                 placeholder="Type Here">
                                                 <option disabled selected>Pilih Kode Dana</option>
                                             <option value="all">Semua</option>
+                                            <option value="KA">KA (Komisi Affiliasi)</option>
                                             <option value="PDK">PDK (Penarikan Komisi)</option>
                                             <option value="PDB">PDB (Penarikan Bonus)</option>
                                             <option value="BKT">BKT (Bonus Komisi Transaksi)</option>
