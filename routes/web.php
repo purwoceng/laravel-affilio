@@ -91,13 +91,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/prosesPeringkat', [MemberController::class, 'prosesPeringkat'])->name('prosesPeringkat');
 
         Route::prefix('accounts')->name('accounts.')->group(function () {
-            Route::get('/', [MemberAccountController::class, 'index'])->name('index');
+            Route::get('/', [MemberAccountController::class, 'index'])->name('index')->middleware('can:read_member');
             Route::post('/verification', [MemberAccountController::class, 'verification'])->name('verification');
             Route::get('/exportexcel', [MemberAccountController::class, 'exportexcel'])->name('exportexcel');
         });
 
         Route::prefix('blocked')->name('blocked.')->group(function () {
-            Route::get('/', [MemberBlockedController::class, 'index'])->name('index');
+            Route::get('/', [MemberBlockedController::class, 'index'])->name('index')->middleware('can:read_member');
             Route::get('/show/{id}', [MemberBlockedController::class, 'show'])->name('show');
             Route::get('/edit/{id}', [MemberBlockedController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [MemberBlockedController::class, 'update'])->name('update');
@@ -114,7 +114,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('member_type')->name('member_type.')->group(function () {
-            Route::get('/', [MemberTypeController::class, 'index'])->name('index');
+            Route::get('/', [MemberTypeController::class, 'index'])->name('index')->middleware('can:read_member');
             Route::get('/create', [MemberTypeController::class, 'create'])->name('create')->middleware('can:create_member');
             Route::post('/store', [MemberTypeController::class, 'store'])->name('store');
             Route::get('/show/{id}', [MemberTypeController::class, 'show'])->name('show');
@@ -129,16 +129,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index')->middleware('can:read_orders');
         Route::get('/show/{id}', [OrderController::class, 'show'])->name('show')->middleware('can:read_orders');
         Route::get('/exportexcel', [OrderController::class, 'exportexcel'])->name('exportexcel');
-        Route::post('/createpdf', [OrderController::class, 'createpdf'])->name('createpdf');
-        Route::post('/buatwaybill', [OrderController::class, 'buatwaybill'])->name('buatwaybill');
+        Route::post('/createpdf', [OrderController::class, 'createpdf'])->name('createpdf')->middleware('can:create_orders');
+        Route::post('/buatwaybill', [OrderController::class, 'buatwaybill'])->name('buatwaybill')->middleware('can:create_orders');
         //Route::post('/verification', [WebHookBaleo::class, 'verification'])->name('verification');
 
         Route::get('/get-dashboard', [OrderDashboardController::class, 'getDashboard'])->name('dashboard');
-        Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder');
-        Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder');
-        Route::post('/verification', [OrderCheckoutController::class, 'verification'])->name('verification');
-        Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan');
-        Route::post('/reorderbaleo', [OrderCheckoutController::class, 'reorderbaleo'])->name('reorderbaleo');
+        Route::get('/get-order', [OrderCheckoutController::class, 'getOrder'])->name('getOrder')->middleware('can:create_orders');
+        Route::post('/update-checkout-order', [OrderCheckoutController::class, 'updateOrder'])->name('updateOrder')->middleware('can:create_orders');
+        Route::post('/verification', [OrderCheckoutController::class, 'verification'])->name('verification')->middleware('can:create_orders');
+        Route::post('/batalkan', [OrderCheckoutController::class, 'batalkan'])->name('batalkan')->middleware('can:create_orders');
+        Route::post('/reorderbaleo', [OrderCheckoutController::class, 'reorderbaleo'])->name('reorderbaleo')->middleware('can:create_orders');
     });
 
     //carts order

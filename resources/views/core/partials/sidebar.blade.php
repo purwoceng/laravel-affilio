@@ -61,7 +61,7 @@
 
 
 
-             @hasanyrole('super_user|admin_member|akutansi|view')
+             @hasanyrole('super_user|admin_member|akutansi|view|akuntansi_view')
                  <li class="menu-item menu-item-submenu menu-item-{{ request()->is('orders*') ? 'active' : '' }}"
                      aria-haspopup="true" data-menu-toggle="hover">
                      <a href="{{ route('orders.index') }}" class="menu-link menu-toggle">
