@@ -26,7 +26,7 @@ class OrderDashboardController extends Controller
         $dataAwaitingSupplier = Order::where('status', 'awaiting_supplier');
         $dataProcess = Order::where('status', 'on_process');
         $dataShipping = Order::where('status', 'shipping');
-        $dataReceived = Order::where('status', 'receive');
+        $dataReceived = Order::where('status', 'received');
         $dataSuccess = Order::where('status', 'success');
         $dataCancel = Order::where('status', 'cancel');
         $dataReject = Order::where('status', 'reject');
