@@ -1980,6 +1980,8 @@
                                                             .orderData[
                                                                 i]
                                                             .products,
+                                                            'errors': data.data.orderData[i].errors
+
                                                     })
                                                     // results += JSON.stringify([{
                                                     //     'order_id': data
