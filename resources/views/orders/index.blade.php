@@ -494,7 +494,7 @@
                                     <option value="cancel">Cancel</option>
                                     <option value="cancel_unpaid">Cancel Unpaid</option>
                                     <option value="complaint">Complaint</option>
-                                    <option value="receive">Receive</option>
+                                    {{-- <option value="receive">Receive</option> --}}
                                     <option value="received">Received</option>
                                     <option value="success">Success</option>
                                 </select>
@@ -527,7 +527,7 @@
                                     <option value="paid">Paid</option>
                                     <option value="pending_success">Pending Success</option>
                                     <option value="pickedup">Pickedup</option>
-                                    <option value="receive">Receive</option>
+                                    {{-- <option value="receive">Receive</option> --}}
                                     <option value="received">Received</option>
                                     <option value="refund">Refund</option>
                                     <option value="request_pickup">Request Pickup</option>
@@ -1382,7 +1382,6 @@
                                                 <option value="cancel">Cancel</option>
                                                 <option value="cancel_unpaid">Cancel Unpaid</option>
                                                 <option value="complaint">Complaint</option>
-                                                <option value="receive">Receive</option>
                                                 <option value="received">Received</option>
                                                 <option value="success">Success</option>
                                             </select>
