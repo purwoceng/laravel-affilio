@@ -662,7 +662,7 @@
                                             class="fas fa-sync fa-sm text-white-50"></i> Sinkronkan Massal</button>
                                 </div>
                             </div>
-
+                            @hasanyrole('super_user|admin_member|akutansi|view')
                             <div class="btn-group">
                                 <div class="m-1">
                                     <button class="btn btn-sm btn-warning shadow-sm text-white"
@@ -670,6 +670,7 @@
                                             class="fas fa-tag fa-sm text-white-50"></i> Checkout Massal Pesanan</button>
                                 </div>
                             </div>
+                            @endhasanyrole
                             {{-- <div class="btn-group">
                                 <div class="m-1">
                                     <button class="btn btn-sm btn-danger shadow-sm text-white" id="js-btn-resi"
@@ -1001,6 +1002,7 @@
                             }
 
                             elements += `
+                            @hasanyrole('super_user|admin_member|akutansi|view')
                                 <div class="mr-3">
                                             <a class="btn btn-sm btn-success btn-icon nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}" title="Detail Order"><i class="fas fa-eye mr-1 fa-sm" data-id="${row.id}"></i>
                                             </a>
@@ -1013,7 +1015,14 @@
                                             ${checkoutButton}
                                             ${reorderButton}
                                 </div>
-                            </div>`;
+                            @endhasanyrole
+                            @hasanyrole('akuntansi_view')
+                            <div class="mr-3">
+                                            <a class="btn btn-sm btn-success btn-icon nav-link js-detail-order" href="javascript:void(0)" data-toggle="modal" data-id="${row.id}" title="Detail Order"><i class="fas fa-eye mr-1 fa-sm" data-id="${row.id}"></i>
+                                            </a>
+                                </div>
+                            @endhasanyrole
+                            `;
 
                             return elements;
                         },
