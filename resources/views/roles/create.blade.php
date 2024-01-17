@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Roles'))
+@section('title', __('Buat Peran'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Buat Roles User</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Buat Peran User</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Buat User</h3>
+                        <h3 class="card-label">Peran User</h3>
                     </div>
 
                 </div>
@@ -43,13 +43,13 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label>Nama Roles User<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Roles User"
+                                    <label>Nama Peran User<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Peran User"
                                         name="name" value="" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>Label Role<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Label Role"
+                                    <label>Label Peran<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Label Peran"
                                         name="label" value="" required />
                                 </div>
 

@@ -14,7 +14,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Manajemen Akses: Izin Akses</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Izin Akses</h5>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Data Peran</h3>
+                        <h3 class="card-label">Data Hak Akses</h3>
                     </div>
                     <a class="btn btn-success float-right" href="{{ route('permissions.create') }}" title="Tambah User">
                         <i class="fas fa-plus mr-1 fa-sm"></i>
@@ -33,10 +33,10 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="js-user-table" class="table table-separate table-head-custom table-checkable nowrap">
+                    <table id="js-user-table" class="table table-bordered table-striped">
                         <thead>
                             <tr class="small">
-                                <th>#</th>
+                                <th width="5%">#</th>
                                 <th>Nama</th>
                                 <th>Aksi</th>
                             </tr>
@@ -52,6 +52,8 @@
 
 @push('js')
 <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+{{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+
 
 <script>
     'use strict';

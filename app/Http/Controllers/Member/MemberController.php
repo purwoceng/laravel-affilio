@@ -35,17 +35,6 @@ class MemberController extends Controller
 
     public function index(Request $request)
     {
-        //nganggo iki yo iso
-        // $getMemberBlockeds = Member::with('member_addresses')->where('id')->where('publish', 1)->get();
-
-        // $getMemberBlockeds = DB::table('members')->where('members.publish','1')
-        //                     ->join('member_addresses','members.id', '=', 'member_addresses.member_id')
-        //                     ->get();
-        //        $getMemberBlockeds = DB::table('members')
-        //            ->leftjoin('member_addresses', 'members.id', '=', 'member_addresses.member_id')
-        //            ->where('members.publish', '1')
-        //            ->get();
-
         $member_type = MemberType::get();
         if ($request->ajax()) {
             return $this->memberRepository->getDataTable($request);
@@ -231,7 +220,7 @@ class MemberController extends Controller
     }
     public function updatecs(Request $request, $id)
     {
-        // $regex_phone = '/^(\+62|62|0)8[1-9][0-9]{6,9}$/';
+
         $validation_messages = [
             'name.required' => 'Nama member wajib diisi!',
             'email.required' => 'Email wajib diisi!',
@@ -239,14 +228,6 @@ class MemberController extends Controller
             'email.unique' => 'Email tidak tersedia atau telah dipakai oleh member lain',
             'username.required' => 'Username wajib diisi!',
             'username.unique' => 'Username tidak tersedia atau telah dipakai oleh member lain',
-            // 'phone.required' => 'Nomor Telepon / HP tidak valid!',
-            // 'phone.regex' => 'Nomor telepon / HP harus diisi dengan nomor telepon indonesia',
-            // 'member_type_id.required' => 'Tipe member wajib diisi!',
-            // 'member_type_id.exists' => 'Tipe member tidak valid. Muat ulang halaman!',
-            // 'image.image' => 'File yang diinput wajib gambar!',
-            // 'image.mimes' => 'Gambar yang diinput wajib berformat PNG atau JPEG!',
-            // 'image.max' => 'Gambar maksimal berukuran 2MB!',
-            // 'image.dimensions' => 'Resolusi gambar maksimal 1000 pixel!',
         ];
 
         $validator = Validator::make(
@@ -264,13 +245,6 @@ class MemberController extends Controller
                     Rule::unique('members', 'username')
                         ->ignore($id),
                 ],
-                // 'phone' => ['required', "regex:{$regex_phone}"],
-                // 'member_type_id' => [
-                //     'required',
-                //     Rule::exists('member_types', 'id'),
-                // ],
-                // 'phone' => ['required', 'max:15', 'min:8',],
-
                 'image' => [
                     'nullable',
                     'image',
@@ -293,13 +267,8 @@ class MemberController extends Controller
         $member->name = $request->name;
         $member->email = $request->email;
         $member->username = $request->username;
-        // $member->phone = $request->phone;
-        // $member->member_type_id = $request->member_type_id;
         $member->is_verified = $request->is_verified;
-        // $member->is_founder = $request->is_founder;
-        // $member->is_transaction = $request->is_transaction;
         $member->is_blocked = $request->is_blocked;
-
         $image = $request->file('image');
 
         if ($image) {

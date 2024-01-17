@@ -10,7 +10,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Manajemen Akses: Pengguna</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"></h5>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                    <table id="js-user-table" class="table table-separate table-head-custom table-checkable nowrap">
+                    <table id="js-user-table"  class="table table-bordered table-head-custom table-checkable nowrap" style="width:100%">
                         <thead>
                             <div class="filter-wrapper">
                                 <form action="#" class="form" id="filter">
@@ -92,11 +92,15 @@
         </div>
     </div>
 @endsection
-
+@push('css')
+    <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+@endpush
 
 @push('js')
+    {{-- <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script> --}}
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
-
+    {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+    <script src="{{ asset('js/helpers/order-helper.js') }}"></script>
     <script>
         'use strict';
 
@@ -171,11 +175,11 @@
                         sortable: false,
                         orderable: false,
                         searchable: false,
-                        className: 'text-center small',
+                        className: 'text-lg-left text-center small',
                         render: function(data, type, row, meta) {
                             let elements = '';
 
-                            elements += `<div class="dropdown dropdown-inline">
+                            elements += `<div class="dropdown dropdown-outline">
                                 <a href="javascript:void(0)"
                                     class="btn btn-sm btn-primary btn-icon"
                                     data-toggle="dropdown">

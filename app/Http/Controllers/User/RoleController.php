@@ -57,15 +57,6 @@ class RoleController extends Controller
             'label.required' => 'url video tidak boleh kosong',
         ];
 
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|max:100',
-
-        // ], $messages);
-
-        // if($validator->fails()){
-        //     return Redirect::back()->withErrors($validator)->withInput();
-        // }
-
         $createData = [
             'name' => $request->name,
             'label' => $request->label,

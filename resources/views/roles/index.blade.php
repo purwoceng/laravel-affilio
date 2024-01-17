@@ -10,7 +10,7 @@
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Manajemen Akses: Peran</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5"></h5>
             </div>
         </div>
     </div>
@@ -29,12 +29,12 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="js-user-table" class="table table-separate table-head-custom table-checkable nowrap">
+                    <table id="js-user-table" class="table table-bordered table-striped">
                         <thead>
                             <tr class="small">
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>ID</th>
+                                <th width="7%">#</th>
+                                <th>Nama Peran</th>
+                                <th>Label Peran</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -49,6 +49,8 @@
 
 @push('js')
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+
 
     <script>
         'use strict';

@@ -148,6 +148,7 @@ Route::middleware('auth')->group(function () {
      ->group(function () {
          Route::get('/', [CartsOrderController::class, 'index'])->name('index');
          Route::get('/delete/{id}', [CartsOrderController::class, 'delete'])->name('delete');
+         Route::get('/deleteall', [CartsOrderController::class, 'deleteMultiple'])->name('deleteMultiple');
      });
 
     //Invoice Menu

@@ -1,11 +1,11 @@
 @extends('core.app')
-@section('title', __('Buat Permission'))
+@section('title', __('Buat Hak Akses'))
 @section('content')
 
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Konten: Kategori Buat Permission User</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Buat Hak Akses Pengguna</h5>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Buat Kategori Buat Permission User</h3>
+                        <h3 class="card-label">Hak Akses Pengguna</h3>
                     </div>
 
                 </div>
@@ -43,8 +43,8 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label>Nama Permission User<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Permission User"
+                                    <label>Nama Hak Akses Pengguna<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Hak Akses Pengguna"
                                         name="name" value="" required />
                                 </div>
 

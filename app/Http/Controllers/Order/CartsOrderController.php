@@ -28,7 +28,13 @@ class CartsOrderController extends Controller
         $carts = CartsOrder::findOrFail($id);
         $carts->delete();
         return redirect()->back()->with(['success' => 'User:  $carts->affiliator_username  Dihapus']);
+    }
 
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->ids;
+        CartsOrder::whereIn('id',explode(",",$ids))->delete();
+        return response()->json(['status'=>true,'message'=>"Category deleted successfully."]);
 
     }
 }
